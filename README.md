@@ -43,8 +43,10 @@ No build step. From this folder:
 python -m http.server 8000
 ```
 
-Then open http://localhost:8000 and type `TEST`. Opening `index.html` directly
-in a browser also works.
+Then open http://localhost:8000 and type `TEST`. Use the local server, not a
+double-click on `index.html`: links between pages are clean folder addresses
+(`/weekly-seat/`, `/exam-seat/`, no `index.html`), which only a web server
+resolves.
 
 ## Greeting content
 

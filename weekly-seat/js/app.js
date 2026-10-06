@@ -95,7 +95,7 @@
     results.hidden = true;
     noticeTitle.textContent = title;
     noticeText.textContent = text;
-    noticeBack.href = '../index.html?roll=' + encodeURIComponent(s.roll);
+    noticeBack.href = '../?roll=' + encodeURIComponent(s.roll);
     notice.hidden = false;
   }
 
@@ -130,7 +130,7 @@
     nameOut.textContent = IMT.greeting(s);
     metaOut.textContent = 'Roll number ' + s.roll + (IMT.metaLine(s) ? ' · ' + IMT.metaLine(s) : '');
     countOut.textContent = mine.length + (mine.length === 1 ? ' class' : ' classes');
-    backBtn.href = '../index.html?roll=' + encodeURIComponent(s.roll);
+    backBtn.href = '../?roll=' + encodeURIComponent(s.roll);
 
     var today = IMT.todayIso();
     var cardIndex = 0;
@@ -325,9 +325,9 @@
   var fromUrl = IMT.rollFromUrl();
   var visitor = IMT.student(fromUrl);
   if(!fromUrl){
-    window.location.replace('../index.html');
+    window.location.replace('../');
   } else if(!visitor.batchKey){
-    window.location.replace('../index.html?roll=' + encodeURIComponent(fromUrl));
+    window.location.replace('../?roll=' + encodeURIComponent(fromUrl));
   } else {
     showWeek(visitor);
   }

@@ -74,8 +74,8 @@
     greetNote.textContent = IMT.welcome(s);
 
     var q = '?roll=' + encodeURIComponent(s.roll);
-    weeklyBtn.href = 'weekly-seat/index.html' + q;
-    examBtn.href = 'exam-seat/index.html' + q;
+    weeklyBtn.href = 'weekly-seat/' + q;
+    examBtn.href = 'exam-seat/' + q;
     var locked = IMT.examSeatLocked(s);
     setLocked(examBtn, locked);
     examSub.textContent = locked ? (CONFIG.examSeat.lockedLabel || 'Coming soon') : EXAM_SUB_OPEN;

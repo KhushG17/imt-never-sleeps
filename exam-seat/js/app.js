@@ -370,7 +370,7 @@
       return;
     }
     errBox.hidden = true;
-    backBtn.href = '../index.html?roll=' + encodeURIComponent(v);
+    backBtn.href = '../?roll=' + encodeURIComponent(v);
     entries = entries.slice().sort(function(a,b){ return sortKey(a) - sortKey(b); });
 
     rollOut.textContent = v;
@@ -460,16 +460,16 @@
     results.hidden = true;
     document.getElementById('lockedTitle').textContent = title;
     document.getElementById('lockedText').textContent = text;
-    document.getElementById('lockedBack').href = '../index.html?roll=' + encodeURIComponent(roll);
+    document.getElementById('lockedBack').href = '../?roll=' + encodeURIComponent(roll);
     document.getElementById('locked').hidden = false;
   }
   var IMT = window.IMT;
   var fromUrl = IMT.rollFromUrl();
   var visitor = IMT.student(fromUrl);
   if(!fromUrl){
-    window.location.replace('../index.html');
+    window.location.replace('../');
   } else if(!visitor.batchKey){
-    window.location.replace('../index.html?roll=' + encodeURIComponent(fromUrl));
+    window.location.replace('../?roll=' + encodeURIComponent(fromUrl));
   } else if(IMT.examSeatLocked(visitor)){
     IMT.track('tool_open', visitor, { tool: 'exam_seat', status: 'locked' });
     showCard('Exam Seat is locked', IMT.config.examSeat.lockedLabel + '.', fromUrl);
