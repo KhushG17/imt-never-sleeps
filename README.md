@@ -51,7 +51,7 @@ What a visitor sees on the portal after entering a roll number.
 
 | Who | Heading | Line under the name | Message |
 |---|---|---|---|
-| Student in the roster | Hey {name} | Batch 2025-27 · Term 5 · Major MKT · Minor OPR | {Good morning. / Good afternoon. / Good evening. / Up late?} Your Term 5 schedule is ready. Pick what you want to check. |
+| Student in the roster | Hey {name} | Batch 2025-27 · Term 5 · Major MKT · Minor OPR | {Good morning. / Good afternoon. / Good evening. / Up late?} Your Term 5 schedule is ready. |
 | Student whose batch has no roster yet | Hey there | Batch 2026-28 · Term 2 | Your name and courses for Batch 2026-28 are not loaded yet. They will show up here once added. |
 | Alumni | Hey Alumni, {name} | Batch 2025-27 · Alumni · Major MKT · Minor OPR | Once IMT, always IMT. Good to see you back. |
 | Unknown roll | (none) | (none) | No student found for "{typed}". Check the roll number and try again. |

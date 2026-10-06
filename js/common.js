@@ -58,7 +58,7 @@
     if(!s.inRoster) return 'Your name and courses for ' + s.batchLabel + ' are not loaded yet. They will show up here once added.';
     var h = new Date().getHours();
     var part = h < 5 ? 'Up late?' : h < 12 ? 'Good morning.' : h < 17 ? 'Good afternoon.' : h < 22 ? 'Good evening.' : 'Up late?';
-    return part + ' Your Term ' + s.term + ' schedule is ready. Pick what you want to check.';
+    return part + ' Your Term ' + s.term + ' schedule is ready.';
   }
 
   // "Batch 2025-27 · Term 5 · Major MKT · Minor BA", skipping what's unknown.
