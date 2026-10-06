@@ -18,7 +18,8 @@ updated with every change. Last updated: 6 Oct 2026.
 | Weekly, the one Batch 2025-27 course on its own schedule | Not built, waiting on files |
 | Exam Seat | Built, locked: "Term 2 & Term 5 exams coming soon" |
 | Test roll `TEST` | Works on all three pages |
-| Published online | No. Local only, no git repo yet |
+| Published online | Yes: https://khushg17.github.io/imt-never-sleeps/ (repo `KhushG17/imt-never-sleeps`) |
+| Usage tracking | On (Google Analytics 4) |
 
 ## Batch tracker
 
@@ -119,11 +120,11 @@ key in `exam-seat/js/exam-data.js`. To switch it off, set `testRoll` to
 
 ## Usage tracking
 
-Built with Google Analytics 4, **switched off until a Measurement ID is
-added**. To switch it on: create a GA4 property at analytics.google.com, add
-a Web data stream for the site's address, copy the Measurement ID (looks like
-`G-AB12CD34EF`) and paste it into `analytics.measurementId` in
-`js/portal-config.js`.
+Built with Google Analytics 4 and **switched on since 6 Oct 2026**
+(Measurement ID `G-F0R29KD608`, set in `analytics.measurementId` in
+`js/portal-config.js`; set it to `""` to switch tracking off). Google's
+standard snippet is not pasted into the pages: `js/common.js` loads the same
+tag on every page from that one setting.
 
 | Question | Where to read it in Google Analytics |
 |---|---|
@@ -193,9 +194,8 @@ Every event also carries `batch` (for example "Batch 2025-27").
    those students see "your course list isn't loaded yet".
 3. Alumni dates: the last Term 6 exam date for each batch.
 4. Unlocking Exam Seat for the Term 2 and Term 5 exams.
-5. Publishing: create the GitHub repo and turn on Pages.
-6. Privacy decision before publishing: anyone who types a roll number sees
-   that student's name and course list.
+5. In Google Analytics, register `tool`, `status`, `result` and `batch` as
+   custom dimensions so reports can be split by them.
 
 ## Files needed from Khush
 
@@ -209,7 +209,7 @@ Every event also carries `batch` (for example "Batch 2025-27").
 | Student handbooks for the other programmes and for the 2025-27 batch | Term dates, course lists, programme rules for everyone else | Waiting |
 | Last Term 6 exam date for each batch | Switching that batch to alumni | Waiting (not urgent until Term 6) |
 | Next seating-plan Excel (Term 2 and Term 5 exams) | Unlocking Exam Seat | When released |
-| Google Analytics Measurement ID (`G-...`) | Switching usage tracking on | Waiting |
+| Google Analytics Measurement ID | Switching usage tracking on | Received 6 Oct 2026 |
 | Each new week's schedule PDF | Weekly update | Every week |
 | Revised "Student and Courses" sheet | Only if registrations change | As needed |
 

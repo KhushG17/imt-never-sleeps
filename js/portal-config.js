@@ -26,7 +26,7 @@ window.PORTAL_CONFIG = {
   // ID (looks like "G-AB12CD34EF") to switch it on; "" keeps it off. Nothing
   // is sent from a page opened as a local file. See README, "Usage tracking".
   analytics: {
-    measurementId: ""
+    measurementId: "G-F0R29KD608"
   },
 
   // A dummy roll for trying every feature end to end. It bypasses the Exam
