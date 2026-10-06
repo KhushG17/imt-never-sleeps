@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Exam Seat Finder · IMT Never Sleeps</title>
+<meta name="description" content="Find your personalised IMT Ghaziabad End Term exam schedule by roll number, and save it as a PDF.">
+<link rel="icon" type="image/png" href="../assets/imt-logo.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Caveat:wght@600;700&display=swap">
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a class="brand" href="../index.html" aria-label="IMT Never Sleeps, home">
+      <img class="brand-icon" src="../assets/imt-logo.png" alt="" width="30" height="33">
+      <span class="brand-name">IMT Never Sleeps</span>
+    </a>
+    <a class="btn-contact" href="https://forms.gle/y2CWo8Nq7o2GqytcA" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8A2.5 2.5 0 0 1 17.5 16H9l-4 4v-4.5A2.5 2.5 0 0 1 4 13.5v-8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      Feedback
+    </a>
+  </div>
+</header>
+
+<div class="hero-glow" aria-hidden="true"></div>
+
+<div class="wrap">
+  <div class="hero" id="top">
+    <span class="eyebrow" id="eyebrow"></span>
+    <h1>Your <span class="cursive-accent">exam</span><br>seats</h1>
+  </div>
+
+  <div id="locked" class="notice-card" hidden>
+    <h2 class="notice-title" id="lockedTitle">Exam Seat is locked</h2>
+    <p class="notice-text" id="lockedText"></p>
+    <a class="btn-ghost" id="lockedBack" href="../index.html">Back to portal</a>
+  </div>
+
+  <div id="results" hidden>
+    <div class="ticket-head">
+      <div>
+        <div class="roll-lbl">Personalised schedule for roll number</div>
+        <div class="roll-val" id="rollOut"></div>
+        <div class="roll-roster" id="rollRoster" hidden></div>
+      </div>
+      <div class="count-badge" id="countOut"></div>
+    </div>
+    <div class="actions">
+      <button class="btn-rainbow" id="pdfBtn" type="button">Save as PDF</button>
+      <a class="btn-ghost" id="backBtn" href="../index.html">Back to portal</a>
+    </div>
+    <div id="err" class="error" hidden></div>
+    <div id="list"></div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="disclaimer">
+    <span class="disclaimer-label">Disclaimer</span>
+    <ul class="disclaimer-list">
+      <li>This is an unofficial tool built from IMT Ghaziabad's official seating plan.</li>
+      <li>Subjects are matched by term, not by individual course, so where two courses share the same hall and slot, please confirm your exact paper against the official datesheet.</li>
+      <li>Always double check your hall and seat on the notice board before the exam.</li>
+    </ul>
+  </div>
+  <span class="credit">Created by <a href="https://www.linkedin.com/in/khushgoyal17/" target="_blank" rel="noopener">Khush Goyal</a></span>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script src="../js/portal-config.js"></script>
+<script src="../js/roster-data.js"></script>
+<script src="js/exam-config.js"></script>
+<script src="js/exam-data.js"></script>
+<script src="../js/common.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>IMT Never Sleeps</title>
+<meta name="description" content="Your IMT Ghaziabad weekly class schedule and exam seat, by roll number.">
+<link rel="icon" type="image/png" href="assets/imt-logo.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Caveat:wght@600;700&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a class="brand" href="index.html" aria-label="IMT Never Sleeps, home">
+      <img class="brand-icon" src="assets/imt-logo.png" alt="" width="30" height="33">
+      <span class="brand-name">IMT Never Sleeps</span>
+    </a>
+    <a class="btn-contact" href="https://forms.gle/y2CWo8Nq7o2GqytcA" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8A2.5 2.5 0 0 1 17.5 16H9l-4 4v-4.5A2.5 2.5 0 0 1 4 13.5v-8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      Feedback
+    </a>
+  </div>
+</header>
+
+<div class="hero-glow" aria-hidden="true"></div>
+
+<div class="wrap">
+  <div class="hero" id="top">
+    <h1>Find your <span class="cursive-accent">IMT</span><br>Schedule</h1>
+  </div>
+
+  <div class="search-card" id="searchCard">
+    <label class="field-label" for="roll">Roll number</label>
+    <div class="search-row">
+      <input id="roll" type="text" inputmode="text" placeholder="Enter your full roll number" autocomplete="off" spellcheck="false"/>
+      <button id="go" class="btn-rainbow" type="button">Continue</button>
+    </div>
+    <div id="err" class="error" hidden></div>
+  </div>
+
+  <section class="steps-strip" id="stepsStrip" aria-label="How it works">
+    <div class="step">
+      <span class="step-badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="step-text">Enter your roll number</span>
+    </div>
+    <div class="step">
+      <span class="step-badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M16 3v4M8 3v4M3 11h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </span>
+      <span class="step-text">Pick Weekly or Exam Seat</span>
+    </div>
+    <div class="step">
+      <span class="step-badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12M7 10l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </span>
+      <span class="step-text">Save as PDF or Add to Calendar</span>
+    </div>
+  </section>
+
+  <section class="greet-card" id="greetCard" hidden aria-live="polite">
+    <div class="greet-roll" id="greetRoll"></div>
+    <h2 class="greet-name" id="greetName"></h2>
+    <div class="greet-meta" id="greetMeta" hidden></div>
+    <p class="greet-note" id="greetNote"></p>
+    <div class="tool-grid">
+      <a class="tool-btn" id="weeklyBtn" href="weekly-seat/index.html">
+        <span class="tool-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M16 3v4M8 3v4M3 11h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </span>
+        <span class="tool-text">
+          <span class="tool-title">Weekly</span>
+          <span class="tool-sub" id="weeklySub">This week's classes, rooms and timings</span>
+        </span>
+      </a>
+      <a class="tool-btn" id="examBtn" href="exam-seat/index.html">
+        <span class="tool-icon" aria-hidden="true">
+          <svg class="icon-open" viewBox="0 0 24 24" fill="none"><path d="M5 11V8a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3M4 11h16v3H4zM6 14v5M18 14v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="icon-locked" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </span>
+        <span class="tool-text">
+          <span class="tool-title">Exam Seat</span>
+          <span class="tool-sub" id="examSub">Your hall and seat for every paper</span>
+        </span>
+      </a>
+    </div>
+    <button class="btn-ghost greet-clear" id="clearBtn" type="button">Not you? Change roll number</button>
+  </section>
+</div>
+
+<footer>
+  <div class="disclaimer">
+    <span class="disclaimer-label">Disclaimer</span>
+    <ul class="disclaimer-list">
+      <li>This is an unofficial tool built from IMT Ghaziabad's official schedules and seating plans.</li>
+      <li>Schedules change. Always confirm against the latest official mail or notice board.</li>
+      <li>Anonymous usage counts are collected to improve the tool. Your roll number and name are never part of them.</li>
+    </ul>
+  </div>
+  <span class="credit">Created by <a href="https://www.linkedin.com/in/khushgoyal17/" target="_blank" rel="noopener">Khush Goyal</a></span>
+</footer>
+
+<script src="js/portal-config.js"></script>
+<script src="js/roster-data.js"></script>
+<script src="js/common.js"></script>
+<script src="js/portal.js"></script>
+</body>
+</html>

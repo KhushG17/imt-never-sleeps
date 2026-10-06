@@ -1,0 +1,33 @@
+{
+  "_comment": "Per-term catalog for Batch 2025-27. Hand-edited once per term from the 'Course & Faculty Allocation' sheet; both generator scripts read it. Course keys are the abbreviations exactly as the weekly schedule prints them (e.g. DSL1, not DSL-1).",
+  "batch": "2027",
+  "label": "Batch 2025-27",
+  "term": 5,
+  "courses": {
+    "CM":   { "name": "Channel Management", "area": "MKT", "sections": 1 },
+    "CWB":  { "name": "Creating Winning Brands", "area": "MKT", "sections": 3 },
+    "CTM":  { "name": "Customer and Trade Marketing", "area": "MKT", "sections": 1 },
+    "CRM":  { "name": "Customer Relationship Management", "area": "MKT", "sections": 1 },
+    "DSL1": { "name": "Digital and Social Media Tools-Lab1", "area": "MKT", "sections": 2 },
+    "PDRM": { "name": "Pricing Dynamics and Revenue Management", "area": "MKT", "sections": 2 },
+    "BF":   { "name": "Behavioral Finance", "area": "FIN", "sections": 1 },
+    "CRA":  { "name": "Credit Risk: Analysis, Evaluation and Management", "area": "FIN", "sections": 1 },
+    "FIS":  { "name": "Fixed Income Securities", "area": "FIN", "sections": 1 },
+    "PAF":  { "name": "Project Appraisal and Financing", "area": "FIN", "sections": 1 },
+    "VCPE": { "name": "Venture Capital and Private Equity", "area": "FIN", "sections": 1 },
+    "ALCM": { "name": "Adaptive Leadership and Change Management", "area": "HRM", "sections": 1 },
+    "CSIW": { "name": "Creating and Sustaining an Inclusive Workplace", "area": "HRM", "sections": 1 },
+    "LEX":  { "name": "Leadership Excellence: Creating High-Performing Teams", "area": "HRM", "sections": 1 },
+    "DSCS": { "name": "Digital Supply Chain Strategy", "area": "OPR", "sections": 1 },
+    "LDM":  { "name": "Logistics and Distribution Management", "area": "OPR", "sections": 1 },
+    "BAM":  { "name": "Business Analytics for Managers", "area": "BA", "sections": 2 },
+    "FTBA": { "name": "Forecasting Techniques for Business Applications", "area": "BA", "sections": 2 },
+    "BIBC": { "name": "Business Innovation Through Blockchain", "area": "ITM", "sections": 1 },
+    "ITC":  { "name": "IT Consulting, Outsourcing and Vendor Management", "area": "ITM", "sections": 1 },
+    "MDP":  { "name": "Managing Digital Products and Projects", "area": "ITM", "sections": 1 },
+    "CL2":  { "name": "Consulting Lab II", "area": "SIE", "sections": 1 },
+    "CCR":  { "name": "Consulting, Communication and Client Relations", "area": "SIE", "sections": 1 },
+    "EF":   { "name": "Entrepreneurial Finance", "area": "SIE", "sections": 1 },
+    "HRST": { "name": "HR for Start-ups", "area": "SIE", "sections": 1 }
+  }
+}

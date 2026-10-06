@@ -1,0 +1,9 @@
+{
+  "TEST": {
+    "name": "Test Student",
+    "batch": "2027",
+    "major": "MKT",
+    "minor": "BA",
+    "courses": { "CWB": "C", "DSCS": "A", "FTBA": "A", "PAF": "A", "BF": "A" }
+  }
+}
