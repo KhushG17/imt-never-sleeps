@@ -143,8 +143,9 @@ Every event also carries `batch` (for example "Batch 2025-27").
 - The `TEST` roll is not counted. Pages opened as local files send nothing.
 - Not counted: calendar icons clicked inside a downloaded PDF, since a PDF
   cannot report back.
-- To split reports by `tool`, `status`, `result` and `batch`, register each
-  as a custom dimension once in GA (Admin, Custom definitions).
+- `tool`, `status`, `result` and `batch` are registered as event-scoped
+  custom dimensions in GA (done 6 Oct 2026), so reports can be split by
+  them. Events from before that date are not split.
 - All of it lives in one function, `track` in `js/common.js`.
 - The portal footer tells visitors that anonymous usage counts are collected.
 
@@ -194,8 +195,6 @@ Every event also carries `batch` (for example "Batch 2025-27").
    those students see "your course list isn't loaded yet".
 3. Alumni dates: the last Term 6 exam date for each batch.
 4. Unlocking Exam Seat for the Term 2 and Term 5 exams.
-5. In Google Analytics, register `tool`, `status`, `result` and `batch` as
-   custom dimensions so reports can be split by them.
 
 ## Files needed from Khush
 
