@@ -530,3 +530,18 @@ a.btn-ghost{ text-decoration:none; }
 /* the cursive accent word is always capitals, whatever the markup says */
 .cursive-accent{ text-transform:uppercase; }
 
+
+/* ---------- portal hero spacing ----------
+   The portal's hero is only a heading and the search card, so it gets more
+   room above, between and below than the tool pages do. */
+.portal .wrap{ padding-block:clamp(72px, 12vh, 132px) 0; }
+.portal .search-card,
+.portal .greet-card{ margin-top:clamp(44px, 7vh, 72px); }
+.portal .steps-strip{ margin-top:clamp(32px, 5vh, 48px); }
+.portal footer{ margin-top:clamp(64px, 12vh, 128px); }
+.portal .hero-glow{ top:clamp(72px, 10vh, 120px); height:min(600px, 80vw); }
+@media (max-width:480px){
+  .portal .wrap{ padding-block:clamp(52px, 9vh, 84px) 0; }
+  .portal .search-card,
+  .portal .greet-card{ margin-top:clamp(36px, 6vh, 52px); }
+}

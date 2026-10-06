@@ -95,6 +95,8 @@ key in `exam-seat/js/exam-data.js`. To switch it off, set `testRoll` to
   "Up late?" from 10 pm to 5 am) plus "Your Term N schedule is ready."
   Alumni get "Once IMT, always IMT. Good to see you back."
 - The cursive accent word in every heading is always in capitals.
+- The portal hero has extra room above the heading, between the heading and
+  the search card, and below the steps, scaled to the screen height.
 - How-it-works strip: enter your roll number, pick Weekly or Exam Seat, save
   as PDF or Add to Calendar.
 - Two buttons: Weekly and Exam Seat. Exam Seat is greyed out with a lock
