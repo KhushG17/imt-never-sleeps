@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-The one command that keeps the site's data current:
+The one command that keeps the site's data current.
 
-    python scripts/update.py
+    python scripts/update.py              on Khush's machine: everything
+    python scripts/update.py --uploads    on GitHub, after a web upload: weekly only
 
-What it does, every time:
+Full run (no flag), every time:
 
  1. Files anything waiting in "all files/_inbox/". Each file is read to find
     out what it is (weekly schedule, course allocation or student list) and
@@ -12,8 +13,8 @@ What it does, every time:
         all files/batch <year>/<core|bfs|dcp>/term <n>/[weekly/]
     under its original name. A file it cannot place is left in the inbox and
     reported.
- 2. Reads every file under "all files/" again from scratch and rebuilds the
-    master data in data/master/:
+ 2. Reads every file under "all files/" and "uploads/" again from scratch and
+    rebuilds the master data in data/master/:
         students.json   every student: programme, batch, section, courses
         courses.json    course lists per batch, group and term
         weekly/         every week ever received, per batch and group
@@ -26,11 +27,19 @@ Because step 2 always starts from the college's own files, the master data
 can never drift from them, and adding a batch, a programme or a term is just
 adding files in the right folder.
 
-A file that fails its checks is skipped with a message and everything else
-still builds; the previous data for that one schedule is simply not there.
-Hand-edited settings live in data/config/ (programmes, timeline, overrides).
+--uploads is what the GitHub Action runs when weekly schedules are sent from
+the upload page. "all files/" is not on GitHub, so this mode touches weekly
+schedules only: it files the PDFs waiting in "uploads/_inbox/" under
+"uploads/batch .../weekly/", reads them against the course lists already in
+data/master/courses.json, adds those weeks to data/master/weekly/ and rebuilds
+weekly-seat/js/weekly-data.js. Students and course lists are left exactly as
+they are. What happened to each file is written to uploads/last-run.json for
+the upload page to show.
 
-    pip install pymupdf xlrd openpyxl      # once
+A file that fails its checks is skipped with a message and everything else
+still builds. Hand-edited settings live in data/config/.
+
+    pip install pymupdf xlrd openpyxl      # once (pymupdf alone for --uploads)
 """
 import datetime as dt
 import json
@@ -42,8 +51,8 @@ from pathlib import Path
 import parsers
 
 ROOT = Path(__file__).resolve().parent.parent
-SOURCE = ROOT / "all files"
-INBOX = SOURCE / "_inbox"
+SOURCE = ROOT / "all files"      # the college's files; never on GitHub
+UPLOADS = ROOT / "uploads"       # weekly PDFs sent from the upload page; on GitHub
 CONFIG = ROOT / "data" / "config"
 MASTER = ROOT / "data" / "master"
 WEEKS_ON_SITE = 2
@@ -75,12 +84,27 @@ def write_js(path, comment, name, obj):
                     % (comment, name, dump(obj, separators=(",", ":"))), encoding="utf-8")
 
 
+def rel(path):
+    return path.relative_to(ROOT).as_posix()
+
+
+def current_term(group_timeline, today):
+    term = None
+    for t in (group_timeline or {}).get("terms", []):
+        if t["start"] <= today or term is None:
+            term = t["term"]
+    return term
+
+
 # ------------------------------------------------------------------ 1. inbox
 
-def file_inbox(timeline):
-    INBOX.mkdir(parents=True, exist_ok=True)
+def file_inbox(root, timeline, weekly_only=False):
+    """Move each file in <root>/_inbox to <root>/batch ../<group>/term ../[weekly/]."""
+    inbox = root / "_inbox"
+    if not inbox.is_dir():
+        return
     today = dt.date.today().isoformat()
-    for path in sorted(p for p in INBOX.iterdir() if p.is_file()):
+    for path in sorted(p for p in inbox.iterdir() if p.is_file() and not p.name.startswith(".")):
         try:
             info = parsers.describe(path)
         except Exception as e:  # unreadable file: leave it where it is
@@ -101,41 +125,73 @@ def file_inbox(timeline):
                 pass
         if info["term"] is None and info["batch"] and info["group"]:
             info["term"] = current_term(timeline.get("%s-%s" % (info["batch"], info["group"])), today)
+        if weekly_only and info["kind"] != "weekly":
+            say("INBOX", "left in inbox, only weekly schedule PDFs can be sent from the upload page: %s" % path.name)
+            continue
         if not all(info.get(k) for k in ("kind", "batch", "group", "term")):
             say("INBOX", "left in inbox, could not tell what it is: %s (read as %s)"
                 % (path.name, {k: v for k, v in info.items() if not k.startswith("_")}))
             continue
-        dest = SOURCE / ("batch %s" % info["batch"]) / info["group"] / ("term %d" % info["term"])
+        dest = root / ("batch %s" % info["batch"]) / info["group"] / ("term %d" % info["term"])
         if info["kind"] == "weekly":
             dest = dest / "weekly"
         dest.mkdir(parents=True, exist_ok=True)
         if (dest / path.name).exists():
-            say("INBOX", "replaced the earlier copy of %s" % path.name)
+            say("NOTE", "replaced the earlier copy of %s" % path.name)
+            (dest / path.name).unlink()
         shutil.move(str(path), str(dest / path.name))
-        say("FILED", "%s -> %s" % (path.name, dest.relative_to(SOURCE).as_posix()))
+        say("FILED", "%s -> %s" % (path.name, dest.relative_to(root).as_posix()))
 
 
-def current_term(group_timeline, today):
-    term = None
-    for t in (group_timeline or {}).get("terms", []):
-        if t["start"] <= today or term is None:
-            term = t["term"]
-    return term
+# ----------------------------------------------------------------- 2. reading
+
+def scan(roots):
+    """(batch, group, term) -> {'weekly': [paths], 'other': [paths]} across the source folders."""
+    found = {}
+    for root in roots:
+        if not root.is_dir():
+            continue
+        for path in sorted(root.rglob("*")):
+            r = path.relative_to(root).as_posix()
+            m = FOLDER.match(r)
+            if not path.is_file() or not m:
+                continue
+            key = (m.group(1), m.group(2), int(m.group(3)))
+            bucket = "weekly" if "/weekly/" in r else "other"
+            found.setdefault(key, {"weekly": [], "other": []})[bucket].append(path)
+    return found
 
 
-# ------------------------------------------------------------------ 2. master
+def read_week(path, batch, group, term, catalog, electives):
+    """One weekly PDF -> the week as stored in data/master/weekly/, or None if it fails its checks."""
+    gkey = "%s-%s" % (batch, group)
+    try:
+        week = parsers.parse_weekly(path)
+    except Exception as e:
+        say("SKIPPED", "%s: %s" % (rel(path), e))
+        return None
+    if week["term"] not in (None, term):
+        say("NOTE", "%s says Term %s but sits in the term %d folder" % (rel(path), week["term"], term))
+    week.update(batch=batch, group=group, term=term, source=rel(path))
+    lookup = {parsers.norm_code(a): a for a in catalog}
+    names = {}
+    for s in week["sessions"]:
+        abb = lookup.get(parsers.norm_code(s["c"]))
+        names[s["c"]] = catalog[abb]["name"] if abb else s["c"]
+    unknown = sorted(c for c, n in names.items() if c == n)
+    if unknown:
+        week["warnings"].append("no course name for %s (add to data/config/overrides.json)" % ", ".join(unknown))
+    week["courses"] = names
+    week["electives"] = electives
+    for w in week.pop("warnings"):
+        say("NOTE", "%s: %s" % (gkey, w))
+    say("WEEK", "%s term %d, %s to %s: %d classes, %d other entries  [%s layout]"
+        % (gkey, term, week["start"], week["end"], len(week["sessions"]), len(week["specials"]), week["mode"]))
+    return week
+
 
 def build_master(overrides):
-    found = {}  # (batch, group, term) -> {'weekly': [paths], 'other': [paths]}
-    for path in sorted(SOURCE.rglob("*")):
-        rel = path.relative_to(SOURCE).as_posix()
-        m = FOLDER.match(rel)
-        if not path.is_file() or not m:
-            continue
-        key = (m.group(1), m.group(2), int(m.group(3)))
-        bucket = "weekly" if "/weekly/" in rel else "other"
-        found.setdefault(key, {"weekly": [], "other": []})[bucket].append(path)
-
+    found = scan([SOURCE, UPLOADS])
     courses, students, weeks = {}, {}, {}
     latest_term = {}
     for (batch, group, term) in sorted(found):
@@ -157,9 +213,9 @@ def build_master(overrides):
                 elif kind == "students":
                     lists.append(path)
                 else:
-                    say("SKIPPED", "%s: not a course or student list" % path.relative_to(SOURCE).as_posix())
+                    say("SKIPPED", "%s: not a course or student list" % rel(path))
             except Exception as e:
-                say("SKIPPED", "%s: %s" % (path.relative_to(SOURCE).as_posix(), e))
+                say("SKIPPED", "%s: %s" % (rel(path), e))
         for abb, name in overrides["courses"].get(key, {}).items():
             catalog.setdefault(abb, {})["name"] = name
         courses[key] = catalog
@@ -172,7 +228,7 @@ def build_master(overrides):
                     for n in notes:
                         say("NOTE", n)
                 except Exception as e:
-                    say("SKIPPED", "%s: %s" % (path.relative_to(SOURCE).as_posix(), e))
+                    say("SKIPPED", "%s: %s" % (rel(path), e))
                     continue
                 for roll, entry in parsed.items():
                     if roll in students and students[roll]["group"] != group:
@@ -187,37 +243,11 @@ def build_master(overrides):
                     students[roll] = {**students.get(roll, {}), **entry}
 
         for path in files["weekly"]:
-            rel = path.relative_to(SOURCE).as_posix()
-            try:
-                week = parsers.parse_weekly(path)
-            except Exception as e:
-                say("SKIPPED", "%s: %s" % (rel, e))
-                continue
-            if week["term"] not in (None, term):
-                say("NOTE", "%s says Term %s but sits in the term %d folder" % (rel, week["term"], term))
-            week.update(batch=batch, group=group, term=term, source=rel)
-            lookup = {parsers.norm_code(a): a for a in catalog}
-            names = {}
-            for s in week["sessions"]:
-                abb = lookup.get(parsers.norm_code(s["c"]))
-                if abb:
-                    names[s["c"]] = catalog[abb]["name"]
-                else:
-                    names[s["c"]] = s["c"]
-            unknown = sorted(c for c, n in names.items() if c == n)
-            if unknown:
-                week["warnings"].append("no course name for %s (add to data/config/overrides.json)" % ", ".join(unknown))
-            week["courses"] = names
-            week["electives"] = overrides["electives"].get(key, [])
-            for w in week.pop("warnings"):
-                say("NOTE", "%s: %s" % (gkey, w))
-            weeks.setdefault(gkey, {})[week["start"]] = week
-            say("WEEK", "%s term %d, %s to %s: %d classes, %d other entries  [%s layout]"
-                % (gkey, term, week["start"], week["end"], len(week["sessions"]), len(week["specials"]), week["mode"]))
+            week = read_week(path, batch, group, term, catalog, overrides["electives"].get(key, []))
+            if week:
+                weeks.setdefault(gkey, {})[week["start"]] = week
 
     for roll, entry in overrides["students"].items():
-        if roll.startswith("_"):
-            continue
         students[roll] = {**students.get(roll, {}), **entry}
 
     # stop-gap sections: only for students whose lists give no section
@@ -237,6 +267,21 @@ def build_master(overrides):
 
 # ------------------------------------------------------------------- 3. site
 
+def bundle_weekly():
+    """weekly-seat/js/weekly-data.js from whatever is in data/master/weekly/."""
+    site = {}
+    for folder in sorted((MASTER / "weekly").glob("*")):
+        newest = sorted(folder.glob("*.json"))[-WEEKS_ON_SITE:]
+        site[folder.name] = [
+            {k: w[k] for k in ("term", "weekNumber", "start", "end", "mode", "rowLabel", "rows",
+                               "slots", "days", "sessions", "specials", "courses", "electives")}
+            for w in (json.loads(p.read_text(encoding="utf-8")) for p in newest)]
+    write_js(ROOT / "weekly-seat" / "js" / "weekly-data.js",
+             "The %d newest weeks per batch and group, from data/master/weekly/." % WEEKS_ON_SITE,
+             "WEEKLY_DATA", site)
+    return site
+
+
 def build_site(courses, students, weeks, timeline):
     shutil.rmtree(MASTER, ignore_errors=True)
     write_json(MASTER / "students.json", students)
@@ -255,21 +300,10 @@ def build_site(courses, students, weeks, timeline):
                 entry[key] = s[long]
         roster[roll] = entry
     write_js(ROOT / "js" / "roster-data.js", "Every student in data/master/students.json.", "ROSTER_DATA", roster)
-
-    site_weeks = {}
-    for gkey, by_start in weeks.items():
-        newest = [by_start[k] for k in sorted(by_start)[-WEEKS_ON_SITE:]]
-        site_weeks[gkey] = [{k: w[k] for k in ("term", "weekNumber", "start", "end", "mode", "rowLabel", "rows",
-                                               "slots", "days", "sessions", "specials", "courses", "electives")}
-                            for w in newest]
-    write_js(ROOT / "weekly-seat" / "js" / "weekly-data.js",
-             "The %d newest weeks per batch and group, from data/master/weekly/." % WEEKS_ON_SITE,
-             "WEEKLY_DATA", site_weeks)
-
+    bundle_weekly()
     write_js(ROOT / "js" / "site-data.js", "From data/config/programmes.json and timeline.json.", "SITE_DATA",
-             {"programmes": {k: v for k, v in programmes["programmes"].items()},
-              "timeline": {k: {f: v[f] for f in ("label", "terms", "alumniFrom") if f in v}
-                           for k, v in timeline.items() if not k.startswith("_")}})
+             {"programmes": programmes["programmes"],
+              "timeline": {k: {f: v[f] for f in ("label", "terms", "alumniFrom") if f in v} for k, v in timeline.items()}})
 
 
 def summary(students, weeks):
@@ -285,6 +319,34 @@ def summary(students, weeks):
         print("\n%d file(s) need attention - see the SKIPPED / INBOX lines above." % len(skipped))
 
 
+# ------------------------------------------------- the upload page's weekly run
+
+def run_uploads(timeline, overrides):
+    """Weekly schedules only, against the master data already in the repo."""
+    courses = json.loads((MASTER / "courses.json").read_text(encoding="utf-8"))
+    file_inbox(UPLOADS, timeline, weekly_only=True)
+    loaded = []
+    for (batch, group, term), files in sorted(scan([UPLOADS]).items()):
+        key = "%s-%s-%d" % (batch, group, term)
+        if key not in courses:
+            say("NOTE", "%s: no course list on file for this term yet, so classes show as abbreviations" % key)
+        for path in files["weekly"]:
+            week = read_week(path, batch, group, term, courses.get(key, {}), overrides["electives"].get(key, []))
+            if week:
+                gkey = "%s-%s" % (batch, group)
+                write_json(MASTER / "weekly" / gkey / ("%s.json" % week["start"]), week)
+                loaded.append({"group": gkey, "term": term, "start": week["start"], "end": week["end"],
+                               "classes": len(week["sessions"]), "file": path.name})
+    bundle_weekly()
+    report = {
+        "ranAt": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "weeks": loaded,
+        "messages": [{"kind": k, "text": t} for k, t in messages if k != "WEEK"],
+    }
+    write_json(UPLOADS / "last-run.json", report)
+    print("\n%d week(s) on file from uploads." % len(loaded))
+
+
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
     programmes = load("programmes.json")
@@ -292,7 +354,10 @@ if __name__ == "__main__":
     overrides = load("overrides.json")
     for section in ("courses", "electives", "students", "sectionFromElective"):
         overrides[section] = {k: v for k, v in overrides.get(section, {}).items() if not k.startswith("_")}
-    file_inbox(timeline)
-    courses, students, weeks = build_master(overrides)
-    build_site(courses, students, weeks, timeline)
-    summary(students, weeks)
+    if "--uploads" in sys.argv[1:]:
+        run_uploads(timeline, overrides)
+    else:
+        file_inbox(SOURCE, timeline)
+        courses, students, weeks = build_master(overrides)
+        build_site(courses, students, weeks, timeline)
+        summary(students, weeks)

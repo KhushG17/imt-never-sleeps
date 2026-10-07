@@ -214,7 +214,13 @@
     var today = IMT.todayIso();
     var cardIndex = 0;
     var third = data.rowLabel || 'Section';
-    listEl.innerHTML = data.days.map(function(day, di){
+    // today's classes come first, then the rest of the week, then the days gone
+    var order = IMT.todayFirst(data.days.map(function(d){ return d.date; }), today);
+    // the divider is needed whenever days gone follow days still to come
+    var hasToday = order.some(function(o){ return o.past; }) && order.some(function(o){ return !o.past; });
+    var earlierShown = false;
+    listEl.innerHTML = order.map(function(o){
+      var di = o.i, day = data.days[di];
       var tint = TINTS[di % TINTS.length];
       var classes = view.classes.filter(function(x){ return x.d === di; });
       var specials = view.specials.filter(function(sp){ return sp.d === di; });
@@ -266,7 +272,12 @@
       if(!cards.length && !groups.length && !day.note){
         body += '<div class="day-free">No classes</div>';
       }
-      return '<div class="day-group' + (day.date === today ? ' is-today' : '') + '">' + title + body + '</div>';
+      var divider = '';
+      if(hasToday && o.past && !earlierShown){
+        earlierShown = true;
+        divider = '<div class="earlier-divider">Earlier this week</div>';
+      }
+      return divider + '<div class="day-group' + (day.date === today ? ' is-today' : '') + (o.past && hasToday ? ' is-past' : '') + '">' + title + body + '</div>';
     }).join('');
 
     results.hidden = false;

@@ -17,18 +17,29 @@ window.PORTAL_CONFIG = {
     liveLabel: "Exam seating is live"
   },
 
-  // The small "live" pill above the portal heading.
-  //   weeklyDays - it shows "Weekly schedule live" from the week's Monday for
-  //                this many days (3 = Monday to Wednesday, gone on Thursday),
-  //                and only once every batch and programme on campus has that
-  //                week loaded.
-  // While Exam Seat is unlocked the pill shows examSeat.liveLabel instead,
-  // for as long as it stays unlocked.
-  //   preview    - the pill a test roll shows after it is entered, on any day:
-  //                "weekly" or "exam". Everyone else gets the real one.
+  // The pill above the portal heading. It is green "Live · <dates>" all week
+  // while this week's schedule is loaded, turns red with missingLabel once a
+  // week has begun without its schedule, and is hidden during End Term Exams.
+  // While Exam Seat is unlocked it shows examSeat.liveLabel and nothing else.
+  //   preview - the pill a test roll shows after it is entered, on any day:
+  //             "weekly" or "exam". Everyone else gets the real one.
   livePill: {
-    weeklyDays: 3,
+    missingLabel: "New week's schedule not uploaded yet",
     preview: { "TEST": "weekly", "TESTA": "exam" }
+  },
+
+  // The Study Material button on the portal. It opens this link in a new
+  // tab; the folder behind it is organised term-wise. Set url to "" to hide
+  // the button.
+  studyMaterial: {
+    url: "https://imtgzb-my.sharepoint.com/:f:/g/personal/dcp26khushgoyal_imt_ac_in/IgCNsHVzKIz2Q7N7Vaec049qAQwAX5m6zlpiZ0aakGt8rFI?e=MwAYU9"
+  },
+
+  // The upload page at /upload/: which GitHub repository weekly schedules
+  // are sent to. See README, "Uploading from the browser".
+  upload: {
+    repo: "KhushG17/imt-never-sleeps",
+    branch: "main"
   },
 
   // Usage tracking with Google Analytics 4. Paste the property's Measurement

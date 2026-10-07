@@ -614,3 +614,81 @@ a.btn-ghost{ text-decoration:none; }
   .disclaimer-body{ grid-template-columns:1.25fr 1fr; gap:36px; align-items:start; }
   .disclaimer-text, .disclaimer-list li{ font-size:12.5px; line-height:1.6; }
 }
+
+/* ---------- today first ----------
+   Today's group leads the list; days already gone follow under a divider. */
+.day-group.is-today .day-title{ color:var(--color-imt-navy); }
+.earlier-divider{
+  margin:36px 0 20px; padding-top:20px;
+  border-top:1px dashed var(--color-ash-divider);
+  font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--color-slate-helper);
+}
+@media print{ .earlier-divider{ display:none!important; } }
+
+/* the pill when a week has begun and its schedule isn't in yet */
+.live-pill.is-stale{
+  background:color-mix(in srgb, var(--color-danger) 11%, #fff);
+  color:var(--color-danger);
+}
+.live-pill.is-stale .live-dot{ background:var(--color-danger); animation:none; box-shadow:none; }
+
+/* ---------- portal: the full-width third button ---------- */
+.tool-btn-wide{
+  grid-column:1 / -1;
+  background:var(--color-white-canvas); color:var(--color-portrait-ink);
+  border:1.5px solid var(--color-imt-navy); box-shadow:none;
+}
+.tool-btn-wide .tool-icon{ background:var(--color-sky-wash); color:var(--color-imt-navy); }
+.tool-btn-wide .tool-sub{ color:var(--color-slate-helper); opacity:1; }
+.tool-btn-wide:hover{ background:var(--color-sky-wash); filter:none; }
+.tool-ext{ width:18px; height:18px; margin-left:auto; flex-shrink:0; color:var(--color-imt-navy); }
+
+/* ---------- upload page ---------- */
+.up-input{
+  flex:1; min-width:0; font:inherit; font-size:16px; font-weight:500;
+  padding:14px 18px; border-radius:var(--radius-tags);
+  border:1.5px solid var(--color-mist-hairline);
+  background:var(--color-white-canvas); color:var(--color-portrait-ink);
+}
+.up-input:focus{ outline:none; border-color:var(--color-portrait-ink); }
+.up-remember{ display:flex; align-items:center; gap:8px; margin-top:14px; font-size:13px; color:var(--color-slate-helper); cursor:pointer; }
+.up-remember input{ width:16px; height:16px; accent-color:var(--color-imt-navy); }
+.up-drop{
+  display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center;
+  padding:30px 18px; border-radius:18px; cursor:pointer;
+  border:1.5px dashed var(--color-ash-divider); background:#fbfcfe;
+  transition:border-color .2s ease, background .2s ease;
+}
+.up-drop svg{ width:30px; height:30px; color:var(--color-imt-navy); margin-bottom:4px; }
+.up-drop:hover,.up-drop:focus-visible,.up-drop.is-over{ border-color:var(--color-imt-navy); background:var(--color-sky-wash); outline:none; }
+.up-drop.is-busy{ opacity:.55; pointer-events:none; }
+.up-drop-title{ font-weight:700; font-size:16px; color:var(--color-portrait-ink); }
+.up-drop-sub{ font-size:13px; line-height:1.5; color:var(--color-slate-helper); max-width:420px; }
+.up-files{ list-style:none; margin:16px 0 0; padding:0; }
+.up-files li{
+  display:flex; align-items:center; gap:10px;
+  padding:10px 0; border-top:1px solid var(--color-mist-hairline); font-size:13.5px;
+}
+.up-file-name{ flex:1; min-width:0; overflow-wrap:anywhere; font-weight:600; color:var(--color-portrait-ink); }
+.up-file-size{ color:var(--color-slate-helper); white-space:nowrap; font-size:12.5px; }
+.up-file-remove{
+  font:inherit; font-size:12.5px; font-weight:600; color:var(--color-danger);
+  background:none; border:none; cursor:pointer; padding:8px 4px; min-height:36px;
+}
+.up-file-remove:hover{ text-decoration:underline; }
+.up-actions{ margin:18px 0 0; }
+.btn-rainbow:disabled{ opacity:.45; cursor:not-allowed; transform:none!important; filter:none!important; }
+.up-status{ text-align:left; }
+.up-status .notice-title{ font-size:clamp(20px,4vw,26px); }
+.up-status .notice-text{ margin-left:0; max-width:none; }
+.up-report{ list-style:none; margin:16px 0 0; padding:0; }
+.up-report li{
+  padding:10px 14px; border-radius:12px; margin-top:8px;
+  font-size:13px; line-height:1.5; overflow-wrap:anywhere;
+}
+.up-report li strong{ display:block; }
+.up-report .is-ok{ background:var(--color-mint-wash); color:#0c4a2c; }
+.up-report .is-bad{ background:color-mix(in srgb, var(--color-danger) 10%, #fff); color:#7c2018; }
+.up-report .is-note{ background:var(--color-mist-hairline); color:var(--color-graphite-body); }
+button.btn-contact{ font:inherit; font-weight:600; font-size:13.5px; cursor:pointer; }

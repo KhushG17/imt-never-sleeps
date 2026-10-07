@@ -34,6 +34,8 @@
       label: tl.label || '',
       term: now ? now.term : null,
       campus: now ? now.campus || '' : '',
+      examStart: now ? now.examStart || '' : '',
+      examEnd: now ? now.examEnd || '' : '',
       alumni: !!(tl.alumniFrom && today >= tl.alumniFrom)
     };
   }
@@ -103,6 +105,19 @@
     return parts.join(' · ');
   }
 
+  // The order to list dated groups in: today first, then the days still to
+  // come, then the days already gone. Returns [{i: index, past: bool}]; when
+  // today isn't among the dates, the order is simply the days still to come
+  // followed by those gone, or unchanged if they are all on one side.
+  function todayFirst(isoDates, today){
+    today = today || todayIso();
+    var now = [], later = [], past = [];
+    isoDates.forEach(function(d, i){
+      (d === today ? now : d > today ? later : past).push({ i: i, past: d < today, today: d === today });
+    });
+    return now.concat(later, past);
+  }
+
   // The week to show from a group's weeks on file: the one running today,
   // else the next one coming, else the newest.
   function pickWeek(weeks, today){
@@ -113,20 +128,32 @@
     return running || coming || weeks[weeks.length - 1];
   }
 
-  // The week that is live for everyone: every batch and group currently on
-  // the Ghaziabad campus has this week's schedule loaded. null otherwise.
-  function liveWeek(weekly, today){
+  // Whether this week's schedule is loaded, for one batch-and-group or (with
+  // no groupKey) for everyone on the Ghaziabad campus:
+  //   live    - every group asked about has the week that is running today
+  //   missing - at least one of them doesn't
+  //   exam    - one of them is in its End Term Exam window, when there is no
+  //             weekly schedule to expect
+  //   none    - nobody to show a schedule to (alumni, a term in Dubai)
+  function weekState(weekly, groupKey, today){
     today = today || todayIso();
-    var found = null, complete = true, any = false;
-    Object.keys(TIMELINE).forEach(function(groupKey){
-      var st = standing(groupKey, today);
-      if(!st || st.alumni || st.campus === 'Dubai') return;
-      any = true;
-      var w = ((weekly || {})[groupKey] || []).filter(function(x){ return x.start <= today && today <= x.end; })[0];
-      if(!w) complete = false;
-      else found = found || { start: w.start, end: w.end };
+    var keys = (groupKey ? [groupKey] : Object.keys(TIMELINE)).filter(function(k){
+      var st = standing(k, today);
+      return st && !st.alumni && st.campus !== 'Dubai';
     });
-    return any && complete ? found : null;
+    if(!keys.length) return { state: 'none' };
+    var inExam = keys.some(function(k){
+      var st = standing(k, today);
+      return st.examStart && st.examStart <= today && today <= st.examEnd;
+    });
+    if(inExam) return { state: 'exam' };
+    var week = null, complete = true;
+    keys.forEach(function(k){
+      var w = ((weekly || {})[k] || []).filter(function(x){ return x.start <= today && today <= x.end; })[0];
+      if(!w) complete = false;
+      else week = week || { start: w.start, end: w.end };
+    });
+    return complete ? { state: 'live', week: week } : { state: 'missing' };
   }
 
   function examSeatLocked(s){
@@ -211,7 +238,8 @@
     welcome: welcome,
     standing: standing,
     pickWeek: pickWeek,
-    liveWeek: liveWeek,
+    todayFirst: todayFirst,
+    weekState: weekState,
     metaLine: metaLine,
     examSeatLocked: examSeatLocked,
     examLockedLabel: examLockedLabel,

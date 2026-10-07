@@ -18,6 +18,15 @@
   var examSub = document.getElementById('examSub');
   var clearBtn = document.getElementById('clearBtn');
   var EXAM_SUB_OPEN = examSub.textContent;
+  var studyBtn = document.getElementById('studyBtn');
+  var STUDY_URL = (CONFIG.studyMaterial && CONFIG.studyMaterial.url) || '';
+  if(STUDY_URL){
+    studyBtn.href = STUDY_URL;
+    studyBtn.hidden = false;
+    studyBtn.addEventListener('click', function(){
+      IMT.track('tool_open', IMT.student(rollInput.value), { tool: 'study_material', status: 'shown' });
+    });
+  }
 
   rollInput.addEventListener('input', function(){ errBox.hidden = true; });
   rollInput.addEventListener('keydown', function(e){ if(e.key === 'Enter') doSearch(true); });
@@ -89,45 +98,48 @@
 
   IMT.attachTilt(document.querySelectorAll('.step'));
 
-  // ---- the "live" pill above the heading ----
-  // Exam seating: shown for as long as Exam Seat is unlocked.
-  // Weekly: shown only once every batch and programme on campus has this
-  // week's schedule loaded, and only for the first few days of the week
-  // (livePill.weeklyDays in js/portal-config.js: 3 = gone on Thursday).
-  // The test rolls force one pill each (livePill.preview), so both can be
-  // looked at on any day.
+  // ---- the pill above the heading ----
+  // While Exam Seat is unlocked: "Exam seating is live", and nothing else.
+  // Otherwise it follows the weekly schedule:
+  //   green "Live · 5 Oct - 11 Oct"  all week, while this week is loaded
+  //   red   "New week's schedule not uploaded yet"  once a week has begun
+  //         and its schedule isn't in
+  //   hidden during End Term Exams, and for alumni and terms held in Dubai
+  // Before a roll is entered it speaks for every batch and programme on
+  // campus; after, for that student's own. The test rolls force one pill
+  // each (livePill.preview in js/portal-config.js) so both can be seen on
+  // any day.
   var pill = document.getElementById('livePill');
   var MONTHS = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  function weeklyPillText(week){
+  function weeklyPill(week){
     var a = week.start.split('-'), b = week.end.split('-');
-    return 'Live · ' + (+a[2]) + ' ' + MONTHS[+a[1]] + ' - ' + (+b[2]) + ' ' + MONTHS[+b[1]];
+    return { text: 'Live · ' + (+a[2]) + ' ' + MONTHS[+a[1]] + ' - ' + (+b[2]) + ' ' + MONTHS[+b[1]] };
   }
-  function examPillText(){
-    return (CONFIG.examSeat && CONFIG.examSeat.liveLabel) || 'Exam seating is live';
+  function examPill(){
+    return { text: (CONFIG.examSeat && CONFIG.examSeat.liveLabel) || 'Exam seating is live' };
   }
-  function showPill(text){
-    document.getElementById('livePillText').textContent = text;
-    pill.hidden = !text;
+  function showPill(p){
+    document.getElementById('livePillText').textContent = p ? p.text : '';
+    pill.classList.toggle('is-stale', !!(p && p.stale));
+    pill.hidden = !p;
   }
-  // What everyone sees, from the real state of the site today.
-  function normalPill(){
-    if(CONFIG.examSeat && !CONFIG.examSeat.locked) return examPillText();
-    var week = IMT.liveWeek(window.WEEKLY_DATA);
-    var days = (CONFIG.livePill && CONFIG.livePill.weeklyDays) || 3;
-    if(!week) return '';
-    var a = week.start.split('-'), t = IMT.todayIso().split('-');
-    var sinceMonday = Math.round((Date.UTC(+t[0], +t[1] - 1, +t[2]) - Date.UTC(+a[0], +a[1] - 1, +a[2])) / 86400000);
-    return sinceMonday < days ? weeklyPillText(week) : '';
+  function normalPill(groupKey){
+    if(CONFIG.examSeat && !CONFIG.examSeat.locked) return examPill();
+    var st = IMT.weekState(window.WEEKLY_DATA, groupKey);
+    if(st.state === 'live') return weeklyPill(st.week);
+    if(st.state === 'missing'){
+      return { text: (CONFIG.livePill && CONFIG.livePill.missingLabel) || 'New week\'s schedule not uploaded yet', stale: true };
+    }
+    return null;
   }
-  // A test roll's preview pill, or the normal one for everybody else.
   function pillFor(s){
     var preview = ((CONFIG.livePill && CONFIG.livePill.preview) || {})[s && s.isTest ? s.roll : ''];
-    if(preview === 'exam') return examPillText();
+    if(preview === 'exam') return examPill();
     if(preview === 'weekly'){
       var week = IMT.pickWeek((window.WEEKLY_DATA || {})[s.groupKey]);
-      if(week) return weeklyPillText(week);
+      if(week) return weeklyPill(week);
     }
-    return normalPill();
+    return normalPill(s.groupKey);
   }
   showPill(normalPill());
 

@@ -21,9 +21,10 @@ codes, term dates, course lists, handbook rules) is in
 | Weekly | Built for all six batch-and-programme groups, week of 5-11 Oct 2026 |
 | Exam Seat | Built, locked. Each student sees their own term: "Term 5 exams coming soon" or "Term 2 exams coming soon" |
 | Master data from the college's files | Built: 1,328 students, 6 course lists, 6 weekly schedules |
-| Weekly update | One command, from an inbox folder |
+| Weekly update | From the upload page in a browser (weekly PDFs), or one command on Khush's machine (everything) |
 | Usage tracking | On (Google Analytics 4) |
-| Study Material tab | Not built yet (planned next) |
+| Study Material | Built: third button on the portal, opens the term-wise SharePoint folder |
+| Upload page | Built at `/upload/`; needs an access key created once by Khush |
 | Published | Yes, but the live site still shows the build of 7 Oct. The master-data build of 8 Oct is local only until pushed |
 
 ## Batch tracker
@@ -95,8 +96,10 @@ python scripts/update.py
 
 Then commit and push.
 
-**Every week:** drop all the new weekly PDFs (core, BFS, DCP, both batches)
-into `all files/_inbox/` and run the command. It takes a few seconds.
+**Every week:** either send the PDFs through the upload page (see "Uploading
+from the browser"), or drop them into `all files/_inbox/` and run the
+command. Student lists, allocation sheets and anything else go the second
+way only.
 
 **Checks.** A schedule is skipped, with a message, rather than loaded wrongly
 if: its class count differs from the raw PDF text, its time slots or a day
@@ -166,11 +169,15 @@ any student whatever the timeline says. Real batches switch by date.
   ("Term 5 exams coming soon").
 - Greeting: "Hey {name}" with the name as in the college's file, then
   programme, batch, term, and section or major and minor.
-- **Live pill** above the heading. "Live · 5 Oct - 11 Oct"
-  shows only when every batch and programme on campus has that week loaded,
-  from Monday for three days, and is gone on Thursday. While Exam Seat is
-  unlocked it shows "Exam seating is live" instead, for as long as it stays
-  unlocked.
+- **Pill above the heading.** Green "Live · 5 Oct - 11 Oct" for the whole
+  week while that week's schedule is loaded. Red "New week's schedule not
+  uploaded yet" once a week has begun without its schedule. Hidden during
+  End Term Exams. While Exam Seat is unlocked it shows "Exam seating is
+  live" and nothing else. Before a roll is entered it speaks for every batch
+  and programme on campus; after, for that student's own.
+- **Study Material** button under Weekly and Exam Seat: opens the term-wise
+  study material folder (SharePoint) in a new tab. The link is
+  `studyMaterial.url` in `js/portal-config.js`.
 - The cursive accent word in every heading is always in capitals.
 - One Disclaimer box in every page's footer: the portal is still in
   development, built from schedules and lists shared by students, so a detail may be missing or out of date; problems and ideas are
@@ -180,7 +187,10 @@ any student whatever the timeline says. Real batches switch by date.
 
 **Weekly**
 - Classes grouped by day with time, room, section or track, and session
-  number. "Today" tag, "No classes" on free days, "Clash" tag when two of a
+  number. **Today's day is at the top**, tagged "Today", followed by the rest
+  of the week, then the days already gone under "Earlier this week". (When
+  the week on screen doesn't include today, days are in calendar order.)
+  "No classes" on free days, "Clash" tag when two of a
   student's classes share a slot.
 - Day notes and one-off entries from the schedule ("SSR Visits", "ADP
   Placement Process") appear on the right day, with their time.
@@ -200,6 +210,8 @@ any student whatever the timeline says. Real batches switch by date.
 - Terms held at the Dubai campus say so instead of "coming soon".
 
 **Exam Seat**
+- Today's papers are at the top, tagged "Today", then the days still to
+  come, then earlier papers. The PDF stays in calendar order.
 - Subject, date, time, hall and seat per paper, Add to Calendar, Save as PDF,
   with the student's name and programme from the master student list.
 
@@ -226,7 +238,7 @@ Google Analytics 4, on since 6 Oct 2026 (Measurement ID `G-F0R29KD608` in
 |---|---|
 | How many people came | Users and page views (automatic) |
 | How many typed a roll number | Event `roll_search`, `result` = `found`, `batch_only`, `not_found` |
-| How many opened Weekly or Exam Seat | Event `tool_open`, by `tool`, with `status` (`shown`, `locked`, `no_schedule`, `no_roster`, `no_seat`, `alumni`) |
+| How many opened Weekly, Exam Seat or Study Material | Event `tool_open`, by `tool` (`weekly`, `exam_seat`, `study_material`), with `status` (`shown`, `locked`, `no_schedule`, `no_roster`, `no_seat`, `alumni`) |
 | How many saved a PDF | Event `save_pdf`, by `tool` |
 | How many added to calendar | Event `add_to_calendar`, by `tool` |
 | How many tapped Exam Seat while locked | Event `locked_tool_click` |
@@ -276,11 +288,8 @@ cannot be counted.
 
 ## What is left
 
-0. **Upload page for weekly schedules** (asked for on 8 Oct 2026): log in,
-   drop the week's PDFs, site updates by itself. Plan proposed, waiting for
-   Khush's go-ahead; see "Planned: upload without a laptop" below.
-1. **Study Material tab**: a third button on the portal leading to term-wise
-   study material. Needs the link from Khush.
+1. Khush creates the access key for the upload page (see "Uploading from the
+   browser") and tries a real upload.
 2. UI and content changes (next round).
 3. Exam Seat rework for the Term 2 and Term 5 exams, using the master student
    list and course lists to show each student only their own paper.
@@ -296,39 +305,61 @@ cannot be counted.
 | PGDM Finance 2026-28 handbook | Confirming it follows the core calendar | Waiting |
 | Design Thinking group lists (2026-28 core groups 1-11, DCP groups A-C) | Showing each student only their own group | Not yet asked for; would tidy the Wednesday and Saturday lists |
 | Handbooks for 2025-27 BFS and DCP | Real term dates and alumni dates for them | Only if they exist |
-| Study material link | The Study Material tab | Waiting |
-| Each week's schedule PDFs, all groups | Weekly update | Every week, into `all files/_inbox/` |
+| Each week's schedule PDFs, all groups | Weekly update | Every week, through `/upload/` or into `all files/_inbox/` |
 | Seating-plan Excel for the Term 2 and Term 5 exams | Unlocking Exam Seat | When released |
 | Revised student or registration lists | Whenever sections or registrations change | As needed |
 
 Received: all six groups' Week of 5 Oct schedules and course allocation
-sheets; student lists for all six groups (BFS 2025-27 as two elective lists); handbooks for PGDM, Marketing,
+sheets; student lists for all six groups (BFS 2025-27 as two elective lists);
+the study material link; handbooks for PGDM, Marketing,
 BFS and DCP 2026-28 and PGDM 2025-27; Google Analytics ID.
 
-## Planned: upload without a laptop
+## Uploading from the browser
 
-Not built. The site is static files on GitHub Pages, so there is no server to
-log in to; an upload page needs somewhere private to keep the college's files
-and something to run `scripts/update.py`.
+`https://khushg17.github.io/imt-never-sleeps/upload/` is an admin page for
+sending the week's schedule PDFs from any phone or computer. It is not linked
+from the site and asks search engines not to list it.
 
-Recommended shape:
+**How it works.** The site is static files on GitHub Pages, so there is no
+server of our own to log in to. The page talks to GitHub directly:
 
-1. A **private** GitHub repository holds `all files/` and the scripts. The
-   public repository keeps only the site and its generated data, as now.
-2. A **GitHub Action** in the private repository runs `scripts/update.py`
-   whenever a file lands in `all files/_inbox/`, then pushes the rebuilt
-   site data to the public repository. The site updates about two minutes
-   later, and the Action's log shows any file it skipped and why.
-3. **Uploading** is then a drag-and-drop into `_inbox` on github.com or the
-   GitHub phone app, signed in as Khush. That works the day the Action exists.
-4. Optionally, a small **upload page** on the site: one password field and a
-   drop zone. The "password" is a GitHub access token limited to that one
-   private repository, typed in each time or remembered by the browser; the
-   page sends the PDFs straight to GitHub. No server to run or pay for.
+1. You paste an **access key** (a GitHub token, see below). The page checks
+   it can write to the repository.
+2. You drop the PDFs. The page adds them to `uploads/_inbox/` in one commit.
+3. That commit starts the GitHub Action `Weekly schedule upload`, which runs
+   `python scripts/update.py --uploads`: it files each PDF under
+   `uploads/batch <year>/<group>/term <n>/weekly/`, reads it against the
+   course lists already in `data/master/courses.json`, adds the week to
+   `data/master/weekly/`, rebuilds `weekly-seat/js/weekly-data.js` and commits.
+4. The page waits for the Action (about two minutes) and shows, per file,
+   whether it was loaded or why not, from `uploads/last-run.json`.
 
-What it needs from Khush: creating the private repository and one access
-token. What it does not solve: a schedule in a layout the reader has never
-seen still needs a code fix before it loads.
+**Creating the access key (once).** On github.com: Settings, Developer
+settings, Personal access tokens, Fine-grained tokens, Generate new token.
+Repository access: only `imt-never-sleeps`. Permissions: **Contents: Read and
+write**, **Actions: Read-only**. Pick an expiry and copy the token; that is
+the access key. It is stored in the browser tab, or on the device if
+"Remember on this device" is ticked, and is sent only to api.github.com.
+"Sign out" forgets it. Anyone holding the key can change the repository, so
+share it with nobody; if it leaks, delete it on GitHub and make a new one.
+
+**Limits.**
+- Weekly schedule PDFs only. Student lists and allocation sheets hold
+  personal details and stay in `all files/` on Khush's machine, which is
+  never uploaded; the Action therefore cannot rebuild students or course
+  lists and never touches them.
+- Uploaded weekly PDFs are stored in the public repository under `uploads/`.
+  They contain timetables and faculty initials, no student data.
+- A new term's first week needs that term's course list loaded from Khush's
+  machine first, or classes show as abbreviations until it is.
+- A schedule in a layout the reader has never seen is reported as not loaded
+  and needs a code fix.
+- After uploading from the browser, run `git pull` before the next local
+  `python scripts/update.py`, so the local copy has the uploaded PDFs. The
+  full run reads both `all files/` and `uploads/`.
+
+**Without the page.** Dropping PDFs into `uploads/_inbox/` on github.com or
+in the GitHub phone app does the same thing.
 
 ## Data check, 8 Oct 2026
 
@@ -389,7 +420,7 @@ Shown as printed, not corrected.
 ```
 index.html                    Portal
 css/styles.css                Shared design system
-js/portal-config.js           Settings: lock, live pill, tracking, test roll
+js/portal-config.js           Settings: lock, pill, study material, upload, tracking, test rolls
 js/common.js                  Roll lookup, timeline, greeting, tracking
 js/portal.js                  Portal page logic
 js/site-data.js               Generated: programmes and timeline
@@ -398,7 +429,10 @@ weekly-seat/                  Weekly page; js/weekly-data.js is generated
 exam-seat/                    Exam Seat page, logic, config and data
 data/config/                  Hand-edited settings (see above)
 data/master/                  Generated master data (see above)
-scripts/update.py             The one update command
+upload/                       The admin upload page
+uploads/                      Weekly PDFs sent from the upload page, and its last report
+.github/workflows/weekly-upload.yml   Runs the update when PDFs arrive
+scripts/update.py             The one update command (--uploads on GitHub)
 scripts/parsers.py            Readers for the college's file layouts
 scripts/generate_exam_data.py Seating-plan Excel to exam data
 docs/IMT.md                   What we know about IMT
@@ -428,6 +462,12 @@ unknown rolls and programme codes rejected; Exam Seat lock and `TEST` bypass;
 layout at 320, 390 and 768 px for every group. 50 of 50 checks passed, no
 console errors. The inbox was tested with renamed copies of a schedule, a
 student list and an allocation sheet, and a stray text file.
+
+Also on 8 Oct: today-first ordering on five dates for Weekly and Exam Seat;
+the pill on seven dates (green all week, red from the next Monday, hidden in
+exams); the upload page against a pretend GitHub at 390 and 1280 px (wrong
+key, read-only key, non-PDF refused, one commit to `uploads/_inbox/`, result
+and failed-run screens, sign out); the Study Material button.
 
 Not tested: a second week arriving (the week-switch button), since only one
 week exists so far.

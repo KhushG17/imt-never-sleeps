@@ -392,8 +392,18 @@
 
     lastResult = { roll: v, groups: groups };
 
+    // today's papers come first, then the days still to come, then the days gone
+    var isoOf = function(g){
+      var d = parseDate(g.date);
+      return d ? d.y + '-' + pad2(d.mo) + '-' + pad2(d.d) : '';
+    };
+    var order = window.IMT.todayFirst(groups.map(isoOf));
+    // the divider is needed whenever days gone follow days still to come
+    var hasToday = order.some(function(o){ return o.past; }) && order.some(function(o){ return !o.past; });
+    var earlierShown = false;
     var cardIndex = 0;
-    listEl.innerHTML = groups.map(function(g, gi){
+    listEl.innerHTML = order.map(function(o){
+      var g = groups[o.i], gi = o.i;
       var tint = TINTS[gi % TINTS.length];
       var cards = g.items.map(function(entry){
         var b = BLOCKS[entry[0]];
@@ -417,7 +427,13 @@
               'Add to Calendar</a>' : '')+
           '</div>';
       }).join('');
-      return '<div class="day-group"><div class="day-title">'+shortDate(g.date)+'</div><div class="card-grid">'+cards+'</div></div>';
+      var divider = '';
+      if(hasToday && o.past && !earlierShown){
+        earlierShown = true;
+        divider = '<div class="earlier-divider">Earlier papers</div>';
+      }
+      return divider + '<div class="day-group' + (o.today ? ' is-today' : '') + (o.past && hasToday ? ' is-past' : '') + '"><div class="day-title">'+shortDate(g.date)+
+        (o.today ? '<span class="today-badge">Today</span>' : '')+'</div><div class="card-grid">'+cards+'</div></div>';
     }).join('');
 
     results.hidden = false;
