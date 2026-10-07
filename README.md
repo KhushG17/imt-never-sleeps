@@ -149,8 +149,8 @@ Two dummy students, defined in `data/config/overrides.json` and listed in
 
 | Roll | Who | What it shows |
 |---|---|---|
-| `TEST` | "Test Student", PGDM Marketing, Batch 2025-27, Major MKT, Minor BA | A full week in Weekly. The only roll that opens Exam Seat while it is locked (8 sample papers under the `TEST` key in `exam-seat/js/exam-data.js`) |
-| `TESTA` | "Test Alumni", PGDM, Batch 2025-27 | The alumni experience: "Hey Alumni, Test Alumni", "Once IMT, always IMT", Weekly says Term 6 is done, Exam Seat says "No more exams, you have graduated" |
+| `TEST` | "Test Student", PGDM Marketing, Batch 2025-27, Major MKT, Minor BA | A full week in Weekly. The only roll that opens Exam Seat while it is locked (8 sample papers under the `TEST` key in `exam-seat/js/exam-data.js`). Shows the weekly live pill ("Live · 5 Oct - 11 Oct") on any day |
+| `TESTA` | "Test Alumni", PGDM, Batch 2025-27 | The alumni experience: "Hey Alumni, Test Alumni", "Once IMT, always IMT", Weekly says Term 6 is done, Exam Seat says "No more exams, you have graduated". Shows the exam live pill ("Exam seating is live") on any day |
 
 `TESTA` is alumni because its record says `"alumni": true`, which works for
 any student whatever the timeline says. Real batches switch by date.
@@ -172,6 +172,11 @@ any student whatever the timeline says. Real batches switch by date.
   unlocked it shows "Exam seating is live" instead, for as long as it stays
   unlocked.
 - The cursive accent word in every heading is always in capitals.
+- One Disclaimer box in every page's footer: the portal is still in
+  development, built from schedules and lists shared by students, so a detail may be missing or out of date; problems and ideas are
+  welcome through the Feedback form; then the page's own points (unofficial
+  tool, confirm against the official schedule, anonymous usage counts). It is
+  wider on desktop, with the note and the points side by side.
 
 **Weekly**
 - Classes grouped by day with time, room, section or track, and session

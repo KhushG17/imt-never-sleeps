@@ -24,8 +24,11 @@ window.PORTAL_CONFIG = {
   //                week loaded.
   // While Exam Seat is unlocked the pill shows examSeat.liveLabel instead,
   // for as long as it stays unlocked.
+  //   preview    - the pill a test roll shows after it is entered, on any day:
+  //                "weekly" or "exam". Everyone else gets the real one.
   livePill: {
-    weeklyDays: 3
+    weeklyDays: 3,
+    preview: { "TEST": "weekly", "TESTA": "exam" }
   },
 
   // Usage tracking with Google Analytics 4. Paste the property's Measurement

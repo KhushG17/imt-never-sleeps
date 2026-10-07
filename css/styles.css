@@ -599,3 +599,18 @@ a.btn-ghost{ text-decoration:none; }
   background:var(--color-sky-wash); color:var(--color-nautical-teal);
 }
 @media print{ .elective-badge{ display:none!important; } }
+
+/* links inside a footer note */
+.disclaimer-text a{ color:var(--color-nautical-teal); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
+.disclaimer-text a:hover{ color:var(--color-imt-navy); }
+
+/* ---------- footer disclaimer: one box, wider on desktop ----------
+   The note and the bullet points stack on phones and sit side by side on
+   wide screens. */
+.disclaimer{ max-width:860px; padding:20px 24px; }
+.disclaimer-body{ display:grid; gap:12px; }
+@media (min-width:860px){
+  .disclaimer{ padding:24px 32px; }
+  .disclaimer-body{ grid-template-columns:1.25fr 1fr; gap:36px; align-items:start; }
+  .disclaimer-text, .disclaimer-list li{ font-size:12.5px; line-height:1.6; }
+}

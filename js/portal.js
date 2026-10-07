@@ -28,6 +28,7 @@
     searchCard.hidden = false;
     stepsStrip.hidden = false;
     errBox.hidden = true;
+    showPill(normalPill());
     rollInput.focus();
   });
 
@@ -83,6 +84,7 @@
     searchCard.hidden = true;
     stepsStrip.hidden = true;
     greetCard.hidden = false;
+    showPill(pillFor(s));
   }
 
   IMT.attachTilt(document.querySelectorAll('.step'));
@@ -92,28 +94,42 @@
   // Weekly: shown only once every batch and programme on campus has this
   // week's schedule loaded, and only for the first few days of the week
   // (livePill.weeklyDays in js/portal-config.js: 3 = gone on Thursday).
-  (function(){
-    var pill = document.getElementById('livePill');
-    var text = '';
-    if(CONFIG.examSeat && !CONFIG.examSeat.locked){
-      text = CONFIG.examSeat.liveLabel || 'Exam seating is live';
-    } else {
-      var week = IMT.liveWeek(window.WEEKLY_DATA);
-      var days = (CONFIG.livePill && CONFIG.livePill.weeklyDays) || 3;
-      if(week){
-        var a = week.start.split('-'), b = week.end.split('-'), t = IMT.todayIso().split('-');
-        var sinceMonday = Math.round((Date.UTC(+t[0], +t[1] - 1, +t[2]) - Date.UTC(+a[0], +a[1] - 1, +a[2])) / 86400000);
-        var M = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-        if(sinceMonday < days){
-          text = 'Live · ' + (+a[2]) + ' ' + M[+a[1]] + ' - ' + (+b[2]) + ' ' + M[+b[1]];
-        }
-      }
+  // The test rolls force one pill each (livePill.preview), so both can be
+  // looked at on any day.
+  var pill = document.getElementById('livePill');
+  var MONTHS = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function weeklyPillText(week){
+    var a = week.start.split('-'), b = week.end.split('-');
+    return 'Live · ' + (+a[2]) + ' ' + MONTHS[+a[1]] + ' - ' + (+b[2]) + ' ' + MONTHS[+b[1]];
+  }
+  function examPillText(){
+    return (CONFIG.examSeat && CONFIG.examSeat.liveLabel) || 'Exam seating is live';
+  }
+  function showPill(text){
+    document.getElementById('livePillText').textContent = text;
+    pill.hidden = !text;
+  }
+  // What everyone sees, from the real state of the site today.
+  function normalPill(){
+    if(CONFIG.examSeat && !CONFIG.examSeat.locked) return examPillText();
+    var week = IMT.liveWeek(window.WEEKLY_DATA);
+    var days = (CONFIG.livePill && CONFIG.livePill.weeklyDays) || 3;
+    if(!week) return '';
+    var a = week.start.split('-'), t = IMT.todayIso().split('-');
+    var sinceMonday = Math.round((Date.UTC(+t[0], +t[1] - 1, +t[2]) - Date.UTC(+a[0], +a[1] - 1, +a[2])) / 86400000);
+    return sinceMonday < days ? weeklyPillText(week) : '';
+  }
+  // A test roll's preview pill, or the normal one for everybody else.
+  function pillFor(s){
+    var preview = ((CONFIG.livePill && CONFIG.livePill.preview) || {})[s && s.isTest ? s.roll : ''];
+    if(preview === 'exam') return examPillText();
+    if(preview === 'weekly'){
+      var week = IMT.pickWeek((window.WEEKLY_DATA || {})[s.groupKey]);
+      if(week) return weeklyPillText(week);
     }
-    if(text){
-      document.getElementById('livePillText').textContent = text;
-      pill.hidden = false;
-    }
-  })();
+    return normalPill();
+  }
+  showPill(normalPill());
 
   // Coming back from a tool ("Back to portal") lands on the greeting again.
   var fromUrl = IMT.rollFromUrl();
