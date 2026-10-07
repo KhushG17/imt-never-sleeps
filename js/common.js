@@ -222,6 +222,19 @@
     window.gtag('event', name, params);
   }
 
+  // The Study Material icon in the header, next to Feedback. Its link is
+  // studyMaterial.url in js/portal-config.js; with no link it stays hidden.
+  var studyNav = document.getElementById('studyNav');
+  var studyUrl = (CONFIG.studyMaterial && CONFIG.studyMaterial.url) || '';
+  if(studyNav && studyUrl){
+    studyNav.href = studyUrl;
+    studyNav.hidden = false;
+    studyNav.addEventListener('click', function(){
+      var typed = document.getElementById('roll');
+      track('tool_open', student(rollFromUrl() || (typed ? typed.value : '')), { tool: 'study_material', status: 'shown' });
+    });
+  }
+
   var siteHeader = document.getElementById('siteHeader');
   if(siteHeader){
     window.addEventListener('scroll', function(){

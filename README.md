@@ -23,7 +23,7 @@ codes, term dates, course lists, handbook rules) is in
 | Master data from the college's files | Built: 1,328 students, 6 course lists, 6 weekly schedules |
 | Weekly update | From the upload page in a browser (weekly PDFs), or one command on Khush's machine (everything) |
 | Usage tracking | On (Google Analytics 4) |
-| Study Material | Built: third button on the portal, opens the term-wise SharePoint folder |
+| Study Material | Built: icon in the header next to Feedback, opens the term-wise SharePoint folder |
 | Upload page | Built at `/upload/`; needs an access key created once by Khush |
 | Published | Yes, but the live site still shows the build of 7 Oct. The master-data build of 8 Oct is local only until pushed |
 
@@ -93,6 +93,12 @@ python scripts/update.py
 3. **Rebuilds what the pages load**: `js/roster-data.js`,
    `js/site-data.js`, `weekly-seat/js/weekly-data.js` (the two newest weeks
    per group, so next week can be loaded early without hiding this week).
+
+4. **Re-stamps the pages.** Every link to a script or stylesheet carries a
+   short fingerprint of that file (`portal.js?v=3f9a1c2e`), so a visitor's
+   browser fetches a file again the moment it changes instead of showing a
+   stored copy for up to ten minutes. Run the command after changing any
+   script or style too, not only data.
 
 Then commit and push.
 
@@ -175,9 +181,10 @@ any student whatever the timeline says. Real batches switch by date.
   End Term Exams. While Exam Seat is unlocked it shows "Exam seating is
   live" and nothing else. Before a roll is entered it speaks for every batch
   and programme on campus; after, for that student's own.
-- **Study Material** button under Weekly and Exam Seat: opens the term-wise
-  study material folder (SharePoint) in a new tab. The link is
-  `studyMaterial.url` in `js/portal-config.js`.
+- **Study Material** is a small book icon in the header, next to Feedback,
+  on the portal, Weekly and Exam Seat. It opens the term-wise study material
+  folder (SharePoint) in a new tab. The link is `studyMaterial.url` in
+  `js/portal-config.js`; with no link the icon is hidden.
 - The cursive accent word in every heading is always in capitals.
 - One Disclaimer box in every page's footer: the portal is still in
   development, built from schedules and lists shared by students, so a detail may be missing or out of date; problems and ideas are

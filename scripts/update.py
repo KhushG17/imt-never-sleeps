@@ -18,7 +18,8 @@ Full run (no flag), every time:
         students.json   every student: programme, batch, section, courses
         courses.json    course lists per batch, group and term
         weekly/         every week ever received, per batch and group
- 3. Rebuilds the three files the pages load:
+ 3. Rebuilds the three files the pages load, and re-stamps the pages' links
+    to scripts and styles so browsers fetch whatever changed:
         js/site-data.js                 programmes and term timeline
         js/roster-data.js               every student, compact
         weekly-seat/js/weekly-data.js   the two newest weeks per group
@@ -319,6 +320,33 @@ def summary(students, weeks):
         print("\n%d file(s) need attention - see the SKIPPED / INBOX lines above." % len(skipped))
 
 
+PAGES = ["index.html", "weekly-seat/index.html", "exam-seat/index.html", "upload/index.html"]
+
+
+def stamp_pages():
+    """Give every local script and stylesheet link a ?v=<fingerprint of the file>.
+    Browsers keep these files for a while; a link that changes whenever the
+    file does makes them fetch the new one straight away, so nobody is left
+    looking at last week's data or an old button."""
+    import hashlib
+    for name in PAGES:
+        page = ROOT / name
+        if not page.exists():
+            continue
+        html = page.read_text(encoding="utf-8")
+
+        def stamp(m):
+            target = (page.parent / m.group(2)).resolve()
+            if not target.is_file():
+                return m.group(0)
+            digest = hashlib.md5(target.read_bytes().replace(b"\r\n", b"\n")).hexdigest()[:8]
+            return '%s="%s?v=%s"' % (m.group(1), m.group(2), digest)
+
+        stamped = re.sub(r'(src|href)="(?!https?:|//)([^"?#]+\.(?:js|css))(?:\?v=[0-9a-f]+)?"', stamp, html)
+        if stamped != html:
+            page.write_text(stamped, encoding="utf-8", newline="\n")
+
+
 # ------------------------------------------------- the upload page's weekly run
 
 def run_uploads(timeline, overrides):
@@ -344,6 +372,7 @@ def run_uploads(timeline, overrides):
         "messages": [{"kind": k, "text": t} for k, t in messages if k != "WEEK"],
     }
     write_json(UPLOADS / "last-run.json", report)
+    stamp_pages()
     print("\n%d week(s) on file from uploads." % len(loaded))
 
 
@@ -360,4 +389,5 @@ if __name__ == "__main__":
         file_inbox(SOURCE, timeline)
         courses, students, weeks = build_master(overrides)
         build_site(courses, students, weeks, timeline)
+        stamp_pages()
         summary(students, weeks)

@@ -18,15 +18,6 @@
   var examSub = document.getElementById('examSub');
   var clearBtn = document.getElementById('clearBtn');
   var EXAM_SUB_OPEN = examSub.textContent;
-  var studyBtn = document.getElementById('studyBtn');
-  var STUDY_URL = (CONFIG.studyMaterial && CONFIG.studyMaterial.url) || '';
-  if(STUDY_URL){
-    studyBtn.href = STUDY_URL;
-    studyBtn.hidden = false;
-    studyBtn.addEventListener('click', function(){
-      IMT.track('tool_open', IMT.student(rollInput.value), { tool: 'study_material', status: 'shown' });
-    });
-  }
 
   rollInput.addEventListener('input', function(){ errBox.hidden = true; });
   rollInput.addEventListener('keydown', function(e){ if(e.key === 'Enter') doSearch(true); });
