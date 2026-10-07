@@ -201,7 +201,7 @@
   // One function for every page, so the event names and what is sent stay in
   // one place. Sent: the event name, the batch, and the few labels the caller
   // passes (which tool, what the visitor saw). Never sent: roll numbers,
-  // names or courses. The test roll is not counted. Page views are counted
+  // names or courses - including in page addresses, see below. The test roll is not counted. Page views are counted
   // automatically by Google Analytics once the ID is set.
   var GA_ID = (CONFIG.analytics && CONFIG.analytics.measurementId) || '';
   var trackingOn = !!GA_ID && window.location.protocol !== 'file:';
@@ -209,7 +209,13 @@
     window.dataLayer = window.dataLayer || [];
     window.gtag = function(){ window.dataLayer.push(arguments); };
     window.gtag('js', new Date());
-    window.gtag('config', GA_ID);
+    // Google records each page's address and the address it was reached
+    // from. Ours can end in ?roll=..., so both are sent without anything
+    // after the "?": a roll number never leaves the site this way either.
+    var bare = function(url){ return String(url || '').split('?')[0].split('#')[0]; };
+    var clean = { page_location: bare(window.location.href), page_referrer: bare(document.referrer) };
+    window.gtag('set', clean);
+    window.gtag('config', GA_ID, clean);
     var ga = document.createElement('script');
     ga.async = true;
     ga.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_ID);

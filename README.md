@@ -252,7 +252,12 @@ Google Analytics 4, on since 6 Oct 2026 (Measurement ID `G-F0R29KD608` in
 
 Every event carries `batch`. `tool`, `status`, `result` and `batch` are
 registered as event-scoped custom dimensions. Never sent: roll numbers, names,
-courses. `TEST` is not counted. Calendar icons clicked inside a downloaded PDF
+courses. Page addresses and referrers are sent to Google without anything
+after the "?", because ours carry `?roll=`. **Until 8 Oct 2026 they were sent
+whole**, so roll numbers (never names) reached Google Analytics inside page
+addresses from 6 to 8 Oct; that is fixed, and the stored addresses can be
+removed in GA with a data deletion request (Admin, Data deletion requests,
+parameter `page_location` and `page_referrer`). `TEST` is not counted. Calendar icons clicked inside a downloaded PDF
 cannot be counted.
 
 ## Decisions made
