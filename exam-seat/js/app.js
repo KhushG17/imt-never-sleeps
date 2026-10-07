@@ -262,7 +262,7 @@
     doc.setFontSize(7.5);
     doc.setTextColor.apply(doc, PDF_MUTED);
     var disclaimerLines = doc.splitTextToSize(
-      'Unofficial tool built from IMT Ghaziabad\'s official seating plan. Subjects are matched by term, not by individual course; please confirm your exact paper against the official datesheet.',
+      'Unofficial, and still in development. This plan is built from the seating plan and lists shared by students, so a detail may occasionally be missing or out of date. Subjects are matched by term, not by individual course, so please confirm your exact paper, hall and seat against the official datesheet and notice board.',
       maxTextW
     );
     var creditY = pageH - 12;
@@ -275,6 +275,12 @@
     doc.setFontSize(8);
     doc.setTextColor.apply(doc, PDF_NAVY);
     doc.textWithLink('Created by Khush Goyal', marginX, creditY, { url: 'https://www.linkedin.com/in/khushgoyal17/' });
+    // the feedback form, right-aligned on the credit line
+    var feedbackUrl = window.IMT.config.feedbackUrl;
+    if(feedbackUrl){
+      var fbText = 'Something wrong, or an idea? Give feedback';
+      doc.textWithLink(fbText, pageW - marginX - doc.getTextWidth(fbText), creditY, { url: feedbackUrl });
+    }
 
     return doc;
   }

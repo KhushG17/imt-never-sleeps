@@ -28,6 +28,11 @@ window.PORTAL_CONFIG = {
     preview: { "TEST": "weekly", "TESTA": "exam" }
   },
 
+  // The feedback form. Printed as a link at the foot of both PDFs. (The
+  // Feedback button and the disclaimer link on the pages carry the same
+  // address in the HTML; change it there too if it ever moves.)
+  feedbackUrl: "https://forms.gle/y2CWo8Nq7o2GqytcA",
+
   // The Study Material button on the portal. It opens this link in a new
   // tab; the folder behind it is organised term-wise. Set url to "" to hide
   // the button.

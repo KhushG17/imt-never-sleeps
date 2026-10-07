@@ -392,7 +392,7 @@
     doc.setTextColor.apply(doc, PDF_MUTED);
     var disclaimerLines = doc.splitTextToSize(
       (view.banner ? view.banner + ' ' : '') +
-      'Unofficial tool built from IMT Ghaziabad\'s official weekly schedule and student lists. Classes get rescheduled; please confirm against the latest official schedule.',
+      'Unofficial, and still in development. This schedule is built from weekly schedules and lists shared by students, so a detail may occasionally be missing or out of date. Classes also get rescheduled, so please confirm against the latest official schedule.',
       maxTextW
     );
     var creditY = pageH - 12;
@@ -404,6 +404,12 @@
     doc.setFontSize(8);
     doc.setTextColor.apply(doc, PDF_NAVY);
     doc.textWithLink('Created by Khush Goyal', marginX, creditY, { url: 'https://www.linkedin.com/in/khushgoyal17/' });
+    // the feedback form, right-aligned on the credit line
+    var feedbackUrl = window.IMT.config.feedbackUrl;
+    if(feedbackUrl){
+      var fbText = 'Something wrong, or an idea? Give feedback';
+      doc.textWithLink(fbText, pageW - marginX - doc.getTextWidth(fbText), creditY, { url: feedbackUrl });
+    }
 
     return doc;
   }

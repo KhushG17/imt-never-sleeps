@@ -214,6 +214,10 @@ any student whatever the timeline says. Real batches switch by date.
 - Add to Calendar on every class (Google Calendar, real start and end, IST
   converted to UTC). Save as PDF: a table with a clickable calendar icon on
   every row.
+- Both PDFs end with the same disclaimer as the site (unofficial, still in
+  development, built from files shared by students, confirm against the
+  official schedule) and a clickable "Give feedback" link to the form
+  (`feedbackUrl` in `js/portal-config.js`).
 - Terms held at the Dubai campus say so instead of "coming soon".
 
 **Exam Seat**
