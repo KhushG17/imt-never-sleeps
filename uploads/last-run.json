@@ -1,5 +1,19 @@
 {
- "messages": [],
- "ranAt": "2026-10-07T20:13:20Z",
- "weeks": []
+ "messages": [
+  {
+   "kind": "FILED",
+   "text": "end-to-end-test.pdf -> batch 2028/dcp/term 2/weekly"
+  }
+ ],
+ "ranAt": "2026-10-07T20:13:36Z",
+ "weeks": [
+  {
+   "classes": 51,
+   "end": "2026-10-11",
+   "file": "end-to-end-test.pdf",
+   "group": "2028-dcp",
+   "start": "2026-10-05",
+   "term": 2
+  }
+ ]
 }
