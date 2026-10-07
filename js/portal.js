@@ -78,7 +78,7 @@
     examBtn.href = 'exam-seat/' + q;
     var locked = IMT.examSeatLocked(s);
     setLocked(examBtn, locked);
-    examSub.textContent = locked ? (CONFIG.examSeat.lockedLabel || 'Coming soon') : EXAM_SUB_OPEN;
+    examSub.textContent = locked ? IMT.examLockedLabel(s) : EXAM_SUB_OPEN;
 
     searchCard.hidden = true;
     stepsStrip.hidden = true;
@@ -86,6 +86,34 @@
   }
 
   IMT.attachTilt(document.querySelectorAll('.step'));
+
+  // ---- the "live" pill above the heading ----
+  // Exam seating: shown for as long as Exam Seat is unlocked.
+  // Weekly: shown only once every batch and programme on campus has this
+  // week's schedule loaded, and only for the first few days of the week
+  // (livePill.weeklyDays in js/portal-config.js: 3 = gone on Thursday).
+  (function(){
+    var pill = document.getElementById('livePill');
+    var text = '';
+    if(CONFIG.examSeat && !CONFIG.examSeat.locked){
+      text = CONFIG.examSeat.liveLabel || 'Exam seating is live';
+    } else {
+      var week = IMT.liveWeek(window.WEEKLY_DATA);
+      var days = (CONFIG.livePill && CONFIG.livePill.weeklyDays) || 3;
+      if(week){
+        var a = week.start.split('-'), b = week.end.split('-'), t = IMT.todayIso().split('-');
+        var sinceMonday = Math.round((Date.UTC(+t[0], +t[1] - 1, +t[2]) - Date.UTC(+a[0], +a[1] - 1, +a[2])) / 86400000);
+        var M = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        if(sinceMonday < days){
+          text = 'Live · ' + (+a[2]) + ' ' + M[+a[1]] + ' - ' + (+b[2]) + ' ' + M[+b[1]];
+        }
+      }
+    }
+    if(text){
+      document.getElementById('livePillText').textContent = text;
+      pill.hidden = false;
+    }
+  })();
 
   // Coming back from a tool ("Back to portal") lands on the greeting again.
   var fromUrl = IMT.rollFromUrl();

@@ -468,11 +468,11 @@
   var visitor = IMT.student(fromUrl);
   if(!fromUrl){
     window.location.replace('../');
-  } else if(!visitor.batchKey){
+  } else if(!visitor.groupKey){
     window.location.replace('../?roll=' + encodeURIComponent(fromUrl));
   } else if(IMT.examSeatLocked(visitor)){
     IMT.track('tool_open', visitor, { tool: 'exam_seat', status: 'locked' });
-    showCard('Exam Seat is locked', IMT.config.examSeat.lockedLabel + '.', fromUrl);
+    showCard('Exam Seat is locked', IMT.examLockedLabel(visitor) + '.', fromUrl);
   } else {
     IMT.track('tool_open', visitor, { tool: 'exam_seat', status: ROLLS[fromUrl] ? 'shown' : 'no_seat' });
     showSeats(fromUrl);

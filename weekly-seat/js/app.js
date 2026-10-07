@@ -1,12 +1,12 @@
 (function(){
 "use strict";
   var IMT = window.IMT;
-  var WEEKLY = window.WEEKLY_DATA || {}; // batch -> this week's schedule, see scripts/generate_weekly_data.py
+  // groupKey ("2027-core") -> the newest weeks on file, see scripts/update.py
+  var WEEKLY = window.WEEKLY_DATA || {};
   var TINTS = ['var(--color-sky-wash)','var(--color-peach-wash)','var(--color-mint-wash)'];
   var DAY_NAMES = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
   var MONTHS = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  // session tuple: [dayIndex, slotIndex, course, section, session no., room]
-  var S_DAY = 0, S_SLOT = 1, S_COURSE = 2, S_SEC = 3, S_NUM = 4, S_ROOM = 5;
+  var CAL_ICON = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M16 3v4M8 3v4M3 11h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
 
   var notice = document.getElementById('notice');
   var noticeTitle = document.getElementById('noticeTitle');
@@ -18,10 +18,13 @@
   var nameOut = document.getElementById('nameOut');
   var metaOut = document.getElementById('metaOut');
   var countOut = document.getElementById('countOut');
+  var bannerEl = document.getElementById('banner');
   var pdfBtn = document.getElementById('pdfBtn');
   var backBtn = document.getElementById('backBtn');
+  var otherBtn = document.getElementById('otherWeekBtn');
+  var eyebrow = document.getElementById('eyebrow');
 
-  var lastResult = null; // {student, data, sessions} for the current search, used to build the PDF
+  var lastResult = null; // {student, data, view} for what is on screen, used to build the PDF
 
   // ---- formatting ----
   function parseIso(iso){
@@ -32,10 +35,12 @@
     var dt = parseIso(data.days[dayIdx].date);
     return DAY_NAMES[dayIdx] + ', ' + dt.d + ' ' + MONTHS[dt.mo] + ' ' + dt.y;
   }
+  function rangeLabel(data){
+    var a = parseIso(data.start), b = parseIso(data.end);
+    return a.d + ' ' + MONTHS[a.mo] + ' - ' + b.d + ' ' + MONTHS[b.mo] + ' ' + b.y;
+  }
   function weekLabel(data){
-    var a = parseIso(data.week.start), b = parseIso(data.week.end);
-    var range = a.d + ' ' + MONTHS[a.mo] + ' - ' + b.d + ' ' + MONTHS[b.mo] + ' ' + b.y;
-    return (data.week.number ? 'Week ' + data.week.number + ' · ' : '') + range;
+    return (data.weekNumber ? 'Week ' + data.weekNumber + ' · ' : '') + rangeLabel(data);
   }
   function minutes(hhmm){
     var p = hhmm.split(':');
@@ -45,18 +50,23 @@
     var m = minutes(hhmm), h = Math.floor(m / 60), mi = m % 60;
     return ((h + 11) % 12 + 1) + ':' + (mi < 10 ? '0' : '') + mi + ' ' + (h < 12 ? 'AM' : 'PM');
   }
-  function slotLabel(data, slotIdx){
-    var s = data.slots[slotIdx];
-    var a = clock(s[0]), b = clock(s[1]);
+  // slots s .. s+span-1 as one range
+  function slotLabel(data, s, span){
+    var a = clock(data.slots[s][0]), b = clock(data.slots[s + (span || 1) - 1][1]);
     // "2:00 - 3:15 PM" when both ends share AM/PM, so it fits one line on phones
     if(a.slice(-2) === b.slice(-2)) a = a.slice(0, -3);
     return a + ' - ' + b;
   }
-  function courseName(data, abbr){
-    return data.courses[abbr] ? data.courses[abbr].name : abbr;
+  function courseName(data, code){
+    return data.courses[code] || code;
+  }
+  // Which section or track a class is for, as shown on its card.
+  function rowText(x){
+    if(!x.row) return x.sec || '';
+    return x.row + (x.sec && x.row.slice(-x.sec.length - 1) !== '-' + x.sec && x.row !== x.sec ? ' · ' + x.sec : '');
   }
 
-  // ---- per-class "Add to Calendar" links ----
+  // ---- "Add to Calendar" links ----
   // Class times are IST wall-clock time, so convert IST -> UTC (IST is
   // UTC+5:30) for the link's dates param rather than appending a bare "Z".
   var IST_OFFSET_MIN = 5 * 60 + 30;
@@ -66,24 +76,74 @@
     return d.getUTCFullYear() + pad2(d.getUTCMonth() + 1) + pad2(d.getUTCDate()) +
       'T' + pad2(d.getUTCHours()) + pad2(d.getUTCMinutes()) + '00Z';
   }
-  function googleCalendarLink(data, s){
-    var dt = parseIso(data.days[s[S_DAY]].date);
-    var slot = data.slots[s[S_SLOT]];
+  function googleCalendarLink(data, dayIdx, s, span, title, details, room){
+    var dt = parseIso(data.days[dayIdx].date);
     var dayUtcMs = Date.UTC(dt.y, dt.mo - 1, dt.d) - IST_OFFSET_MIN * 60000;
     var params = {
       action: 'TEMPLATE',
-      text: courseName(data, s[S_COURSE]) + ' (Section ' + s[S_SEC] + ')',
-      dates: googleCalStamp(dayUtcMs + minutes(slot[0]) * 60000) + '/' + googleCalStamp(dayUtcMs + minutes(slot[1]) * 60000),
-      details: s[S_COURSE] + ' section ' + s[S_SEC] + ', session ' + s[S_NUM] + ', room ' + s[S_ROOM] +
-        '. Unofficial schedule from IMT Never Sleeps, always confirm against the official weekly schedule.',
-      location: s[S_ROOM]
+      text: title,
+      dates: googleCalStamp(dayUtcMs + minutes(data.slots[s][0]) * 60000) + '/' +
+        googleCalStamp(dayUtcMs + minutes(data.slots[s + (span || 1) - 1][1]) * 60000),
+      details: details + ' Unofficial schedule from IMT Never Sleeps, always confirm against the official weekly schedule.',
+      location: room || ''
     };
     return 'https://calendar.google.com/calendar/render?' + Object.keys(params).map(function(k){
       return k + '=' + encodeURIComponent(params[k]);
     }).join('&');
   }
+  function classLink(data, x){
+    var tag = x.grp ? 'Group ' + x.grp : rowText(x);
+    return googleCalendarLink(data, x.d, x.s, 1,
+      courseName(data, x.c) + (tag ? ' (' + (x.grp ? '' : (data.rowLabel || 'Section') + ' ') + tag + ')' : ''),
+      x.c + ', session ' + x.n + (x.room ? ', room ' + x.room : '') + '.', x.room);
+  }
 
-  // ---- the student's week ----
+  // ---- which classes are this student's ----
+  // The three schedule layouts differ only in what a class is matched on:
+  //   course  - the course and section the student registered for
+  //   section - the student's section
+  //   track   - the student's elective track
+  // When the thing to match on isn't loaded for this student, every row is
+  // shown, labelled, with a banner saying so, rather than nothing at all.
+  // Group sessions (e.g. Design Thinking groups) are listed for everyone in
+  // the programme, since group membership isn't in the files.
+  function buildView(data, s){
+    var view = { all: false, classes: [], groups: [], specials: [], banner: '' };
+    var key = data.mode === 'track' ? s.track : s.section;
+    var what = (data.rowLabel || 'section').toLowerCase();
+    if(data.mode === 'course'){
+      view.classes = data.sessions.filter(function(x){ return s.courses[x.c] === x.sec; });
+    } else {
+      view.all = !key;
+      if(view.all){
+        view.banner = 'Your ' + what + ' isn\'t loaded yet, so this shows every ' + what + ' of ' +
+          (s.programme || 'your programme') + '. Check the ' + what + ' on each class.';
+      }
+      // electives are tagged only while we don't know which one this student chose
+      view.tagElectives = data.electives.length > 0 && !s.electives;
+      if(view.tagElectives){
+        view.banner += (view.banner ? ' ' : '') + 'Classes tagged Elective are only for students who chose that course.';
+      }
+      data.sessions.forEach(function(x){
+        if(x.grp){ view.groups.push(x); return; }
+        if(!view.all && x.row !== key) return;
+        if(data.electives.indexOf(x.c) >= 0 && s.electives && s.electives.indexOf(x.c) < 0) return;
+        view.classes.push(x);
+      });
+      view.specials = data.specials.filter(function(sp){
+        return view.all || !sp.rows.length || sp.rows.indexOf(key) >= 0;
+      });
+    }
+    view.clash = {};
+    if(!view.all){
+      var seen = {};
+      view.classes.forEach(function(x){ var k = x.d + ':' + x.s; seen[k] = (seen[k] || 0) + 1; });
+      Object.keys(seen).forEach(function(k){ if(seen[k] > 1) view.clash[k] = true; });
+    }
+    return view;
+  }
+
+  // ---- page states ----
   pdfBtn.addEventListener('click', function(){ savePdf(); });
   listEl.addEventListener('click', function(e){
     if(lastResult && e.target.closest('.card-cal-link')){
@@ -99,70 +159,111 @@
     notice.hidden = false;
   }
 
-  function showWeek(s){
-    var data = WEEKLY[s.batchKey];
-    IMT.track('tool_open', s, { tool: 'weekly',
-      status: s.alumni ? 'alumni' : !data ? 'no_schedule' : !s.inRoster ? 'no_roster' : 'shown' });
-    if(s.alumni){
+  function detail(tint, k, v){
+    return '<div class="detail" style="--tint:' + tint + '"><div class="k">' + k + '</div><div class="v">' + IMT.escapeHtml(v) + '</div></div>';
+  }
+  function calLink(href){
+    return '<a class="card-cal-link" href="' + href + '" target="_blank" rel="noopener">' + CAL_ICON + 'Add to Calendar</a>';
+  }
+
+  function showWeek(s, data){
+    var weeks = WEEKLY[s.groupKey] || [];
+    data = data || IMT.pickWeek(weeks);
+    var status = s.alumni ? 'alumni' : !data ? 'no_schedule' :
+      (data.mode === 'course' && !Object.keys(s.courses).length) ? 'no_roster' : 'shown';
+    IMT.track('tool_open', s, { tool: 'weekly', status: status });
+    lastResult = null;
+    notice.hidden = true;
+    if(status === 'alumni'){
       showNotice(s, IMT.greeting(s), 'Term 6 is done, so there are no more weekly schedules for ' + s.batchLabel + '.');
       return;
     }
-    if(!data){
-      showNotice(s, IMT.greeting(s), 'The weekly schedule for ' + s.batchLabel + ' is coming soon.');
+    if(status === 'no_schedule'){
+      showNotice(s, IMT.greeting(s), s.campus === 'Dubai' ?
+        'Term ' + s.term + ' is at the Dubai campus. Weekly schedules here cover the Ghaziabad campus.' :
+        'The weekly schedule for ' + [s.programme, s.batchLabel].filter(Boolean).join(', ') + ' is coming soon.');
       return;
     }
-    if(!s.inRoster){
-      showNotice(s, IMT.greeting(s), 'Your course list for ' + s.batchLabel +
+    if(status === 'no_roster'){
+      showNotice(s, IMT.greeting(s), 'Your course registration for ' + s.batchLabel +
         ' isn\'t loaded yet, so we can\'t build your week. It\'s being added soon.');
       return;
     }
 
-    // A student's week = every session whose course + section they're registered in.
-    var mine = data.sessions.filter(function(x){ return s.courses[x[S_COURSE]] === x[S_SEC]; });
-    var perSlot = {};
-    mine.forEach(function(x){
-      var k = x[S_DAY] + ':' + x[S_SLOT];
-      perSlot[k] = (perSlot[k] || 0) + 1;
-    });
-    lastResult = { student: s, data: data, sessions: mine };
+    var view = buildView(data, s);
+    lastResult = { student: s, data: data, view: view };
+    var total = view.classes.length;
 
+    eyebrow.textContent = weekLabel(data);
+    eyebrow.hidden = false;
     weekOut.textContent = weekLabel(data);
     nameOut.textContent = IMT.greeting(s);
     metaOut.textContent = 'Roll number ' + s.roll + (IMT.metaLine(s) ? ' · ' + IMT.metaLine(s) : '');
-    countOut.textContent = mine.length + (mine.length === 1 ? ' class' : ' classes');
+    countOut.textContent = total + (total === 1 ? ' class' : ' classes') + (view.all ? ', all ' + data.rowLabel.toLowerCase() + 's' : '');
     backBtn.href = '../?roll=' + encodeURIComponent(s.roll);
+    bannerEl.textContent = view.banner;
+    bannerEl.hidden = !view.banner;
+
+    var other = weeks.filter(function(w){ return w.start !== data.start; })[0];
+    otherBtn.hidden = !other;
+    if(other){
+      otherBtn.textContent = (other.start > data.start ? 'Next week: ' : 'Previous week: ') + rangeLabel(other);
+      otherBtn.onclick = function(){ showWeek(s, other); window.scrollTo(0, 0); };
+    }
 
     var today = IMT.todayIso();
     var cardIndex = 0;
+    var third = data.rowLabel || 'Section';
     listEl.innerHTML = data.days.map(function(day, di){
-      var items = mine.filter(function(x){ return x[S_DAY] === di; });
       var tint = TINTS[di % TINTS.length];
+      var classes = view.classes.filter(function(x){ return x.d === di; });
+      var specials = view.specials.filter(function(sp){ return sp.d === di; });
+      var groups = view.groups.filter(function(x){ return x.d === di; });
       var title = '<div class="day-title">' + dayLabel(data, di) +
         (day.date === today ? '<span class="today-badge">Today</span>' : '') + '</div>';
-      var body = '';
-      if(day.note){
-        body += '<div class="day-note">' + IMT.escapeHtml(day.note) + '</div>';
+      var body = day.note ? '<div class="day-note">' + IMT.escapeHtml(day.note) + '</div>' : '';
+
+      // classes and one-off entries share the grid, in time order
+      var cards = classes.map(function(x){ return { s: x.s, row: x.row || '', html: function(){
+        var clash = view.clash[x.d + ':' + x.s];
+        return '<div class="exam-card" style="animation-delay:' + (cardIndex++ * 0.04).toFixed(2) + 's">' +
+          '<div class="exam-subject">' + IMT.escapeHtml(courseName(data, x.c)) +
+            (view.tagElectives && data.electives.indexOf(x.c) >= 0 ? '<span class="elective-badge">Elective</span>' : '') +
+            (clash ? '<span class="clash-badge">Clash</span>' : '') + '</div>' +
+          '<div class="detail-grid">' +
+            detail(tint, 'Time', slotLabel(data, x.s)) + detail(tint, 'Room', x.room || '-') +
+            detail(tint, third, rowText(x) || '-') + detail(tint, 'Session', x.n) +
+          '</div>' + calLink(classLink(data, x)) + '</div>';
+      }}; }).concat(specials.map(function(sp){ return { s: sp.s, row: '', html: function(){
+        return '<div class="exam-card" style="animation-delay:' + (cardIndex++ * 0.04).toFixed(2) + 's">' +
+          '<div class="exam-subject">' + IMT.escapeHtml(sp.text) + '</div>' +
+          '<div class="detail-grid">' +
+            detail(tint, 'Time', slotLabel(data, sp.s, sp.span)) +
+            detail(tint, third + (sp.rows.length > 1 ? 's' : ''), sp.rows.join(', ') || 'All') +
+          '</div>' +
+          calLink(googleCalendarLink(data, sp.d, sp.s, sp.span, sp.text, 'As printed on the weekly schedule.', '')) + '</div>';
+      }}; }));
+      cards.sort(function(a, b){ return a.s - b.s || (a.row < b.row ? -1 : a.row > b.row ? 1 : 0); });
+      if(cards.length){
+        body += '<div class="card-grid">' + cards.map(function(c){ return c.html(); }).join('') + '</div>';
       }
-      if(items.length){
-        body += '<div class="card-grid">' + items.map(function(x){
-          var delay = (cardIndex++ * 0.04).toFixed(2);
-          var clash = perSlot[x[S_DAY] + ':' + x[S_SLOT]] > 1;
-          return '' +
-            '<div class="exam-card" style="animation-delay:' + delay + 's">' +
-              '<div class="exam-subject">' + IMT.escapeHtml(courseName(data, x[S_COURSE])) +
-                (clash ? '<span class="clash-badge">Clash</span>' : '') + '</div>' +
-              '<div class="detail-grid">' +
-                '<div class="detail" style="--tint:' + tint + '"><div class="k">Time</div><div class="v">' + slotLabel(data, x[S_SLOT]) + '</div></div>' +
-                '<div class="detail" style="--tint:' + tint + '"><div class="k">Room</div><div class="v">' + IMT.escapeHtml(x[S_ROOM]) + '</div></div>' +
-                '<div class="detail" style="--tint:' + tint + '"><div class="k">Section</div><div class="v">' + IMT.escapeHtml(x[S_SEC]) + '</div></div>' +
-                '<div class="detail" style="--tint:' + tint + '"><div class="k">Session</div><div class="v">' + x[S_NUM] + '</div></div>' +
-              '</div>' +
-              '<a class="card-cal-link" href="' + googleCalendarLink(data, x) + '" target="_blank" rel="noopener">' +
-                '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M16 3v4M8 3v4M3 11h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>' +
-                'Add to Calendar</a>' +
-            '</div>';
-        }).join('') + '</div>';
-      } else if(!day.note){
+
+      if(groups.length){
+        var byCourse = {};
+        groups.forEach(function(x){ (byCourse[x.c] = byCourse[x.c] || []).push(x); });
+        body += Object.keys(byCourse).map(function(code){
+          return '<div class="group-card">' +
+            '<div class="group-head">' + IMT.escapeHtml(courseName(data, code)) + ' <span>group sessions, attend only your own group</span></div>' +
+            '<ul class="group-list">' + byCourse[code].sort(function(a, b){ return a.grp - b.grp || a.s - b.s; }).map(function(x){
+              return '<li><span class="group-name">Group ' + IMT.escapeHtml(x.grp) + '</span>' +
+                '<span>' + slotLabel(data, x.s) + '</span><span>Room ' + IMT.escapeHtml(x.room || '-') + '</span>' +
+                '<span>Session ' + x.n + '</span>' +
+                '<a class="card-cal-link" href="' + classLink(data, x) + '" target="_blank" rel="noopener" aria-label="Add Group ' +
+                  IMT.escapeHtml(x.grp) + ' to calendar">' + CAL_ICON + '</a></li>';
+            }).join('') + '</ul></div>';
+        }).join('');
+      }
+      if(!cards.length && !groups.length && !day.note){
         body += '<div class="day-free">No classes</div>';
       }
       return '<div class="day-group' + (day.date === today ? ' is-today' : '') + '">' + title + body + '</div>';
@@ -191,7 +292,7 @@
   function buildPdf(){
     var jsPDFCtor = window.jspdf && window.jspdf.jsPDF;
     if(!jsPDFCtor || !lastResult) return null;
-    var s = lastResult.student, data = lastResult.data, mine = lastResult.sessions;
+    var s = lastResult.student, data = lastResult.data, view = lastResult.view;
 
     var doc = new jsPDFCtor({ unit:'mm', format:'a4' });
     var marginX = 16, y = 20;
@@ -221,37 +322,36 @@
     doc.setFont('helvetica','normal');
     doc.setFontSize(9);
     doc.setTextColor.apply(doc, PDF_MUTED);
-    doc.text(mine.length + (mine.length === 1 ? ' class' : ' classes'), pageW - marginX, y, { align:'right' });
+    doc.text(countOut.textContent, pageW - marginX, y, { align:'right' });
     y += 5;
     doc.setFontSize(9.5);
     doc.text([s.name, IMT.metaLine(s).replace(/ · /g, ', ')].filter(Boolean).join(', '), marginX, y);
     y += 6;
 
-    var rows = [];
-    var calLinks = [];
+    var third = data.rowLabel || 'Section';
+    var rows = [], calLinks = [];
     data.days.forEach(function(day, di){
-      var items = mine.filter(function(x){ return x[S_DAY] === di; });
-      if(day.note){
-        rows.push([dayLabel(data, di), '', day.note, '', '']);
-        calLinks.push(null);
-      }
-      items.forEach(function(x){
-        rows.push([
-          dayLabel(data, di),
-          slotLabel(data, x[S_SLOT]),
-          courseName(data, x[S_COURSE]),
-          x[S_SEC] + ' · ' + x[S_NUM],
-          x[S_ROOM]
-        ]);
-        calLinks.push(googleCalendarLink(data, x));
-      });
+      if(day.note){ rows.push([dayLabel(data, di), '', day.note, '', '']); calLinks.push(null); }
+      var items = view.classes.filter(function(x){ return x.d === di; }).map(function(x){
+        return { s: x.s, row: [dayLabel(data, di), slotLabel(data, x.s),
+          courseName(data, x.c) + (view.tagElectives && data.electives.indexOf(x.c) >= 0 ? ' (elective)' : ''),
+          (rowText(x) || '-') + ' · ' + x.n, x.room || '-'], link: classLink(data, x) };
+      }).concat(view.specials.filter(function(sp){ return sp.d === di; }).map(function(sp){
+        return { s: sp.s, row: [dayLabel(data, di), slotLabel(data, sp.s, sp.span), sp.text, sp.rows.join(', '), ''],
+          link: googleCalendarLink(data, sp.d, sp.s, sp.span, sp.text, 'As printed on the weekly schedule.', '') };
+      })).concat(view.groups.filter(function(x){ return x.d === di; }).map(function(x){
+        return { s: x.s, row: [dayLabel(data, di), slotLabel(data, x.s), courseName(data, x.c) + ', Group ' + x.grp + ' only',
+          'G' + x.grp + ' · ' + x.n, x.room || '-'], link: classLink(data, x) };
+      }));
+      items.sort(function(a, b){ return a.s - b.s; });
+      items.forEach(function(it){ rows.push(it.row); calLinks.push(it.link); });
     });
     var calIconSize = 3.2;
 
     doc.autoTable({
       startY: y,
       margin: { left: marginX, right: marginX, bottom: 26 },
-      head: [['Day','Time','Course','Sec · Session','Room']],
+      head: [['Day','Time','Course', third + ' · Session','Room']],
       body: rows,
       theme: 'grid',
       styles: { font:'helvetica', fontSize:8.5, cellPadding:2, textColor:PDF_INK, lineColor:[210,210,210], lineWidth:0.2, overflow:'linebreak' },
@@ -260,8 +360,8 @@
         0: { cellWidth: 30 },
         1: { cellWidth: 34 },
         2: { cellWidth: 'auto' },
-        3: { cellWidth: 24 },
-        4: { cellWidth: 28 + calIconSize + 3 }
+        3: { cellWidth: 28 },
+        4: { cellWidth: 26 + calIconSize + 3 }
       },
       // Calendar icon tucked into the Room cell - click it to add that class.
       didDrawCell: function(cell){
@@ -280,7 +380,8 @@
     doc.setFontSize(7.5);
     doc.setTextColor.apply(doc, PDF_MUTED);
     var disclaimerLines = doc.splitTextToSize(
-      'Unofficial tool built from IMT Ghaziabad\'s official weekly schedule and course registration list. Classes get rescheduled; please confirm against the latest official schedule.',
+      (view.banner ? view.banner + ' ' : '') +
+      'Unofficial tool built from IMT Ghaziabad\'s official weekly schedule and student lists. Classes get rescheduled; please confirm against the latest official schedule.',
       maxTextW
     );
     var creditY = pageH - 12;
@@ -301,22 +402,11 @@
     try{ doc = buildPdf(); }
     catch(e){ doc = null; }
     if(!doc){ window.alert('Could not prepare the PDF. Please try again.'); return; }
-    var week = lastResult.data.week.number ? '_week' + lastResult.data.week.number : '';
     try{
-      doc.save(lastResult.student.roll + week + '_schedule.pdf');
+      doc.save(lastResult.student.roll + '_week_of_' + lastResult.data.start + '_schedule.pdf');
       IMT.track('save_pdf', lastResult.student, { tool: 'weekly' });
     }
     catch(e){ window.alert('Could not save the PDF. Please try again.'); }
-  }
-
-  // The eyebrow names the newest week on file, whichever batch it belongs to.
-  var eyebrow = document.getElementById('eyebrow');
-  var latest = Object.keys(WEEKLY).map(function(k){ return WEEKLY[k]; }).sort(function(a, b){
-    return a.week.start < b.week.start ? 1 : -1;
-  })[0];
-  if(latest){
-    eyebrow.textContent = weekLabel(latest);
-    eyebrow.hidden = false;
   }
 
   // This page has no search of its own: the portal is the only way in, and
@@ -326,7 +416,7 @@
   var visitor = IMT.student(fromUrl);
   if(!fromUrl){
     window.location.replace('../');
-  } else if(!visitor.batchKey){
+  } else if(!visitor.groupKey){
     window.location.replace('../?roll=' + encodeURIComponent(fromUrl));
   } else {
     showWeek(visitor);

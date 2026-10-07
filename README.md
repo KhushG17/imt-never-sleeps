@@ -2,42 +2,137 @@
 
 A student portal for IMT Ghaziabad. Type a roll number, get a greeting, then
 open **Weekly** (this week's classes) or **Exam Seat** (hall and seat for each
-paper). Unofficial, built from the college's own schedule files.
+paper). Unofficial, built from the college's own files.
+
+Live at https://khushg17.github.io/imt-never-sleeps/ (repo
+`KhushG17/imt-never-sleeps`).
 
 This README is the live record of the project: what is built, what was
 decided, what was skipped, what is left, and which files are needed. It is
-updated with every change. Last updated: 6 Oct 2026.
+updated with every change. What we know about IMT itself (programmes, roll
+codes, term dates, course lists, handbook rules) is in
+[docs/IMT.md](docs/IMT.md). Last updated: 8 Oct 2026.
 
 ## Current status
 
 | Part | Status |
 |---|---|
-| Portal (roll number, greeting, two buttons) | Built |
-| Weekly, Batch 2025-27, Term 5 | Built, Week 1 (5-11 Oct 2026) loaded |
-| Weekly, Batch 2026-28, Term 2 | Not built, waiting on files |
-| Weekly, the one Batch 2025-27 course on its own schedule | Not built, waiting on files |
-| Exam Seat | Built, locked: "Term 2 & Term 5 exams coming soon" |
-| Test roll `TEST` | Works on all three pages |
-| Published online | Yes: https://khushg17.github.io/imt-never-sleeps/ (repo `KhushG17/imt-never-sleeps`) |
+| Portal (roll number, greeting, two buttons, live pill) | Built |
+| Weekly | Built for all six batch-and-programme groups, week of 5-11 Oct 2026 |
+| Exam Seat | Built, locked. Each student sees their own term: "Term 5 exams coming soon" or "Term 2 exams coming soon" |
+| Master data from the college's files | Built: 1,328 students, 6 course lists, 6 weekly schedules |
+| Weekly update | One command, from an inbox folder |
 | Usage tracking | On (Google Analytics 4) |
+| Study Material tab | Not built yet (planned next) |
+| Published | Yes, but the live site still shows the build of 7 Oct. The master-data build of 8 Oct is local only until pushed |
 
 ## Batch tracker
 
-Which batch is in which term, and what data is loaded for it. The term and
-alumni date are set in `js/portal-config.js`; update this table whenever they
-change or new data is loaded.
+One row per batch and schedule group. The term is worked out from
+`data/config/timeline.json` by date, never typed in.
 
-| Batch | Roll prefix | Current term | Roster loaded | Weekly loaded | Exam seats loaded | Alumni from |
+| Batch | Group (programmes) | Term now | Students loaded | Weekly loaded | Weekly shows | Alumni from |
 |---|---|---|---|---|---|---|
-| 2025-27 | 25 (one roll starts 24, two are `25FPM`) | 5 | 361 students, `data/roster-2027.json`, from "Student and Courses - Term V". Missing: students of the one separately scheduled course | Week 1, 5-11 Oct 2026 | Old cycle only (Sep 2026, Term 4), locked | Not set. Day after their last Term 6 exam |
-| 2026-28 | 26 | 2 | None | None | Old cycle only (Sep 2026, Term 1), locked | Not set |
+| 2025-27 | core (PGDM, Marketing, Finance) | 5 | 361, with each student's courses and course-sections | 5-11 Oct | Exactly the student's classes | 14 Mar 2027 (handbook, tentative) |
+| 2025-27 | BFS | 5 | 148, with their elective (SERM or BF); section taken from the elective for now | 5-11 Oct | Their section and only the elective they chose | 14 Mar 2027 (assumed) |
+| 2025-27 | DCP | 5 | 239, names only | 5-11 Oct | All five tracks, labelled, with a note | 14 Mar 2027 (assumed) |
+| 2026-28 | core (PGDM, Marketing, Finance) | 2 | 338, with section A-F | 5-11 Oct | The student's section, plus all Design Thinking groups | 13 Mar 2028 |
+| 2026-28 | BFS | 2 | 146, with section A or B | 5-11 Oct | The student's section | 13 Mar 2028 |
+| 2026-28 | DCP | 2 | 96, with section A or B | 5-11 Oct | The student's section | 13 Mar 2028 |
 
-A batch becomes alumni once its Term 6 exams are done. Until the date is
-entered, nobody is treated as alumni.
+Exam seats on file: the Sep 2026 cycle only (Term 1 and Term 4), locked.
+
+## How the data is arranged
+
+```
+all files/                         The college's files, exactly as received
+  _inbox/                          Drop new files here; update.py files them
+  batch 2027/
+    handbook/
+    core/term 5/                   Allocation sheet, student list
+    core/term 5/weekly/            Every weekly schedule PDF for that term
+    bfs/term 5/ ...                Same shape for each group
+    dcp/term 5/ ...
+  batch 2028/
+    handbook/
+    core/term 2/ ...  bfs/term 2/ ...  dcp/term 2/ ...
+
+data/config/                       Hand-edited settings
+  programmes.json                  Programme codes and schedule groups
+  timeline.json                    Term dates, exam windows, alumni dates
+  overrides.json                   Corrections, elective lists, the TEST roll
+
+data/master/                       Generated from "all files" every run
+  students.json                    Every student: programme, batch, section, courses
+  courses.json                     Course list per batch, group and term
+  weekly/<batch>-<group>/<monday>.json   Every week ever received
+```
+
+`all files/` is kept out of the public repo (it holds raw student lists and
+handbooks). `data/master/` and the three bundled files the pages load are
+published.
+
+Folders are by batch, then group, then **term**, because the course list
+changes every term and electives start in Term 4. A new term is a new
+`term N` folder; nothing is overwritten.
+
+## The update: one command
+
+```
+python scripts/update.py
+```
+
+1. **Files the inbox.** Each file in `all files/_inbox/` is opened and
+   recognised by its contents, whatever it is called: weekly schedule, course
+   allocation sheet or student list; which batch, which group, which term. It
+   is moved to the right `batch/group/term` folder under its original name. A
+   file it cannot place stays in the inbox and is reported.
+2. **Rebuilds the master data** by reading every file under `all files/`
+   again from scratch.
+3. **Rebuilds what the pages load**: `js/roster-data.js`,
+   `js/site-data.js`, `weekly-seat/js/weekly-data.js` (the two newest weeks
+   per group, so next week can be loaded early without hiding this week).
+
+Then commit and push.
+
+**Every week:** drop all the new weekly PDFs (core, BFS, DCP, both batches)
+into `all files/_inbox/` and run the command. It takes a few seconds.
+
+**Checks.** A schedule is skipped, with a message, rather than loaded wrongly
+if: its class count differs from the raw PDF text, its time slots or a day
+label can't be read, or its days fall outside one Monday-Sunday week. It notes
+(but still loads) skipped session numbers and course abbreviations with no
+name. A student list is skipped if a "Total" column disagrees with the courses
+read or an elective name matches no course; a roll number given to two
+different names is left out on its own and reported. Everything else still builds.
+
+**One-time setup:** `pip install pymupdf xlrd openpyxl`
+
+### What it can read
+
+| File | Layouts understood |
+|---|---|
+| Weekly schedule (PDF) | Rows by subject area with course-section cells (`CWB-C(1) PJ{C -201}`); rows by section with a venue (`SERM-(1)-SPP`, `HRM(1)FH`, `BC-A(1)-SHA`); rows by track (`VB-A(13)-MZ`); group sessions (`DTI-G-5(1)AT`); merged cells such as "ADP Placement Process"; whole-day notes such as "SSR Visits" |
+| Course allocation (PDF) | Any table with a course name and an abbreviation column |
+| Student list (xls, xlsx, PDF) | Any table with a "Roll No" or "Roll Number" column; reads name, section, major, minor, track, an "Elective Course" column, and course columns headed by a course's full name |
+
+Only roll number, name, section, major, minor, track and courses are ever
+taken from a student list. Emails, dates of birth, gender, state and phone
+numbers in the college's files are never read into the site's data.
+
+### Hand edits
+
+- **A new term's dates, or an alumni date:** `data/config/timeline.json`.
+- **A course abbreviation with the wrong or no name:** `overrides.json`,
+  under `courses`.
+- **Courses that are electives in a section-wise schedule** (so only students
+  who chose them see them): `overrides.json`, under `electives`.
+- **A new programme code:** `programmes.json`.
+- **Lock, pill, tracking, test roll:** `js/portal-config.js`.
+
+Run `python scripts/update.py` after editing anything in `data/config/`.
 
 ## Run it locally
-
-No build step. From this folder:
 
 ```
 python -m http.server 8000
@@ -45,453 +140,292 @@ python -m http.server 8000
 
 Then open http://localhost:8000 and type `TEST`. Use the local server, not a
 double-click on `index.html`: links between pages are clean folder addresses
-(`/weekly-seat/`, `/exam-seat/`, no `index.html`), which only a web server
-resolves.
+(`/weekly-seat/`, `/exam-seat/`), which only a web server resolves.
 
-## Greeting content
+## The test rolls
 
-What a visitor sees on the portal after entering a roll number.
+Two dummy students, defined in `data/config/overrides.json` and listed in
+`testRolls` in `js/portal-config.js`. Neither is counted in usage tracking.
 
-| Who | Heading | Line under the name | Message |
-|---|---|---|---|
-| Student in the roster | Hey {name} | Batch 2025-27 · Term 5 · Major MKT · Minor OPR | {Good morning. / Good afternoon. / Good evening. / Up late?} Your Term 5 schedule is ready. |
-| Student whose batch has no roster yet | Hey there | Batch 2026-28 · Term 2 | Your name and courses for Batch 2026-28 are not loaded yet. They will show up here once added. |
-| Alumni | Hey Alumni, {name} | Batch 2025-27 · Alumni · Major MKT · Minor OPR | Once IMT, always IMT. Good to see you back. |
-| Unknown roll | (none) | (none) | No student found for "{typed}". Check the roll number and try again. |
+| Roll | Who | What it shows |
+|---|---|---|
+| `TEST` | "Test Student", PGDM Marketing, Batch 2025-27, Major MKT, Minor BA | A full week in Weekly. The only roll that opens Exam Seat while it is locked (8 sample papers under the `TEST` key in `exam-seat/js/exam-data.js`) |
+| `TESTA` | "Test Alumni", PGDM, Batch 2025-27 | The alumni experience: "Hey Alumni, Test Alumni", "Once IMT, always IMT", Weekly says Term 6 is done, Exam Seat says "No more exams, you have graduated" |
 
-Time of day: morning 5 am to noon, afternoon to 5 pm, evening to 10 pm, "Up
-late?" from 10 pm to 5 am. The wording lives in `js/common.js` (`greeting`
-and `welcome`).
-
-Other messages: Exam Seat locked, "Term 2 & Term 5 exams coming soon."
-Weekly for a batch with no schedule, "The weekly schedule for {batch} is
-coming soon." Weekly for alumni, "Term 6 is done, so there are no more weekly
-schedules for {batch}."
-
-## The test roll
-
-Type `TEST` as the roll number. It is a dummy student ("Test Student", Batch
-2025-27, Major MKT, Minor BA) and exercises everything:
-
-- the portal greeting,
-- Weekly with 13 classes across the week, Add to Calendar and Save as PDF,
-- Exam Seat, which `TEST` alone can open while it is locked, with 8 sample
-  papers, Add to Calendar and Save as PDF.
-
-Its roster entry is in `data/roster-test.json` (run `python
-scripts/site_data.py` after editing it); its exam seats are under the `TEST`
-key in `exam-seat/js/exam-data.js`. To switch it off, set `testRoll` to
-`null` in `js/portal-config.js`.
+`TESTA` is alumni because its record says `"alumni": true`, which works for
+any student whatever the timeline says. Real batches switch by date.
 
 ## Features
 
 **Portal**
-- The only place a roll number is typed. Weekly and Exam Seat have no search
-  box of their own; each has a "Back to portal" button that returns to the
-  greeting. Opening a tool page directly, or with a roll the portal does not
-  know, sends the visitor to the portal.
-- One roll number field. Spaces, hyphens and lower case are ignored
-  (`25fpm-003` = `25FPM003`).
-- Greeting: "Hey {name}", with the name exactly as it appears in the college
-  sheet, then batch, term, major and minor.
-- Greeting message under the name: "Good morning / afternoon / evening" (or
-  "Up late?" from 10 pm to 5 am) plus "Your Term N schedule is ready."
-  Alumni get "Once IMT, always IMT. Good to see you back."
+- The only place a roll number is typed. Spaces, hyphens and lower case are
+  ignored. Weekly and Exam Seat have no search box; each has "Back to portal".
+- A roll number is batch + programme code + serial, so the programme, batch
+  and current term are known even for a student who is not in any list yet.
+- While Exam Seat is locked its button names the student's own term
+  ("Term 5 exams coming soon").
+- Greeting: "Hey {name}" with the name as in the college's file, then
+  programme, batch, term, and section or major and minor.
+- **Live pill** above the heading. "Live · 5 Oct - 11 Oct"
+  shows only when every batch and programme on campus has that week loaded,
+  from Monday for three days, and is gone on Thursday. While Exam Seat is
+  unlocked it shows "Exam seating is live" instead, for as long as it stays
+  unlocked.
 - The cursive accent word in every heading is always in capitals.
-- The portal hero has extra room above the heading, between the heading and
-  the search card, and below the steps, scaled to the screen height.
-- How-it-works strip: enter your roll number, pick Weekly or Exam Seat, save
-  as PDF or Add to Calendar.
-- Two buttons: Weekly and Exam Seat. Exam Seat is greyed out with a lock
-  while locked.
 
 **Weekly**
-- Every class the student is registered for this week, grouped by day, with
-  time, room, section and session number.
-- Day notes from the schedule (for example "SSR Visits" on Thursday).
-- "Today" tag on the current day; "No classes" on free days.
-- "Clash" tag when the official schedule puts two of the student's classes in
-  the same slot.
-- Add to Calendar on every class (Google Calendar, real start and end time,
-  IST converted to UTC).
-- Save as PDF: a one-page table, with a clickable calendar icon on every row.
+- Classes grouped by day with time, room, section or track, and session
+  number. "Today" tag, "No classes" on free days, "Clash" tag when two of a
+  student's classes share a slot.
+- Day notes and one-off entries from the schedule ("SSR Visits", "ADP
+  Placement Process") appear on the right day, with their time.
+- When the college's files don't yet say which section or track a student is
+  in, every section or track is shown, labelled, with a note at the top,
+  rather than nothing.
+- Electives in a section-wise schedule (2025-27 BFS, Term 5: SERM and
+  Behavioural Finance; every other subject is common): a student on an
+  elective list sees only the one they chose. A student on neither list sees
+  both, tagged "Elective".
+- Group sessions (Design Thinking groups) are listed for everyone in the
+  programme with the group number, since group membership isn't in the files.
+- If next week's schedule is already loaded, a button switches between weeks.
+- Add to Calendar on every class (Google Calendar, real start and end, IST
+  converted to UTC). Save as PDF: a table with a clickable calendar icon on
+  every row.
+- Terms held at the Dubai campus say so instead of "coming soon".
 
 **Exam Seat**
-- Subject, date, time, hall and seat per paper, Add to Calendar, Save as PDF.
-- Shows the student's name and batch from the roster.
+- Subject, date, time, hall and seat per paper, Add to Calendar, Save as PDF,
+  with the student's name and programme from the master student list.
+
+## Greeting content
+
+| Who | Heading | Line under the name | Message |
+|---|---|---|---|
+| Student in a list | Hey {name} | PGDM Marketing · Batch 2025-27 · Term 5 · Major MKT · Minor OPR | {Good morning. / Good afternoon. / Good evening. / Up late?} Your Term 5 schedule is ready. |
+| First-year in a list | Hey {name} | PGDM · Batch 2026-28 · Term 2 · Section A | Same |
+| Valid roll, not in any list | Hey there | PGDM BFS · Batch 2025-27 · Term 5 | Your name and section for PGDM BFS, Batch 2025-27 are not loaded yet. They will show up here once added. |
+| Alumni | Hey Alumni, {name} | PGDM · Batch 2025-27 · Alumni · ... | Once IMT, always IMT. Good to see you back. |
+| Unknown roll or programme code | (none) | (none) | No student found for "{typed}". Check the roll number and try again. |
+
+Time of day: morning 5 am to noon, afternoon to 5 pm, evening to 10 pm, "Up
+late?" from 10 pm to 5 am. Wording is in `js/common.js` (`greeting`,
+`welcome`).
 
 ## Usage tracking
 
-Built with Google Analytics 4 and **switched on since 6 Oct 2026**
-(Measurement ID `G-F0R29KD608`, set in `analytics.measurementId` in
-`js/portal-config.js`; set it to `""` to switch tracking off). Google's
-standard snippet is not pasted into the pages: `js/common.js` loads the same
-tag on every page from that one setting.
+Google Analytics 4, on since 6 Oct 2026 (Measurement ID `G-F0R29KD608` in
+`js/portal-config.js`; set it to `""` to switch off).
 
-| Question | Where to read it in Google Analytics |
+| Question | Where to read it |
 |---|---|
-| How many people came to the site | Users and page views (automatic) |
-| How many typed a roll number | Event `roll_search`, with `result` = `found`, `batch_only` or `not_found` |
-| How many opened Weekly, how many opened Exam Seat | Event `tool_open`, split by `tool` = `weekly` or `exam_seat`, with `status` (`shown`, `locked`, `no_schedule`, `no_roster`, `no_seat`, `alumni`) |
-| How many saved a PDF, per tool | Event `save_pdf`, split by `tool` |
-| How many added to calendar, per tool | Event `add_to_calendar`, split by `tool` |
+| How many people came | Users and page views (automatic) |
+| How many typed a roll number | Event `roll_search`, `result` = `found`, `batch_only`, `not_found` |
+| How many opened Weekly or Exam Seat | Event `tool_open`, by `tool`, with `status` (`shown`, `locked`, `no_schedule`, `no_roster`, `no_seat`, `alumni`) |
+| How many saved a PDF | Event `save_pdf`, by `tool` |
+| How many added to calendar | Event `add_to_calendar`, by `tool` |
 | How many tapped Exam Seat while locked | Event `locked_tool_click` |
 
-Every event also carries `batch` (for example "Batch 2025-27").
-
-- A roll number is typed once, on the portal, so `roll_search` is the single
-  count of roll entries. The per-tool split comes from `tool_open`.
-- Never sent: roll numbers, names, courses.
-- The `TEST` roll is not counted. Pages opened as local files send nothing.
-- Not counted: calendar icons clicked inside a downloaded PDF, since a PDF
-  cannot report back.
-- `tool`, `status`, `result` and `batch` are registered as event-scoped
-  custom dimensions in GA (done 6 Oct 2026), so reports can be split by
-  them. Events from before that date are not split.
-- All of it lives in one function, `track` in `js/common.js`.
-- The portal footer tells visitors that anonymous usage counts are collected.
+Every event carries `batch`. `tool`, `status`, `result` and `batch` are
+registered as event-scoped custom dimensions. Never sent: roll numbers, names,
+courses. `TEST` is not counted. Calendar icons clicked inside a downloaded PDF
+cannot be counted.
 
 ## Decisions made
 
-- **A, B, C are sections.** `CWB-B(2)` means Creating Winning Brands, section
-  B, session 2. A student sees a class only when the course and their section
-  letter in the "Student and Courses" sheet both match.
-- **Faculty names are not shown** anywhere in Weekly (page, PDF, calendar).
-- **Names are shown as they are** in the college sheet, not shortened.
-- **Alumni = Term 6 exams done.** Each batch has an `alumniFrom` date, the
-  day after its last Term 6 exam. From that date the greeting becomes "Hey
-  Alumni, {name}" and Weekly shows "Term 6 is done" instead of a schedule.
-- **Exam Seat is locked** between exam cycles, with the label "Term 2 & Term
-  5 exams coming soon".
-- **Roll prefix 25 = Batch 2025-27, currently Term 5. Prefix 26 = Batch
-  2026-28, currently Term 2.** A roster entry's own batch wins over the
-  prefix (one Batch 2025-27 roll starts with 24).
-- **Rework later, with all the files in hand.** Exam Seat's subject matching
-  and its separate config, and anything else the remaining files expose, get
-  reworked once every batch's and programme's files are here, not before.
-- **One site, one entry point.** Exam Seat must not behave like the old
-  standalone "Find your IMT exam seat" site: its search box and Clear button
-  are gone, replaced by "Back to portal". Weekly follows the same rule.
-- **Separate page per tool**, sharing the roster and design, so weekly churn
-  cannot break Exam Seat.
-- **One generated data file per batch** in `data/`, bundled into one file
-  per page, so updating one batch never touches another and the pages never
-  change.
-- The original `imt-exam-seat-finder` site is left untouched. This project
-  only copied from it.
+- **The college's files are the source of truth.** The master data is rebuilt
+  from them on every run, so it cannot drift, and their contents are never
+  edited.
+- **Arranged by batch, group and term**, with one inbox for new files.
+- **Every year has three terms; electives start in Term 4.** Year-one
+  schedules are matched by section, year-two core schedules by course and
+  course-section.
+- **A, B, C are sections.** `CWB-B(2)` is Creating Winning Brands, section B,
+  session 2.
+- **Alumni = Term 6 exams done.** Set per batch and group in the timeline.
+- **Faculty names are not shown** anywhere.
+- **Names are shown as they are** in the college's file.
+- **One site, one entry point.** No search box on the tool pages.
+- **Clean addresses**, no `index.html`.
+- **The lock message names the student's own term**: "Term 5 exams coming
+  soon" for a Term 5 student, "Term 2 exams coming soon" for a Term 2 one,
+  from `lockedLabel: "Term {term} exams coming soon"`.
+- **BFS 2025-27 sections come from the elective for now** (SERM = section A,
+  BF = section B, as the Week 1 schedule is laid out), agreed on 8 Oct 2026
+  as a stop-gap until Khush sends the section-wise list. It is one entry in
+  `overrides.json` (`sectionFromElective`); a section in a real student list
+  always wins, and the entry should be deleted when that list arrives.
+- **`all files/` is never uploaded to GitHub.** It is git-ignored.
+- **Exam Seat stays locked** between cycles; its subject matching gets
+  reworked when the next seating plan arrives, not before.
+- **Show everything, labelled, when the mapping is missing**, instead of
+  showing nothing or guessing.
+- The original `imt-exam-seat-finder` site is left untouched.
 
 ## Skipped for now
 
-- Hero bubbles around the heading: tried as flat chips and as 3D glass
-  spheres, removed on 6 Oct 2026 because they did not work visually.
 - Faculty names (decided against).
-- Week history or a next-week view: each weekly update replaces the last one.
-- Course-level subject matching in Exam Seat (still term-level, as before).
+- Hero bubbles: tried twice, removed.
+- Course-level subject matching in Exam Seat (still by batch and term).
 - An `.ics` calendar download (Google Calendar links only).
 
 ## What is left
 
-1. Batch 2026-28 Weekly. Their Term 1-3 schedule is organised section-wise,
-   not per elective, so it needs its own parser once the real file is seen.
-2. The one Batch 2025-27 course that runs on a separate schedule. Until then
-   those students see "your course list isn't loaded yet".
-3. Alumni dates: the last Term 6 exam date for each batch.
-4. Unlocking Exam Seat for the Term 2 and Term 5 exams.
+0. **Upload page for weekly schedules** (asked for on 8 Oct 2026): log in,
+   drop the week's PDFs, site updates by itself. Plan proposed, waiting for
+   Khush's go-ahead; see "Planned: upload without a laptop" below.
+1. **Study Material tab**: a third button on the portal leading to term-wise
+   study material. Needs the link from Khush.
+2. UI and content changes (next round).
+3. Exam Seat rework for the Term 2 and Term 5 exams, using the master student
+   list and course lists to show each student only their own paper.
+4. Push the 8 Oct build to the live site (see Privacy below).
 
-## Files needed from Khush
+## Files and details still needed from Khush
 
-| File or detail | Needed for | Status |
+| What | What it unlocks | Status |
 |---|---|---|
-| Batch 2026-28 weekly schedule (Term 2) | Weekly for rolls starting 26 | Waiting |
-| Batch 2026-28 student list with sections | Names and matching for that batch | Waiting |
-| Which programme codes `0601` and `0201` are | Naming programmes correctly, fixing Exam Seat subject matching | Waiting |
-| Schedule and student list for the separate Batch 2025-27 course | Weekly for those students | Waiting |
-| Student handbook, PGDM DCP 2026-28 | DCP structure, calendar, course lists | Received 6 Oct 2026 |
-| Student handbooks for the other programmes and for the 2025-27 batch | Term dates, course lists, programme rules for everyone else | Waiting |
-| Last Term 6 exam date for each batch | Switching that batch to alumni | Waiting (not urgent until Term 6) |
-| Next seating-plan Excel (Term 2 and Term 5 exams) | Unlocking Exam Seat | When released |
-| Google Analytics Measurement ID | Switching usage tracking on | Received 6 Oct 2026 |
-| Each new week's schedule PDF | Weekly update | Every week |
-| Revised "Student and Courses" sheet | Only if registrations change | As needed |
+| BFS 2025-27: section-wise student list | Replacing the stop-gap (section taken from the elective) with the real sections | Promised by Khush |
+| BFS 2025-27: corrected "BF Elective Course" list | Two students missing or doubtful (see oddities) | Waiting |
+| DCP 2025-27: each student's track (AQF, ITL, IBM-A, IBM-B, ITA) and Industry Project section | Track-exact weeks instead of all tracks | Waiting |
+| PGDM Finance 2026-28 handbook | Confirming it follows the core calendar | Waiting |
+| Design Thinking group lists (2026-28 core groups 1-11, DCP groups A-C) | Showing each student only their own group | Not yet asked for; would tidy the Wednesday and Saturday lists |
+| Handbooks for 2025-27 BFS and DCP | Real term dates and alumni dates for them | Only if they exist |
+| Study material link | The Study Material tab | Waiting |
+| Each week's schedule PDFs, all groups | Weekly update | Every week, into `all files/_inbox/` |
+| Seating-plan Excel for the Term 2 and Term 5 exams | Unlocking Exam Seat | When released |
+| Revised student or registration lists | Whenever sections or registrations change | As needed |
 
-## About IMT Ghaziabad (background)
+Received: all six groups' Week of 5 Oct schedules and course allocation
+sheets; student lists for all six groups (BFS 2025-27 as two elective lists); handbooks for PGDM, Marketing,
+BFS and DCP 2026-28 and PGDM 2025-27; Google Analytics ID.
 
-From public sources on 6 Oct 2026, mainly imt.edu. To be corrected against
-the student handbooks once Khush shares them; where this and the college's
-own files disagree, the files win.
+## Planned: upload without a laptop
 
-- **Full-time two-year programmes:** PGDM, PGDM Marketing, PGDM Finance
-  (Financial Management), PGDM Banking & Financial Services (launched 2019),
-  and PGDM Dual Country Programme (DCP). DCP students spend three terms at
-  the Dubai campus and three at Ghaziabad. There are also executive and
-  part-time PGDMs and a doctoral programme (the two `25FPM` rolls in the
-  roster).
-- **Shape of the two years:** six terms. Year one is mostly common core
-  courses taken in sections, which is why Term 1-3 schedules are
-  section-wise. Year two is electives chosen by a Major and a Minor, which is
-  why Term 4-6 schedules are per course and per section.
-- **Core courses named on imt.edu:** Marketing Management, Accounting for
-  Business Decisions, Organizational Behavior, Macroeconomics for Managers,
-  Operations Management, Business and Corporate Finance, Managerial
-  Accounting, Human Resource Management, Digital Business Strategy,
-  Entrepreneurial Manager, Strategic Management. These match the Term 1 names
-  already used in Exam Seat.
-- **Practice courses:** Summer Internship Project, Business Research or
-  Startup Incubation, Technology Readiness, Business Environment.
-- **Specialisation areas on imt.edu:** Marketing; Finance; Operations and
-  Supply Chain; Human Resource Management; Business Analytics; Information
-  Technology Management; Strategy, Innovation and Entrepreneurship; Economics
-  and Sustainability. The Term 5 files use the codes MKT, FIN, OPR, HRM, BA,
-  ITM and SIE.
-- **Not confirmed yet:** what "SSR Visits" stands for, which programme the
-  separately scheduled Batch 2025-27 course is, exact term dates, and the
-  rules on Major and Minor credit counts.
+Not built. The site is static files on GitHub Pages, so there is no server to
+log in to; an upload page needs somewhere private to keep the college's files
+and something to run `scripts/update.py`.
 
-## PGDM DCP 2026-28, from its student handbook
+Recommended shape:
 
-Source: the official handbook, saved at
-`handbooks/PGDM-DCP-2026-28-student-handbook.pdf` (112 pages, from the campus
-intranet, reachable only on campus; not published with this site). The
-handbook says dates and structure are tentative.
+1. A **private** GitHub repository holds `all files/` and the scripts. The
+   public repository keeps only the site and its generated data, as now.
+2. A **GitHub Action** in the private repository runs `scripts/update.py`
+   whenever a file lands in `all files/_inbox/`, then pushes the rebuilt
+   site data to the public repository. The site updates about two minutes
+   later, and the Action's log shows any file it skipped and why.
+3. **Uploading** is then a drag-and-drop into `_inbox` on github.com or the
+   GitHub phone app, signed in as Khush. That works the day the Action exists.
+4. Optionally, a small **upload page** on the site: one password field and a
+   drop zone. The "password" is a GitHub access token limited to that one
+   private repository, typed in each time or remembered by the browser; the
+   page sends the PDFs straight to GitHub. No server to run or pay for.
 
-**Where the batch is, term by term**
+What it needs from Khush: creating the private repository and one access
+token. What it does not solve: a schedule in a layout the reader has never
+seen still needs a code fix before it loads.
 
-| Term | Campus | Dates | End Term Exam |
-|---|---|---|---|
-| Foundation | Ghaziabad | 23 Jun - 12 Jul 2026 | |
-| I | Ghaziabad | 13 Jul - 4 Oct 2026 | 26 Sep - 4 Oct 2026 |
-| II | Ghaziabad | 5 Oct 2026 - 3 Jan 2027 | 26 Dec 2026 - 3 Jan 2027 |
-| III | Dubai | 11 Jan - 4 Apr 2027 | 29 Mar - 4 Apr 2027 |
-| IV + internship | Dubai | 5 Apr - 12 Sep 2027 | 6 - 12 Sep 2027 |
-| V | Dubai | 4 Oct - 31 Dec 2027 | 27 - 31 Dec 2027 |
-| VI | Ghaziabad | 3 Jan - 12 Mar 2028 | 6 - 12 Mar 2028 |
+## Data check, 8 Oct 2026
 
-So this batch needs Weekly and Exam Seat at Ghaziabad only in Terms I, II and
-VI. Its Term 6 exams end on 12 Mar 2028, so `alumniFrom` would be
-`2028-03-13` if DCP is tracked as its own batch.
+Every source compared with every other. Nothing here stops the site working.
 
-**Credits:** 105 in total. Core 36, practice 21, major electives 36,
-electives outside the major 12. One credit is 10 classroom hours, so a
-3-credit course is 30 hours, which is 24 sessions of 75 minutes.
+| Finding | Detail |
+|---|---|
+| Students in the Sep 2026 seating plan but on no list | 2025-27 core: 3 (250103105, 250103163, 250103181). 2025-27 BFS: 3 (250601093, 250601100, 250601109). 2026-28 core: 1 (260102027) plus two FPM rolls. They get a greeting without a name |
+| Students on a list but not in the Sep 2026 seating plan | One each in 2025-27 core, 2026-28 core and 2026-28 BFS. Probably joined late or sat no paper |
+| 2025-27 DCP | All 239 are absent from the Ghaziabad seating plan, as expected if their Term 4 exams were in Dubai |
+| Rolls that don't fit their list's pattern | 240102069 (a 2024 roll in the 2025-27 list) and 25FPM003, 25FPM004. Loaded as listed |
+| Same name on two consecutive rolls | Three pairs: 250103026/027, 250201081/082, 260101019/020. Possibly different people with the same name; left as they are |
+| 2025-27 core registrations | Every registered course-section exists in the schedule except ALCM and FIS, which have no class this week. Section counts agree with the allocation sheet. 17 students have a timetable clash this week |
+| 2026-28 core head count | The allocation sheet says 341 students; the student list has 338 |
+| BFS 2025-27 elective lists | One roll given to two names, one roll on both lists (see oddities) |
+| Course codes | Every code in every schedule now has a name. Three needed correcting by hand (BF, DAIB, IAF) |
+| Timeline | Each schedule's term and week number agree with the timeline. The 2025-27 handbook's own Term 4-5 dates did not, and were corrected |
 
-**Majors:** Marketing, Operations and Supply Chain, Finance. The minor (12
-credits) must be from a different area.
+## Privacy
 
-**Foundation (no credit):** Microeconomics, Quantitative Methods for Business,
-Case Learning Pedagogy, Personal Growth Lab, Spreadsheet Modelling,
-Introduction to Accounting and Finance, Introduction to Management.
-
-**Core (3 credits each):** Marketing Management, Accounting For Business
-Decisions, Organizational Behaviour, Macroeconomics for Managers, Operations
-Management, Business and Corporate Finance, Managerial Accounting, Human
-Resource Management, Digital Business Strategy, Entrepreneurial Manager,
-Strategic Management, Data Analytics and AI for Business, plus Indian
-Knowledge Systems for Contemporary Leaders (non-credit).
-
-**Practice:** Summer Internship Project, Business Research Project,
-Technology Readiness, Global Business Environment, Business Communication
-(3 each); Design Thinking, Critical Thinking, Legal Aspects of Business
-(2 each).
-
-**Electives:** Terms III and IV carry major electives 1 to 10, Term V major
-11 and minors 1 and 2, Term VI major 12 and minors 3 and 4. The handbook
-lists 12 Marketing, 13 Operations and Supply Chain (choose 12) and 12 Finance
-electives by name and code (pages 33-34).
-
-**Not in the handbook:** which core courses fall in Term I versus Term II,
-section names, roll number format, and what SSR stands for (it is mentioned
-once, as "SIP and SSR projects").
-
-**Still to settle:** whether the 2025-27 DCP batch followed the same pattern.
-If it did, that batch is in Dubai for Term V now, which would explain why it
-is not on the Ghaziabad Term V schedule.
-
-## What the loaded data shows
-
-Worked out on 6 Oct 2026 from the Term V student sheet (361 students), the
-Week 1 schedule and the Sep 2026 seating plan (1,100 students). These are
-patterns in the data, not official statements.
-
-**Roll numbers are batch + programme + serial.** A roll such as `25 0103 xxx` is
-batch 25, programme code `0103`, then a three-digit serial.
-
-| Code | 2025 batch | 2026 batch | What the data says |
-|---|---|---|---|
-| `0101` | 150 | 133 | Mixed majors (80 MKT, 56 FIN, 8 OPR, 6 HRM): the general PGDM |
-| `0102` | 31 | 27 | Every student is a FIN major: PGDM Finance |
-| `0103` | 178 | 178 | Every student is a MKT major: PGDM Marketing |
-| `0601` | 151 | 145 | Not in the Term V sheet at all. This is the separately scheduled programme. Its Sep 2026 papers were Wealth Management, Financial Derivatives, Risk Management in BFS-II, Banking and Treasury Management, SAPM, which reads like Banking & Financial Services. Khush says the separate programme is DCP. **To confirm which.** |
-| `0201` | none | 96 | Only in the 2026 batch. Its Sep 2026 papers match the DCP core list, and the DCP handbook puts DCP 2026-28 in Ghaziabad for Term I while an older DCP batch would be in Dubai. That fits DCP. **To confirm.** |
-| `FPM` | 2 | 2 | Doctoral students sitting PGDM courses |
-
-**Second year (Term 5), codes 0101-0103:**
-- 7 areas, 25 electives: MKT 6, FIN 5, SIE 4, HRM 3, ITM 3, OPR 2, BA 2.
-- Most students take 4 courses (277 of 361); 68 take 5; a few take 2, 3 or 6.
-- The usual split is 2 courses in the Major and 2 in the Minor (210 students).
-- Majors: MKT 258, FIN 87, OPR 8, HRM 6. Minors: BA 97, SIE 71, OPR 68,
-  HRM 56, ITM 31, MKT 21, FIN 14, and one "ES" (probably Economics and
-  Sustainability, which has no Term 5 course).
-- Sections hold 15 to 74 students. Popular courses split into 2 or 3 sections.
-
-**Weekly rhythm (Week 1):**
-- Seven slots of 75 minutes, 8:45 am to 8:00 pm.
-- Classes run on six days including Saturday and Sunday. Thursday was kept
-  free for SSR Visits. Friday, Saturday and Monday are the heaviest days.
-- A course usually meets in a double block (two slots back to back), and 2 to
-  4 times a week; three courses met 6 times.
-- Seven rooms: C-201, C-202, C-403, Eklavya, Chandragupta, Analytics, Gurukul.
-
-**Exams (Sep 2026 cycle):** 9 days, two sittings (10:00 am and 2:30 pm), 21
-halls. Students sat 4 to 8 papers; first-years mostly 6 to 8, second-years
-mostly 5 or 6.
-
-**Why it matters for the build:** the programme code means a student's
-programme can be read from the roll alone, before any roster is loaded. Exam
-Seat's subject matching still assumes "25 = Term 4 electives, 26 = Term 1
-core", which does not hold for code `0601`; it needs revisiting before the
-next unlock.
+The public site lets anyone who types a roll number see that student's name,
+programme, section and (for the 2025-27 core batch) courses, and the bundled
+student file is readable in the repo. The 7 Oct build published 361 students.
+The 8 Oct build covers 1,328 across both batches. Khush decides whether and
+when to push it.
 
 ## Known oddities in the college's files
 
-These come from the source files and are shown as printed, not corrected.
+Shown as printed, not corrected.
 
-- **Clashes:** 19 students have two different courses in the same slot in
-  Week 1 (for example VCPE section A and PDRM section B, both Saturday 8:45
-  am). Both are shown with a "Clash" tag.
-- **Two rooms each hold two classes at once in the PDF:** Chandragupta on
-  Monday 11:45 am (BIBC and CRA) and C-403 on Friday 2:00 pm (DSCS and EF).
-  Probably a typo in one room on the college's side.
-- **Fixed Income Securities and Adaptive Leadership** have no classes in Week
-  1, so students taking them see nothing for those courses this week.
-- The schedule writes `DSL1`; the allocation sheet writes `DSL-1`. The
-  schedule's spelling is used.
-
-## How updates work
-
-Everything a routine update touches is in one of three places:
-
-| What changes | Where | How |
-|---|---|---|
-| This week's classes | `data/weekly-<batch>.json` | One command, from the PDF |
-| Who is registered for what | `data/roster-<batch>.json` | One command, from the sheet |
-| A batch's term, the Exam Seat lock, alumni dates | `js/portal-config.js` | Edit one line |
-| A term's course list | `data/batch-<batch>.json` | Edit once per term |
-
-The pages never need editing for a data update or a new batch. Each command
-saves its batch's JSON file and then rebuilds the two files the pages load
-(`js/roster-data.js` and `weekly-seat/js/weekly-data.js`) from every batch's
-JSON, so one batch's update cannot touch another's. `scripts/site_data.py`
-is the single place that knows these paths.
-
-### Every week
-
-```
-python scripts/generate_weekly_data.py "path/to/Weekly Schedule.pdf"
-```
-
-The batch is read from the PDF's own title, so there is nothing else to
-type. It takes under a second. The script stops without writing anything if
-the PDF does not cross-check: a class count that differs from the raw text, a
-course or section not in the catalog, an unreadable time slot or day, or days
-outside one Monday-Sunday week. It prints warnings for skipped session
-numbers and double-booked rooms.
-
-Once the site is published there is one more step each week: commit and push.
-
-### When registrations change
-
-```
-python scripts/generate_roster_data.py 2027 "path/to/Student and Courses.xls"
-```
-
-Stops if a course column is unknown, a section letter is out of range, a
-student's "Total" does not match, or a roll appears twice.
-
-### Start of a new term
-
-1. Edit `data/batch-<year>.json`: the term number and the course list
-   (abbreviation exactly as the weekly schedule prints it, full name, area,
-   number of sections), from the Course & Faculty Allocation sheet.
-2. Set the batch's `term` in `js/portal-config.js`.
-3. Run the roster command on the new "Student and Courses" sheet.
-4. Run the weekly command on the first week's PDF.
-
-### A new batch or programme
-
-1. Add it to `batches` in `js/portal-config.js`.
-2. Create its `data/batch-<year>.json` catalog.
-3. Run the roster and weekly commands. No page edits.
-
-This holds only if its files have the same layout as Batch 2025-27's. A
-different layout (the section-wise Term 1-3 schedule is expected to be one)
-needs a new parser written once, which then saves to the same
-`data/weekly-<batch>.json` shape so nothing else changes.
-
-### One-time setup
-
-```
-pip install pymupdf xlrd openpyxl
-```
-
-## Settings: `js/portal-config.js`
-
-The one hand-edited settings file.
-
-- `batches`: for each batch, its label, roll prefix, current `term`, and
-  `alumniFrom` ("YYYY-MM-DD", the day after its last Term 6 exam). It is
-  `null` for both batches today, so the alumni greeting never shows yet.
-- `examSeat.locked` and `examSeat.lockedLabel`.
-- `testRoll`.
-
-## Unlocking Exam Seat for the next cycle
-
-1. `python scripts/generate_exam_data.py path/to/SeatingPlan.xlsx`
-   (rewrites `exam-seat/js/exam-data.js`; this drops the `TEST` exam entry
-   unless it is added back).
-2. Update `exam-seat/js/exam-config.js`: period, term label, roll prefix to
-   term number.
-3. Set `examSeat.locked` to `false` in `js/portal-config.js`.
+- **2025-27 core:** some students have two different courses in the same slot
+  (shown with a "Clash" tag). Two rooms each hold two classes at once
+  (Chandragupta, Mon 11:45 am: BIBC and CRA; C-403, Fri 2:00 pm: DSCS and EF).
+  Fixed Income Securities and Adaptive Leadership have no classes this week.
+- **2025-27 core registrations changed:** the registration sheet in
+  `all files/` differs from the one received on 6 Oct for 78 students. The
+  newer one is used.
+- **2025-27 BFS allocation sheet** gives Behavioural Finance the abbreviation
+  FIS, the same as Fixed Income Securities; the schedule uses BF. Corrected in
+  `overrides.json`.
+- **2025-27 BFS "BF Elective Course" list** gives roll 250601109 to two
+  different names (rows 50 and 51). Neither is loaded until the file is
+  corrected; that roll is greeted without a name. Roll 250601092 is on both
+  the BF and the SERM list, so that student is shown both electives. The two
+  lists hold 149 distinct rolls against roughly 151 who sat the Sep exams.
+- **2026-28 core allocation sheet** abbreviates Data Analytics and AI for
+  Business as DIB; the schedule uses DAIB. Corrected in `overrides.json`.
+- **2026-28 DCP schedule** has a course IAF that is not on its allocation
+  sheet. Named "Introduction to Accounting and Finance" in `overrides.json`
+  from the handbook's foundation list; to be confirmed.
+- **2026-28 core:** two session counters repeat a number in the week
+  (Design Thinking group 10, and Legal Aspects of Business in section C).
+- **2025-27 DCP:** Industry Project sections A and B sit in track rows (ITL,
+  IBM-A) that they may not belong to.
 
 ## Project structure
 
 ```
 index.html                    Portal
 css/styles.css                Shared design system
-js/portal-config.js           Settings (hand-edited)
-js/common.js                  Shared roll lookup, greeting, helpers
+js/portal-config.js           Settings: lock, live pill, tracking, test roll
+js/common.js                  Roll lookup, timeline, greeting, tracking
 js/portal.js                  Portal page logic
-js/roster-data.js             Generated: every batch's roster, bundled
-weekly-seat/index.html        Weekly page
-weekly-seat/js/app.js         Weekly logic, calendar links, PDF
-weekly-seat/js/weekly-data.js Generated: every batch's current week, bundled
+js/site-data.js               Generated: programmes and timeline
+js/roster-data.js             Generated: every student
+weekly-seat/                  Weekly page; js/weekly-data.js is generated
 exam-seat/                    Exam Seat page, logic, config and data
-data/batch-2027.json          Per-term course catalog (hand-edited)
-data/roster-2027.json         Generated roster, Batch 2025-27
-data/weekly-2027.json         Generated week, Batch 2025-27
-data/roster-test.json         The TEST roll (hand-edited)
-scripts/site_data.py          Where data lives and how it is bundled
-scripts/generate_*.py         The weekly, roster and exam generators
-assets/imt-logo.png           Logo
+data/config/                  Hand-edited settings (see above)
+data/master/                  Generated master data (see above)
+scripts/update.py             The one update command
+scripts/parsers.py            Readers for the college's file layouts
+scripts/generate_exam_data.py Seating-plan Excel to exam data
+docs/IMT.md                   What we know about IMT
 design/                       Design system notes and tokens (reference only)
-handbooks/                    Student handbooks from the college (not published)
-Fw__1st_Weekly_Schedule.../   The college's Term V source files (not published)
+assets/imt-logo.png           Logo
+all files/                    The college's files (not published)
 ```
 
-Removed on 6 Oct 2026 as no longer needed: the `imt-exam-seat-finder-reference/`
-copy of the old tool (everything in use was moved into this site; the original
-lives on in its own repo) and `PLAN.md` (the original brief, replaced by this
-README). The college's source files are kept because the generator scripts
-read them.
+## Unlocking Exam Seat for the next cycle
+
+1. `python scripts/generate_exam_data.py path/to/SeatingPlan.xlsx` (rewrites
+   `exam-seat/js/exam-data.js`; this drops the `TEST` exam entry unless it is
+   added back).
+2. Update `exam-seat/js/exam-config.js`: period, term label, roll prefix to
+   term number.
+3. Set `examSeat.locked` to `false` in `js/portal-config.js`. The portal pill
+   then shows "Exam seating is live" until it is locked again.
 
 ## Testing done
 
-Checked in Chrome on 6 Oct 2026: 10 page states at 7 screen widths (320 px to
-1440 px) for sideways scrolling, off-screen or clipped content and small tap
-targets, plus search, greeting, lock, calendar links and PDF downloads on all
-three pages, every tracking event (with a fake ID and the request to Google
-blocked), and the full journey portal, Exam Seat, back, Weekly, back,
-change roll. All passed, no console errors. One fix came out of it: the brand
-name was being cut off on 320 px phones.
+8 Oct 2026, in Chrome against the local server: one student from each of the
+six groups plus `TEST` opened Weekly from the portal, with the class count
+checked against the master data and a PDF saved for each; the live pill
+checked on six dates (shown Monday to Wednesday, hidden from Thursday and in a
+week with no data); the alumni greeting and term change checked by date;
+unknown rolls and programme codes rejected; Exam Seat lock and `TEST` bypass;
+layout at 320, 390 and 768 px for every group. 50 of 50 checks passed, no
+console errors. The inbox was tested with renamed copies of a schedule, a
+student list and an allocation sheet, and a stray text file.
+
+Not tested: a second week arriving (the week-switch button), since only one
+week exists so far.
 
 ## Credit
 

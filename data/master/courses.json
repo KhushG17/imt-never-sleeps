@@ -1,0 +1,411 @@
+{
+ "2027-bfs-5": {
+  "BF": {
+   "name": "Behavioural Finance"
+  },
+  "BFSI&STY": {
+   "credits": 2.0,
+   "name": "BFSI & Society"
+  },
+  "FIS": {
+   "credits": 3.0,
+   "name": "Fixed Income Securities"
+  },
+  "HRM": {
+   "credits": 3.0,
+   "name": "Human Resource Management"
+  },
+  "MLBFSI": {
+   "credits": 3.0,
+   "name": "Machine Learning for BFSI"
+  },
+  "SERM": {
+   "credits": 3.0,
+   "name": "Service Excellence & Relationship Management"
+  },
+  "VCPE": {
+   "credits": 3.0,
+   "name": "Venture Capital & Private Equity"
+  }
+ },
+ "2027-core-5": {
+  "ALCM": {
+   "area": "HRM",
+   "credits": 3.0,
+   "name": "Adaptive Leadership and Change Management",
+   "sections": 1
+  },
+  "BAM": {
+   "area": "BA",
+   "credits": 3.0,
+   "name": "Business Analytics for Managers",
+   "sections": 2
+  },
+  "BF": {
+   "area": "FIN",
+   "credits": 3.0,
+   "name": "Behavioral Finance",
+   "sections": 1
+  },
+  "BIBC": {
+   "area": "ITM",
+   "credits": 3.0,
+   "name": "Business Innovation Through Blockchain",
+   "sections": 1
+  },
+  "CCR": {
+   "area": "SE",
+   "credits": 3.0,
+   "name": "Consulting, Communication and Client Relations",
+   "sections": 1
+  },
+  "CL2": {
+   "area": "SE",
+   "credits": 3.0,
+   "name": "Consulting Lab II",
+   "sections": 1
+  },
+  "CM": {
+   "area": "MKT",
+   "credits": 3.0,
+   "name": "Channel Management",
+   "sections": 1
+  },
+  "CRA": {
+   "area": "FIN",
+   "credits": 3.0,
+   "name": "Credit Risk: Analysis, Evaluation and Management",
+   "sections": 1
+  },
+  "CRM": {
+   "area": "MKT",
+   "credits": 3.0,
+   "name": "Customer Relationship Management",
+   "sections": 1
+  },
+  "CSIW": {
+   "area": "HRM",
+   "credits": 3.0,
+   "name": "Creating and Sustaining an Inclusive Workplace",
+   "sections": 1
+  },
+  "CTM": {
+   "area": "MKT",
+   "credits": 3.0,
+   "name": "Customer and Trade Marketing",
+   "sections": 1
+  },
+  "CWB": {
+   "area": "MKT",
+   "credits": 3.0,
+   "name": "Creating Winning Brands",
+   "sections": 3
+  },
+  "DSCS": {
+   "area": "OPR",
+   "credits": 3.0,
+   "name": "Digital Supply Chain Strategy",
+   "sections": 1
+  },
+  "DSL-1": {
+   "area": "MKT",
+   "credits": 3.0,
+   "name": "Digital and Social Media Tools-Lab1",
+   "sections": 2
+  },
+  "EF": {
+   "area": "SE",
+   "credits": 3.0,
+   "name": "Entrepreneurial Finance",
+   "sections": 1
+  },
+  "FIS": {
+   "area": "FIN",
+   "credits": 3.0,
+   "name": "Fixed Income Securities",
+   "sections": 1
+  },
+  "FTBA": {
+   "area": "BA",
+   "credits": 3.0,
+   "name": "Forecasting Techniques for Business Applications",
+   "sections": 2
+  },
+  "HRST": {
+   "area": "SE",
+   "credits": 3.0,
+   "name": "HR for Start-ups",
+   "sections": 1
+  },
+  "ITC": {
+   "area": "ITM",
+   "credits": 3.0,
+   "name": "IT Consulting, Outsourcing and Vendor Management",
+   "sections": 1
+  },
+  "LDM": {
+   "area": "OPR",
+   "credits": 3.0,
+   "name": "Logistics and Distribution Management",
+   "sections": 1
+  },
+  "LEX": {
+   "area": "HRM",
+   "credits": 3.0,
+   "name": "Leadership Excellence: Creating High-Performing Teams",
+   "sections": 1
+  },
+  "MDP": {
+   "area": "ITM",
+   "credits": 3.0,
+   "name": "Managing Digital Products and Projects",
+   "sections": 1
+  },
+  "PAF": {
+   "area": "FIN",
+   "credits": 3.0,
+   "name": "Project Appraisal and Financing",
+   "sections": 1
+  },
+  "PDRM": {
+   "area": "MKT",
+   "credits": 3.0,
+   "name": "Pricing Dynamics and Revenue Management",
+   "sections": 2
+  },
+  "VCPE": {
+   "area": "FIN",
+   "credits": 3.0,
+   "name": "Venture Capital and Private Equity",
+   "sections": 1
+  }
+ },
+ "2027-dcp-5": {
+  "AIB": {
+   "area": "Information Technology and Analytics",
+   "credits": 3.0,
+   "name": "AI for Business"
+  },
+  "CMN": {
+   "area": "International Trade and Logistics",
+   "credits": 3.0,
+   "name": "Contract Management and Negotiations"
+  },
+  "CR": {
+   "area": "Advanced Quantitative Finance",
+   "credits": 3.0,
+   "name": "Corporate Restructuring"
+  },
+  "IBPP": {
+   "area": "International Business and Marketing",
+   "credits": 3.0,
+   "name": "International Business and Public Policy"
+  },
+  "IM": {
+   "area": "International Business and Marketing",
+   "credits": 3.0,
+   "name": "International Marketing"
+  },
+  "IP": {
+   "credits": 1.0,
+   "name": "Industry Project -I"
+  },
+  "ITL": {
+   "area": "International Trade and Logistics",
+   "credits": 3.0,
+   "name": "Information Technology for Logistics"
+  },
+  "MF": {
+   "area": "Advanced Quantitative Finance",
+   "credits": 3.0,
+   "name": "Mutual Funds / ETFs; Pension Funds; and Hedge Funds"
+  },
+  "SM": {
+   "area": "International Business and Marketing",
+   "credits": 3.0,
+   "name": "Services Management"
+  },
+  "SSP": {
+   "area": "International Trade and Logistics",
+   "credits": 3.0,
+   "name": "Strategic Sourcing and Procurement"
+  },
+  "VB": {
+   "area": "Advanced Quantitative Finance",
+   "credits": 3.0,
+   "name": "Valuation of Business"
+  }
+ },
+ "2028-bfs-2": {
+  "BV": {
+   "credits": 3.0,
+   "name": "Business Valuation"
+  },
+  "CB": {
+   "credits": 3.0,
+   "name": "Corporate Banking"
+  },
+  "FSA": {
+   "credits": 3.0,
+   "name": "Financial Statement Analysis"
+  },
+  "IFM": {
+   "credits": 3.0,
+   "name": "Introduction to Financial Markets"
+  },
+  "MM": {
+   "credits": 3.0,
+   "name": "Marketing Management"
+  },
+  "RMBFS-I": {
+   "credits": 3.0,
+   "name": "Risk Management in BFS-I"
+  },
+  "SEBP": {
+   "credits": 3.0,
+   "name": "Service Excellence in Banking Projects"
+  }
+ },
+ "2028-core-2": {
+  "BC": {
+   "area": "BC",
+   "credits": 1.0,
+   "name": "Business Communication",
+   "sections": 6
+  },
+  "BCF": {
+   "area": "FM",
+   "credits": 3.0,
+   "name": "Business and Corporate Finance",
+   "sections": 6
+  },
+  "BE": {
+   "area": "ES",
+   "credits": 1.0,
+   "name": "Business Environment",
+   "sections": 6
+  },
+  "BR": {
+   "area": "MM",
+   "credits": 1.0,
+   "name": "Business Research",
+   "sections": 6
+  },
+  "CTI": {
+   "area": "BC",
+   "credits": 2.0,
+   "name": "Critical Thinking",
+   "sections": 6
+  },
+  "DAIB": {
+   "name": "Data Analytics and AI for Business"
+  },
+  "DIB": {
+   "area": "BA",
+   "credits": 3.0,
+   "name": "Data Analytics and AI for Business",
+   "sections": 6
+  },
+  "DTI": {
+   "area": "SE",
+   "credits": 2.0,
+   "name": "Design Thinking",
+   "sections": 10
+  },
+  "HRM": {
+   "area": "HRM",
+   "credits": 3.0,
+   "name": "Human Resource Management",
+   "sections": 6
+  },
+  "LAB": {
+   "area": "ES",
+   "credits": 2.0,
+   "name": "Legal Aspects of Business",
+   "sections": 6
+  },
+  "MA": {
+   "area": "FM",
+   "credits": 3.0,
+   "name": "Managerial Accounting",
+   "sections": 6
+  },
+  "TR": {
+   "area": "ITM",
+   "credits": 1.0,
+   "name": "Technology Readiness",
+   "sections": 6
+  }
+ },
+ "2028-dcp-2": {
+  "BC": {
+   "area": "BC",
+   "credits": 1.5,
+   "name": "Business Communication",
+   "sections": 2
+  },
+  "DAIB": {
+   "area": "ITM",
+   "credits": 3.0,
+   "name": "Data Analytics and AI for Business",
+   "sections": 2
+  },
+  "DBS": {
+   "area": "ITM",
+   "credits": 3.0,
+   "name": "Digital Business Strategy",
+   "sections": 1
+  },
+  "DTI": {
+   "area": "SIE",
+   "credits": 2.0,
+   "name": "Design Thinking",
+   "sections": 2
+  },
+  "EM": {
+   "area": "SIE",
+   "credits": 3.0,
+   "name": "Entrepreneurial Manager",
+   "sections": 1
+  },
+  "FA": {
+   "area": "FIN",
+   "credits": 3.0,
+   "name": "Financial Accounting",
+   "sections": 1
+  },
+  "HRM": {
+   "area": "HR",
+   "credits": 3.0,
+   "name": "Human Resource Management",
+   "sections": 2
+  },
+  "IAF": {
+   "name": "Introduction to Accounting and Finance"
+  },
+  "LAB": {
+   "area": "ES",
+   "credits": 2.0,
+   "name": "Legal Aspects of Business",
+   "sections": 2
+  },
+  "MA": {
+   "area": "FIN",
+   "credits": 3.0,
+   "name": "Managerial Accounting",
+   "sections": 2
+  },
+  "MM": {
+   "area": "MKT",
+   "credits": 3.0,
+   "name": "Marketing Management",
+   "sections": 1
+  },
+  "TR": {
+   "area": "ITM",
+   "credits": 1.5,
+   "name": "Technology Readiness",
+   "sections": 2
+  }
+ }
+}

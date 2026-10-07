@@ -1,0 +1,1033 @@
+{
+ "batch": "2028",
+ "courses": {
+  "BC": "Business Communication",
+  "BCF": "Business and Corporate Finance",
+  "BR": "Business Research",
+  "DAIB": "Data Analytics and AI for Business",
+  "DTI": "Design Thinking",
+  "HRM": "Human Resource Management",
+  "LAB": "Legal Aspects of Business",
+  "MA": "Managerial Accounting",
+  "TR": "Technology Readiness"
+ },
+ "days": [
+  {
+   "date": "2026-10-05"
+  },
+  {
+   "date": "2026-10-06"
+  },
+  {
+   "date": "2026-10-07"
+  },
+  {
+   "date": "2026-10-08"
+  },
+  {
+   "date": "2026-10-09"
+  },
+  {
+   "date": "2026-10-10"
+  },
+  {
+   "date": "2026-10-11"
+  }
+ ],
+ "electives": [],
+ "end": "2026-10-11",
+ "group": "core",
+ "mode": "section",
+ "rowLabel": "Section",
+ "rows": [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F"
+ ],
+ "sessions": [
+  {
+   "c": "TR",
+   "d": 0,
+   "grp": null,
+   "n": 1,
+   "room": "401",
+   "row": "E",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 0,
+   "grp": null,
+   "n": 1,
+   "room": "401",
+   "row": "E",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "TR",
+   "d": 0,
+   "grp": null,
+   "n": 1,
+   "room": "402",
+   "row": "F",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 0,
+   "grp": null,
+   "n": 1,
+   "room": "502",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 0,
+   "grp": null,
+   "n": 1,
+   "room": "503",
+   "row": "C",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 0,
+   "grp": null,
+   "n": 1,
+   "room": "401",
+   "row": "E",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 0,
+   "grp": null,
+   "n": 1,
+   "room": "402",
+   "row": "F",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 0,
+   "grp": null,
+   "n": 1,
+   "room": "501",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "LAB",
+   "d": 0,
+   "grp": null,
+   "n": 1,
+   "room": "502",
+   "row": "B",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 0,
+   "grp": null,
+   "n": 1,
+   "room": "503",
+   "row": "C",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 0,
+   "grp": null,
+   "n": 2,
+   "room": "401",
+   "row": "E",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 0,
+   "grp": null,
+   "n": 1,
+   "room": "402",
+   "row": "F",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "LAB",
+   "d": 0,
+   "grp": null,
+   "n": 1,
+   "room": "501",
+   "row": "A",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 0,
+   "grp": null,
+   "n": 1,
+   "room": "502",
+   "row": "B",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 1,
+   "grp": null,
+   "n": 1,
+   "room": "501",
+   "row": "A",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 1,
+   "grp": null,
+   "n": 1,
+   "room": "504",
+   "row": "D",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 1,
+   "grp": null,
+   "n": 2,
+   "room": "501",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 1,
+   "grp": null,
+   "n": 1,
+   "room": "502",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 1,
+   "grp": null,
+   "n": 1,
+   "room": "402",
+   "row": "F",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 1,
+   "grp": null,
+   "n": 1,
+   "room": "501",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "LAB",
+   "d": 1,
+   "grp": null,
+   "n": 2,
+   "room": "502",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "LAB",
+   "d": 1,
+   "grp": null,
+   "n": 2,
+   "room": "501",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 1,
+   "grp": null,
+   "n": 2,
+   "room": "502",
+   "row": "B",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 1,
+   "grp": null,
+   "n": 1,
+   "room": "401",
+   "row": "E",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 2,
+   "grp": null,
+   "n": 1,
+   "room": "501",
+   "row": "A",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "TR",
+   "d": 2,
+   "grp": null,
+   "n": 1,
+   "room": "504",
+   "row": "D",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 2,
+   "grp": null,
+   "n": 2,
+   "room": "401",
+   "row": "E",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 2,
+   "grp": null,
+   "n": 2,
+   "room": "501",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 2,
+   "grp": null,
+   "n": 1,
+   "room": "502",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "TR",
+   "d": 2,
+   "grp": null,
+   "n": 1,
+   "room": "503",
+   "row": "C",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 2,
+   "grp": null,
+   "n": 2,
+   "room": "402",
+   "row": "F",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "TR",
+   "d": 2,
+   "grp": null,
+   "n": 1,
+   "room": "501",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 2,
+   "grp": null,
+   "n": 2,
+   "room": "502",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "LAB",
+   "d": 2,
+   "grp": null,
+   "n": 3,
+   "room": "502",
+   "row": "B",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 2,
+   "grp": "5",
+   "n": 1,
+   "room": "504",
+   "row": "D",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "LAB",
+   "d": 2,
+   "grp": null,
+   "n": 3,
+   "room": "501",
+   "row": "A",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 2,
+   "grp": "1",
+   "n": 1,
+   "room": "503",
+   "row": "C",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 2,
+   "grp": "5",
+   "n": 2,
+   "room": "504",
+   "row": "D",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 2,
+   "grp": "1",
+   "n": 2,
+   "room": "503",
+   "row": "C",
+   "s": 5,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 3,
+   "grp": null,
+   "n": 3,
+   "room": "502",
+   "row": "B",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 3,
+   "grp": null,
+   "n": 2,
+   "room": "503",
+   "row": "C",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 3,
+   "grp": null,
+   "n": 2,
+   "room": "402",
+   "row": "F",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 3,
+   "grp": null,
+   "n": 3,
+   "room": "501",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 3,
+   "grp": null,
+   "n": 2,
+   "room": "502",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "BR",
+   "d": 3,
+   "grp": null,
+   "n": 8,
+   "room": "503",
+   "row": "C",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 3,
+   "grp": null,
+   "n": 2,
+   "room": "401",
+   "row": "E",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 3,
+   "grp": null,
+   "n": 2,
+   "room": "501",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "BR",
+   "d": 3,
+   "grp": null,
+   "n": 8,
+   "room": "502",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 3,
+   "grp": null,
+   "n": 2,
+   "room": "503",
+   "row": "C",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 3,
+   "grp": null,
+   "n": 2,
+   "room": "504",
+   "row": "D",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 3,
+   "grp": null,
+   "n": 2,
+   "room": "402",
+   "row": "F",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "BR",
+   "d": 3,
+   "grp": null,
+   "n": 8,
+   "room": "501",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 4,
+   "grp": null,
+   "n": 3,
+   "room": "503",
+   "row": "C",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 4,
+   "grp": null,
+   "n": 3,
+   "room": "501",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 4,
+   "grp": null,
+   "n": 3,
+   "room": "502",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 4,
+   "grp": null,
+   "n": 3,
+   "room": "503",
+   "row": "C",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "LAB",
+   "d": 4,
+   "grp": null,
+   "n": 4,
+   "room": "501",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 4,
+   "grp": null,
+   "n": 3,
+   "room": "502",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "BR",
+   "d": 4,
+   "grp": null,
+   "n": 8,
+   "room": "401",
+   "row": "E",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 4,
+   "grp": null,
+   "n": 3,
+   "room": "402",
+   "row": "F",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "LAB",
+   "d": 4,
+   "grp": null,
+   "n": 4,
+   "room": "502",
+   "row": "B",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "BC",
+   "d": 4,
+   "grp": null,
+   "n": 1,
+   "room": "503",
+   "row": "C",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "BR",
+   "d": 4,
+   "grp": null,
+   "n": 8,
+   "room": "504",
+   "row": "D",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "BC",
+   "d": 4,
+   "grp": null,
+   "n": 2,
+   "room": "503",
+   "row": "C",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "BR",
+   "d": 4,
+   "grp": null,
+   "n": 8,
+   "room": "402",
+   "row": "F",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 5,
+   "grp": null,
+   "n": 1,
+   "room": "402",
+   "row": "F",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "2",
+   "n": 1,
+   "room": "501",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "1",
+   "n": 3,
+   "room": "503",
+   "row": "C",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "7",
+   "n": 1,
+   "room": "504",
+   "row": "D",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "8",
+   "n": 1,
+   "room": "401",
+   "row": "E",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 5,
+   "grp": null,
+   "n": 2,
+   "room": "402",
+   "row": "F",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "2",
+   "n": 2,
+   "room": "501",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "1",
+   "n": 4,
+   "room": "503",
+   "row": "C",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "7",
+   "n": 2,
+   "room": "504",
+   "row": "D",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "8",
+   "n": 2,
+   "room": "401",
+   "row": "E",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "11",
+   "n": 1,
+   "room": "501",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "1",
+   "n": 5,
+   "room": "503",
+   "row": "C",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "4",
+   "n": 1,
+   "room": "504",
+   "row": "D",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "9",
+   "n": 1,
+   "room": "401",
+   "row": "E",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "10",
+   "n": 1,
+   "room": "402",
+   "row": "F",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "11",
+   "n": 2,
+   "room": "501",
+   "row": "A",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "1",
+   "n": 6,
+   "room": "503",
+   "row": "C",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "4",
+   "n": 2,
+   "room": "504",
+   "row": "D",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "9",
+   "n": 2,
+   "room": "401",
+   "row": "E",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "10",
+   "n": 1,
+   "room": "402",
+   "row": "F",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "LAB",
+   "d": 6,
+   "grp": null,
+   "n": 1,
+   "room": "503",
+   "row": "C",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 6,
+   "grp": null,
+   "n": 3,
+   "room": "402",
+   "row": "F",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 6,
+   "grp": null,
+   "n": 2,
+   "room": "502",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "LAB",
+   "d": 6,
+   "grp": null,
+   "n": 1,
+   "room": "503",
+   "row": "C",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 6,
+   "grp": null,
+   "n": 4,
+   "room": "402",
+   "row": "F",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 6,
+   "grp": null,
+   "n": 3,
+   "room": "502",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 6,
+   "grp": null,
+   "n": 2,
+   "room": "501",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 6,
+   "grp": null,
+   "n": 3,
+   "room": "402",
+   "row": "F",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 6,
+   "grp": null,
+   "n": 3,
+   "room": "501",
+   "row": "A",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 6,
+   "grp": null,
+   "n": 3,
+   "room": "504",
+   "row": "D",
+   "s": 4,
+   "sec": null
+  }
+ ],
+ "slots": [
+  [
+   "09:15",
+   "10:30"
+  ],
+  [
+   "10:45",
+   "12:00"
+  ],
+  [
+   "12:15",
+   "13:30"
+  ],
+  [
+   "14:30",
+   "15:45"
+  ],
+  [
+   "16:00",
+   "17:15"
+  ],
+  [
+   "17:30",
+   "18:45"
+  ]
+ ],
+ "source": "batch 2028/core/term 2/weekly/1-Weekly Schedule of PGDM-I(2026-28) Term - II Oct. 5 - 11, 2026.pdf",
+ "specials": [],
+ "start": "2026-10-05",
+ "term": 2,
+ "weekNumber": 1
+}

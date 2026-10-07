@@ -545,3 +545,57 @@ a.btn-ghost{ text-decoration:none; }
   .portal .search-card,
   .portal .greet-card{ margin-top:clamp(36px, 6vh, 52px); }
 }
+
+/* ---------- live pill (portal hero) ---------- */
+.live-pill{ gap:8px; }
+.live-dot{
+  width:8px; height:8px; border-radius:50%; flex-shrink:0;
+  background:#17a35b; box-shadow:0 0 0 0 rgba(23,163,91,.5);
+  animation:livePulse 1.8s ease-out infinite;
+}
+@keyframes livePulse{
+  0%{ box-shadow:0 0 0 0 rgba(23,163,91,.5); }
+  100%{ box-shadow:0 0 0 9px rgba(23,163,91,0); }
+}
+
+/* ---------- weekly: banner, group sessions ---------- */
+.view-banner{
+  background:var(--color-peach-wash); color:var(--color-portrait-ink);
+  border-radius:16px; padding:12px 16px; margin-bottom:22px;
+  font-size:13.5px; line-height:1.5; font-weight:500;
+}
+.group-card{
+  background:var(--color-white-canvas);
+  border:1px solid var(--color-mist-hairline);
+  border-radius:var(--radius-cards);
+  box-shadow:var(--shadow-subtle-2);
+  padding:16px 20px; margin-top:14px;
+}
+.group-head{ font-weight:700; font-size:15px; color:var(--color-portrait-ink); margin-bottom:8px; }
+.group-head span{ font-weight:500; font-size:12.5px; color:var(--color-slate-helper); }
+.group-list{ list-style:none; margin:0; padding:0; }
+.group-list li{
+  display:grid; grid-template-columns:5.5em 1fr 1fr 1fr 28px; gap:8px; align-items:center;
+  padding:8px 0; border-top:1px solid var(--color-mist-hairline);
+  font-size:13px; color:var(--color-graphite-body);
+}
+.group-list .group-name{ font-weight:700; color:var(--color-portrait-ink); }
+.group-list .card-cal-link{ margin:0; justify-self:end; padding:6px; }
+.group-list .card-cal-link svg{ width:15px; height:15px; }
+@media (max-width:560px){
+  .group-list li{ grid-template-columns:5em 1fr 28px; row-gap:2px; }
+  .group-list li span:nth-child(3), .group-list li span:nth-child(4){ grid-column:2; font-size:12px; color:var(--color-slate-helper); }
+  .group-list .card-cal-link{ grid-column:3; grid-row:1 / span 3; }
+}
+#otherWeekBtn{ font-size:13px; }
+@media (prefers-reduced-motion: reduce){ .live-dot{ animation:none!important; } }
+@media print{ .view-banner, .live-pill, #otherWeekBtn{ display:none!important; } }
+
+/* tag on a class only some students take */
+.elective-badge{
+  display:inline-block; margin-left:8px; vertical-align:middle;
+  font-size:10.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+  padding:3px 9px; border-radius:var(--radius-tags); white-space:nowrap;
+  background:var(--color-sky-wash); color:var(--color-nautical-teal);
+}
+@media print{ .elective-badge{ display:none!important; } }

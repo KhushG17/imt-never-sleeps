@@ -1,0 +1,74 @@
+{
+  "_comment": "Hand-edited. Term dates per batch and schedule group. A year has three terms: Terms 1-3 are year one (core courses, taught section-wise), Terms 4-6 are year two (electives from Term 4). The site works out a student's current term from 'start' dates and switches them to alumni on 'alumniFrom', the day after the last Term 6 exam. 'tentative' marks dates that come from a handbook calendar the college has since moved, or that are assumed. Dates the college actually ran (from schedules and seating plans) replace handbook dates where known.",
+  "2027-core": {
+    "label": "Batch 2025-27",
+    "source": "PGDM 2025-27 student handbook, clause 4.5; Term 4 exam and Term 5 start corrected from the Sep 2026 seating plan and the Term V Week 1 schedule",
+    "terms": [
+      { "term": 1, "start": "2025-07-14", "end": "2025-09-28", "examStart": "2025-09-22", "examEnd": "2025-09-28", "campus": "Ghaziabad" },
+      { "term": 2, "start": "2025-09-29", "end": "2026-01-03", "examStart": "2025-12-27", "examEnd": "2026-01-03", "campus": "Ghaziabad" },
+      { "term": 3, "start": "2026-01-05", "end": "2026-03-29", "examStart": "2026-03-23", "examEnd": "2026-03-29", "campus": "Ghaziabad" },
+      { "term": 4, "start": "2026-06-29", "end": "2026-10-04", "examStart": "2026-09-25", "examEnd": "2026-10-04", "campus": "Ghaziabad" },
+      { "term": 5, "start": "2026-10-05", "end": "2026-12-27", "examStart": "2026-12-21", "examEnd": "2026-12-27", "campus": "Ghaziabad", "tentative": true },
+      { "term": 6, "start": "2026-12-28", "end": "2027-03-13", "examStart": "2027-03-08", "examEnd": "2027-03-13", "campus": "Ghaziabad", "tentative": true }
+    ],
+    "alumniFrom": "2027-03-14",
+    "alumniTentative": true
+  },
+  "2027-bfs": {
+    "label": "Batch 2025-27",
+    "source": "No handbook received for PGDM BFS 2025-27. Term 5 start is from its Week 1 schedule; alumni date assumed equal to the PGDM 2025-27 batch",
+    "terms": [
+      { "term": 5, "start": "2026-10-05", "campus": "Ghaziabad" }
+    ],
+    "alumniFrom": "2027-03-14",
+    "alumniTentative": true
+  },
+  "2027-dcp": {
+    "label": "Batch 2025-27",
+    "source": "No handbook received for PGDM DCP 2025-27. The week of 5 Oct 2026 is its 2nd Term V week, so Term 5 began 28 Sep 2026; alumni date assumed equal to the PGDM 2025-27 batch",
+    "terms": [
+      { "term": 5, "start": "2026-09-28", "campus": "Ghaziabad" }
+    ],
+    "alumniFrom": "2027-03-14",
+    "alumniTentative": true
+  },
+  "2028-core": {
+    "label": "Batch 2026-28",
+    "source": "PGDM 2026-28 and PGDM Marketing 2026-28 student handbooks, clause 4.5 (identical calendars)",
+    "terms": [
+      { "term": 1, "start": "2026-07-06", "end": "2026-10-04", "examStart": "2026-09-26", "examEnd": "2026-10-04", "campus": "Ghaziabad" },
+      { "term": 2, "start": "2026-10-05", "end": "2027-01-03", "examStart": "2026-12-26", "examEnd": "2027-01-03", "campus": "Ghaziabad" },
+      { "term": 3, "start": "2027-01-04", "end": "2027-03-28", "examStart": "2027-03-22", "examEnd": "2027-03-28", "campus": "Ghaziabad" },
+      { "term": 4, "start": "2027-06-28", "end": "2027-10-03", "examStart": "2027-09-27", "examEnd": "2027-10-03", "campus": "Ghaziabad" },
+      { "term": 5, "start": "2027-10-04", "end": "2028-01-02", "examStart": "2027-12-27", "examEnd": "2028-01-02", "campus": "Ghaziabad" },
+      { "term": 6, "start": "2028-01-03", "end": "2028-03-12", "examStart": "2028-03-06", "examEnd": "2028-03-12", "campus": "Ghaziabad" }
+    ],
+    "alumniFrom": "2028-03-13"
+  },
+  "2028-bfs": {
+    "label": "Batch 2026-28",
+    "source": "PGDM BFS 2026-28 student handbook, clause 4.5. Term 3 is 5 weeks of teaching, exams 9-12 Feb 2027, then a 6-week NISM industry immersion",
+    "terms": [
+      { "term": 1, "start": "2026-07-06", "end": "2026-10-04", "examStart": "2026-09-26", "examEnd": "2026-10-04", "campus": "Ghaziabad" },
+      { "term": 2, "start": "2026-10-05", "end": "2027-01-03", "examStart": "2026-12-26", "examEnd": "2027-01-03", "campus": "Ghaziabad" },
+      { "term": 3, "start": "2027-01-04", "end": "2027-03-28", "examStart": "2027-02-09", "examEnd": "2027-02-12", "campus": "Ghaziabad" },
+      { "term": 4, "start": "2027-06-28", "end": "2027-10-03", "examStart": "2027-09-27", "examEnd": "2027-10-03", "campus": "Ghaziabad" },
+      { "term": 5, "start": "2027-10-04", "end": "2028-01-02", "examStart": "2027-12-27", "examEnd": "2028-01-02", "campus": "Ghaziabad" },
+      { "term": 6, "start": "2028-01-03", "end": "2028-03-12", "examStart": "2028-03-06", "examEnd": "2028-03-12", "campus": "Ghaziabad" }
+    ],
+    "alumniFrom": "2028-03-13"
+  },
+  "2028-dcp": {
+    "label": "Batch 2026-28",
+    "source": "PGDM DCP 2026-28 student handbook, clause 4.5. Terms 3 to 5 are at the Dubai campus",
+    "terms": [
+      { "term": 1, "start": "2026-07-13", "end": "2026-10-04", "examStart": "2026-09-26", "examEnd": "2026-10-04", "campus": "Ghaziabad" },
+      { "term": 2, "start": "2026-10-05", "end": "2027-01-03", "examStart": "2026-12-26", "examEnd": "2027-01-03", "campus": "Ghaziabad" },
+      { "term": 3, "start": "2027-01-11", "end": "2027-04-04", "examStart": "2027-03-29", "examEnd": "2027-04-04", "campus": "Dubai" },
+      { "term": 4, "start": "2027-04-05", "end": "2027-09-12", "examStart": "2027-09-06", "examEnd": "2027-09-12", "campus": "Dubai" },
+      { "term": 5, "start": "2027-10-04", "end": "2027-12-31", "examStart": "2027-12-27", "examEnd": "2027-12-31", "campus": "Dubai" },
+      { "term": 6, "start": "2028-01-03", "end": "2028-03-12", "examStart": "2028-03-06", "examEnd": "2028-03-12", "campus": "Ghaziabad" }
+    ],
+    "alumniFrom": "2028-03-13"
+  }
+}

@@ -1,10 +1,12 @@
-// Shared by the portal and both tools: roll lookup against the roster and
-// portal config, plus a few small page helpers.
+// Shared by the portal and both tools: roll lookup against the roster, the
+// term timeline, and a few small page helpers.
 (function(){
 "use strict";
   var CONFIG = window.PORTAL_CONFIG || {};
-  var BATCHES = CONFIG.batches || {};
-  var ROSTER = window.ROSTER_DATA || {};
+  var SITE = window.SITE_DATA || {};          // js/site-data.js: programmes + timeline
+  var PROGRAMMES = SITE.programmes || {};
+  var TIMELINE = SITE.timeline || {};
+  var ROSTER = window.ROSTER_DATA || {};      // js/roster-data.js: every student
 
   // "25fpm-003 " and "25FPM003" are the same roll.
   function normRoll(v){
@@ -17,33 +19,58 @@
     return d.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (day < 10 ? '0' : '') + day;
   }
 
-  // Everything known about a roll. batchKey is null when the roll is neither
-  // in the roster nor matches any batch's prefix, i.e. not a roll we know.
+  // Where a batch + schedule group ("2027-core") stands today: its current
+  // term (the latest one that has started), that term's campus, and whether
+  // its Term 6 exams are over.
+  function standing(groupKey, today){
+    var tl = TIMELINE[groupKey];
+    if(!tl) return null;
+    today = today || todayIso();
+    var now = null;
+    (tl.terms || []).forEach(function(t){
+      if(now === null || t.start <= today) now = t;
+    });
+    return {
+      label: tl.label || '',
+      term: now ? now.term : null,
+      campus: now ? now.campus || '' : '',
+      alumni: !!(tl.alumniFrom && today >= tl.alumniFrom)
+    };
+  }
+
+  // Everything known about a roll. A roll number is batch + programme code +
+  // serial (25 0103 045), so the programme and batch are known even before
+  // a student list is loaded. groupKey is null when the roll is neither in
+  // the roster nor a batch and programme we have a timeline for.
   function student(roll){
     roll = normRoll(roll);
-    var entry = ROSTER[roll] || null;
-    var batchKey = entry && entry.batch ? String(entry.batch) : null;
-    if(!batchKey){
-      for(var key in BATCHES){
-        if(BATCHES.hasOwnProperty(key) && BATCHES[key].rollPrefix && roll.indexOf(BATCHES[key].rollPrefix) === 0){
-          batchKey = key;
-          break;
-        }
-      }
+    var e = ROSTER[roll] || null;
+    var code = (e && e.p) || (/^\d{9}$/.test(roll) ? roll.substr(2, 4) : roll.indexOf('FPM') === 2 ? 'FPM' : null);
+    var prog = (code && PROGRAMMES[code]) || null;
+    var groupKey = e ? e.g : null;
+    if(!groupKey && prog && /^\d{2}/.test(roll)){
+      groupKey = '20' + (+roll.substr(0, 2) + 2) + '-' + prog.group;
     }
-    var batch = batchKey ? BATCHES[batchKey] || null : null;
+    var st = groupKey ? standing(groupKey) : null;
+    if(!st) groupKey = null;
     return {
       roll: roll,
-      inRoster: !!entry,
-      name: entry ? entry.name : '',
-      major: entry ? entry.major || '' : '',
-      minor: entry ? entry.minor || '' : '',
-      courses: entry ? entry.courses || {} : {},
-      batchKey: batchKey,
-      batchLabel: batch ? batch.label : '',
-      term: batch ? batch.term : null,
-      alumni: !!(batch && batch.alumniFrom && todayIso() >= batch.alumniFrom),
-      isTest: !!CONFIG.testRoll && roll === normRoll(CONFIG.testRoll)
+      inRoster: !!e,
+      name: e ? e.n || '' : '',
+      programme: prog ? prog.name : '',
+      section: e ? e.s || '' : '',
+      track: e ? e.t || '' : '',
+      major: e ? e.mj || '' : '',
+      minor: e ? e.mn || '' : '',
+      courses: e ? e.c || {} : {},
+      electives: e ? e.e || null : null,
+      groupKey: groupKey,
+      batchKey: groupKey,
+      batchLabel: st ? st.label : '',
+      term: st ? st.term : null,
+      campus: st ? st.campus : '',
+      alumni: !!(st && (st.alumni || (e && e.al))),
+      isTest: (CONFIG.testRolls || []).map(normRoll).indexOf(roll) >= 0
     };
   }
 
@@ -55,25 +82,64 @@
   // The line under the greeting on the portal.
   function welcome(s){
     if(s.alumni) return 'Once IMT, always IMT. Good to see you back.';
-    if(!s.inRoster) return 'Your name and courses for ' + s.batchLabel + ' are not loaded yet. They will show up here once added.';
+    if(!s.inRoster) return 'Your name and section for ' + [s.programme, s.batchLabel].filter(Boolean).join(', ') +
+      ' are not loaded yet. They will show up here once added.';
     var h = new Date().getHours();
     var part = h < 5 ? 'Up late?' : h < 12 ? 'Good morning.' : h < 17 ? 'Good afternoon.' : h < 22 ? 'Good evening.' : 'Up late?';
     return part + ' Your Term ' + s.term + ' schedule is ready.';
   }
 
-  // "Batch 2025-27 · Term 5 · Major MKT · Minor BA", skipping what's unknown.
+  // "PGDM Marketing · Batch 2025-27 · Term 5 · Major MKT · Minor BA", skipping what's unknown.
   function metaLine(s){
     var parts = [];
+    if(s.programme) parts.push(s.programme);
     if(s.batchLabel) parts.push(s.batchLabel);
     if(s.alumni) parts.push('Alumni');
     else if(s.term) parts.push('Term ' + s.term);
+    if(s.section) parts.push('Section ' + s.section);
+    if(s.track) parts.push('Track ' + s.track);
     if(s.major) parts.push('Major ' + s.major);
     if(s.minor) parts.push('Minor ' + s.minor);
     return parts.join(' · ');
   }
 
+  // The week to show from a group's weeks on file: the one running today,
+  // else the next one coming, else the newest.
+  function pickWeek(weeks, today){
+    if(!weeks || !weeks.length) return null;
+    today = today || todayIso();
+    var running = weeks.filter(function(w){ return w.start <= today && today <= w.end; })[0];
+    var coming = weeks.filter(function(w){ return w.start > today; })[0];
+    return running || coming || weeks[weeks.length - 1];
+  }
+
+  // The week that is live for everyone: every batch and group currently on
+  // the Ghaziabad campus has this week's schedule loaded. null otherwise.
+  function liveWeek(weekly, today){
+    today = today || todayIso();
+    var found = null, complete = true, any = false;
+    Object.keys(TIMELINE).forEach(function(groupKey){
+      var st = standing(groupKey, today);
+      if(!st || st.alumni || st.campus === 'Dubai') return;
+      any = true;
+      var w = ((weekly || {})[groupKey] || []).filter(function(x){ return x.start <= today && today <= x.end; })[0];
+      if(!w) complete = false;
+      else found = found || { start: w.start, end: w.end };
+    });
+    return any && complete ? found : null;
+  }
+
   function examSeatLocked(s){
-    return !!(CONFIG.examSeat && CONFIG.examSeat.locked) && !(s && s.isTest);
+    var exam = CONFIG.examSeat || {};
+    return !!exam.locked && !(s && (exam.openFor || []).map(normRoll).indexOf(s.roll) >= 0);
+  }
+
+  // What a locked Exam Seat says to this student: their own term's exams.
+  function examLockedLabel(s){
+    var exam = CONFIG.examSeat || {};
+    if(s && s.alumni) return exam.alumniLabel || 'No more exams';
+    if(!s || !s.term) return 'Exams coming soon';
+    return (exam.lockedLabel || 'Term {term} exams coming soon').replace('{term}', s.term);
   }
 
   function rollFromUrl(){
@@ -143,8 +209,12 @@
     student: student,
     greeting: greeting,
     welcome: welcome,
+    standing: standing,
+    pickWeek: pickWeek,
+    liveWeek: liveWeek,
     metaLine: metaLine,
     examSeatLocked: examSeatLocked,
+    examLockedLabel: examLockedLabel,
     rollFromUrl: rollFromUrl,
     track: track,
     escapeHtml: escapeHtml,

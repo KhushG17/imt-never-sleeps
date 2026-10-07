@@ -1,0 +1,16 @@
+{
+  "_comment": "Hand-edited. Programmes by the code inside a roll number (digits 3-6 of 250103045 are 0103), and the schedule group each belongs to. A group is a set of programmes that share one weekly schedule and one set of files under 'all files/batch <year>/<group>/'.",
+  "programmes": {
+    "0101": { "name": "PGDM", "group": "core" },
+    "0102": { "name": "PGDM Finance", "group": "core" },
+    "0103": { "name": "PGDM Marketing", "group": "core" },
+    "0201": { "name": "PGDM DCP", "group": "dcp" },
+    "0601": { "name": "PGDM BFS", "group": "bfs" },
+    "FPM":  { "name": "FPM", "group": "core" }
+  },
+  "groups": {
+    "core": { "name": "PGDM, PGDM Marketing and PGDM Finance" },
+    "bfs":  { "name": "PGDM Banking and Financial Services" },
+    "dcp":  { "name": "PGDM Dual Country Program" }
+  }
+}

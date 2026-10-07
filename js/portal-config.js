@@ -1,25 +1,31 @@
 // The one hand-edited settings file for the whole portal. Loaded by every
 // page (portal, Weekly, Exam Seat).
 window.PORTAL_CONFIG = {
-  // The batch tracker: one entry per batch, keyed by graduation year. This is
-  // where "which batch is in which term" lives; README.md mirrors it.
-  //   rollPrefix  - used only when a roll isn't in the roster yet; a roster
-  //                 entry's own "batch" always wins.
-  //   term        - 1 to 6. Bump it when the batch moves to its next term.
-  //   alumniFrom  - "YYYY-MM-DD", the day after the batch's last Term 6 exam.
-  //                 A batch becomes alumni once its Term 6 exams are done:
-  //                 from that date the greeting says "Hey Alumni" and Weekly
-  //                 stops. null = date not known yet, never switches.
-  batches: {
-    "2027": { label: "Batch 2025-27", rollPrefix: "25", term: 5, alumniFrom: null },
-    "2028": { label: "Batch 2026-28", rollPrefix: "26", term: 2, alumniFrom: null }
-  },
+  // Which batch is in which term, term dates and alumni dates are not set
+  // here: they come from data/config/timeline.json (run scripts/update.py
+  // after editing it).
 
   // Exam Seat is locked between exam cycles. Set locked to false (and refresh
   // exam-seat/js/exam-data.js + exam-config.js) when the next seating plan is out.
   examSeat: {
     locked: true,
-    lockedLabel: "Term 2 & Term 5 exams coming soon"
+    // {term} becomes the student's own current term: "Term 5 exams coming soon".
+    lockedLabel: "Term {term} exams coming soon",
+    alumniLabel: "No more exams, you have graduated",
+    // Rolls that can open Exam Seat even while it is locked.
+    openFor: ["TEST"],
+    liveLabel: "Exam seating is live"
+  },
+
+  // The small "live" pill above the portal heading.
+  //   weeklyDays - it shows "Weekly schedule live" from the week's Monday for
+  //                this many days (3 = Monday to Wednesday, gone on Thursday),
+  //                and only once every batch and programme on campus has that
+  //                week loaded.
+  // While Exam Seat is unlocked the pill shows examSeat.liveLabel instead,
+  // for as long as it stays unlocked.
+  livePill: {
+    weeklyDays: 3
   },
 
   // Usage tracking with Google Analytics 4. Paste the property's Measurement
@@ -29,8 +35,11 @@ window.PORTAL_CONFIG = {
     measurementId: "G-F0R29KD608"
   },
 
-  // A dummy roll for trying every feature end to end. It bypasses the Exam
-  // Seat lock. Its data lives in data/roster-test.json and under the same key in
-  // exam-seat/js/exam-data.js. Set to null to switch it off.
-  testRoll: "TEST"
+  // Dummy rolls for trying the site. They are defined in
+  // data/config/overrides.json and are never counted in usage tracking.
+  //   TEST   a current student; also opens Exam Seat while it is locked
+  //          (its sample seats are under the TEST key in exam-seat/js/exam-data.js)
+  //   TESTA  an alumni, to see what a graduated batch gets
+  // Set to [] to switch them off.
+  testRolls: ["TEST", "TESTA"]
 };
