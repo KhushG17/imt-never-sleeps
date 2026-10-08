@@ -231,6 +231,8 @@ any student whatever the timeline says. Real batches switch by date.
 - Today's papers are at the top, tagged "Today", then the days still to
   come, then earlier papers. The PDF stays in calendar order.
 - The same compact rows and calendar button as Weekly.
+- Seat numbers read column letter first, then row (`L1`, not `1L`), in the
+  page, the calendar entry and the PDF.
 - Subject, date, time, hall and seat per paper, Add to Calendar, Save as PDF,
   with the student's name and programme from the master student list.
 

@@ -220,7 +220,7 @@
       g.items.forEach(function(entry){
         var b = BLOCKS[entry[0]];
         var subject = subjectForRoll(b[0], roll), time = b[2], hall = b[3];
-        var seatNo = entry[1] + entry[2];
+        var seatNo = entry[2] + String(entry[1]); // column letter first, then row: "C3"
         rows.push([shortDate(g.date), subject, time, hall, seatNo]);
         var dateObj = parseDate(b[1]);
         calLinks.push(dateObj ? googleCalendarLink(subject, dateObj, parseTime(b[2]), hall, seatNo, roll) : null);
@@ -416,7 +416,7 @@
         var b = BLOCKS[entry[0]];
         var subject = subjectForRoll(b[0], v), time = b[2], hall = b[3];
         var row = entry[1], col = entry[2];
-        var seatNo = row + col; // seat number = row + column, e.g. row 3 + col C = "3C"
+        var seatNo = col + String(row); // seat number = column letter, then row: col C, row 3 = "C3"
         var delay = (cardIndex++ * 0.06).toFixed(2);
         var dateObj = parseDate(b[1]);
         var calHref = dateObj ? googleCalendarLink(subject, dateObj, parseTime(b[2]), hall, seatNo, v) : null;
