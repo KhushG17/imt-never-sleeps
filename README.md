@@ -4,14 +4,38 @@ A student portal for IMT Ghaziabad. Type a roll number, get a greeting, then
 open **Weekly** (this week's classes) or **Exam Seat** (hall and seat for each
 paper). Unofficial, built from the college's own files.
 
-Live at https://khushg17.github.io/imt-never-sleeps/ (repo
-`KhushG17/imt-never-sleeps`).
+Live at https://imtneversleeps.com/ (repo `KhushG17/imt-never-sleeps`,
+hosted on GitHub Pages).
 
 This README is the live record of the project: what is built, what was
 decided, what was skipped, what is left, and which files are needed. It is
 updated with every change. What we know about IMT itself (programmes, roll
 codes, term dates, course lists, handbook rules) is in
 [docs/IMT.md](docs/IMT.md). Last updated: 8 Oct 2026.
+
+## Custom domain: imtneversleeps.com
+
+The site is served at **https://imtneversleeps.com/** from 9 Oct 2026.
+Hosting is still GitHub Pages (repo `KhushG17/imt-never-sleeps`); the domain
+is registered and its DNS managed at GoDaddy.
+
+- **In the repository:** the `CNAME` file holds the domain. Do not delete it;
+  without it GitHub drops the domain on the next build.
+- **DNS at GoDaddy:** four `A` records for `@` (`185.199.108.153`,
+  `185.199.109.153`, `185.199.110.153`, `185.199.111.153`) and a `CNAME` for
+  `www`. GitHub's guidance is for `www` to point to `khushg17.github.io`.
+- **Old links keep working.** `khushg17.github.io/imt-never-sleeps/...`,
+  including links with `?roll=`, redirects to the same page on
+  `imtneversleeps.com`.
+- **The repository must stay public** unless the GitHub account is on a paid
+  plan: on the free plan, making it private switches GitHub Pages off and
+  takes the site down.
+- **Tracking:** the Google Analytics Measurement ID is unchanged and counts
+  on the new domain with no code change. The Web data stream's address in
+  Google Analytics (Admin, Data streams) should be updated to
+  `imtneversleeps.com`; that only relabels it.
+- Nothing in the site's code depends on the address: links between pages are
+  relative, and the upload page talks to GitHub's API.
 
 ## Current status
 
@@ -381,7 +405,7 @@ BFS and DCP 2026-28 and PGDM 2025-27; Google Analytics ID.
 
 ## Uploading from the browser
 
-`https://khushg17.github.io/imt-never-sleeps/upload/` is an admin page for
+`https://imtneversleeps.com/upload/` is an admin page for
 sending the week's schedule PDFs from any phone or computer. It is not linked
 from the site and asks search engines not to list it.
 
