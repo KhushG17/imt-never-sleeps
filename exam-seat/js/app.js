@@ -137,6 +137,7 @@
   }
 
   var lastResult = null; // {roll, groups} for the current search, used to build the PDF
+  var CAL_PLUS = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M8 3v4M16 3v4M3 10h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 13v5M9.5 15.5h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
 
   pdfBtn.addEventListener('click', function(){ savePdf(); });
   listEl.addEventListener('click', function(e){
@@ -420,17 +421,14 @@
         var dateObj = parseDate(b[1]);
         var calHref = dateObj ? googleCalendarLink(subject, dateObj, parseTime(b[2]), hall, seatNo, v) : null;
         return ''+
-          '<div class="exam-card" style="animation-delay:'+delay+'s">'+
-            '<div class="exam-subject">'+escapeHtml(subject)+'</div>'+
-            '<div class="detail-grid">'+
-              '<div class="detail" style="--tint:'+tint+'"><div class="k">Date</div><div class="v">'+shortDate(b[1])+'</div></div>'+
-              '<div class="detail" style="--tint:'+tint+'"><div class="k">Time</div><div class="v">'+escapeHtml(time)+'</div></div>'+
-              '<div class="detail" style="--tint:'+tint+'"><div class="k">Hall No.</div><div class="v">'+escapeHtml(hall)+'</div></div>'+
-              '<div class="detail" style="--tint:'+tint+'"><div class="k">Seat No.</div><div class="v">'+escapeHtml(seatNo)+'</div></div>'+
+          '<div class="exam-card cls-card" style="animation-delay:'+delay+'s">'+
+            '<div class="cls-time" style="--tint:'+tint+'"><span class="cls-start">'+escapeHtml(time)+'</span></div>'+
+            '<div class="cls-main">'+
+              '<div class="exam-subject">'+escapeHtml(subject)+'</div>'+
+              '<div class="cls-meta"><span><b>Hall</b> '+escapeHtml(hall)+'</span><span><b>Seat</b> '+escapeHtml(seatNo)+'</span></div>'+
             '</div>'+
-            (calHref ? '<a class="card-cal-link" href="'+calHref+'" target="_blank" rel="noopener">'+
-              '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M16 3v4M8 3v4M3 11h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'+
-              'Add to Calendar</a>' : '')+
+            (calHref ? '<a class="card-cal-link cls-cal" href="'+calHref+'" target="_blank" rel="noopener" title="Add to Google Calendar" '+
+              'aria-label="Add '+escapeHtml(subject)+' to Google Calendar">'+CAL_PLUS+'</a>' : '')+
           '</div>';
       }).join('');
       var divider = '';

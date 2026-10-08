@@ -708,3 +708,74 @@ button.btn-contact{ font:inherit; font-weight:600; font-size:13.5px; cursor:poin
   }
   .header-actions .btn-contact svg{ width:16px; height:16px; }
 }
+
+/* ---------- compact class rows (Weekly and Exam Seat) ----------
+   Time on the left, what and where in the middle, calendar button on the
+   right. About a third the height of the old four-box card. */
+.exam-card.cls-card{
+  display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:12px;
+  padding:10px 12px 10px 10px; border-radius:18px;
+}
+.cls-time{
+  width:78px; padding:9px 4px; border-radius:12px; text-align:center;
+  background:var(--tint, var(--color-mist-hairline));
+  display:flex; flex-direction:column; gap:1px;
+}
+.cls-start{ font-weight:700; font-size:14px; color:var(--color-portrait-ink); white-space:nowrap; }
+.cls-end{ font-size:11px; color:var(--color-slate-helper); white-space:nowrap; }
+.cls-main{ min-width:0; }
+.cls-card .exam-subject{ font-size:14.5px; line-height:1.3; margin:0 0 4px; }
+.cls-meta{ display:flex; flex-wrap:wrap; gap:1px 12px; font-size:12.5px; color:var(--color-graphite-body); }
+.cls-meta b{ font-weight:500; color:var(--color-slate-helper); }
+.card-cal-link.cls-cal{
+  width:44px; height:44px; margin:0; flex-shrink:0; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--color-imt-navy); color:#fff;
+  box-shadow:var(--shadow-subtle-2);
+  transition:transform .15s cubic-bezier(.2,.8,.2,1), filter .15s ease;
+}
+.card-cal-link.cls-cal svg{ width:21px; height:21px; }
+.card-cal-link.cls-cal:hover{ text-decoration:none; filter:brightness(1.15); transform:translateY(-2px); }
+.card-cal-link.cls-cal:active{ transform:scale(.94); }
+.card-cal-link.cls-cal:focus-visible{ outline:2px solid var(--color-imt-gold); outline-offset:2px; }
+.card-grid{ gap:10px; }
+.day-group{ margin-bottom:22px; }
+.day-title{ margin-bottom:10px; }
+
+/* the one line that says what the button does */
+.cal-hint{
+  display:flex; align-items:center; gap:8px; margin:-10px 0 20px;
+  font-size:12.5px; color:var(--color-slate-helper);
+}
+.cal-hint-icon{
+  width:22px; height:22px; flex-shrink:0; border-radius:50%;
+  display:inline-flex; align-items:center; justify-content:center;
+  background:var(--color-imt-navy); color:#fff;
+}
+.cal-hint-icon svg{ width:12px; height:12px; }
+
+/* group sessions list uses the same button, smaller */
+.group-list .card-cal-link.cls-cal{ width:34px; height:34px; padding:0; box-shadow:none; }
+.group-list .card-cal-link.cls-cal svg{ width:16px; height:16px; }
+.group-list li{ grid-template-columns:5.5em 1fr 1fr 1fr 34px; }
+@media (max-width:560px){ .group-list li{ grid-template-columns:5em 1fr 34px; } }
+
+/* tool pages: a smaller heading, so the schedule starts higher on a phone */
+.tool h1{ font-size:clamp(26px, 5.4vw, 52px); }
+.tool .eyebrow{ margin-bottom:14px; }
+.tool #results{ margin-top:28px; }
+@media (max-width:640px){
+  .tool .wrap{ padding-block:22px 0; }
+  .tool #results{ margin-top:22px; }
+  .tool .actions{ margin-bottom:22px; }
+  .tool .ticket-head{ margin-bottom:12px; }
+  .tool .ticket-head .roll-val{ font-size:21px; }
+}
+@media (max-width:360px){
+  .exam-card.cls-card{ gap:9px; padding:9px 9px 9px 8px; }
+  .cls-time{ width:68px; }
+  .cls-start{ font-size:13px; }
+  .card-cal-link.cls-cal{ width:40px; height:40px; }
+}
+@media (prefers-reduced-motion: reduce){ .card-cal-link.cls-cal:hover{ transform:none!important; } }
+@media print{ .cal-hint{ display:none!important; } }

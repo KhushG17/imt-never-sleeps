@@ -168,11 +168,21 @@
     notice.hidden = false;
   }
 
-  function detail(tint, k, v){
-    return '<div class="detail" style="--tint:' + tint + '"><div class="k">' + k + '</div><div class="v">' + IMT.escapeHtml(v) + '</div></div>';
+  // One class is one compact row: time on the left, what and where in the
+  // middle, and a calendar button on the right that is hard to miss.
+  var CAL_PLUS = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M8 3v4M16 3v4M3 10h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 13v5M9.5 15.5h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+  function timeCell(tint, from, to){
+    return '<div class="cls-time" style="--tint:' + tint + '"><span class="cls-start">' + from + '</span>' +
+      (to ? '<span class="cls-end">to ' + to + '</span>' : '') + '</div>';
   }
-  function calLink(href){
-    return '<a class="card-cal-link" href="' + href + '" target="_blank" rel="noopener">' + CAL_ICON + 'Add to Calendar</a>';
+  function calButton(href, what){
+    return '<a class="card-cal-link cls-cal" href="' + href + '" target="_blank" rel="noopener" title="Add to Google Calendar" ' +
+      'aria-label="Add ' + IMT.escapeHtml(what) + ' to Google Calendar">' + CAL_PLUS + '</a>';
+  }
+  function metaLine(parts){
+    return '<div class="cls-meta">' + parts.filter(function(p){ return p[1] !== '' && p[1] != null; }).map(function(p){
+      return '<span><b>' + p[0] + '</b> ' + IMT.escapeHtml(p[1]) + '</span>';
+    }).join('') + '</div>';
   }
 
   function showWeek(s, data){
@@ -241,22 +251,23 @@
       // classes and one-off entries share the grid, in time order
       var cards = classes.map(function(x){ return { s: x.s, row: x.row || '', html: function(){
         var clash = view.clash[x.d + ':' + x.s];
-        return '<div class="exam-card" style="animation-delay:' + (cardIndex++ * 0.04).toFixed(2) + 's">' +
-          '<div class="exam-subject">' + IMT.escapeHtml(courseName(data, x.c)) +
-            (view.tagElectives && data.electives.indexOf(x.c) >= 0 ? '<span class="elective-badge">Elective</span>' : '') +
-            (clash ? '<span class="clash-badge">Clash</span>' : '') + '</div>' +
-          '<div class="detail-grid">' +
-            detail(tint, 'Time', slotLabel(data, x.s)) + detail(tint, 'Room', x.room || '-') +
-            detail(tint, third, rowText(x) || '-') + detail(tint, 'Session', x.n) +
-          '</div>' + calLink(classLink(data, x)) + '</div>';
+        var name = courseName(data, x.c);
+        return '<div class="exam-card cls-card" style="animation-delay:' + (cardIndex++ * 0.03).toFixed(2) + 's">' +
+          timeCell(tint, clock(data.slots[x.s][0]), clock(data.slots[x.s][1])) +
+          '<div class="cls-main">' +
+            '<div class="exam-subject">' + IMT.escapeHtml(name) +
+              (view.tagElectives && data.electives.indexOf(x.c) >= 0 ? '<span class="elective-badge">Elective</span>' : '') +
+              (clash ? '<span class="clash-badge">Clash</span>' : '') + '</div>' +
+            metaLine([['Room', x.room || '-'], [third, rowText(x)], ['Session', x.n]]) +
+          '</div>' + calButton(classLink(data, x), name) + '</div>';
       }}; }).concat(specials.map(function(sp){ return { s: sp.s, row: '', html: function(){
-        return '<div class="exam-card" style="animation-delay:' + (cardIndex++ * 0.04).toFixed(2) + 's">' +
-          '<div class="exam-subject">' + IMT.escapeHtml(sp.text) + '</div>' +
-          '<div class="detail-grid">' +
-            detail(tint, 'Time', slotLabel(data, sp.s, sp.span)) +
-            detail(tint, third + (sp.rows.length > 1 ? 's' : ''), sp.rows.join(', ') || 'All') +
+        return '<div class="exam-card cls-card" style="animation-delay:' + (cardIndex++ * 0.03).toFixed(2) + 's">' +
+          timeCell(tint, clock(data.slots[sp.s][0]), clock(data.slots[sp.s + sp.span - 1][1])) +
+          '<div class="cls-main">' +
+            '<div class="exam-subject">' + IMT.escapeHtml(sp.text) + '</div>' +
+            metaLine([[third + (sp.rows.length > 1 ? 's' : ''), sp.rows.join(', ') || 'All']]) +
           '</div>' +
-          calLink(googleCalendarLink(data, sp.d, sp.s, sp.span, sp.text, 'As printed on the weekly schedule.', '')) + '</div>';
+          calButton(googleCalendarLink(data, sp.d, sp.s, sp.span, sp.text, 'As printed on the weekly schedule.', ''), sp.text) + '</div>';
       }}; }));
       cards.sort(function(a, b){ return a.s - b.s || (a.row < b.row ? -1 : a.row > b.row ? 1 : 0); });
       if(cards.length){
@@ -273,8 +284,7 @@
               return '<li><span class="group-name">Group ' + IMT.escapeHtml(x.grp) + '</span>' +
                 '<span>' + slotLabel(data, x.s) + '</span><span>Room ' + IMT.escapeHtml(x.room || '-') + '</span>' +
                 '<span>Session ' + x.n + '</span>' +
-                '<a class="card-cal-link" href="' + classLink(data, x) + '" target="_blank" rel="noopener" aria-label="Add Group ' +
-                  IMT.escapeHtml(x.grp) + ' to calendar">' + CAL_ICON + '</a></li>';
+                calButton(classLink(data, x), courseName(data, x.c) + ' group ' + x.grp) + '</li>';
             }).join('') + '</ul></div>';
         }).join('');
       }

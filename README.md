@@ -213,6 +213,11 @@ any student whatever the timeline says. Real batches switch by date.
 - Group sessions (Design Thinking groups) are listed for everyone in the
   programme with the group number, since group membership isn't in the files.
 - If next week's schedule is already loaded, a button switches between weeks.
+- Each class is one compact row: time on the left, course, room, section
+  and session in the middle, and a round navy calendar button on the right.
+  On a phone a week is about 40% shorter to scroll than with the old
+  four-box cards (a 17-class week went from 9.0 screens to 5.7). A one-line
+  hint above the list says what the button does.
 - Add to Calendar on every class (Google Calendar, real start and end, IST
   converted to UTC). Save as PDF: a table with a clickable calendar icon on
   every row.
@@ -225,6 +230,7 @@ any student whatever the timeline says. Real batches switch by date.
 **Exam Seat**
 - Today's papers are at the top, tagged "Today", then the days still to
   come, then earlier papers. The PDF stays in calendar order.
+- The same compact rows and calendar button as Weekly.
 - Subject, date, time, hall and seat per paper, Add to Calendar, Save as PDF,
   with the student's name and programme from the master student list.
 
