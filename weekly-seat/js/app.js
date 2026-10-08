@@ -185,13 +185,32 @@
     }).join('') + '</div>';
   }
 
+  // The day this student's schedule should lead with. It is today until
+  // their own last class of the day has ended, and tomorrow from then on.
+  // On a day with none of their classes (a free day, a whole-day note such
+  // as "SSR Visits") there is no last class to go by, so the general rule
+  // applies: tomorrow from 8 pm India time (IMT.scheduleDay).
+  function currentDayFor(weeks, s){
+    var today = IMT.istToday();
+    var week = weeks.filter(function(w){ return w.start <= today && today <= w.end; })[0];
+    if(!week) return IMT.scheduleDay();
+    var view = buildView(week, s), lastEnd = -1;
+    week.days.forEach(function(day, di){
+      if(day.date !== today) return;
+      view.classes.forEach(function(x){ if(x.d === di) lastEnd = Math.max(lastEnd, minutes(week.slots[x.s][1])); });
+      view.specials.forEach(function(sp){ if(sp.d === di) lastEnd = Math.max(lastEnd, minutes(week.slots[sp.s + sp.span - 1][1])); });
+    });
+    if(lastEnd < 0) return IMT.scheduleDay();
+    return IMT.istMinutes() >= lastEnd ? IMT.addDays(today, 1) : today;
+  }
+
   // The schedule is one running list: from the current day through the end
   // of the newest week on file. A week uploaded early simply adds its days
-  // below this week's, so nothing has to be switched. The "current day" is
-  // IMT.scheduleDay(): today until 8 pm IST, tomorrow after that.
+  // below this week's, so nothing has to be switched.
   function showWeek(s){
     var weeks = (WEEKLY[s.groupKey] || []).slice().sort(function(a, b){ return a.start < b.start ? -1 : 1; });
-    var E = IMT.scheduleDay(), realToday = IMT.istToday();
+    var realToday = IMT.istToday();
+    var E = (s.alumni || !weeks.length || (weeks[0].mode === 'course' && !Object.keys(s.courses).length)) ? IMT.scheduleDay() : currentDayFor(weeks, s);
     // weeks that are not over yet; if every week on file is over, the newest one
     var live = weeks.filter(function(w){ return w.end >= E; });
     if(!live.length && weeks.length) live = [weeks[weeks.length - 1]];

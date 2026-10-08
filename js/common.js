@@ -35,6 +35,7 @@
   }
   function istNow(){ return new Date(Date.now() + IST_OFFSET_MS); } // read with getUTC*()
   function istToday(){ return isoOf(istNow()); }
+  function istMinutes(){ var n = istNow(); return n.getUTCHours() * 60 + n.getUTCMinutes(); } // minutes since midnight, IST
   function scheduleDay(){
     var now = istNow();
     return now.getUTCHours() >= DAY_ROLLS_AT_HOUR ? addDays(isoOf(now), 1) : isoOf(now);
@@ -314,6 +315,8 @@
     coverage: coverage,
     scheduleDay: scheduleDay,
     istToday: istToday,
+    istMinutes: istMinutes,
+    addDays: addDays,
     metaLine: metaLine,
     examSeatLocked: examSeatLocked,
     examLockedLabel: examLockedLabel,

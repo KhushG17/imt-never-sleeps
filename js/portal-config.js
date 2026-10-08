@@ -17,8 +17,10 @@ window.PORTAL_CONFIG = {
     liveLabel: "Exam seating is live"
   },
 
-  // The schedule day rolls over at this hour, India time: from 8 pm the
-  // schedule leads with tomorrow, and the pill judges by tomorrow too.
+  // The general hour, India time, at which "today" becomes "tomorrow": used
+  // by the pill and Exam Seat, and by Weekly on a day when the student has
+  // no class. On a day with classes, Weekly instead moves on as soon as that
+  // student's own last class has ended.
   schedule: {
     dayRollsAtHour: 20
   },

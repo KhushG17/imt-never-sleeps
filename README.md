@@ -193,10 +193,12 @@ any student whatever the timeline says. Real batches switch by date.
   in, last week's dates in red; one or two in, the new dates in red; three or
   more in, green (`livePill.redWhenMissingMoreThan`). After a roll is entered
   it speaks for that student's own programme.
-- **The schedule day rolls over at 8 pm India time.** Until then "Today" is
-  today; from 8 pm the schedule leads with the next day, tagged "Tomorrow",
-  and the pill judges by that day too. It is India time for every visitor,
-  wherever they are. (`schedule.dayRollsAtHour` in `js/portal-config.js`.)
+- **When "Today" becomes "Tomorrow".** In Weekly it is personal: the list
+  leads with today until that student's own last class of the day has ended,
+  and with the next day, tagged "Tomorrow", from then on. On a day with none
+  of their classes, and for the pill and Exam Seat (which have no end times
+  to go by), the switch is at 8 pm (`schedule.dayRollsAtHour` in
+  `js/portal-config.js`). All of it runs on India time for every visitor.
 - **Study Material** is a small book icon in the header, next to Feedback,
   on the portal, Weekly and Exam Seat. It opens the term-wise study material
   folder (SharePoint) in a new tab. The link is `studyMaterial.url` in
