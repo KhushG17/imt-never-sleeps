@@ -125,7 +125,7 @@ different names is left out on its own and reported. Everything else still build
 |---|---|
 | Weekly schedule (PDF) | Rows by subject area with course-section cells (`CWB-C(1) PJ{C -201}`); rows by section with a venue (`SERM-(1)-SPP`, `HRM(1)FH`, `BC-A(1)-SHA`); rows by track (`VB-A(13)-MZ`); group sessions (`DTI-G-5(1)AT`); merged cells such as "ADP Placement Process"; whole-day notes such as "SSR Visits" |
 | Course allocation (PDF) | Any table with a course name and an abbreviation column |
-| Student list (xls, xlsx, PDF) | Any table with a "Roll No", "Roll Number" or "Enrolment No." column; one row per student, or one row per student and course ("Course" and "SEC" columns); reads name, section, major, minor, track, an "Elective Course" column, and course columns headed by a course's full name |
+| Student list (xls, xlsx, PDF) | Any table with a "Roll No", "Roll Number" or "Enrolment No." column; one row per student, or one row per student and course ("Course" and "SEC" columns); reads name, section, major, minor, track, an "Elective Course" column, and course columns headed by a course's full name. Every sheet of a workbook is read |
 
 Only roll number, name, section, major, minor, track and courses are ever
 taken from a student list. Emails, dates of birth, gender, state and phone
@@ -433,6 +433,12 @@ every run, so correct the college's file in `all files/` (or
   "DCP 28 for Term II.xlsx"; the old file was moved to
   `all files/_superseded/`, which the update does not read. Same 47 students
   and rolls, ten names corrected, nothing else changed.
+- **8 Oct 2026, DCP 2026-28 Section B.** The same corrected workbook has a
+  second sheet, "Section B", which was missed at first because the reader
+  only opened a workbook's first sheet. It now reads every sheet. Same 49
+  students and rolls, nine names corrected; the old Section B file was moved
+  to `all files/_superseded/`. No other workbook on file has more than one
+  sheet.
 
 - **8 Oct 2026, BFS 2025-27.** "Section-A BFS-I (2025-27).pdf" received: 77
   students in Section A; the other 73 placed in Section B by rule. It also

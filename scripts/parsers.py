@@ -71,14 +71,21 @@ def pdf_tables(path):
 
 
 def sheet_rows(path):
+    """Every row of every sheet in a workbook, one sheet after another. A class
+    list is often one sheet per section, so stopping at the first sheet would
+    silently drop the rest. Each sheet's own header row is recognised again by
+    whoever reads the rows."""
     suffix = path.suffix.lower()
+    rows = []
     if suffix == ".xls":
         import xlrd
-        ws = xlrd.open_workbook(str(path)).sheet_by_index(0)
-        return [[ws.cell_value(r, c) for c in range(ws.ncols)] for r in range(ws.nrows)]
+        for ws in xlrd.open_workbook(str(path)).sheets():
+            rows += [[ws.cell_value(r, c) for c in range(ws.ncols)] for r in range(ws.nrows)]
+        return rows
     import openpyxl
-    ws = openpyxl.load_workbook(str(path), data_only=True).worksheets[0]
-    return [["" if c is None else c for c in row] for row in ws.iter_rows(values_only=True)]
+    for ws in openpyxl.load_workbook(str(path), data_only=True).worksheets:
+        rows += [["" if c is None else c for c in row] for row in ws.iter_rows(values_only=True)]
+    return rows
 
 
 # ------------------------------------------------------------ what is this file
