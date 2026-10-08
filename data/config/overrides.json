@@ -15,11 +15,17 @@
   },
   "electives": {
     "_comment": "For section-wise schedules: courses that only some students take. They are tagged 'Elective' on the page. Once a student's own choices are loaded, that student sees only the ones they chose.",
-    "2027-bfs-5": ["SERM", "BF"]
+    "2027-bfs-5": [
+      "SERM",
+      "BF"
+    ]
+  },
+  "defaultSection": {
+    "_comment": "For a batch where only one section's list is supplied: every other student of that batch, group and term is in this section. BFS 2025-27, per Khush on 8 Oct 2026: 'Section A list added, others not there would be in Section B'.",
+    "2027-bfs-5": "B"
   },
   "sectionFromElective": {
-    "_comment": "Stop-gap, agreed with Khush on 8 Oct 2026: until the section-wise list for a batch arrives, a student with no section gets the one their elective is taught in. Delete a batch's entry here as soon as its real section list is in 'all files' (a section in a student list always wins over this).",
-    "2027-bfs-5": { "SERM": "A", "BF": "B" }
+    "_comment": "Stop-gap for a batch whose section list has not arrived: a student with no section gets the one their elective is taught in. Empty now; BFS 2025-27 used it from 8 Oct 2026 until its Section A list came the same day."
   },
   "students": {
     "_comment": "Extra or corrected student records, merged over what the files give. TEST and TESTA are the dummy rolls for trying the site; \"alumni\": true marks a student as graduated whatever the timeline says.",
@@ -30,7 +36,13 @@
       "group": "core",
       "major": "MKT",
       "minor": "BA",
-      "courses": { "CWB": "C", "DSCS": "A", "FTBA": "A", "PAF": "A", "BF": "A" }
+      "courses": {
+        "CWB": "C",
+        "DSCS": "A",
+        "FTBA": "A",
+        "PAF": "A",
+        "BF": "A"
+      }
     },
     "TESTA": {
       "name": "Test Alumni",

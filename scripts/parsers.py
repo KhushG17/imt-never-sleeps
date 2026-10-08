@@ -102,7 +102,7 @@ def describe(path):
         rows = [r for _, tables in pages for t in tables for r in t]
         if any(sum(1 for c in r if parse_slot(clean(c))) >= 3 for r in rows):
             info["kind"] = "weekly"
-        elif any(any(re.fullmatch(r"roll\s*(no\.?|number)", clean(c).lower()) for c in r) for r in rows):
+        elif any(any(re.fullmatch(r"(roll|enrol+ment)\s*(no\.?|number)", clean(c).lower()) for c in r) for r in rows):
             info["kind"] = "students"
             rolls = [clean_roll(c) for r in rows for c in r if re.fullmatch(r"\d{9}", clean_roll(c))]
             if rolls:
@@ -418,6 +418,8 @@ def parse_courses(path):
 
 STUDENT_COLUMNS = {
     "roll no": "roll", "roll no.": "roll", "roll number": "roll", "roll": "roll",
+    "enrolment no": "roll", "enrolment no.": "roll", "enrollment no": "roll", "enrollment no.": "roll",
+    "enrolment number": "roll", "enrollment number": "roll",
     "student name": "name", "name": "name",
     "sec": "section", "sec.": "section", "section": "section",
     "major": "major", "minor": "minor", "track": "track", "total": "total",
@@ -447,21 +449,31 @@ def parse_students(path, courses=None):
     An "Elective Course" column becomes the student's elective list.
     Only these fields are ever read; emails, dates of birth and the like in a
     class profile are ignored. Columns headed with a course's full name (the
-    Term 4-6 registration sheet) become that student's course -> section map."""
+    Term 4-6 registration sheet) become that student's course -> section map,
+    and so does a sheet with one row per student and course ("Course" holding
+    the abbreviation, "SEC" that course's section)."""
     by_name = {norm_name(c["name"]): abb for abb, c in (courses or {}).items()}
     if path.suffix.lower() == ".pdf":
         rows = [r for _, tables in pdf_tables(path) for t in tables for r in t]
     else:
         rows = sheet_rows(path)
     students, problems, notes, conflicted = {}, [], [], set()
-    columns = None
+    by_code = {norm_code(abb): abb for abb in (courses or {})}
+    columns, long_form = None, False
     for raw in rows:
         cells = [clean(c) if not isinstance(c, float) else c for c in raw]
         low = [clean(c).lower() for c in raw]
-        if any(c in ("roll no", "roll no.", "roll number") for c in low):
+        if any(STUDENT_COLUMNS.get(c) == "roll" and c != "roll" for c in low):
             columns = {}
+            # one row per student and course ("Roll No | Name | Course | SEC"):
+            # the Course column holds an abbreviation and SEC is that course's section
+            long_form = "course" in low and any(STUDENT_COLUMNS.get(c) == "section" for c in low)
             for i, c in enumerate(low):
-                if c in STUDENT_COLUMNS:
+                if long_form and c == "course":
+                    columns[i] = ("field", "course")
+                elif long_form and STUDENT_COLUMNS.get(c) == "section":
+                    columns[i] = ("field", "courseSection")
+                elif c in STUDENT_COLUMNS:
                     columns.setdefault(i, ("field", STUDENT_COLUMNS[c]))
                 elif norm_name(c) in by_name:
                     columns[i] = ("course", by_name[norm_name(c)])
@@ -483,6 +495,24 @@ def parse_students(path, courses=None):
             continue  # sub-headings and totals
         if roll in conflicted:
             continue
+        if long_form:
+            code = clean(rec.get("course", "")).upper()
+            sec = clean(rec.get("courseSection", "")).upper()
+            abb = by_code.get(norm_code(code))
+            if not code or not re.fullmatch(r"[A-Z]", sec):
+                problems.append("%s: course %r, section %r could not be read" % (roll, code, sec))
+                continue
+            if not abb:
+                problems.append("%s: course %r is not in this term's course list" % (roll, code))
+                continue
+            if roll in students and norm_name(students[roll]["name"]) != norm_name(name):
+                problems.append("roll %s has two different names in %s" % (roll, path.name))
+                continue
+            entry = students.setdefault(roll, {"name": name, "courses": {}})
+            if entry["courses"].get(abb, sec) != sec:
+                problems.append("%s is in two sections of %s" % (roll, abb))
+            entry["courses"][abb] = sec
+            continue
         if roll in students:
             if norm_name(students[roll]["name"]) == norm_name(name):
                 continue  # the same row printed twice
@@ -500,6 +530,14 @@ def parse_students(path, courses=None):
         for key in ("section", "major", "minor", "track"):
             if clean(rec.get(key, "")):
                 entry[key] = clean(rec[key]).upper()
+        # a section is one letter; a PDF cell can pick up a stray character
+        # from the wrapped name beside it ("W A"), so the last letter stands
+        if "section" in entry and not re.fullmatch(r"[A-Z]", entry["section"]):
+            last = entry["section"].split()[-1]
+            if re.fullmatch(r"[A-Z]", last):
+                entry["section"] = last
+            else:
+                problems.append("%s: section %r could not be read" % (roll, entry["section"]))
         if taken:
             entry["courses"] = taken
         if clean(rec.get("elective", "")):

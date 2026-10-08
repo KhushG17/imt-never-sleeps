@@ -252,6 +252,18 @@ def build_master(overrides):
     for roll, entry in overrides["students"].items():
         students[roll] = {**students.get(roll, {}), **entry}
 
+    # a batch with only one section's list supplied: everyone else is in the other
+    defaulted = {}
+    for s in students.values():
+        key = "%s-%s-%s" % (s["batch"], s["group"], s.get("term"))
+        if key in overrides["defaultSection"] and not s.get("section"):
+            s["section"] = overrides["defaultSection"][key]
+            s["sectionByDefault"] = True
+            defaulted[key] = defaulted.get(key, 0) + 1
+    for key, n in sorted(defaulted.items()):
+        say("NOTE", "%s: %d students not on a section list placed in Section %s (defaultSection in overrides.json)"
+            % (key, n, overrides["defaultSection"][key]))
+
     # stop-gap sections: only for students whose lists give no section
     assumed = {}
     for s in students.values():
@@ -297,7 +309,8 @@ def write_students_csv(students):
         for roll, s in rows:
             w.writerow([roll, s["name"], "%d-%s" % (int(s["batch"]) - 2, s["batch"][2:]),
                         names.get(s.get("programme") or "", {}).get("name", ""), s["group"], s.get("term", ""),
-                        s.get("section", "") + (" (from elective)" if s.get("sectionAssumed") else ""),
+                        s.get("section", "") + (" (from elective)" if s.get("sectionAssumed") else "")
+                        + (" (not on the other section's list)" if s.get("sectionByDefault") else ""),
                         s.get("track", ""), s.get("major", ""), s.get("minor", ""),
                         ", ".join(s.get("electives", [])),
                         ", ".join("%s-%s" % kv for kv in sorted(s.get("courses", {}).items()))])
@@ -402,7 +415,7 @@ if __name__ == "__main__":
     programmes = load("programmes.json")
     timeline = {k: v for k, v in load("timeline.json").items() if not k.startswith("_")}
     overrides = load("overrides.json")
-    for section in ("courses", "electives", "students", "sectionFromElective"):
+    for section in ("courses", "electives", "students", "sectionFromElective", "defaultSection"):
         overrides[section] = {k: v for k, v in overrides.get(section, {}).items() if not k.startswith("_")}
     if "--uploads" in sys.argv[1:]:
         run_uploads(timeline, overrides)

@@ -111,7 +111,10 @@
     var view = { all: false, classes: [], groups: [], specials: [], banner: '' };
     var key = data.mode === 'track' ? s.track : s.section;
     var what = (data.rowLabel || 'section').toLowerCase();
-    if(data.mode === 'course'){
+    var hasCourses = Object.keys(s.courses).length > 0;
+    var isElective = function(x){ return data.electives.indexOf(x.c) >= 0; };
+    if(data.mode === 'course' || (data.mode === 'track' && hasCourses)){
+      // each class names its course and section: the student's own registrations decide
       view.classes = data.sessions.filter(function(x){ return s.courses[x.c] === x.sec; });
     } else {
       view.all = !key;
@@ -126,8 +129,14 @@
       }
       data.sessions.forEach(function(x){
         if(x.grp){ view.groups.push(x); return; }
+        if(isElective(x)){
+          // an elective is attended by those who chose it, whichever section's
+          // row it is printed in; with no choice on file, every elective is
+          // shown (tagged) so the student can pick out their own
+          if(!s.electives || s.electives.indexOf(x.c) >= 0) view.classes.push(x);
+          return;
+        }
         if(!view.all && x.row !== key) return;
-        if(data.electives.indexOf(x.c) >= 0 && s.electives && s.electives.indexOf(x.c) < 0) return;
         view.classes.push(x);
       });
       view.specials = data.specials.filter(function(sp){

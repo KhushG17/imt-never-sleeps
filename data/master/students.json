@@ -5461,6 +5461,13 @@
  },
  "250201001": {
   "batch": "2027",
+  "courses": {
+   "CMN": "A",
+   "IM": "B",
+   "IP": "A",
+   "ITL": "A",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Aaraav Dua",
   "programme": "0201",
@@ -5468,6 +5475,13 @@
  },
  "250201003": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "C",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Aaryaveer Chib",
   "programme": "0201",
@@ -5475,6 +5489,13 @@
  },
  "250201004": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IM": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Aashish Baid",
   "programme": "0201",
@@ -5489,6 +5510,13 @@
  },
  "250201006": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "ITL": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Abhay Gupta",
   "programme": "0201",
@@ -5510,6 +5538,13 @@
  },
  "250201010": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Abhishek Singh",
   "programme": "0201",
@@ -5517,6 +5552,13 @@
  },
  "250201011": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "CR": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Aditya Chaturvedi",
   "programme": "0201",
@@ -5538,6 +5580,13 @@
  },
  "250201014": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "ITL": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Aditya Shah",
   "programme": "0201",
@@ -5559,6 +5608,13 @@
  },
  "250201018": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Akki Vinay Ranjan Goud",
   "programme": "0201",
@@ -5566,6 +5622,13 @@
  },
  "250201019": {
   "batch": "2027",
+  "courses": {
+   "CMN": "A",
+   "IP": "B",
+   "ITL": "A",
+   "SSP": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Nadarge Akshay Bharat",
   "programme": "0201",
@@ -5587,6 +5650,13 @@
  },
  "250201022": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "C",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Aman",
   "programme": "0201",
@@ -5594,6 +5664,13 @@
  },
  "250201023": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "A",
+   "ITL": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Amisha Vinayak Malaviya",
   "programme": "0201",
@@ -5601,6 +5678,13 @@
  },
  "250201024": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Ananya Saini",
   "programme": "0201",
@@ -5608,6 +5692,13 @@
  },
  "250201025": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "C",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Ananya Sharma",
   "programme": "0201",
@@ -5622,6 +5713,13 @@
  },
  "250201027": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Ankit Raj",
   "programme": "0201",
@@ -5629,6 +5727,13 @@
  },
  "250201028": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Ankush Thakur",
   "programme": "0201",
@@ -5636,6 +5741,13 @@
  },
  "250201029": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "B",
+   "SM": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Annpurna Singhal",
   "programme": "0201",
@@ -5643,6 +5755,13 @@
  },
  "250201030": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IM": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Anshul Goel",
   "programme": "0201",
@@ -5650,6 +5769,13 @@
  },
  "250201031": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "CR": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Anukalp Rajawat",
   "programme": "0201",
@@ -5657,6 +5783,13 @@
  },
  "250201032": {
   "batch": "2027",
+  "courses": {
+   "CMN": "A",
+   "IBPP": "B",
+   "IM": "B",
+   "IP": "C",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Anurag Debnath",
   "programme": "0201",
@@ -5671,6 +5804,13 @@
  },
  "250201035": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "CR": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Archit Jain",
   "programme": "0201",
@@ -5678,6 +5818,13 @@
  },
  "250201036": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Arya Anirudh Singh Chauhan",
   "programme": "0201",
@@ -5685,6 +5832,13 @@
  },
  "250201037": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "MF": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Aryaman Awadhesh Jha",
   "programme": "0201",
@@ -5699,6 +5853,13 @@
  },
  "250201039": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IM": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Aryan Vashist",
   "programme": "0201",
@@ -5706,6 +5867,13 @@
  },
  "250201040": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Ashish Bisht",
   "programme": "0201",
@@ -5713,6 +5881,13 @@
  },
  "250201041": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IBPP": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Ashutosh Gupta",
   "programme": "0201",
@@ -5720,6 +5895,13 @@
  },
  "250201042": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IBPP": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Ashwin Kothari",
   "programme": "0201",
@@ -5727,6 +5909,13 @@
  },
  "250201043": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "CR": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Astitvaa Kashyap",
   "programme": "0201",
@@ -5734,6 +5923,13 @@
  },
  "250201044": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Atinek Dubey",
   "programme": "0201",
@@ -5741,6 +5937,13 @@
  },
  "250201045": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "A",
+   "ITL": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Avi Goyal",
   "programme": "0201",
@@ -5748,6 +5951,13 @@
  },
  "250201046": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "B",
+   "SM": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Avinash Singh",
   "programme": "0201",
@@ -5755,6 +5965,13 @@
  },
  "250201047": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "C",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Ayush",
   "programme": "0201",
@@ -5769,6 +5986,13 @@
  },
  "250201049": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IBPP": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Ayush Saraswat",
   "programme": "0201",
@@ -5783,6 +6007,13 @@
  },
  "250201051": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "CR": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Bharat Gupta",
   "programme": "0201",
@@ -5790,6 +6021,13 @@
  },
  "250201052": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Bhavini Sethia",
   "programme": "0201",
@@ -5797,6 +6035,13 @@
  },
  "250201053": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Bhavya Kadyan",
   "programme": "0201",
@@ -5811,6 +6056,13 @@
  },
  "250201055": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "CR": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Bhanushali Deep Navin",
   "programme": "0201",
@@ -5832,6 +6084,13 @@
  },
  "250201058": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "MF": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Dhananjay Bhardwaj",
   "programme": "0201",
@@ -5839,6 +6098,13 @@
  },
  "250201059": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "B",
+   "SM": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Dharmesh R",
   "programme": "0201",
@@ -5846,6 +6112,13 @@
  },
  "250201060": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "C",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Dhruv Awasthi",
   "programme": "0201",
@@ -5853,6 +6126,13 @@
  },
  "250201061": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "CR": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Dhruv Gupta",
   "programme": "0201",
@@ -5867,6 +6147,13 @@
  },
  "250201063": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Dinesh Rambhatla",
   "programme": "0201",
@@ -5881,6 +6168,13 @@
  },
  "250201065": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Divyansh Jain",
   "programme": "0201",
@@ -5888,6 +6182,13 @@
  },
  "250201066": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Divyansh Maheshwari",
   "programme": "0201",
@@ -5895,6 +6196,13 @@
  },
  "250201067": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IBPP": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Divyanshu Lahiri",
   "programme": "0201",
@@ -5937,6 +6245,13 @@
  },
  "250201073": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "C",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Ghanistha Sindal",
   "programme": "0201",
@@ -5951,6 +6266,13 @@
  },
  "250201075": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Gunika Verma",
   "programme": "0201",
@@ -5958,6 +6280,13 @@
  },
  "250201076": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IBPP": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Gurpreet Singh",
   "programme": "0201",
@@ -5965,6 +6294,13 @@
  },
  "250201077": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "CR": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Chhabda Harmeetsingh Ranjeetsingh",
   "programme": "0201",
@@ -5972,6 +6308,13 @@
  },
  "250201078": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "CR": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Harsh Chauhan",
   "programme": "0201",
@@ -5979,6 +6322,13 @@
  },
  "250201079": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IP": "C",
+   "MF": "A",
+   "SSP": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Harsh Gautam",
   "programme": "0201",
@@ -5986,6 +6336,13 @@
  },
  "250201080": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Vachhani Harsh Vijaybhai",
   "programme": "0201",
@@ -5993,6 +6350,13 @@
  },
  "250201081": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Harshit Jain",
   "programme": "0201",
@@ -6007,6 +6371,13 @@
  },
  "250201083": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Harshit Kumar",
   "programme": "0201",
@@ -6021,6 +6392,13 @@
  },
  "250201085": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Ipsita Rodali Neog",
   "programme": "0201",
@@ -6035,6 +6413,13 @@
  },
  "250201087": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IBPP": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Naik Ishaan Vikram",
   "programme": "0201",
@@ -6042,6 +6427,13 @@
  },
  "250201088": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Ishan Kumar Agrawal",
   "programme": "0201",
@@ -6063,6 +6455,13 @@
  },
  "250201091": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Jaivardhan Singh",
   "programme": "0201",
@@ -6070,6 +6469,13 @@
  },
  "250201092": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Jayant Aggarwal",
   "programme": "0201",
@@ -6084,6 +6490,13 @@
  },
  "250201094": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Jhanak Mittal",
   "programme": "0201",
@@ -6091,6 +6504,13 @@
  },
  "250201095": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Kanishk Jain",
   "programme": "0201",
@@ -6105,6 +6525,13 @@
  },
  "250201097": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Karan Kadyan",
   "programme": "0201",
@@ -6112,6 +6539,13 @@
  },
  "250201098": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "CR": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Karan Maheshwari",
   "programme": "0201",
@@ -6119,6 +6553,13 @@
  },
  "250201099": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Karan Malhotra",
   "programme": "0201",
@@ -6126,6 +6567,13 @@
  },
  "250201100": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IM": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Keshav Ahuja",
   "programme": "0201",
@@ -6140,6 +6588,13 @@
  },
  "250201102": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Komal Deoli",
   "programme": "0201",
@@ -6154,6 +6609,13 @@
  },
  "250201104": {
   "batch": "2027",
+  "courses": {
+   "CMN": "A",
+   "IBPP": "B",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Krishang Subhash Rao",
   "programme": "0201",
@@ -6161,6 +6623,13 @@
  },
  "250201105": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IM": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Krishna Gupta",
   "programme": "0201",
@@ -6168,6 +6637,13 @@
  },
  "250201106": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Kshitiz Kapoor",
   "programme": "0201",
@@ -6175,6 +6651,13 @@
  },
  "250201107": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "C",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Kshitiz Tailong",
   "programme": "0201",
@@ -6182,6 +6665,13 @@
  },
  "250201108": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IP": "B",
+   "MF": "A",
+   "SM": "B",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Kunal Ganeriwal",
   "programme": "0201",
@@ -6189,6 +6679,13 @@
  },
  "250201109": {
   "batch": "2027",
+  "courses": {
+   "CMN": "A",
+   "IBPP": "B",
+   "IM": "B",
+   "IP": "C",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Lakshay Bhola",
   "programme": "0201",
@@ -6196,6 +6693,13 @@
  },
  "250201110": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "C",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Madhav Manuja",
   "programme": "0201",
@@ -6203,6 +6707,13 @@
  },
  "250201111": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "MF": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Madhav Wadhwa",
   "programme": "0201",
@@ -6210,6 +6721,13 @@
  },
  "250201112": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Madhur Rawal",
   "programme": "0201",
@@ -6217,6 +6735,13 @@
  },
  "250201113": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "B",
+   "SM": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Maharshi Darshak Shah",
   "programme": "0201",
@@ -6224,6 +6749,13 @@
  },
  "250201114": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "MF": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Manas Goel",
   "programme": "0201",
@@ -6231,6 +6763,13 @@
  },
  "250201115": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "C",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Manmeet Singh Batira",
   "programme": "0201",
@@ -6238,6 +6777,13 @@
  },
  "250201116": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "C",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Mansi Nigam",
   "programme": "0201",
@@ -6245,6 +6791,13 @@
  },
  "250201117": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "C",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Mayank",
   "programme": "0201",
@@ -6252,6 +6805,13 @@
  },
  "250201118": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "C",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Mayank Choudhary",
   "programme": "0201",
@@ -6259,6 +6819,13 @@
  },
  "250201120": {
   "batch": "2027",
+  "courses": {
+   "CMN": "A",
+   "IP": "A",
+   "ITL": "A",
+   "SM": "B",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Medhavi Dubey",
   "programme": "0201",
@@ -6273,6 +6840,13 @@
  },
  "250201122": {
   "batch": "2027",
+  "courses": {
+   "CMN": "A",
+   "IBPP": "B",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Mithil Garg",
   "programme": "0201",
@@ -6280,6 +6854,13 @@
  },
  "250201123": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "C",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Moksh Datta",
   "programme": "0201",
@@ -6287,6 +6868,13 @@
  },
  "250201124": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Mulukutla Mukund Kashyap",
   "programme": "0201",
@@ -6315,6 +6903,13 @@
  },
  "250201128": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IM": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Navin Sharda",
   "programme": "0201",
@@ -6322,6 +6917,13 @@
  },
  "250201129": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Nawazish Hassan",
   "programme": "0201",
@@ -6336,6 +6938,13 @@
  },
  "250201131": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IBPP": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Nipun Mehrotra",
   "programme": "0201",
@@ -6343,6 +6952,13 @@
  },
  "250201132": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IM": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Nishant",
   "programme": "0201",
@@ -6371,6 +6987,13 @@
  },
  "250201136": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Kota Parasharan Varma",
   "programme": "0201",
@@ -6378,6 +7001,13 @@
  },
  "250201137": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Parth Dubey",
   "programme": "0201",
@@ -6385,6 +7015,13 @@
  },
  "250201138": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Parth Narwani",
   "programme": "0201",
@@ -6399,6 +7036,13 @@
  },
  "250201140": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Patel Jaykumar Sanjaykumar",
   "programme": "0201",
@@ -6406,6 +7050,13 @@
  },
  "250201141": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Peddireddy Sai Adinarayana",
   "programme": "0201",
@@ -6427,6 +7078,13 @@
  },
  "250201144": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Prateek",
   "programme": "0201",
@@ -6441,6 +7099,13 @@
  },
  "250201146": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Prathamay Kuyre",
   "programme": "0201",
@@ -6448,6 +7113,13 @@
  },
  "250201147": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IP": "C",
+   "MF": "A",
+   "SSP": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Jain Prathamesh Manoj",
   "programme": "0201",
@@ -6455,6 +7127,13 @@
  },
  "250201148": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Pratyosh Paban Gogoi",
   "programme": "0201",
@@ -6462,6 +7141,13 @@
  },
  "250201149": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Pratyush Dubey",
   "programme": "0201",
@@ -6469,6 +7155,13 @@
  },
  "250201151": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "MF": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Shah Preet Divyeshkumar",
   "programme": "0201",
@@ -6476,6 +7169,13 @@
  },
  "250201152": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Prithvijit Dutta",
   "programme": "0201",
@@ -6483,6 +7183,13 @@
  },
  "250201153": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IM": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Priyanshu Goenka",
   "programme": "0201",
@@ -6490,6 +7197,13 @@
  },
  "250201155": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Rahul J S",
   "programme": "0201",
@@ -6497,6 +7211,13 @@
  },
  "250201156": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "CR": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Raj Doshi",
   "programme": "0201",
@@ -6504,6 +7225,13 @@
  },
  "250201157": {
   "batch": "2027",
+  "courses": {
+   "CMN": "A",
+   "IBPP": "B",
+   "IM": "B",
+   "IP": "C",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Reon Goswami",
   "programme": "0201",
@@ -6511,6 +7239,13 @@
  },
  "250201158": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Riddhiman Das",
   "programme": "0201",
@@ -6518,6 +7253,13 @@
  },
  "250201159": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Rishi Kaushik",
   "programme": "0201",
@@ -6532,6 +7274,13 @@
  },
  "250201161": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Rohan Choudhary",
   "programme": "0201",
@@ -6546,6 +7295,13 @@
  },
  "250201163": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IM": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Rohit Jain",
   "programme": "0201",
@@ -6560,6 +7316,13 @@
  },
  "250201165": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IP": "B",
+   "ITL": "A",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Rajpalani Sahil Sunil",
   "programme": "0201",
@@ -6567,6 +7330,13 @@
  },
  "250201166": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Kanna Saiteja",
   "programme": "0201",
@@ -6581,6 +7351,13 @@
  },
  "250201168": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Sakshi",
   "programme": "0201",
@@ -6588,6 +7365,13 @@
  },
  "250201169": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "B",
+   "SM": "B",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Sam Thareja",
   "programme": "0201",
@@ -6595,6 +7379,13 @@
  },
  "250201170": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Samarth Gaur",
   "programme": "0201",
@@ -6616,6 +7407,13 @@
  },
  "250201173": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Sanjai V",
   "programme": "0201",
@@ -6630,6 +7428,13 @@
  },
  "250201175": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Sanskar Sharma",
   "programme": "0201",
@@ -6644,6 +7449,13 @@
  },
  "250201177": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "CR": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Sanyam Goyal",
   "programme": "0201",
@@ -6651,6 +7463,13 @@
  },
  "250201178": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Saumil Babuta",
   "programme": "0201",
@@ -6658,6 +7477,13 @@
  },
  "250201179": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Saurav Mathur",
   "programme": "0201",
@@ -6665,6 +7491,13 @@
  },
  "250201180": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IM": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Savinay Kumar",
   "programme": "0201",
@@ -6679,6 +7512,13 @@
  },
  "250201182": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IBPP": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Sayandeep Sengupta",
   "programme": "0201",
@@ -6693,6 +7533,13 @@
  },
  "250201184": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IM": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Shashank",
   "programme": "0201",
@@ -6707,6 +7554,13 @@
  },
  "250201186": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "MF": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Shiva Shukla",
   "programme": "0201",
@@ -6714,6 +7568,13 @@
  },
  "250201187": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Shivang Kapoor",
   "programme": "0201",
@@ -6721,6 +7582,13 @@
  },
  "250201188": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Shivasharan",
   "programme": "0201",
@@ -6728,6 +7596,13 @@
  },
  "250201189": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Shreeya Maithal",
   "programme": "0201",
@@ -6735,6 +7610,13 @@
  },
  "250201190": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "A",
+   "ITL": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Shreshtha Goswami",
   "programme": "0201",
@@ -6742,6 +7624,13 @@
  },
  "250201191": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Shreyansh Swarnakar",
   "programme": "0201",
@@ -6763,6 +7652,13 @@
  },
  "250201194": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "MF": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Shubh Jobanputra",
   "programme": "0201",
@@ -6770,6 +7666,13 @@
  },
  "250201195": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Shubh Sarthak Singh",
   "programme": "0201",
@@ -6784,6 +7687,13 @@
  },
  "250201197": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "B",
+   "SM": "B",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Balan Siddhanth Renish",
   "programme": "0201",
@@ -6791,6 +7701,13 @@
  },
  "250201198": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "CR": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Siddharth Jain",
   "programme": "0201",
@@ -6798,6 +7715,13 @@
  },
  "250201199": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IBPP": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Siddharth Manori",
   "programme": "0201",
@@ -6805,6 +7729,13 @@
  },
  "250201200": {
   "batch": "2027",
+  "courses": {
+   "CMN": "A",
+   "CR": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Siddharth Singh",
   "programme": "0201",
@@ -6812,6 +7743,13 @@
  },
  "250201201": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Sidharth Muraly Nair",
   "programme": "0201",
@@ -6819,6 +7757,13 @@
  },
  "250201202": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Sinhaditya Singh Gour",
   "programme": "0201",
@@ -6861,6 +7806,13 @@
  },
  "250201208": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Sugandha Jain",
   "programme": "0201",
@@ -6882,6 +7834,13 @@
  },
  "250201212": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Nookala Surya Saketh",
   "programme": "0201",
@@ -6903,6 +7862,13 @@
  },
  "250201215": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Tanmay Saxena",
   "programme": "0201",
@@ -6910,6 +7876,13 @@
  },
  "250201216": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Tanusha Tyagi",
   "programme": "0201",
@@ -6917,6 +7890,13 @@
  },
  "250201217": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "CMN": "A",
+   "IP": "A",
+   "ITL": "A",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Tanya Tomar",
   "programme": "0201",
@@ -6924,6 +7904,13 @@
  },
  "250201218": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "B",
+   "SM": "B",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Tapsi Goyal",
   "programme": "0201",
@@ -6938,6 +7925,13 @@
  },
  "250201220": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Thikkakondannagari Pavan Kumar",
   "programme": "0201",
@@ -6952,6 +7946,13 @@
  },
  "250201222": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "MF": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Umang Baid",
   "programme": "0201",
@@ -6959,6 +7960,13 @@
  },
  "250201223": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Ura Dwivedi",
   "programme": "0201",
@@ -6966,6 +7974,13 @@
  },
  "250201224": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Utkarsh Sharma",
   "programme": "0201",
@@ -6973,6 +7988,13 @@
  },
  "250201225": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "SM": "A",
+   "SSP": "A"
+  },
   "group": "dcp",
   "name": "Vaibhav Sharma",
   "programme": "0201",
@@ -6980,6 +8002,13 @@
  },
  "250201226": {
   "batch": "2027",
+  "courses": {
+   "CMN": "A",
+   "CR": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Vanshdeep",
   "programme": "0201",
@@ -6987,6 +8016,13 @@
  },
  "250201227": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "CR": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Varsha R K",
   "programme": "0201",
@@ -7001,6 +8037,13 @@
  },
  "250201229": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "B",
+   "SM": "B",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Vasu Sharma",
   "programme": "0201",
@@ -7015,6 +8058,13 @@
  },
  "250201231": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Videh Jain",
   "programme": "0201",
@@ -7029,6 +8079,13 @@
  },
  "250201233": {
   "batch": "2027",
+  "courses": {
+   "CMN": "A",
+   "IP": "B",
+   "ITL": "A",
+   "SSP": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Viyom Govil",
   "programme": "0201",
@@ -7036,6 +8093,13 @@
  },
  "250201234": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "A",
+   "IM": "B",
+   "IP": "A",
+   "MF": "A",
+   "SM": "A"
+  },
   "group": "dcp",
   "name": "Yash Phore",
   "programme": "0201",
@@ -7043,6 +8107,13 @@
  },
  "250201235": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "A",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Yash Vardhan Jhunjhunwala",
   "programme": "0201",
@@ -7050,6 +8121,13 @@
  },
  "250201236": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Zakia Sultana",
   "programme": "0201",
@@ -7064,6 +8142,13 @@
  },
  "250201238": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "B",
+   "SM": "B",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Tushar Singh Negi",
   "programme": "0201",
@@ -7071,6 +8156,13 @@
  },
  "250201239": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IBPP": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Kalyan Kumar Sriramoju",
   "programme": "0201",
@@ -7106,6 +8198,13 @@
  },
  "250201244": {
   "batch": "2027",
+  "courses": {
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "B",
+   "SM": "B",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Vaidika Chatterjee",
   "programme": "0201",
@@ -7113,6 +8212,13 @@
  },
  "250201246": {
   "batch": "2027",
+  "courses": {
+   "CR": "A",
+   "IM": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Anuja Shukla",
   "programme": "0201",
@@ -7120,6 +8226,13 @@
  },
  "250201247": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "IBPP": "B",
+   "IM": "A",
+   "IP": "C",
+   "SM": "B"
+  },
   "group": "dcp",
   "name": "Lakshya Agarwal",
   "programme": "0201",
@@ -7127,6 +8240,13 @@
  },
  "250201248": {
   "batch": "2027",
+  "courses": {
+   "AIB": "A",
+   "CR": "A",
+   "IP": "B",
+   "MF": "A",
+   "VB": "A"
+  },
   "group": "dcp",
   "name": "Chandak Gaurang Ajay",
   "programme": "0201",
@@ -7140,8 +8260,7 @@
   "group": "bfs",
   "name": "Aakriti Berry",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601002": {
@@ -7153,7 +8272,7 @@
   "name": "Aarushi",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601003": {
@@ -7164,8 +8283,7 @@
   "group": "bfs",
   "name": "Aastha Agarwal",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601004": {
@@ -7176,8 +8294,7 @@
   "group": "bfs",
   "name": "Abhinav Anand",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601005": {
@@ -7188,8 +8305,8 @@
   "group": "bfs",
   "name": "Adit Thurumalla",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601006": {
@@ -7201,7 +8318,7 @@
   "name": "Aditi Gupta",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601007": {
@@ -7213,7 +8330,6 @@
   "name": "Aditya Kumar Jha",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601008": {
@@ -7224,8 +8340,8 @@
   "group": "bfs",
   "name": "Aditya Mohan Mehrotra",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601009": {
@@ -7236,8 +8352,7 @@
   "group": "bfs",
   "name": "Agrim Garg",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601010": {
@@ -7249,7 +8364,7 @@
   "name": "Aishik Adhikary",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601011": {
@@ -7260,8 +8375,7 @@
   "group": "bfs",
   "name": "Akshaj Arora",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601012": {
@@ -7272,8 +8386,8 @@
   "group": "bfs",
   "name": "Akshansh Baranwal",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601013": {
@@ -7285,7 +8399,6 @@
   "name": "Akshansh Maheshwari",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601014": {
@@ -7297,7 +8410,7 @@
   "name": "Akshat Goel",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601015": {
@@ -7309,7 +8422,6 @@
   "name": "Akshat Vansh Vashishth",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601016": {
@@ -7320,8 +8432,8 @@
   "group": "bfs",
   "name": "Akshat Vats",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601017": {
@@ -7333,7 +8445,6 @@
   "name": "Alen Siddharth Roy",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601018": {
@@ -7345,7 +8456,7 @@
   "name": "Amaan Ahmad",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601019": {
@@ -7357,7 +8468,6 @@
   "name": "Aman Gupta",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601020": {
@@ -7369,7 +8479,6 @@
   "name": "Anika Gupta",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601021": {
@@ -7380,8 +8489,8 @@
   "group": "bfs",
   "name": "Ankan Bhakat",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601022": {
@@ -7393,7 +8502,7 @@
   "name": "Ankitha Chowdary Arumilli",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601023": {
@@ -7404,8 +8513,7 @@
   "group": "bfs",
   "name": "Anna Mehta",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601024": {
@@ -7417,7 +8525,7 @@
   "name": "Anoushka Singh",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601025": {
@@ -7429,7 +8537,6 @@
   "name": "Ansh Gupta",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601026": {
@@ -7441,7 +8548,6 @@
   "name": "Anushka Deepak Sarkar",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601027": {
@@ -7452,8 +8558,8 @@
   "group": "bfs",
   "name": "Anushka Dubey",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601028": {
@@ -7465,7 +8571,6 @@
   "name": "Archi Agrawal",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601029": {
@@ -7477,7 +8582,7 @@
   "name": "Arjun Singh Karakoti",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601030": {
@@ -7488,8 +8593,7 @@
   "group": "bfs",
   "name": "Arkajeet Ghosh",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601031": {
@@ -7500,8 +8604,8 @@
   "group": "bfs",
   "name": "Ashish Saini",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601032": {
@@ -7510,10 +8614,9 @@
    "BF"
   ],
   "group": "bfs",
-  "name": "Ashutosh Kumar Vishwakarma",
+  "name": "Ashutosh Kumar Vishwakarm",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601033": {
@@ -7525,7 +8628,7 @@
   "name": "Asmi Surjit Thakur",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601034": {
@@ -7536,8 +8639,8 @@
   "group": "bfs",
   "name": "Ateev Goel",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601035": {
@@ -7548,8 +8651,7 @@
   "group": "bfs",
   "name": "Aviral Joshi",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601036": {
@@ -7560,8 +8662,8 @@
   "group": "bfs",
   "name": "Ayushmaan Beniwal",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601037": {
@@ -7573,7 +8675,6 @@
   "name": "Ayussh Agarwal",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601038": {
@@ -7585,7 +8686,6 @@
   "name": "Bhumi Jaiswal",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601039": {
@@ -7596,8 +8696,8 @@
   "group": "bfs",
   "name": "Chayanika Khattri",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601040": {
@@ -7608,8 +8708,8 @@
   "group": "bfs",
   "name": "Chinmay Singh Bharadwaj",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601041": {
@@ -7618,10 +8718,9 @@
    "BF"
   ],
   "group": "bfs",
-  "name": "Darshan Faldu",
+  "name": "Darshan Harsukh Faldu",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601042": {
@@ -7632,8 +8731,7 @@
   "group": "bfs",
   "name": "Deepshi Bansal",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601043": {
@@ -7644,8 +8742,8 @@
   "group": "bfs",
   "name": "Dev Bhutani",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601044": {
@@ -7656,8 +8754,8 @@
   "group": "bfs",
   "name": "Dhwani Bansal",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601045": {
@@ -7669,7 +8767,6 @@
   "name": "Divyam Dudeja",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601046": {
@@ -7681,7 +8778,6 @@
   "name": "Garima Jindal",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601047": {
@@ -7692,8 +8788,8 @@
   "group": "bfs",
   "name": "Garima Joshi",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601048": {
@@ -7705,7 +8801,7 @@
   "name": "Gaurav Kumar Singh",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601049": {
@@ -7716,8 +8812,7 @@
   "group": "bfs",
   "name": "Gayatri Dande",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601050": {
@@ -7728,8 +8823,7 @@
   "group": "bfs",
   "name": "Goplani Aman Jai",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601051": {
@@ -7740,8 +8834,8 @@
   "group": "bfs",
   "name": "Harshita Sharma",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601052": {
@@ -7753,7 +8847,7 @@
   "name": "Himanshu Khaitan",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601053": {
@@ -7764,8 +8858,7 @@
   "group": "bfs",
   "name": "Hrithik Tripathi",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601054": {
@@ -7777,7 +8870,6 @@
   "name": "Isha Yadava",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601055": {
@@ -7788,8 +8880,8 @@
   "group": "bfs",
   "name": "Ishwar Sudeepkumar Vyas",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601056": {
@@ -7800,8 +8892,8 @@
   "group": "bfs",
   "name": "Janapareddi Mani Deepika",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601057": {
@@ -7812,8 +8904,7 @@
   "group": "bfs",
   "name": "Janavi S Athreya",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601058": {
@@ -7824,8 +8915,8 @@
   "group": "bfs",
   "name": "Japna Bhola",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601059": {
@@ -7837,7 +8928,6 @@
   "name": "Jatin Ahuja",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601060": {
@@ -7849,7 +8939,7 @@
   "name": "Jatin Moolchandani",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601061": {
@@ -7861,7 +8951,6 @@
   "name": "Jayesh Bothra",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601062": {
@@ -7872,8 +8961,7 @@
   "group": "bfs",
   "name": "Jayshree",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601063": {
@@ -7884,8 +8972,8 @@
   "group": "bfs",
   "name": "Kanak Panchal",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601064": {
@@ -7896,8 +8984,7 @@
   "group": "bfs",
   "name": "Karan Chawla",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601065": {
@@ -7909,7 +8996,7 @@
   "name": "Karthik Binu",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601066": {
@@ -7921,7 +9008,6 @@
   "name": "Keshav Jaswal",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601067": {
@@ -7933,7 +9019,7 @@
   "name": "Keshav Lahoti",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601068": {
@@ -7945,7 +9031,6 @@
   "name": "Khasitiz Soni",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601069": {
@@ -7956,8 +9041,8 @@
   "group": "bfs",
   "name": "Khushi Jindal",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601070": {
@@ -7969,7 +9054,6 @@
   "name": "Khushi Mehta",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601071": {
@@ -7980,8 +9064,8 @@
   "group": "bfs",
   "name": "Krish Gambhir",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601072": {
@@ -7993,7 +9077,6 @@
   "name": "Krish Kapoor",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601073": {
@@ -8004,8 +9087,8 @@
   "group": "bfs",
   "name": "Krish Panwar",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601074": {
@@ -8016,8 +9099,7 @@
   "group": "bfs",
   "name": "Krish Rajesh Bucha",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601075": {
@@ -8028,8 +9110,8 @@
   "group": "bfs",
   "name": "Kuhu Singh",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601076": {
@@ -8041,7 +9123,7 @@
   "name": "Lakshya Agrawal",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601077": {
@@ -8052,8 +9134,7 @@
   "group": "bfs",
   "name": "Lakshya Sanwal",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601078": {
@@ -8065,7 +9146,6 @@
   "name": "Mahika Khanna",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601079": {
@@ -8077,7 +9157,7 @@
   "name": "Manasvi Chaturvedi",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601081": {
@@ -8088,8 +9168,7 @@
   "group": "bfs",
   "name": "Manvi Goel",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601082": {
@@ -8100,8 +9179,7 @@
   "group": "bfs",
   "name": "Meghadri Mitra",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601083": {
@@ -8113,7 +9191,7 @@
   "name": "Mohammed Abdul Razzak",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601084": {
@@ -8125,7 +9203,6 @@
   "name": "Mohit Singh",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601085": {
@@ -8136,8 +9213,8 @@
   "group": "bfs",
   "name": "Nahush Vaze",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601086": {
@@ -8149,7 +9226,7 @@
   "name": "Nandini Gupta",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601087": {
@@ -8161,7 +9238,6 @@
   "name": "Narayan Agarwal",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601088": {
@@ -8173,7 +9249,7 @@
   "name": "Nishanth Hari S",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601089": {
@@ -8184,8 +9260,7 @@
   "group": "bfs",
   "name": "Prachi Tiwari",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601090": {
@@ -8196,8 +9271,7 @@
   "group": "bfs",
   "name": "Prajjwal Sahoo",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601091": {
@@ -8208,8 +9282,8 @@
   "group": "bfs",
   "name": "Pranil Jain",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601092": {
@@ -8221,6 +9295,7 @@
   "group": "bfs",
   "name": "Pratham Agarwal",
   "programme": "0601",
+  "section": "A",
   "term": 5
  },
  "250601094": {
@@ -8232,7 +9307,6 @@
   "name": "Pritam Roy",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601095": {
@@ -8244,7 +9318,7 @@
   "name": "Pulkit Saxena",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601096": {
@@ -8256,7 +9330,6 @@
   "name": "Rishab P Dave",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601097": {
@@ -8267,8 +9340,8 @@
   "group": "bfs",
   "name": "Rishit Vaish",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601098": {
@@ -8280,7 +9353,6 @@
   "name": "Riyansh Ramanathan",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601099": {
@@ -8291,8 +9363,16 @@
   "group": "bfs",
   "name": "Rohit Verma",
   "programme": "0601",
+  "section": "B",
+  "sectionByDefault": true,
+  "term": 5
+ },
+ "250601100": {
+  "batch": "2027",
+  "group": "bfs",
+  "name": "Rudraksh Sanjay Vora",
+  "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601101": {
@@ -8303,8 +9383,8 @@
   "group": "bfs",
   "name": "Saanvi Gupta",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601102": {
@@ -8316,7 +9396,7 @@
   "name": "Saatvik Sharma",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601103": {
@@ -8328,7 +9408,6 @@
   "name": "Saba Ayaz",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601104": {
@@ -8339,8 +9418,7 @@
   "group": "bfs",
   "name": "Sabhay Wadhwa",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601105": {
@@ -8352,7 +9430,7 @@
   "name": "Sachin Khanna",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601106": {
@@ -8364,7 +9442,6 @@
   "name": "Saksham Bhargava",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601107": {
@@ -8376,7 +9453,7 @@
   "name": "Saksham Sethi",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601108": {
@@ -8388,7 +9465,15 @@
   "name": "Sana Gupta",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
+  "term": 5
+ },
+ "250601109": {
+  "batch": "2027",
+  "group": "bfs",
+  "name": "Sanya Gupta",
+  "programme": "0601",
+  "section": "A",
   "term": 5
  },
  "250601110": {
@@ -8400,7 +9485,6 @@
   "name": "Satvik Pramendra Singh",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601111": {
@@ -8411,8 +9495,8 @@
   "group": "bfs",
   "name": "Selina Yadav",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601112": {
@@ -8424,7 +9508,7 @@
   "name": "Shagun Somani",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601113": {
@@ -8435,8 +9519,7 @@
   "group": "bfs",
   "name": "Shaurya Gupta",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601114": {
@@ -8448,7 +9531,6 @@
   "name": "Shitika Tuteja",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601115": {
@@ -8459,8 +9541,8 @@
   "group": "bfs",
   "name": "Shivangi Pandey",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601116": {
@@ -8472,7 +9554,7 @@
   "name": "Shlok Mineshkumar Patel",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601117": {
@@ -8483,8 +9565,7 @@
   "group": "bfs",
   "name": "Shourya Makheja",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601118": {
@@ -8496,7 +9577,7 @@
   "name": "Shreya Agarwal",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601119": {
@@ -8508,7 +9589,6 @@
   "name": "Shubhranshu Sekhar Roychowdhury",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601120": {
@@ -8520,7 +9600,7 @@
   "name": "Siddha Pugalia",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601121": {
@@ -8532,7 +9612,6 @@
   "name": "Simarjeet Singh",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601122": {
@@ -8543,8 +9622,8 @@
   "group": "bfs",
   "name": "Sreebash Khan",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601123": {
@@ -8555,8 +9634,7 @@
   "group": "bfs",
   "name": "Srishti Malani",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601124": {
@@ -8567,8 +9645,8 @@
   "group": "bfs",
   "name": "Subika Singh",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601125": {
@@ -8577,10 +9655,9 @@
    "BF"
   ],
   "group": "bfs",
-  "name": "Swayam Nawal",
+  "name": "Swayam Mukesh Nawal",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601126": {
@@ -8592,7 +9669,6 @@
   "name": "Tanisha Bansal",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601127": {
@@ -8603,8 +9679,8 @@
   "group": "bfs",
   "name": "Pula Tereen Kumar",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601128": {
@@ -8615,8 +9691,7 @@
   "group": "bfs",
   "name": "Trishant Nagireddy",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601129": {
@@ -8628,7 +9703,7 @@
   "name": "Trishika Bansal",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601130": {
@@ -8640,7 +9715,7 @@
   "name": "Tukej Kumar",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601131": {
@@ -8651,8 +9726,7 @@
   "group": "bfs",
   "name": "Udit Khetawat",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601132": {
@@ -8663,8 +9737,8 @@
   "group": "bfs",
   "name": "Vaibhav Dhingra",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601133": {
@@ -8676,7 +9750,6 @@
   "name": "Vani Jaiswal",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601134": {
@@ -8687,8 +9760,7 @@
   "group": "bfs",
   "name": "Vansh Kabra",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601135": {
@@ -8700,7 +9772,7 @@
   "name": "Vanshika",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601136": {
@@ -8712,7 +9784,7 @@
   "name": "Varun Deshpande",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601137": {
@@ -8723,8 +9795,7 @@
   "group": "bfs",
   "name": "Vatsal Jain",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601138": {
@@ -8736,7 +9807,7 @@
   "name": "Vedant Agrawal",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601139": {
@@ -8748,7 +9819,6 @@
   "name": "Vibhor Arora",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601140": {
@@ -8759,8 +9829,7 @@
   "group": "bfs",
   "name": "Vishakha Alwani",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601141": {
@@ -8771,8 +9840,8 @@
   "group": "bfs",
   "name": "Yash Bansal",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601142": {
@@ -8784,7 +9853,6 @@
   "name": "Yash Chauhan",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601144": {
@@ -8795,8 +9863,7 @@
   "group": "bfs",
   "name": "Yash Pratap",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601145": {
@@ -8807,8 +9874,8 @@
   "group": "bfs",
   "name": "Zubin Relia",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601146": {
@@ -8820,7 +9887,7 @@
   "name": "Mahima Singhal",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601147": {
@@ -8831,8 +9898,7 @@
   "group": "bfs",
   "name": "Riya Vishnoi",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601148": {
@@ -8843,8 +9909,7 @@
   "group": "bfs",
   "name": "Sanyam Jain",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "250601149": {
@@ -8856,7 +9921,7 @@
   "name": "Devanshi Gupta",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601150": {
@@ -8868,7 +9933,6 @@
   "name": "Reeti Ghosh Choudhury",
   "programme": "0601",
   "section": "A",
-  "sectionAssumed": true,
   "term": 5
  },
  "250601151": {
@@ -8880,7 +9944,7 @@
   "name": "Manikarna Saha",
   "programme": "0601",
   "section": "B",
-  "sectionAssumed": true,
+  "sectionByDefault": true,
   "term": 5
  },
  "250601152": {
@@ -8891,8 +9955,8 @@
   "group": "bfs",
   "name": "Disha Rajesh Suvarna",
   "programme": "0601",
-  "section": "A",
-  "sectionAssumed": true,
+  "section": "B",
+  "sectionByDefault": true,
   "term": 5
  },
  "250601153": {
@@ -8903,8 +9967,7 @@
   "group": "bfs",
   "name": "Aishna Agarwal",
   "programme": "0601",
-  "section": "B",
-  "sectionAssumed": true,
+  "section": "A",
   "term": 5
  },
  "25FPM003": {

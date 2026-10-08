@@ -35,8 +35,8 @@ One row per batch and schedule group. The term is worked out from
 | Batch | Group (programmes) | Term now | Students loaded | Weekly loaded | Weekly shows | Alumni from |
 |---|---|---|---|---|---|---|
 | 2025-27 | core (PGDM, Marketing, Finance) | 5 | 361, with each student's courses and course-sections | 5-11 Oct | Exactly the student's classes | 14 Mar 2027 (handbook, tentative) |
-| 2025-27 | BFS | 5 | 148, with their elective (SERM or BF); section taken from the elective for now | 5-11 Oct | Their section and only the elective they chose | 14 Mar 2027 (assumed) |
-| 2025-27 | DCP | 5 | 239, names only | 5-11 Oct | All five tracks, labelled, with a note | 14 Mar 2027 (assumed) |
+| 2025-27 | BFS | 5 | 150: Section A from its class list (77), everyone else Section B (73); elective (SERM or BF) for 148 | 5-11 Oct | Their section's classes plus the elective they chose | 14 Mar 2027 (assumed) |
+| 2025-27 | DCP | 5 | 239 names; 160 with their five courses and each course's section | 5-11 Oct | Exactly their classes for the 160; all five tracks, labelled, for the other 79 | 14 Mar 2027 (assumed) |
 | 2026-28 | core (PGDM, Marketing, Finance) | 2 | 338, with section A-F | 5-11 Oct | The student's section, plus all Design Thinking groups | 13 Mar 2028 |
 | 2026-28 | BFS | 2 | 146, with section A or B | 5-11 Oct | The student's section | 13 Mar 2028 |
 | 2026-28 | DCP | 2 | 96, with section A or B | 5-11 Oct | The student's section | 13 Mar 2028 |
@@ -125,7 +125,7 @@ different names is left out on its own and reported. Everything else still build
 |---|---|
 | Weekly schedule (PDF) | Rows by subject area with course-section cells (`CWB-C(1) PJ{C -201}`); rows by section with a venue (`SERM-(1)-SPP`, `HRM(1)FH`, `BC-A(1)-SHA`); rows by track (`VB-A(13)-MZ`); group sessions (`DTI-G-5(1)AT`); merged cells such as "ADP Placement Process"; whole-day notes such as "SSR Visits" |
 | Course allocation (PDF) | Any table with a course name and an abbreviation column |
-| Student list (xls, xlsx, PDF) | Any table with a "Roll No" or "Roll Number" column; reads name, section, major, minor, track, an "Elective Course" column, and course columns headed by a course's full name |
+| Student list (xls, xlsx, PDF) | Any table with a "Roll No", "Roll Number" or "Enrolment No." column; one row per student, or one row per student and course ("Course" and "SEC" columns); reads name, section, major, minor, track, an "Elective Course" column, and course columns headed by a course's full name |
 
 Only roll number, name, section, major, minor, track and courses are ever
 taken from a student list. Emails, dates of birth, gender, state and phone
@@ -285,11 +285,17 @@ cannot be counted.
 - **The lock message names the student's own term**: "Term 5 exams coming
   soon" for a Term 5 student, "Term 2 exams coming soon" for a Term 2 one,
   from `lockedLabel: "Term {term} exams coming soon"`.
-- **BFS 2025-27 sections come from the elective for now** (SERM = section A,
-  BF = section B, as the Week 1 schedule is laid out), agreed on 8 Oct 2026
-  as a stop-gap until Khush sends the section-wise list. It is one entry in
-  `overrides.json` (`sectionFromElective`); a section in a real student list
-  always wins, and the entry should be deleted when that list arrives.
+- **BFS 2025-27 sections:** the Section A class list is on file; per Khush
+  (8 Oct 2026) every other BFS 2025-27 student is in Section B. That rule is
+  one entry in `overrides.json` (`defaultSection`). Section and elective are
+  independent: each section has both SERM and BF students, so an elective
+  class is shown to whoever chose it, whichever section's row it is printed
+  in. (An earlier same-day stop-gap that guessed the section from the
+  elective was wrong for about half the batch and has been removed.)
+- **DCP 2025-27 is matched by course and section**, like the core batch: its
+  schedule cells name both (`VB-A(13)`), and the "Course and Section Name"
+  sheet gives each student's five courses with a section each. The track
+  rows (AQF, ITL, IBM-A, IBM-B, ITA) are only where a class is printed.
 - **`all files/` is never uploaded to GitHub.** It is git-ignored.
 - **Exam Seat stays locked** between cycles; its subject matching gets
   reworked when the next seating plan arrives, not before.
@@ -317,9 +323,9 @@ cannot be counted.
 
 | What | What it unlocks | Status |
 |---|---|---|
-| BFS 2025-27: section-wise student list | Replacing the stop-gap (section taken from the elective) with the real sections | Promised by Khush |
-| BFS 2025-27: corrected "BF Elective Course" list | Two students missing or doubtful (see oddities) | Waiting |
-| DCP 2025-27: each student's track (AQF, ITL, IBM-A, IBM-B, ITA) and Industry Project section | Track-exact weeks instead of all tracks | Waiting |
+| BFS 2025-27: Section B class list | Confirming Section B directly, in place of "everyone not in A" | Optional |
+| BFS 2025-27: elective for rolls 250601100 and 250601109, and which list 250601092 belongs on | Those three see both electives until then | Waiting |
+| DCP 2025-27: courses for the 79 students not on the "Course and Section Name" sheet | Their exact week; they see all tracks until then | Possibly off campus this term; Khush does not know yet (8 Oct 2026) |
 | PGDM Finance 2026-28 handbook | Confirming it follows the core calendar | Waiting |
 | Design Thinking group lists (2026-28 core groups 1-11, DCP groups A-C) | Showing each student only their own group | Not yet asked for; would tidy the Wednesday and Saturday lists |
 | Handbooks for 2025-27 BFS and DCP | Real term dates and alumni dates for them | Only if they exist |
@@ -427,6 +433,15 @@ every run, so correct the college's file in `all files/` (or
   "DCP 28 for Term II.xlsx"; the old file was moved to
   `all files/_superseded/`, which the update does not read. Same 47 students
   and rolls, ten names corrected, nothing else changed.
+
+- **8 Oct 2026, BFS 2025-27.** "Section-A BFS-I (2025-27).pdf" received: 77
+  students in Section A; the other 73 placed in Section B by rule. It also
+  settled roll 250601109's name and added 250601100. Three names are spelled
+  differently in this list than in the elective lists; this list's spelling
+  is used.
+- **8 Oct 2026, DCP 2025-27.** "Course and Section Name - Term V" received:
+  160 students, five courses each, with sections (800 rows). No clashes this
+  week, and every scheduled course-section has registered students.
 
 ## Known oddities in the college's files
 
