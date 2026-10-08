@@ -1,0 +1,19 @@
+{
+ "messages": [
+  {
+   "kind": "FILED",
+   "text": "Week-2 Class Schedule Term-2 BFS-I (2026-28).pdf -> batch 2028/bfs/term 2/weekly"
+  }
+ ],
+ "ranAt": "2026-10-08T15:44:13Z",
+ "weeks": [
+  {
+   "classes": 34,
+   "end": "2026-10-18",
+   "file": "Week-2 Class Schedule Term-2 BFS-I (2026-28).pdf",
+   "group": "2028-bfs",
+   "start": "2026-10-12",
+   "term": 2
+  }
+ ]
+}

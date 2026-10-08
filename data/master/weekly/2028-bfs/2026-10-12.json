@@ -1,0 +1,417 @@
+{
+ "batch": "2028",
+ "courses": {
+  "BV": "Business Valuation",
+  "CB": "Corporate Banking",
+  "FSA": "Financial Statement Analysis",
+  "IFM": "Introduction to Financial Markets",
+  "MM": "Marketing Management",
+  "RMBFS-I": "Risk Management in BFS-I",
+  "SEBP": "Service Excellence in Banking Projects"
+ },
+ "days": [
+  {
+   "date": "2026-10-12"
+  },
+  {
+   "date": "2026-10-13"
+  },
+  {
+   "date": "2026-10-14"
+  },
+  {
+   "date": "2026-10-15"
+  },
+  {
+   "date": "2026-10-16"
+  },
+  {
+   "date": "2026-10-17"
+  },
+  {
+   "date": "2026-10-18"
+  }
+ ],
+ "electives": [],
+ "end": "2026-10-18",
+ "group": "bfs",
+ "mode": "section",
+ "rowLabel": "Section",
+ "rows": [
+  "A",
+  "B"
+ ],
+ "sessions": [
+  {
+   "c": "RMBFS-I",
+   "d": 0,
+   "grp": null,
+   "n": 1,
+   "room": "C-102",
+   "row": "B",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "RMBFS-I",
+   "d": 0,
+   "grp": null,
+   "n": 1,
+   "room": "C-101",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "SEBP",
+   "d": 0,
+   "grp": null,
+   "n": 2,
+   "room": "C-102",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "SEBP",
+   "d": 0,
+   "grp": null,
+   "n": 2,
+   "room": "C-101",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "RMBFS-I",
+   "d": 1,
+   "grp": null,
+   "n": 2,
+   "room": "C-101",
+   "row": "A",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "RMBFS-I",
+   "d": 1,
+   "grp": null,
+   "n": 2,
+   "room": "C-102",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "FSA",
+   "d": 1,
+   "grp": null,
+   "n": 3,
+   "room": "C-101",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "BV",
+   "d": 1,
+   "grp": null,
+   "n": 4,
+   "room": "C-102",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "BV",
+   "d": 1,
+   "grp": null,
+   "n": 4,
+   "room": "C-101",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "SEBP",
+   "d": 2,
+   "grp": null,
+   "n": 3,
+   "room": "C-102",
+   "row": "B",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "SEBP",
+   "d": 2,
+   "grp": null,
+   "n": 3,
+   "room": "C-101",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "FSA",
+   "d": 2,
+   "grp": null,
+   "n": 3,
+   "room": "C-102",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "BV",
+   "d": 2,
+   "grp": null,
+   "n": 5,
+   "room": "C-101",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "MM",
+   "d": 2,
+   "grp": null,
+   "n": 4,
+   "room": "C-102",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "MM",
+   "d": 2,
+   "grp": null,
+   "n": 4,
+   "room": "C-101",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "BV",
+   "d": 2,
+   "grp": null,
+   "n": 5,
+   "room": "C-102",
+   "row": "B",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "IFM",
+   "d": 3,
+   "grp": null,
+   "n": 2,
+   "room": "C-101",
+   "row": "A",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "SEBP",
+   "d": 3,
+   "grp": null,
+   "n": 4,
+   "room": "C-102",
+   "row": "B",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "FSA",
+   "d": 3,
+   "grp": null,
+   "n": 4,
+   "room": "C-101",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "IFM",
+   "d": 3,
+   "grp": null,
+   "n": 2,
+   "room": "C-102",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "SEBP",
+   "d": 3,
+   "grp": null,
+   "n": 4,
+   "room": "C-101",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "MM",
+   "d": 3,
+   "grp": null,
+   "n": 5,
+   "room": "C-102",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "MM",
+   "d": 3,
+   "grp": null,
+   "n": 5,
+   "room": "C-101",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "IFM",
+   "d": 4,
+   "grp": null,
+   "n": 3,
+   "room": "C-102",
+   "row": "B",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "IFM",
+   "d": 4,
+   "grp": null,
+   "n": 3,
+   "room": "C-101",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "FSA",
+   "d": 4,
+   "grp": null,
+   "n": 4,
+   "room": "C-102",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "BV",
+   "d": 4,
+   "grp": null,
+   "n": 6,
+   "room": "C-101",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "SEBP",
+   "d": 4,
+   "grp": null,
+   "n": 5,
+   "room": "C-102",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "SEBP",
+   "d": 4,
+   "grp": null,
+   "n": 5,
+   "room": "C-101",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "BV",
+   "d": 4,
+   "grp": null,
+   "n": 6,
+   "room": "C-102",
+   "row": "B",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "CB",
+   "d": 5,
+   "grp": null,
+   "n": 1,
+   "room": "C-101",
+   "row": "A",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "CB",
+   "d": 5,
+   "grp": null,
+   "n": 2,
+   "room": "C-101",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "CB",
+   "d": 5,
+   "grp": null,
+   "n": 3,
+   "room": "C-102",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "CB",
+   "d": 5,
+   "grp": null,
+   "n": 4,
+   "room": "C-102",
+   "row": "B",
+   "s": 3,
+   "sec": null
+  }
+ ],
+ "slots": [
+  [
+   "09:00",
+   "10:15"
+  ],
+  [
+   "10:30",
+   "11:45"
+  ],
+  [
+   "12:00",
+   "13:15"
+  ],
+  [
+   "14:15",
+   "15:30"
+  ],
+  [
+   "15:45",
+   "17:00"
+  ],
+  [
+   "17:30",
+   "18:45"
+  ]
+ ],
+ "source": "uploads/batch 2028/bfs/term 2/weekly/Week-2 Class Schedule Term-2 BFS-I (2026-28).pdf",
+ "specials": [],
+ "start": "2026-10-12",
+ "term": 2,
+ "weekNumber": 2
+}
