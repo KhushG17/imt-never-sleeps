@@ -2,20 +2,32 @@
  "messages": [
   {
    "kind": "FILED",
-   "text": "2-Weekly Schedule of PGDM-I(2026-28) Term - II Oct. 12 - 18, 2026.pdf -> batch 2028/core/term 2/weekly"
-  },
-  {
-   "kind": "SKIPPED",
-   "text": "uploads/batch 2028/core/term 2/weekly/2-Weekly Schedule of PGDM-I(2026-28) Term - II Oct. 12 - 18, 2026.pdf: unreadable day label: '13, 2026'"
+   "text": "2-Weekly Schedule of PGDM - II (205-27) Term - V during Oct. 12 - 18, 2026.pdf -> batch 2027/core/term 5/weekly"
   }
  ],
- "ranAt": "2026-10-08T16:08:29Z",
+ "ranAt": "2026-10-08T17:04:12Z",
  "weeks": [
+  {
+   "classes": 82,
+   "end": "2026-10-18",
+   "file": "2-Weekly Schedule of PGDM - II (205-27) Term - V during Oct. 12 - 18, 2026.pdf",
+   "group": "2027-core",
+   "start": "2026-10-12",
+   "term": 5
+  },
   {
    "classes": 34,
    "end": "2026-10-18",
    "file": "Week-2 Class Schedule Term-2 BFS-I (2026-28).pdf",
    "group": "2028-bfs",
+   "start": "2026-10-12",
+   "term": 2
+  },
+  {
+   "classes": 133,
+   "end": "2026-10-18",
+   "file": "2-Weekly Schedule of PGDM-I(2026-28) Term - II Oct. 12 - 18, 2026.pdf",
+   "group": "2028-core",
    "start": "2026-10-12",
    "term": 2
   }
