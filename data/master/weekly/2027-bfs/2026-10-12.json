@@ -1,0 +1,604 @@
+{
+ "batch": "2027",
+ "courses": {
+  "BF": "Behavioural Finance",
+  "BFSI&STY": "BFSI & Society",
+  "FIS": "Fixed Income Securities",
+  "HRM": "Human Resource Management",
+  "MLBFSI": "Machine Learning for BFSI",
+  "SERM": "Service Excellence & Relationship Management",
+  "VCPE": "Venture Capital & Private Equity"
+ },
+ "days": [
+  {
+   "date": "2026-10-12"
+  },
+  {
+   "date": "2026-10-13"
+  },
+  {
+   "date": "2026-10-14"
+  },
+  {
+   "date": "2026-10-15"
+  },
+  {
+   "date": "2026-10-16"
+  },
+  {
+   "date": "2026-10-17"
+  },
+  {
+   "date": "2026-10-18"
+  }
+ ],
+ "electives": [
+  "SERM",
+  "BF"
+ ],
+ "end": "2026-10-18",
+ "group": "bfs",
+ "mode": "section",
+ "rowLabel": "Section",
+ "rows": [
+  "A",
+  "B"
+ ],
+ "sessions": [
+  {
+   "c": "FIS",
+   "d": 0,
+   "grp": null,
+   "n": 5,
+   "room": "C-002",
+   "row": "B",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "FIS",
+   "d": 0,
+   "grp": null,
+   "n": 5,
+   "room": "C-001",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "VCPE",
+   "d": 0,
+   "grp": null,
+   "n": 3,
+   "room": "C-002",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "SERM",
+   "d": 0,
+   "grp": null,
+   "n": 4,
+   "room": "C-001",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "BF",
+   "d": 0,
+   "grp": null,
+   "n": 4,
+   "room": "C-002",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "VCPE",
+   "d": 0,
+   "grp": null,
+   "n": 3,
+   "room": "C-001",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 0,
+   "grp": null,
+   "n": 4,
+   "room": "C-002",
+   "row": "B",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 0,
+   "grp": null,
+   "n": 5,
+   "room": "C-002",
+   "row": "B",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 0,
+   "grp": null,
+   "n": 4,
+   "room": "C-001",
+   "row": "A",
+   "s": 5,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 0,
+   "grp": null,
+   "n": 5,
+   "room": "C-001",
+   "row": "A",
+   "s": 6,
+   "sec": null
+  },
+  {
+   "c": "FIS",
+   "d": 1,
+   "grp": null,
+   "n": 6,
+   "room": "C-002",
+   "row": "B",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "FIS",
+   "d": 1,
+   "grp": null,
+   "n": 6,
+   "room": "C-001",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "SERM",
+   "d": 1,
+   "grp": null,
+   "n": 5,
+   "room": "C-001",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "BF",
+   "d": 1,
+   "grp": null,
+   "n": 5,
+   "room": "C-002",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "FIS",
+   "d": 2,
+   "grp": null,
+   "n": 7,
+   "room": "C-001",
+   "row": "A",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 2,
+   "grp": null,
+   "n": 6,
+   "room": "C-002",
+   "row": "B",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 2,
+   "grp": null,
+   "n": 6,
+   "room": "C-001",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "FIS",
+   "d": 2,
+   "grp": null,
+   "n": 7,
+   "room": "C-002",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "SERM",
+   "d": 2,
+   "grp": null,
+   "n": 6,
+   "room": "C-001",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "BF",
+   "d": 2,
+   "grp": null,
+   "n": 6,
+   "room": "C-002",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 4,
+   "grp": null,
+   "n": 7,
+   "room": "C-001",
+   "row": "A",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 4,
+   "grp": null,
+   "n": 7,
+   "room": "C-002",
+   "row": "B",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "FIS",
+   "d": 4,
+   "grp": null,
+   "n": 8,
+   "room": "C-001",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 4,
+   "grp": null,
+   "n": 7,
+   "room": "C-002",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 4,
+   "grp": null,
+   "n": 7,
+   "room": "C-001",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "FIS",
+   "d": 4,
+   "grp": null,
+   "n": 8,
+   "room": "C-002",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 4,
+   "grp": null,
+   "n": 8,
+   "room": "C-001",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 4,
+   "grp": null,
+   "n": 8,
+   "room": "C-002",
+   "row": "B",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 5,
+   "grp": null,
+   "n": 9,
+   "room": "C-001",
+   "row": "A",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "BFSI&STY",
+   "d": 5,
+   "grp": null,
+   "n": 3,
+   "room": "C-002",
+   "row": "B",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "BFSI&STY",
+   "d": 5,
+   "grp": null,
+   "n": 3,
+   "room": "C-001",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "VCPE",
+   "d": 5,
+   "grp": null,
+   "n": 4,
+   "room": "C-002",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 5,
+   "grp": null,
+   "n": 9,
+   "room": "C-002",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "VCPE",
+   "d": 5,
+   "grp": null,
+   "n": 4,
+   "room": "C-001",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 5,
+   "grp": null,
+   "n": 10,
+   "room": "C-002",
+   "row": "B",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 5,
+   "grp": null,
+   "n": 10,
+   "room": "C-001",
+   "row": "A",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 5,
+   "grp": null,
+   "n": 11,
+   "room": "C-001",
+   "row": "A",
+   "s": 5,
+   "sec": null
+  },
+  {
+   "c": "VCPE",
+   "d": 5,
+   "grp": null,
+   "n": 5,
+   "room": "C-002",
+   "row": "B",
+   "s": 5,
+   "sec": null
+  },
+  {
+   "c": "VCPE",
+   "d": 5,
+   "grp": null,
+   "n": 5,
+   "room": "C-001",
+   "row": "A",
+   "s": 6,
+   "sec": null
+  },
+  {
+   "c": "VCPE",
+   "d": 6,
+   "grp": null,
+   "n": 6,
+   "room": "C-001",
+   "row": "A",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 6,
+   "grp": null,
+   "n": 11,
+   "room": "C-002",
+   "row": "B",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 6,
+   "grp": null,
+   "n": 12,
+   "room": "C-001",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "BFSI&STY",
+   "d": 6,
+   "grp": null,
+   "n": 4,
+   "room": "C-002",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "BFSI&STY",
+   "d": 6,
+   "grp": null,
+   "n": 4,
+   "room": "C-001",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 6,
+   "grp": null,
+   "n": 12,
+   "room": "C-002",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 6,
+   "grp": null,
+   "n": 8,
+   "room": "C-001",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "VCPE",
+   "d": 6,
+   "grp": null,
+   "n": 6,
+   "room": "C-002",
+   "row": "B",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 6,
+   "grp": null,
+   "n": 9,
+   "room": "C-001",
+   "row": "A",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "VCPE",
+   "d": 6,
+   "grp": null,
+   "n": 7,
+   "room": "C-002",
+   "row": "B",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 6,
+   "grp": null,
+   "n": 8,
+   "room": "C-002",
+   "row": "B",
+   "s": 5,
+   "sec": null
+  },
+  {
+   "c": "VCPE",
+   "d": 6,
+   "grp": null,
+   "n": 7,
+   "room": "C-001",
+   "row": "A",
+   "s": 6,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 6,
+   "grp": null,
+   "n": 9,
+   "room": "C-002",
+   "row": "B",
+   "s": 6,
+   "sec": null
+  }
+ ],
+ "slots": [
+  [
+   "09:00",
+   "10:15"
+  ],
+  [
+   "10:30",
+   "11:45"
+  ],
+  [
+   "12:00",
+   "13:15"
+  ],
+  [
+   "14:15",
+   "15:30"
+  ],
+  [
+   "15:45",
+   "17:00"
+  ],
+  [
+   "17:30",
+   "18:45"
+  ],
+  [
+   "19:00",
+   "20:15"
+  ]
+ ],
+ "source": "all files/batch 2027/bfs/term 5/weekly/Week-2 Class Schedule Term-5 BFS-II (2025-27) Batch.pdf",
+ "specials": [],
+ "start": "2026-10-12",
+ "term": 5,
+ "weekNumber": 2
+}

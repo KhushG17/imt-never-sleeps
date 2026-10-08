@@ -570,6 +570,11 @@ every run, so correct the college's file in `all files/` (or
   the text in the row only as a cross-check. The seven weeks loaded before
   came out identical, and the skipped week loaded with 133 classes.
 
+- **9 Oct 2026, BFS 2025-27 Week 2 (12 to 18 Oct).** Received as a PDF in
+  chat, filed through `all files/_inbox`. 52 classes, read cell for cell the
+  same as the PDF; no classes on Thu 15 Oct. Week 2 is now on file for four
+  of six groups; still to come: DCP 2026-28 and DCP 2025-27.
+
 ## Known oddities in the college's files
 
 Shown as printed, not corrected.
