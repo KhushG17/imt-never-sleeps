@@ -91,20 +91,26 @@
 
   // ---- the pill above the heading ----
   // While Exam Seat is unlocked: "Exam seating is live", and nothing else.
-  // Otherwise it follows the weekly schedule:
-  //   green "Live · 5 Oct - 11 Oct"  all week, while this week is loaded
-  //   red   "New week's schedule not uploaded yet"  once a week has begun
-  //         and its schedule isn't in
+  // Otherwise it follows the weekly schedules as they are uploaded:
+  //   green "Live · 5 Oct - 11 Oct"   this week is loaded for everyone it
+  //         speaks for. A week uploaded early stretches the dates
+  //         ("Live · 5 Oct - 18 Oct").
+  //   red   "5 Oct - 11 Oct"   the dates alone, in red, mean something is
+  //         not up to date: either not every programme's schedule for this
+  //         week is in, or the schedule day has passed those dates. It does
+  //         not say which.
+  //   red   "New week's schedule not uploaded yet"   nothing to date at all
   //   hidden during End Term Exams, and for alumni and terms held in Dubai
-  // Before a roll is entered it speaks for every batch and programme on
-  // campus; after, for that student's own. The test rolls force one pill
-  // each (livePill.preview in js/portal-config.js) so both can be seen on
-  // any day.
+  // Each programme's PDF arrives on its own. Before a roll is entered the
+  // pill speaks for everyone, and its dates only move on to a new week once
+  // at least three programmes have it (livePill.minProgrammes); after, it
+  // speaks for that student's own programme. The test rolls force one pill
+  // each (livePill.preview in js/portal-config.js).
   var pill = document.getElementById('livePill');
   var MONTHS = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  function weeklyPill(week){
-    var a = week.start.split('-'), b = week.end.split('-');
-    return { text: 'Live · ' + (+a[2]) + ' ' + MONTHS[+a[1]] + ' - ' + (+b[2]) + ' ' + MONTHS[+b[1]] };
+  function dates(c){
+    var a = c.start.split('-'), b = c.end.split('-');
+    return (+a[2]) + ' ' + MONTHS[+a[1]] + ' - ' + (+b[2]) + ' ' + MONTHS[+b[1]];
   }
   function examPill(){
     return { text: (CONFIG.examSeat && CONFIG.examSeat.liveLabel) || 'Exam seating is live' };
@@ -116,9 +122,10 @@
   }
   function normalPill(groupKey){
     if(CONFIG.examSeat && !CONFIG.examSeat.locked) return examPill();
-    var st = IMT.weekState(window.WEEKLY_DATA, groupKey);
-    if(st.state === 'live') return weeklyPill(st.week);
-    if(st.state === 'missing'){
+    var c = IMT.coverage(window.WEEKLY_DATA, groupKey);
+    if(c.state === 'live') return { text: 'Live · ' + dates(c) };
+    if(c.state === 'partial' || c.state === 'stale') return { text: dates(c), stale: true };
+    if(c.state === 'missing'){
       return { text: (CONFIG.livePill && CONFIG.livePill.missingLabel) || 'New week\'s schedule not uploaded yet', stale: true };
     }
     return null;
@@ -127,8 +134,8 @@
     var preview = ((CONFIG.livePill && CONFIG.livePill.preview) || {})[s && s.isTest ? s.roll : ''];
     if(preview === 'exam') return examPill();
     if(preview === 'weekly'){
-      var week = IMT.pickWeek((window.WEEKLY_DATA || {})[s.groupKey]);
-      if(week) return weeklyPill(week);
+      var c = IMT.coverage(window.WEEKLY_DATA, s.groupKey);
+      if(c.start) return { text: 'Live · ' + dates(c) };
     }
     return normalPill(s.groupKey);
   }

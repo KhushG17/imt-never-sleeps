@@ -20,6 +20,9 @@
       "BF"
     ]
   },
+  "examAliases": {
+    "_comment": "For Exam Seat. A seating plan often writes a subject differently from the course list (an abbreviation, a typo). Each entry maps the plan's spelling to the course's abbreviation or full name as in data/master/courses.json, e.g. \"Derivatives Mnagement\": \"Financial Derivatives\". Add entries when a new seating plan is loaded and scripts report subjects they could not place."
+  },
   "defaultSection": {
     "_comment": "For a batch where only one section's list is supplied: every other student of that batch, group and term is in this section. BFS 2025-27, per Khush on 8 Oct 2026: 'Section A list added, others not there would be in Section B'.",
     "2027-bfs-5": "B"

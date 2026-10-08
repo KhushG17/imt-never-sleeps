@@ -185,14 +185,23 @@
     }).join('') + '</div>';
   }
 
-  function showWeek(s, data){
-    var weeks = WEEKLY[s.groupKey] || [];
-    data = data || IMT.pickWeek(weeks);
-    var status = s.alumni ? 'alumni' : !data ? 'no_schedule' :
-      (data.mode === 'course' && !Object.keys(s.courses).length) ? 'no_roster' : 'shown';
+  // The schedule is one running list: from the current day through the end
+  // of the newest week on file. A week uploaded early simply adds its days
+  // below this week's, so nothing has to be switched. The "current day" is
+  // IMT.scheduleDay(): today until 8 pm IST, tomorrow after that.
+  function showWeek(s){
+    var weeks = (WEEKLY[s.groupKey] || []).slice().sort(function(a, b){ return a.start < b.start ? -1 : 1; });
+    var E = IMT.scheduleDay(), realToday = IMT.istToday();
+    // weeks that are not over yet; if every week on file is over, the newest one
+    var live = weeks.filter(function(w){ return w.end >= E; });
+    if(!live.length && weeks.length) live = [weeks[weeks.length - 1]];
+    var first = live[0];
+    var status = s.alumni ? 'alumni' : !first ? 'no_schedule' :
+      (first.mode === 'course' && !Object.keys(s.courses).length) ? 'no_roster' : 'shown';
     IMT.track('tool_open', s, { tool: 'weekly', status: status });
     lastResult = null;
     notice.hidden = true;
+    otherBtn.hidden = true;
     if(status === 'alumni'){
       showNotice(s, IMT.greeting(s), 'Term 6 is done, so there are no more weekly schedules for ' + s.batchLabel + '.');
       return;
@@ -209,50 +218,50 @@
       return;
     }
 
-    var view = buildView(data, s);
-    lastResult = { student: s, data: data, view: view };
-    var total = view.classes.length;
+    var shown = live.map(function(data){ return { data: data, view: buildView(data, s) }; });
+    var last = shown[shown.length - 1].data;
+    var label = shown.length === 1 ? weekLabel(first) : rangeLabel({ start: first.start, end: last.end });
+    var total = shown.reduce(function(n, w){ return n + w.view.classes.length; }, 0);
+    var firstView = shown[0].view;
+    lastResult = { student: s, shown: shown, label: label };
 
-    eyebrow.textContent = weekLabel(data);
+    eyebrow.textContent = label;
     eyebrow.hidden = false;
-    weekOut.textContent = weekLabel(data);
+    weekOut.textContent = label;
     nameOut.textContent = IMT.greeting(s);
     metaOut.textContent = 'Roll number ' + s.roll + (IMT.metaLine(s) ? ' · ' + IMT.metaLine(s) : '');
-    countOut.textContent = total + (total === 1 ? ' class' : ' classes') + (view.all ? ', all ' + data.rowLabel.toLowerCase() + 's' : '');
+    countOut.textContent = total + (total === 1 ? ' class' : ' classes') + (firstView.all ? ', all ' + first.rowLabel.toLowerCase() + 's' : '');
     backBtn.href = '../?roll=' + encodeURIComponent(s.roll);
-    bannerEl.textContent = view.banner;
-    bannerEl.hidden = !view.banner;
+    bannerEl.textContent = firstView.banner;
+    bannerEl.hidden = !firstView.banner;
 
-    var other = weeks.filter(function(w){ return w.start !== data.start; })[0];
-    otherBtn.hidden = !other;
-    if(other){
-      otherBtn.textContent = (other.start > data.start ? 'Next week: ' : 'Previous week: ') + rangeLabel(other);
-      otherBtn.onclick = function(){ showWeek(s, other); window.scrollTo(0, 0); };
-    }
-
-    var today = IMT.todayIso();
-    var cardIndex = 0;
-    var third = data.rowLabel || 'Section';
-    // today's classes come first, then the rest of the week, then the days gone
-    var order = IMT.todayFirst(data.days.map(function(d){ return d.date; }), today);
+    // every day of every shown week, then: current day first, days to come, days gone
+    var days = [];
+    shown.forEach(function(w, wi){
+      w.data.days.forEach(function(day, di){ days.push({ wi: wi, di: di, date: day.date }); });
+    });
+    var order = IMT.todayFirst(days.map(function(d){ return d.date; }), E);
     // the divider is needed whenever days gone follow days still to come
-    var hasToday = order.some(function(o){ return o.past; }) && order.some(function(o){ return !o.past; });
-    var earlierShown = false;
+    var mixed = order.some(function(o){ return o.past; }) && order.some(function(o){ return !o.past; });
+    var earlierShown = false, lastWeek = null;
+    var cardIndex = 0;
     listEl.innerHTML = order.map(function(o){
-      var di = o.i, day = data.days[di];
+      var slot = days[o.i], data = shown[slot.wi].data, view = shown[slot.wi].view, di = slot.di, day = data.days[di];
+      var third = data.rowLabel || 'Section';
       var tint = TINTS[di % TINTS.length];
       var classes = view.classes.filter(function(x){ return x.d === di; });
       var specials = view.specials.filter(function(sp){ return sp.d === di; });
       var groups = view.groups.filter(function(x){ return x.d === di; });
+      var isCurrent = day.date === E;
       var title = '<div class="day-title">' + dayLabel(data, di) +
-        (day.date === today ? '<span class="today-badge">Today</span>' : '') + '</div>';
+        (isCurrent ? '<span class="today-badge">' + (E === realToday ? 'Today' : 'Tomorrow') + '</span>' : '') + '</div>';
       var body = day.note ? '<div class="day-note">' + IMT.escapeHtml(day.note) + '</div>' : '';
 
       // classes and one-off entries share the grid, in time order
       var cards = classes.map(function(x){ return { s: x.s, row: x.row || '', html: function(){
         var clash = view.clash[x.d + ':' + x.s];
         var name = courseName(data, x.c);
-        return '<div class="exam-card cls-card" style="animation-delay:' + (cardIndex++ * 0.03).toFixed(2) + 's">' +
+        return '<div class="exam-card cls-card" style="animation-delay:' + (Math.min(cardIndex++, 30) * 0.03).toFixed(2) + 's">' +
           timeCell(tint, clock(data.slots[x.s][0]), clock(data.slots[x.s][1])) +
           '<div class="cls-main">' +
             '<div class="exam-subject">' + IMT.escapeHtml(name) +
@@ -261,7 +270,7 @@
             metaLine([['Room', x.room || '-'], [third, rowText(x)], ['Session', x.n]]) +
           '</div>' + calButton(classLink(data, x), name) + '</div>';
       }}; }).concat(specials.map(function(sp){ return { s: sp.s, row: '', html: function(){
-        return '<div class="exam-card cls-card" style="animation-delay:' + (cardIndex++ * 0.03).toFixed(2) + 's">' +
+        return '<div class="exam-card cls-card" style="animation-delay:' + (Math.min(cardIndex++, 30) * 0.03).toFixed(2) + 's">' +
           timeCell(tint, clock(data.slots[sp.s][0]), clock(data.slots[sp.s + sp.span - 1][1])) +
           '<div class="cls-main">' +
             '<div class="exam-subject">' + IMT.escapeHtml(sp.text) + '</div>' +
@@ -291,12 +300,17 @@
       if(!cards.length && !groups.length && !day.note){
         body += '<div class="day-free">No classes</div>';
       }
+
+      // headings between stretches of days: a new week starting, and the days gone
       var divider = '';
-      if(hasToday && o.past && !earlierShown){
+      if(mixed && o.past && !earlierShown){
         earlierShown = true;
         divider = '<div class="earlier-divider">Earlier this week</div>';
+      } else if(!o.past && lastWeek !== null && slot.wi !== lastWeek){
+        divider = '<div class="earlier-divider">' + weekLabel(data) + '</div>';
       }
-      return divider + '<div class="day-group' + (day.date === today ? ' is-today' : '') + (o.past && hasToday ? ' is-past' : '') + '">' + title + body + '</div>';
+      if(!o.past) lastWeek = slot.wi;
+      return divider + '<div class="day-group' + (isCurrent ? ' is-today' : '') + (o.past && mixed ? ' is-past' : '') + '">' + title + body + '</div>';
     }).join('');
 
     results.hidden = false;
@@ -322,7 +336,11 @@
   function buildPdf(){
     var jsPDFCtor = window.jspdf && window.jspdf.jsPDF;
     if(!jsPDFCtor || !lastResult) return null;
-    var s = lastResult.student, data = lastResult.data, view = lastResult.view;
+    // Students think in weeks, so the PDF is one week: the week that is
+    // running (or, if none is, the one on screen), even when the page also
+    // lists the week after.
+    var s = lastResult.student, shown = lastResult.shown.slice(0, 1), banner = shown[0].view.banner;
+    var weekCount = shown[0].view.classes.length;
 
     var doc = new jsPDFCtor({ unit:'mm', format:'a4' });
     var marginX = 16, y = 20;
@@ -342,7 +360,7 @@
     doc.setFont('helvetica','normal');
     doc.setFontSize(10.5);
     doc.setTextColor.apply(doc, PDF_MUTED);
-    doc.text('Weekly Schedule, ' + weekLabel(data).replace(' · ', ', '), marginX, y);
+    doc.text('Weekly Schedule, ' + weekLabel(shown[0].data).replace(' · ', ', '), marginX, y);
     y += 9;
 
     doc.setFont('helvetica','bold');
@@ -352,29 +370,34 @@
     doc.setFont('helvetica','normal');
     doc.setFontSize(9);
     doc.setTextColor.apply(doc, PDF_MUTED);
-    doc.text(countOut.textContent, pageW - marginX, y, { align:'right' });
+    doc.text(weekCount + (weekCount === 1 ? ' class' : ' classes') + (shown[0].view.all ? ', all ' + shown[0].data.rowLabel.toLowerCase() + 's' : ''),
+      pageW - marginX, y, { align:'right' });
     y += 5;
     doc.setFontSize(9.5);
     doc.text([s.name, IMT.metaLine(s).replace(/ · /g, ', ')].filter(Boolean).join(', '), marginX, y);
     y += 6;
 
-    var third = data.rowLabel || 'Section';
+    // in calendar order
+    var third = shown[0].data.rowLabel || 'Section';
     var rows = [], calLinks = [];
-    data.days.forEach(function(day, di){
-      if(day.note){ rows.push([dayLabel(data, di), '', day.note, '', '']); calLinks.push(null); }
-      var items = view.classes.filter(function(x){ return x.d === di; }).map(function(x){
-        return { s: x.s, row: [dayLabel(data, di), slotLabel(data, x.s),
-          courseName(data, x.c) + (view.tagElectives && data.electives.indexOf(x.c) >= 0 ? ' (elective)' : ''),
-          (rowText(x) || '-') + ' · ' + x.n, x.room || '-'], link: classLink(data, x) };
-      }).concat(view.specials.filter(function(sp){ return sp.d === di; }).map(function(sp){
-        return { s: sp.s, row: [dayLabel(data, di), slotLabel(data, sp.s, sp.span), sp.text, sp.rows.join(', '), ''],
-          link: googleCalendarLink(data, sp.d, sp.s, sp.span, sp.text, 'As printed on the weekly schedule.', '') };
-      })).concat(view.groups.filter(function(x){ return x.d === di; }).map(function(x){
-        return { s: x.s, row: [dayLabel(data, di), slotLabel(data, x.s), courseName(data, x.c) + ', Group ' + x.grp + ' only',
-          'G' + x.grp + ' · ' + x.n, x.room || '-'], link: classLink(data, x) };
-      }));
-      items.sort(function(a, b){ return a.s - b.s; });
-      items.forEach(function(it){ rows.push(it.row); calLinks.push(it.link); });
+    shown.forEach(function(w){
+      var data = w.data, view = w.view;
+      data.days.forEach(function(day, di){
+        if(day.note){ rows.push([dayLabel(data, di), '', day.note, '', '']); calLinks.push(null); }
+        var items = view.classes.filter(function(x){ return x.d === di; }).map(function(x){
+          return { s: x.s, row: [dayLabel(data, di), slotLabel(data, x.s),
+            courseName(data, x.c) + (view.tagElectives && data.electives.indexOf(x.c) >= 0 ? ' (elective)' : ''),
+            (rowText(x) || '-') + ' · ' + x.n, x.room || '-'], link: classLink(data, x) };
+        }).concat(view.specials.filter(function(sp){ return sp.d === di; }).map(function(sp){
+          return { s: sp.s, row: [dayLabel(data, di), slotLabel(data, sp.s, sp.span), sp.text, sp.rows.join(', '), ''],
+            link: googleCalendarLink(data, sp.d, sp.s, sp.span, sp.text, 'As printed on the weekly schedule.', '') };
+        })).concat(view.groups.filter(function(x){ return x.d === di; }).map(function(x){
+          return { s: x.s, row: [dayLabel(data, di), slotLabel(data, x.s), courseName(data, x.c) + ', Group ' + x.grp + ' only',
+            'G' + x.grp + ' · ' + x.n, x.room || '-'], link: classLink(data, x) };
+        }));
+        items.sort(function(a, b){ return a.s - b.s; });
+        items.forEach(function(it){ rows.push(it.row); calLinks.push(it.link); });
+      });
     });
     var calIconSize = 3.2;
 
@@ -410,7 +433,7 @@
     doc.setFontSize(7.5);
     doc.setTextColor.apply(doc, PDF_MUTED);
     var disclaimerLines = doc.splitTextToSize(
-      (view.banner ? view.banner + ' ' : '') +
+      (banner ? banner + ' ' : '') +
       'Unofficial, and still in development. This schedule is built from weekly schedules and lists shared by students, so a detail may occasionally be missing or out of date. Classes also get rescheduled, so please confirm against the latest official schedule.',
       maxTextW
     );
@@ -439,7 +462,8 @@
     catch(e){ doc = null; }
     if(!doc){ window.alert('Could not prepare the PDF. Please try again.'); return; }
     try{
-      doc.save(lastResult.student.roll + '_week_of_' + lastResult.data.start + '_schedule.pdf');
+      var week = lastResult.shown[0].data;
+      doc.save(lastResult.student.roll + '_' + (week.weekNumber ? 'week' + week.weekNumber + '_' : '') + week.start + '_schedule.pdf');
       IMT.track('save_pdf', lastResult.student, { tool: 'weekly' });
     }
     catch(e){ window.alert('Could not save the PDF. Please try again.'); }

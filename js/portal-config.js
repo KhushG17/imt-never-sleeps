@@ -17,13 +17,27 @@ window.PORTAL_CONFIG = {
     liveLabel: "Exam seating is live"
   },
 
-  // The pill above the portal heading. It is green "Live · <dates>" all week
-  // while this week's schedule is loaded, turns red with missingLabel once a
-  // week has begun without its schedule, and is hidden during End Term Exams.
-  // While Exam Seat is unlocked it shows examSeat.liveLabel and nothing else.
-  //   preview - the pill a test roll shows after it is entered, on any day:
-  //             "weekly" or "exam". Everyone else gets the real one.
+  // The schedule day rolls over at this hour, India time: from 8 pm the
+  // schedule leads with tomorrow, and the pill judges by tomorrow too.
+  schedule: {
+    dayRollsAtHour: 20
+  },
+
+  // The pill above the portal heading.
+  //   green "Live · <dates>"  this week is loaded for everyone it speaks for
+  //   red   "<dates>"         not every programme's schedule for this week is
+  //                           in, or the dates have passed. The colour is the
+  //                           only signal; it is not spelled out.
+  //   red   missingLabel      nothing loaded to date at all
+  // Hidden during End Term Exams. While Exam Seat is unlocked it shows
+  // examSeat.liveLabel and nothing else.
+  //   minProgrammes - the six programmes' PDFs arrive separately. The dates
+  //                   in the pill move on to a new week only once at least
+  //                   this many programmes have it.
+  //   preview       - the pill a test roll shows after it is entered, on any
+  //                   day: "weekly" or "exam". Everyone else gets the real one.
   livePill: {
+    minProgrammes: 3,
     missingLabel: "New week's schedule not uploaded yet",
     preview: { "TEST": "weekly", "TESTA": "exam" }
   },

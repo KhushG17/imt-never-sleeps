@@ -19,6 +19,27 @@
     return d.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (day < 10 ? '0' : '') + day;
   }
 
+  // ---- which day it is, for the schedule ----
+  // Everything about classes runs on India time, wherever the visitor is.
+  // The "schedule day" is today until 8 pm IST and tomorrow from then on:
+  // by 8 pm the day's classes are over and it is tomorrow's that matter.
+  var IST_OFFSET_MS = (5 * 60 + 30) * 60000;
+  var DAY_ROLLS_AT_HOUR = (CONFIG.schedule && CONFIG.schedule.dayRollsAtHour) || 20;
+  function isoOf(d){
+    var m = d.getUTCMonth() + 1, day = d.getUTCDate();
+    return d.getUTCFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (day < 10 ? '0' : '') + day;
+  }
+  function addDays(iso, n){
+    var p = iso.split('-');
+    return isoOf(new Date(Date.UTC(+p[0], +p[1] - 1, +p[2] + n)));
+  }
+  function istNow(){ return new Date(Date.now() + IST_OFFSET_MS); } // read with getUTC*()
+  function istToday(){ return isoOf(istNow()); }
+  function scheduleDay(){
+    var now = istNow();
+    return now.getUTCHours() >= DAY_ROLLS_AT_HOUR ? addDays(isoOf(now), 1) : isoOf(now);
+  }
+
   // Where a batch + schedule group ("2027-core") stands today: its current
   // term (the latest one that has started), that term's campus, and whether
   // its Term 6 exams are over.
@@ -105,12 +126,17 @@
     return parts.join(' · ');
   }
 
+  // A term's course list ({abbreviation: name}) and its electives, by
+  // "<batch>-<group>-<term>", e.g. "2028-core-2". null when not on file.
+  function catalog(key){ return (SITE.courses || {})[key] || null; }
+  function electivesOf(key){ return (SITE.electives || {})[key] || []; }
+
   // The order to list dated groups in: today first, then the days still to
   // come, then the days already gone. Returns [{i: index, past: bool}]; when
   // today isn't among the dates, the order is simply the days still to come
   // followed by those gone, or unchanged if they are all on one side.
   function todayFirst(isoDates, today){
-    today = today || todayIso();
+    today = today || scheduleDay();
     var now = [], later = [], past = [];
     isoDates.forEach(function(d, i){
       (d === today ? now : d > today ? later : past).push({ i: i, past: d < today, today: d === today });
@@ -122,38 +148,59 @@
   // else the next one coming, else the newest.
   function pickWeek(weeks, today){
     if(!weeks || !weeks.length) return null;
-    today = today || todayIso();
+    today = today || scheduleDay();
     var running = weeks.filter(function(w){ return w.start <= today && today <= w.end; })[0];
     var coming = weeks.filter(function(w){ return w.start > today; })[0];
     return running || coming || weeks[weeks.length - 1];
   }
 
-  // Whether this week's schedule is loaded, for one batch-and-group or (with
-  // no groupKey) for everyone on the Ghaziabad campus:
-  //   live    - every group asked about has the week that is running today
-  //   missing - at least one of them doesn't
-  //   exam    - one of them is in its End Term Exam window, when there is no
-  //             weekly schedule to expect
+  // What the pill should say about the loaded schedules, for one
+  // batch-and-group or (with no groupKey) for everyone on the Ghaziabad
+  // campus, as of the schedule day.
+  //
+  // Each programme's PDF arrives on its own, so for everyone a week only
+  // "counts" once at least `need` programmes have it (livePill.minProgrammes,
+  // 3 of the 6). The dates shown are those of the counted week the schedule
+  // day falls in, stretched over any counted weeks that follow it; if the
+  // day is past every counted week, the dates of the last one.
+  //   live    - the day is inside those dates and every programme has it
+  //   partial - the day is inside those dates but some programme is missing
+  //   stale   - the day is past the dates shown
+  //   missing - no week counts at all yet
+  //   exam    - every group asked about is in its End Term Exam window
   //   none    - nobody to show a schedule to (alumni, a term in Dubai)
-  function weekState(weekly, groupKey, today){
-    today = today || todayIso();
+  // For a single group, one programme is all there is, so need is 1.
+  function coverage(weekly, groupKey, day){
+    day = day || scheduleDay();
     var keys = (groupKey ? [groupKey] : Object.keys(TIMELINE)).filter(function(k){
-      var st = standing(k, today);
+      var st = standing(k, day);
       return st && !st.alumni && st.campus !== 'Dubai';
     });
     if(!keys.length) return { state: 'none' };
-    var inExam = keys.some(function(k){
-      var st = standing(k, today);
-      return st.examStart && st.examStart <= today && today <= st.examEnd;
+    var teaching = keys.filter(function(k){
+      var st = standing(k, day);
+      return !(st.examStart && st.examStart <= day && day <= st.examEnd);
     });
-    if(inExam) return { state: 'exam' };
-    var week = null, complete = true;
-    keys.forEach(function(k){
-      var w = ((weekly || {})[k] || []).filter(function(x){ return x.start <= today && today <= x.end; })[0];
-      if(!w) complete = false;
-      else week = week || { start: w.start, end: w.end };
+    if(!teaching.length) return { state: 'exam' };
+    var need = groupKey ? 1 : Math.min((CONFIG.livePill && CONFIG.livePill.minProgrammes) || 3, teaching.length);
+    var count = {}, ends = {};
+    teaching.forEach(function(k){
+      ((weekly || {})[k] || []).forEach(function(w){
+        count[w.start] = (count[w.start] || 0) + 1;
+        ends[w.start] = w.end;
+      });
     });
-    return complete ? { state: 'live', week: week } : { state: 'missing' };
+    var counted = Object.keys(count).filter(function(st){ return count[st] >= need; }).sort();
+    if(!counted.length) return { state: 'missing' };
+    var cur = counted.filter(function(st){ return st <= day && day <= ends[st]; })[0];
+    if(!cur){
+      var before = counted.filter(function(st){ return ends[st] < day; });
+      var last = before.length ? before[before.length - 1] : counted[0];
+      return { state: 'stale', start: last, end: ends[last] };
+    }
+    var reach = ends[cur];
+    counted.forEach(function(st){ if(st > reach && st <= addDays(reach, 1)) reach = ends[st]; });
+    return { state: count[cur] >= teaching.length ? 'live' : 'partial', start: cur, end: reach };
   }
 
   function examSeatLocked(s){
@@ -257,8 +304,13 @@
     welcome: welcome,
     standing: standing,
     pickWeek: pickWeek,
+    catalog: catalog,
+    electivesOf: electivesOf,
+    examAliases: SITE.examAliases || {},
     todayFirst: todayFirst,
-    weekState: weekState,
+    coverage: coverage,
+    scheduleDay: scheduleDay,
+    istToday: istToday,
     metaLine: metaLine,
     examSeatLocked: examSeatLocked,
     examLockedLabel: examLockedLabel,

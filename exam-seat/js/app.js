@@ -73,9 +73,102 @@
     return null;
   }
 
+  // ---- matching by the student's own courses ----
+  // Used whenever the course list for the term being examined is on file
+  // (CONFIG.termByBatch + js/site-data.js). A student's papers are the
+  // courses they study that term:
+  //   - their registered courses, where the college's sheet lists them
+  //     (year-two core, DCP);
+  //   - otherwise every course on their programme's list for the term, less
+  //     any elective they did not choose.
+  // A subject written in the seating plan is tied to a course by its
+  // abbreviation, its name, a near-identical name, or an entry in
+  // examAliases (data/config/overrides.json).
+  var STOP = { and:1, of:1, 'for':1, the:1, 'in':1, to:1, a:1 };
+  function words(s){
+    return normalizeSubject(String(s).replace(/&/g, ' and ')).split(' ').filter(function(w){ return w && !STOP[w]; });
+  }
+  function codeKey(s){ return String(s).toUpperCase().replace(/[^A-Z0-9&]/g, ''); }
+  var ALIASES = {};
+  Object.keys(window.IMT.examAliases).forEach(function(k){ ALIASES[words(k).join(' ')] = window.IMT.examAliases[k]; });
+
+  // The abbreviation in `cat` that a seating-plan subject refers to, or null.
+  function courseFor(text, cat){
+    var alias = ALIASES[words(text).join(' ')];
+    if(alias) text = alias;
+    var abbs = Object.keys(cat), i;
+    for(i = 0; i < abbs.length; i++){ if(codeKey(abbs[i]) === codeKey(text)) return abbs[i]; }
+    var want = words(text), best = null, bestScore = 0, second = 0;
+    for(i = 0; i < abbs.length; i++){
+      var have = words(cat[abbs[i]]);
+      if(have.join(' ') === want.join(' ')) return abbs[i];
+      var shared = want.filter(function(w){ return have.indexOf(w) >= 0; }).length;
+      // the same words in another order is another course ("Business Valuation"
+      // is not "Valuation of Business"), not a typo
+      if(shared === want.length && shared === have.length) continue;
+      var score = shared / (want.length + have.length - shared || 1);
+      if(score > bestScore){ second = bestScore; bestScore = score; best = abbs[i]; }
+      else if(score > second){ second = score; }
+    }
+    return bestScore >= 0.6 && bestScore - second >= 0.15 ? best : null;
+  }
+
+  // The courses this student is examined on, as {abbreviation: true}, or
+  // null when that term's course list is not on file.
+  function papersOf(s){
+    if(!s.groupKey) return null;
+    var term = (CONFIG.termByBatch || {})[s.groupKey.slice(0, 4)];
+    var key = s.groupKey + '-' + term;
+    var cat = term ? window.IMT.catalog(key) : null;
+    if(!cat) return null;
+    var mine = {}, registered = Object.keys(s.courses);
+    if(registered.length){
+      registered.forEach(function(c){
+        Object.keys(cat).forEach(function(abb){ if(codeKey(abb) === codeKey(c)) mine[abb] = true; });
+      });
+    } else {
+      var electives = window.IMT.electivesOf(key);
+      Object.keys(cat).forEach(function(abb){
+        var isElective = electives.some(function(e){ return codeKey(e) === codeKey(abb); });
+        if(isElective && s.electives && !s.electives.some(function(e){ return codeKey(e) === codeKey(abb); })) return;
+        mine[abb] = true;
+      });
+    }
+    return { cat: cat, mine: mine };
+  }
+
+  // The paper(s) among `candidates` that are on this student's course list,
+  // by their proper names. null = no course list for this term, let the older
+  // by-batch rule try. false = there is a course list but none of the papers
+  // is on it for this student, so nothing can be ruled out.
+  function pickByCourses(fullSubject, roll){
+    var p = papersOf(window.IMT.student(roll));
+    if(!p) return null;
+    // papers in a shared hall are separated by ";" - but so are the parts of
+    // a few course names ("Mutual Funds / ETFs; Pension Funds; and Hedge
+    // Funds"), so such a name is held together before splitting
+    var text = fullSubject;
+    Object.keys(p.cat).forEach(function(abb){
+      var name = p.cat[abb];
+      if(name.indexOf(';') < 0) return;
+      var at = text.toLowerCase().indexOf(name.toLowerCase());
+      if(at >= 0) text = text.slice(0, at) + name.replace(/;/g, '') + text.slice(at + name.length);
+    });
+    var candidates = text.split(';').map(function(c){ return c.replace(//g, ';').trim(); }).filter(Boolean);
+    var kept = [], seen = {};
+    candidates.forEach(function(c){
+      var abb = courseFor(c, p.cat);
+      if(abb && p.mine[abb] && !seen[abb]){ seen[abb] = true; kept.push(p.cat[abb]); }
+    });
+    return kept.length ? kept.join('; ') : false;
+  }
+
   // Returns the subject string to show this particular roll for this block.
   function subjectForRoll(fullSubject, roll){
     var candidates = fullSubject.split(';').map(function(s){ return s.trim(); }).filter(Boolean);
+    var byCourses = pickByCourses(fullSubject, roll);
+    if(byCourses) return byCourses;
+    if(byCourses === false) return fullSubject; // unsure, show everything rather than guess
     if(candidates.length <= 1) return fullSubject;
     var term = rollTerm(roll);
     if(!term) return fullSubject;
@@ -263,7 +356,7 @@
     doc.setFontSize(7.5);
     doc.setTextColor.apply(doc, PDF_MUTED);
     var disclaimerLines = doc.splitTextToSize(
-      'Unofficial, and still in development. This plan is built from the seating plan and lists shared by students, so a detail may occasionally be missing or out of date. Subjects are matched by term, not by individual course, so please confirm your exact paper, hall and seat against the official datesheet and notice board.',
+      'Unofficial, and still in development. This plan is built from the seating plan and lists shared by students, so a detail may occasionally be missing or out of date. Where two papers share a hall, yours is worked out from your programme and registered courses, so please confirm your exact paper, hall and seat against the official datesheet and notice board.',
       maxTextW
     );
     var creditY = pageH - 12;
@@ -405,6 +498,7 @@
       return d ? d.y + '-' + pad2(d.mo) + '-' + pad2(d.d) : '';
     };
     var order = window.IMT.todayFirst(groups.map(isoOf));
+    var dayTag = window.IMT.scheduleDay() === window.IMT.istToday() ? 'Today' : 'Tomorrow';
     // the divider is needed whenever days gone follow days still to come
     var hasToday = order.some(function(o){ return o.past; }) && order.some(function(o){ return !o.past; });
     var earlierShown = false;
@@ -437,7 +531,7 @@
         divider = '<div class="earlier-divider">Earlier papers</div>';
       }
       return divider + '<div class="day-group' + (o.today ? ' is-today' : '') + (o.past && hasToday ? ' is-past' : '') + '"><div class="day-title">'+shortDate(g.date)+
-        (o.today ? '<span class="today-badge">Today</span>' : '')+'</div><div class="card-grid">'+cards+'</div></div>';
+        (o.today ? '<span class="today-badge">'+dayTag+'</span>' : '')+'</div><div class="card-grid">'+cards+'</div></div>';
     }).join('');
 
     results.hidden = false;

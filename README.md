@@ -93,8 +93,8 @@ python scripts/update.py
 2. **Rebuilds the master data** by reading every file under `all files/`
    again from scratch.
 3. **Rebuilds what the pages load**: `js/roster-data.js`,
-   `js/site-data.js`, `weekly-seat/js/weekly-data.js` (the two newest weeks
-   per group, so next week can be loaded early without hiding this week).
+   `js/site-data.js`, `weekly-seat/js/weekly-data.js` (the three newest weeks
+   per group, so later weeks can be loaded early and simply extend the list).
 
 4. **Re-stamps the pages.** Every link to a script or stylesheet carries a
    short fingerprint of that file (`portal.js?v=3f9a1c2e`), so a visitor's
@@ -177,12 +177,25 @@ any student whatever the timeline says. Real batches switch by date.
   ("Term 5 exams coming soon").
 - Greeting: "Hey {name}" with the name as in the college's file, then
   programme, batch, term, and section or major and minor.
-- **Pill above the heading.** Green "Live · 5 Oct - 11 Oct" for the whole
-  week while that week's schedule is loaded. Red "New week's schedule not
-  uploaded yet" once a week has begun without its schedule. Hidden during
-  End Term Exams. While Exam Seat is unlocked it shows "Exam seating is
-  live" and nothing else. Before a roll is entered it speaks for every batch
-  and programme on campus; after, for that student's own.
+- **Pill above the heading.**
+  - Green "Live · 5 Oct - 11 Oct": this week is loaded for everyone the pill
+    speaks for. A week uploaded early stretches the dates ("Live · 5 Oct -
+    18 Oct").
+  - Red, dates only ("5 Oct - 11 Oct"): something is not up to date. Either
+    not every programme's schedule for this week is in, or the schedule day
+    has passed those dates. The colour is the only signal; it is not
+    spelled out.
+  - Red "New week's schedule not uploaded yet": nothing loaded to date.
+  - Hidden during End Term Exams. While Exam Seat is unlocked it shows "Exam
+    seating is live" and nothing else.
+- **The six programmes' PDFs arrive separately.** Before a roll is entered
+  the pill speaks for everyone, and its dates move on to a new week only once
+  at least three programmes have it (`livePill.minProgrammes`). After a roll
+  is entered it speaks for that student's own programme.
+- **The schedule day rolls over at 8 pm India time.** Until then "Today" is
+  today; from 8 pm the schedule leads with the next day, tagged "Tomorrow",
+  and the pill judges by that day too. It is India time for every visitor,
+  wherever they are. (`schedule.dayRollsAtHour` in `js/portal-config.js`.)
 - **Study Material** is a small book icon in the header, next to Feedback,
   on the portal, Weekly and Exam Seat. It opens the term-wise study material
   folder (SharePoint) in a new tab. The link is `studyMaterial.url` in
@@ -196,9 +209,11 @@ any student whatever the timeline says. Real batches switch by date.
 
 **Weekly**
 - Classes grouped by day with time, room, section or track, and session
-  number. **Today's day is at the top**, tagged "Today", followed by the rest
-  of the week, then the days already gone under "Earlier this week". (When
-  the week on screen doesn't include today, days are in calendar order.)
+  number. **One running list**: the current day at the top (tagged "Today",
+  or "Tomorrow" after 8 pm), then the rest of the week, then next week's days
+  under their own heading as soon as that week is uploaded, then the days
+  already gone under "Earlier this week". When a week ends its days drop off.
+  If every week on file is over, the last one is shown in calendar order.
   "No classes" on free days, "Clash" tag when two of a
   student's classes share a slot.
 - Day notes and one-off entries from the schedule ("SSR Visits", "ADP
@@ -212,7 +227,6 @@ any student whatever the timeline says. Real batches switch by date.
   both, tagged "Elective".
 - Group sessions (Design Thinking groups) are listed for everyone in the
   programme with the group number, since group membership isn't in the files.
-- If next week's schedule is already loaded, a button switches between weeks.
 - Each class is one compact row: time on the left, course, room, section
   and session in the middle, and a round navy calendar button on the right.
   On a phone a week is about 40% shorter to scroll than with the old
@@ -220,7 +234,9 @@ any student whatever the timeline says. Real batches switch by date.
   hint above the list says what the button does.
 - Add to Calendar on every class (Google Calendar, real start and end, IST
   converted to UTC). Save as PDF: a table with a clickable calendar icon on
-  every row.
+  every row. **One week per PDF**: the week that is running, titled with its
+  week number ("Week 1, 5 Oct - 11 Oct 2026"), even when the page also lists
+  the week after. When week 2 is running, the PDF is week 2.
 - Both PDFs end with the same disclaimer as the site (unofficial, still in
   development, built from files shared by students, confirm against the
   official schedule) and a clickable "Give feedback" link to the form
@@ -231,6 +247,15 @@ any student whatever the timeline says. Real batches switch by date.
 - Today's papers are at the top, tagged "Today", then the days still to
   come, then earlier papers. The PDF stays in calendar order.
 - The same compact rows and calendar button as Weekly.
+- **Your own paper in a shared hall.** Where the seating plan puts two
+  papers in one hall and slot, a student is shown only the one on their own
+  course list for the term being examined: their registered courses (year-two
+  core, DCP), or their programme's course list less any elective they did not
+  choose. A subject in the plan is tied to a course by abbreviation, name, a
+  near-identical name, or an entry in `examAliases`. If nothing on a
+  student's list matches, every paper in the slot is shown. This needs the
+  term's course list on file; the Sep 2026 plan (Terms 1 and 4) has none, so
+  it still uses the older by-batch rule.
 - Seat numbers read column letter first, then row (`L1`, not `1L`), in the
   page, the calendar entry and the PDF.
 - Subject, date, time, hall and seat per paper, Add to Calendar, Save as PDF,
@@ -315,7 +340,6 @@ cannot be counted.
 
 - Faculty names (decided against).
 - Hero bubbles: tried twice, removed.
-- Course-level subject matching in Exam Seat (still by batch and term).
 - An `.ics` calendar download (Google Calendar links only).
 
 ## What is left
@@ -323,8 +347,9 @@ cannot be counted.
 1. Khush creates the access key for the upload page (see "Uploading from the
    browser") and tries a real upload.
 2. UI and content changes (next round).
-3. Exam Seat rework for the Term 2 and Term 5 exams, using the master student
-   list and course lists to show each student only their own paper.
+3. Load the Term 2 and Term 5 seating plan when it is released (see
+   "Unlocking Exam Seat"). The matching of each student to their own paper
+   is built and simulated; it has not met a real Term 2/5 plan yet.
 4. Push the 8 Oct build to the live site (see Privacy below).
 
 ## Files and details still needed from Khush
@@ -517,10 +542,21 @@ all files/                    The college's files (not published)
 1. `python scripts/generate_exam_data.py path/to/SeatingPlan.xlsx` (rewrites
    `exam-seat/js/exam-data.js`; this drops the `TEST` exam entry unless it is
    added back).
-2. Update `exam-seat/js/exam-config.js`: period, term label, roll prefix to
-   term number.
-3. Set `examSeat.locked` to `false` in `js/portal-config.js`. The portal pill
+2. Update `exam-seat/js/exam-config.js`: period, term label, and
+   **`termByBatch`**, the term each batch is being examined on (for the next
+   cycle `{ "2027": 5, "2028": 2 }`). That is what switches on matching by
+   course list.
+3. Check how the plan spells its subjects. Any spelling that is neither a
+   course's abbreviation nor close to its name goes into `examAliases` in
+   `data/config/overrides.json`, mapped to the course (for example
+   `"Derivatives Mnagement": "Financial Derivatives"`), then run
+   `python scripts/update.py`.
+4. Set `examSeat.locked` to `false` in `js/portal-config.js`. The portal pill
    then shows "Exam seating is live" until it is locked again.
+
+The course lists Exam Seat uses are the same ones Weekly uses
+(`data/master/courses.json`, from each term's allocation sheet), so a term
+whose weekly schedule works already has what the exams need.
 
 ## Testing done
 
@@ -540,8 +576,28 @@ exams); the upload page against a pretend GitHub at 390 and 1280 px (wrong
 key, read-only key, non-PDF refused, one commit to `uploads/_inbox/`, result
 and failed-run screens, sign out); the Study Material button.
 
-Not tested: a second week arriving (the week-switch button), since only one
-week exists so far.
+Exam matching, 8 Oct: a made-up Term 2 / Term 5 seating plan was built
+from the real course lists and 152 real students (25 from each of the six
+groups, plus two BFS students with no single elective on file). Every one of
+their 1,171 papers shared its hall with a paper from another programme,
+written five different ways (full name, abbreviation, "&" for "and", capitals,
+British or American spelling) plus one deliberate typo handled by an alias.
+All 1,171 were shown as exactly the student's own paper. The plan existed
+only inside the test browser. This is a simulation: a real plan may spell
+subjects in ways it did not cover.
+
+Rollover and early uploads, 8 Oct: tested at fixed moments in India time,
+with a copy of this week moved seven days on standing in for "next week"
+(only inside the test browser). Thursday 7:59 pm leads with Thursday as
+Today, 8:01 pm with Friday as Tomorrow, and the same from a New York
+timezone; Sunday 8:01 pm with nothing uploaded turns the pill red; with two
+of six programmes uploaded early their students' lists run on into next week
+and the PDF is the running week only; on the new Monday the pill for
+everyone stays on last week's dates in red with two of six in, moves to the
+new dates (still red) at three, and turns green at six. 24 of 24 passed.
+
+Not tested: a real second week from the college, which may differ from a
+copy of the first.
 
 ## Credit
 

@@ -57,7 +57,7 @@ SOURCE = ROOT / "all files"      # the college's files; never on GitHub
 UPLOADS = ROOT / "uploads"       # weekly PDFs sent from the upload page; on GitHub
 CONFIG = ROOT / "data" / "config"
 MASTER = ROOT / "data" / "master"
-WEEKS_ON_SITE = 2
+WEEKS_ON_SITE = 3
 FOLDER = re.compile(r"batch (\d{4})/(core|bfs|dcp)/term (\d)(/|$)")
 
 messages = []
@@ -316,7 +316,7 @@ def write_students_csv(students):
                         ", ".join("%s-%s" % kv for kv in sorted(s.get("courses", {}).items()))])
 
 
-def build_site(courses, students, weeks, timeline):
+def build_site(courses, students, weeks, timeline, overrides):
     shutil.rmtree(MASTER, ignore_errors=True)
     write_json(MASTER / "students.json", students)
     write_json(MASTER / "courses.json", courses)
@@ -338,6 +338,11 @@ def build_site(courses, students, weeks, timeline):
     bundle_weekly()
     write_js(ROOT / "js" / "site-data.js", "From data/config/programmes.json and timeline.json.", "SITE_DATA",
              {"programmes": programmes["programmes"],
+              # course lists, electives and alternative spellings: used by Exam Seat to
+              # pick a student's own paper where two papers share a hall
+              "courses": {k: {abb: c["name"] for abb, c in v.items()} for k, v in courses.items()},
+              "electives": overrides["electives"],
+              "examAliases": overrides["examAliases"],
               "timeline": {k: {f: v[f] for f in ("label", "terms", "alumniFrom") if f in v} for k, v in timeline.items()}})
 
 
@@ -415,13 +420,13 @@ if __name__ == "__main__":
     programmes = load("programmes.json")
     timeline = {k: v for k, v in load("timeline.json").items() if not k.startswith("_")}
     overrides = load("overrides.json")
-    for section in ("courses", "electives", "students", "sectionFromElective", "defaultSection"):
+    for section in ("courses", "electives", "students", "sectionFromElective", "defaultSection", "examAliases"):
         overrides[section] = {k: v for k, v in overrides.get(section, {}).items() if not k.startswith("_")}
     if "--uploads" in sys.argv[1:]:
         run_uploads(timeline, overrides)
     else:
         file_inbox(SOURCE, timeline)
         courses, students, weeks = build_master(overrides)
-        build_site(courses, students, weeks, timeline)
+        build_site(courses, students, weeks, timeline, overrides)
         stamp_pages()
         summary(students, weeks)
