@@ -779,3 +779,47 @@ button.btn-contact{ font:inherit; font-weight:600; font-size:13.5px; cursor:poin
 }
 @media (prefers-reduced-motion: reduce){ .card-cal-link.cls-cal:hover{ transform:none!important; } }
 @media print{ .cal-hint{ display:none!important; } }
+
+/* ---------- campus occasions at the top of a day (Weekly) ---------- */
+.event-banner{
+  display:flex; align-items:center; gap:14px;
+  border-radius:18px; padding:12px 16px; margin-bottom:12px;
+  background:linear-gradient(120deg, #0f6b45 0%, #17875a 55%, #2aa36f 100%);
+  color:#fff; box-shadow:var(--shadow-subtle-2);
+  position:relative; overflow:hidden;
+}
+.event-onam::after{
+  /* a soft gold wash on the right, like lamp light */
+  content:""; position:absolute; inset:0 0 0 55%;
+  background:radial-gradient(120px 80px at 100% 50%, rgba(247,201,72,.35), transparent 70%);
+  pointer-events:none;
+}
+.event-motif{ width:56px; height:56px; flex-shrink:0; filter:drop-shadow(0 2px 4px rgba(0,0,0,.25)); }
+.event-text{ min-width:0; position:relative; z-index:1; }
+.event-title{ font-family:var(--font-basier-circle); font-weight:700; font-size:18px; letter-spacing:.01em; line-height:1.2; }
+.event-note{ font-size:13px; margin-top:2px; opacity:.92; }
+.event-onam .event-title{ color:#fff8e1; }
+@media (max-width:360px){ .event-motif{ width:46px; height:46px; } .event-title{ font-size:16px; } }
+@media (prefers-reduced-motion: no-preference){
+  .event-onam .event-motif{ animation:pookalamTurn 40s linear infinite; }
+}
+@keyframes pookalamTurn{ to{ transform:rotate(360deg); } }
+@media print{ .event-banner{ background:none!important; color:#000!important; border:1px solid #999; } .event-motif{ display:none; } }
+
+/* the arrow on a campus occasion that has a link */
+.event-text{ flex:1; }
+.event-link{
+  position:relative; z-index:1; flex-shrink:0;
+  width:44px; height:44px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:#f7c948; color:#0f5a3a; text-decoration:none;
+  box-shadow:0 4px 10px -4px rgba(0,0,0,.45);
+  transition:transform .15s cubic-bezier(.2,.8,.2,1), filter .15s ease;
+}
+.event-link svg{ width:21px; height:21px; }
+.event-link:hover{ transform:translateX(3px); filter:brightness(1.08); }
+.event-link:active{ transform:scale(.94); }
+.event-link:focus-visible{ outline:2px solid #fff; outline-offset:2px; }
+@media (max-width:360px){ .event-link{ width:40px; height:40px; } .event-note{ font-size:12px; } }
+@media (prefers-reduced-motion: reduce){ .event-link:hover{ transform:none!important; } }
+@media print{ .event-link{ display:none!important; } }

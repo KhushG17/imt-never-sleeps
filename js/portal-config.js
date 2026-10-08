@@ -46,6 +46,19 @@ window.PORTAL_CONFIG = {
     preview: { "TEST": "weekly", "TESTA": "exam" }
   },
 
+  // Campus occasions shown at the top of their day in Weekly, for everyone.
+  //   date  - "YYYY-MM-DD"
+  //   title - what it is
+  //   note  - optional second line (who is hosting, a time, a place)
+  //   link  - optional web address; shows as an arrow button on the right
+  //           that opens it in a new tab (a registration form, a poster)
+  //   theme - how it is dressed: "onam" (green, with a pookalam) or
+  //           "plain" (green, no motif)
+  events: [
+    { date: "2026-10-13", title: "Onam", note: "Celebration by IMT MALCOM", theme: "onam",
+      link: "https://forms.fillout.com/t/kGoetrtKVhus" }
+  ],
+
   // The feedback form. Printed as a link at the foot of both PDFs. (The
   // Feedback button and the disclaimer link on the pages carry the same
   // address in the HTML; change it there too if it ever moves.)

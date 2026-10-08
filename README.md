@@ -248,6 +248,23 @@ any student whatever the timeline says. Real batches switch by date.
   If every week on file is over, the last one is shown in calendar order.
   "No classes" on free days, "Clash" tag when two of a
   student's classes share a slot.
+- **Campus occasions** (9 Oct): a green banner at the top of
+  its day in Weekly, for every student, set by hand in `events` in
+  `js/portal-config.js` (date, title, optional second line, optional link,
+  theme). A link shows as a gold arrow button on the right that opens it in
+  a new tab. The "onam" theme adds a pookalam, the Onam flower carpet, drawn
+  in code. First entry: Onam on 13 Oct 2026, "Celebration by IMT MALCOM",
+  linking to the club's form.
+  - It shows whether or not that week's schedule is uploaded: if it is not,
+    the day is listed with the banner and the line "The class schedule for
+    this day is not uploaded yet."
+  - It is the one exception to the day change (decided 9 Oct): on its date
+    it stays on top with a Today tag until the date ends (midnight IST),
+    even after the schedule has moved on to tomorrow's classes (after the
+    student's last class, or at 8 pm). From the next date it is gone.
+  - It is never part of the PDF.
+  - When the occasion's day leads the list because the uploaded week is
+    over, the older days sit under "Last week", not "Earlier this week".
 - Day notes and one-off entries from the schedule ("SSR Visits", "ADP
   Placement Process") appear on the right day, with their time.
 - When the college's files don't yet say which section or track a student is

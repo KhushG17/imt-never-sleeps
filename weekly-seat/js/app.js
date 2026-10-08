@@ -185,6 +185,42 @@
     }).join('') + '</div>';
   }
 
+  // ---- campus occasions (events in js/portal-config.js) ----
+  // A pookalam, the flower carpet laid for Onam: rings of petals around a
+  // centre, drawn as plain SVG so no image file is needed.
+  function pookalam(){
+    var rings = [
+      { r: 44, n: 16, size: 9,   fill: '#f7c948' },
+      { r: 33, n: 12, size: 8.5, fill: '#f08a24' },
+      { r: 22, n: 10, size: 7.5, fill: '#fff6dc' },
+      { r: 12, n: 8,  size: 6,   fill: '#d6452b' }
+    ];
+    var out = '<svg class="event-motif" viewBox="-56 -56 112 112" aria-hidden="true">' +
+      '<circle r="54" fill="#0f5a3a"/><circle r="53" fill="none" stroke="#f7c948" stroke-width="1.5"/>';
+    rings.forEach(function(ring){
+      for(var i = 0; i < ring.n; i++){
+        var a = (i / ring.n) * 2 * Math.PI;
+        out += '<ellipse cx="' + (Math.cos(a) * ring.r).toFixed(1) + '" cy="' + (Math.sin(a) * ring.r).toFixed(1) +
+          '" rx="' + ring.size + '" ry="' + (ring.size * 0.52).toFixed(1) + '" fill="' + ring.fill +
+          '" transform="rotate(' + (i / ring.n * 360).toFixed(1) + ' ' + (Math.cos(a) * ring.r).toFixed(1) + ' ' + (Math.sin(a) * ring.r).toFixed(1) + ')"/>';
+      }
+    });
+    return out + '<circle r="5.5" fill="#f7c948"/></svg>';
+  }
+  function eventsOn(date){
+    return ((IMT.config.events) || []).filter(function(e){ return e.date === date; });
+  }
+  function eventBanner(e){
+    var theme = e.theme === 'onam' ? 'onam' : 'plain';
+    return '<div class="event-banner event-' + theme + '">' + (theme === 'onam' ? pookalam() : '') +
+      '<div class="event-text"><div class="event-title">' + IMT.escapeHtml(e.title) + '</div>' +
+      (e.note ? '<div class="event-note">' + IMT.escapeHtml(e.note) + '</div>' : '') + '</div>' +
+      (e.link ? '<a class="event-link" href="' + IMT.escapeHtml(e.link) + '" target="_blank" rel="noopener" ' +
+        'title="Open" aria-label="' + IMT.escapeHtml(e.title + (e.note ? ', ' + e.note : '')) + ': open the link">' +
+        '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>' : '') +
+      '</div>';
+  }
+
   // The day this student's schedule should lead with. It is today until
   // their own last class of the day has ended, and tomorrow from then on.
   // On a day with none of their classes (a free day, a whole-day note such
@@ -259,13 +295,46 @@
     shown.forEach(function(w, wi){
       w.data.days.forEach(function(day, di){ days.push({ wi: wi, di: di, date: day.date }); });
     });
+    // an occasion still to come shows on its day whether or not that week's
+    // schedule has been uploaded: such a day is added with nothing but the
+    // occasion on it
+    var covered = {};
+    days.forEach(function(d){ covered[d.date] = true; });
+    (IMT.config.events || []).forEach(function(e){
+      if(e.date >= E && !covered[e.date]){ covered[e.date] = true; days.push({ wi: -1, di: -1, date: e.date }); }
+    });
+    days.sort(function(a, b){ return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
     var order = IMT.todayFirst(days.map(function(d){ return d.date; }), E);
     // the divider is needed whenever days gone follow days still to come
     var mixed = order.some(function(o){ return o.past; }) && order.some(function(o){ return !o.past; });
     var earlierShown = false, lastWeek = null;
+    // the Monday of the week the schedule day falls in: days before it are
+    // from a week that is over, not "earlier this week"
+    var pe = parseIso(E);
+    var weekStart = IMT.addDays(E, -((new Date(Date.UTC(pe.y, pe.mo - 1, pe.d)).getUTCDay() + 6) % 7));
     var cardIndex = 0;
-    listEl.innerHTML = order.map(function(o){
-      var slot = days[o.i], data = shown[slot.wi].data, view = shown[slot.wi].view, di = slot.di, day = data.days[di];
+    // an occasion is the exception to the day change: it lasts until its own
+    // date ends, so after the day's classes it stays on top, above tomorrow
+    var stillOn = '';
+    if(realToday < E && eventsOn(realToday).length){
+      var pt = parseIso(realToday);
+      stillOn = '<div class="day-group"><div class="day-title">' +
+        DAY_NAMES[(new Date(Date.UTC(pt.y, pt.mo - 1, pt.d)).getUTCDay() + 6) % 7] + ', ' + pt.d + ' ' + MONTHS[pt.mo] + ' ' + pt.y +
+        '<span class="today-badge">Today</span></div>' + eventsOn(realToday).map(eventBanner).join('') + '</div>';
+    }
+    listEl.innerHTML = stillOn + order.map(function(o){
+      var slot = days[o.i];
+      if(slot.wi < 0){
+        // a day outside every uploaded week, listed only for its occasion
+        var p = parseIso(slot.date);
+        var name = DAY_NAMES[(new Date(Date.UTC(p.y, p.mo - 1, p.d)).getUTCDay() + 6) % 7];
+        return '<div class="day-group' + (slot.date === E ? ' is-today' : '') + '">' +
+          '<div class="day-title">' + name + ', ' + p.d + ' ' + MONTHS[p.mo] + ' ' + p.y +
+          (slot.date === E ? '<span class="today-badge">' + (E === realToday ? 'Today' : 'Tomorrow') + '</span>' : '') + '</div>' +
+          eventsOn(slot.date).map(eventBanner).join('') +
+          '<div class="day-free">The class schedule for this day is not uploaded yet.</div></div>';
+      }
+      var data = shown[slot.wi].data, view = shown[slot.wi].view, di = slot.di, day = data.days[di];
       var third = data.rowLabel || 'Section';
       var tint = TINTS[di % TINTS.length];
       var classes = view.classes.filter(function(x){ return x.d === di; });
@@ -274,7 +343,9 @@
       var isCurrent = day.date === E;
       var title = '<div class="day-title">' + dayLabel(data, di) +
         (isCurrent ? '<span class="today-badge">' + (E === realToday ? 'Today' : 'Tomorrow') + '</span>' : '') + '</div>';
-      var body = day.note ? '<div class="day-note">' + IMT.escapeHtml(day.note) + '</div>' : '';
+      var occasions = day.date >= E ? eventsOn(day.date) : []; // gone once its day has passed
+      var body = occasions.map(eventBanner).join('') +
+        (day.note ? '<div class="day-note">' + IMT.escapeHtml(day.note) + '</div>' : '');
 
       // classes and one-off entries share the grid, in time order
       var cards = classes.map(function(x){ return { s: x.s, row: x.row || '', html: function(){
@@ -324,7 +395,7 @@
       var divider = '';
       if(mixed && o.past && !earlierShown){
         earlierShown = true;
-        divider = '<div class="earlier-divider">Earlier this week</div>';
+        divider = '<div class="earlier-divider">' + (slot.date < weekStart ? 'Last week' : 'Earlier this week') + '</div>';
       } else if(!o.past && lastWeek !== null && slot.wi !== lastWeek){
         divider = '<div class="earlier-divider">' + weekLabel(data) + '</div>';
       }
