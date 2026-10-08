@@ -92,20 +92,19 @@
   // ---- the pill above the heading ----
   // While Exam Seat is unlocked: "Exam seating is live", and nothing else.
   // Otherwise it follows the weekly schedules as they are uploaded:
-  //   green "Live · 5 Oct - 11 Oct"   this week is loaded for everyone it
-  //         speaks for. A week uploaded early stretches the dates
-  //         ("Live · 5 Oct - 18 Oct").
-  //   red   "5 Oct - 11 Oct"   the dates alone, in red, mean something is
-  //         not up to date: either not every programme's schedule for this
-  //         week is in, or the schedule day has passed those dates. It does
-  //         not say which.
-  //   red   "New week's schedule not uploaded yet"   nothing to date at all
+  //   green "Live · 5 Oct - 11 Oct"   the schedule for these dates is in.
+  //         The dates follow what is loaded: a week uploaded early, even by
+  //         one programme, stretches them ("Live · 5 Oct - 18 Oct").
+  //   red   "5 Oct - 11 Oct"   the dates alone, in red, mean it is not up to
+  //         date: the schedule day has passed those dates, or more than three
+  //         programmes still lack the week that is running. It does not say
+  //         which.
+  //   red   "New week's schedule not uploaded yet"   nothing loaded at all
   //   hidden during End Term Exams, and for alumni and terms held in Dubai
   // Each programme's PDF arrives on its own. Before a roll is entered the
-  // pill speaks for everyone, and its dates only move on to a new week once
-  // at least three programmes have it (livePill.minProgrammes); after, it
-  // speaks for that student's own programme. The test rolls force one pill
-  // each (livePill.preview in js/portal-config.js).
+  // pill speaks for everyone (livePill.redWhenMissingMoreThan decides its
+  // colour); after, it speaks for that student's own programme. The test
+  // rolls force one pill each (livePill.preview in js/portal-config.js).
   var pill = document.getElementById('livePill');
   var MONTHS = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   function dates(c){

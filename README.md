@@ -178,20 +178,21 @@ any student whatever the timeline says. Real batches switch by date.
 - Greeting: "Hey {name}" with the name as in the college's file, then
   programme, batch, term, and section or major and minor.
 - **Pill above the heading.**
-  - Green "Live · 5 Oct - 11 Oct": this week is loaded for everyone the pill
-    speaks for. A week uploaded early stretches the dates ("Live · 5 Oct -
-    18 Oct").
-  - Red, dates only ("5 Oct - 11 Oct"): something is not up to date. Either
-    not every programme's schedule for this week is in, or the schedule day
-    has passed those dates. The colour is the only signal; it is not
-    spelled out.
-  - Red "New week's schedule not uploaded yet": nothing loaded to date.
+  - Green "Live · 5 Oct - 11 Oct": the schedule for these dates is in.
+  - Red, dates only ("5 Oct - 11 Oct"): not up to date. Either the schedule
+    day has passed those dates, or too many programmes still lack the week
+    that is running. The colour is the only signal; it is not spelled out.
+  - Red "New week's schedule not uploaded yet": nothing loaded at all.
   - Hidden during End Term Exams. While Exam Seat is unlocked it shows "Exam
     seating is live" and nothing else.
 - **The six programmes' PDFs arrive separately.** Before a roll is entered
-  the pill speaks for everyone, and its dates move on to a new week only once
-  at least three programmes have it (`livePill.minProgrammes`). After a roll
-  is entered it speaks for that student's own programme.
+  the pill speaks for everyone. Its dates follow whatever is loaded: as soon
+  as even one programme has a week, the dates include it, whether that week
+  has started or was uploaded early. It is red while more than three
+  programmes still lack the week that is running, so on a new Monday: none
+  in, last week's dates in red; one or two in, the new dates in red; three or
+  more in, green (`livePill.redWhenMissingMoreThan`). After a roll is entered
+  it speaks for that student's own programme.
 - **The schedule day rolls over at 8 pm India time.** Until then "Today" is
   today; from 8 pm the schedule leads with the next day, tagged "Tomorrow",
   and the pill judges by that day too. It is India time for every visitor,
@@ -593,8 +594,8 @@ Today, 8:01 pm with Friday as Tomorrow, and the same from a New York
 timezone; Sunday 8:01 pm with nothing uploaded turns the pill red; with two
 of six programmes uploaded early their students' lists run on into next week
 and the PDF is the running week only; on the new Monday the pill for
-everyone stays on last week's dates in red with two of six in, moves to the
-new dates (still red) at three, and turns green at six. 24 of 24 passed.
+everyone shows last week's dates in red with none in, the new dates in red
+with one or two in, and green from three. 26 of 26 passed.
 
 Not tested: a real second week from the college, which may differ from a
 copy of the first.

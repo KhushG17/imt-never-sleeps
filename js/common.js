@@ -158,18 +158,19 @@
   // batch-and-group or (with no groupKey) for everyone on the Ghaziabad
   // campus, as of the schedule day.
   //
-  // Each programme's PDF arrives on its own, so for everyone a week only
-  // "counts" once at least `need` programmes have it (livePill.minProgrammes,
-  // 3 of the 6). The dates shown are those of the counted week the schedule
-  // day falls in, stretched over any counted weeks that follow it; if the
-  // day is past every counted week, the dates of the last one.
-  //   live    - the day is inside those dates and every programme has it
-  //   partial - the day is inside those dates but some programme is missing
+  // Each programme's PDF arrives on its own. The dates follow whatever is
+  // loaded: as soon as even one programme has a week, the dates include it.
+  // They are those of the week the schedule day falls in, stretched over any
+  // loaded weeks that follow; if the day is past everything loaded, the
+  // dates of the last week.
+  //   live    - the day is inside those dates, and no more than
+  //             livePill.redWhenMissingMoreThan programmes (3) lack this week
+  //   partial - the day is inside those dates, but more programmes than
+  //             that lack this week
   //   stale   - the day is past the dates shown
-  //   missing - no week counts at all yet
+  //   missing - nothing loaded at all
   //   exam    - every group asked about is in its End Term Exam window
   //   none    - nobody to show a schedule to (alumni, a term in Dubai)
-  // For a single group, one programme is all there is, so need is 1.
   function coverage(weekly, groupKey, day){
     day = day || scheduleDay();
     var keys = (groupKey ? [groupKey] : Object.keys(TIMELINE)).filter(function(k){
@@ -182,7 +183,8 @@
       return !(st.examStart && st.examStart <= day && day <= st.examEnd);
     });
     if(!teaching.length) return { state: 'exam' };
-    var need = groupKey ? 1 : Math.min((CONFIG.livePill && CONFIG.livePill.minProgrammes) || 3, teaching.length);
+    var limit = CONFIG.livePill && CONFIG.livePill.redWhenMissingMoreThan;
+    if(limit == null) limit = 3;
     var count = {}, ends = {};
     teaching.forEach(function(k){
       ((weekly || {})[k] || []).forEach(function(w){
@@ -190,17 +192,18 @@
         ends[w.start] = w.end;
       });
     });
-    var counted = Object.keys(count).filter(function(st){ return count[st] >= need; }).sort();
-    if(!counted.length) return { state: 'missing' };
-    var cur = counted.filter(function(st){ return st <= day && day <= ends[st]; })[0];
+    var loaded = Object.keys(count).sort();
+    if(!loaded.length) return { state: 'missing' };
+    var cur = loaded.filter(function(st){ return st <= day && day <= ends[st]; })[0];
     if(!cur){
-      var before = counted.filter(function(st){ return ends[st] < day; });
-      var last = before.length ? before[before.length - 1] : counted[0];
+      var before = loaded.filter(function(st){ return ends[st] < day; });
+      var last = before.length ? before[before.length - 1] : loaded[0];
       return { state: 'stale', start: last, end: ends[last] };
     }
     var reach = ends[cur];
-    counted.forEach(function(st){ if(st > reach && st <= addDays(reach, 1)) reach = ends[st]; });
-    return { state: count[cur] >= teaching.length ? 'live' : 'partial', start: cur, end: reach };
+    loaded.forEach(function(st){ if(st > reach && st <= addDays(reach, 1)) reach = ends[st]; });
+    var lacking = teaching.length - count[cur];
+    return { state: lacking > limit ? 'partial' : 'live', start: cur, end: reach, lacking: lacking };
   }
 
   function examSeatLocked(s){
