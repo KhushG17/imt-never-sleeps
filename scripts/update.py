@@ -43,6 +43,7 @@ still builds. Hand-edited settings live in data/config/.
 
     pip install pymupdf xlrd openpyxl      # once (pymupdf alone for --uploads)
 """
+import collections
 import datetime as dt
 import json
 import re
@@ -164,6 +165,43 @@ def scan(roots):
     return found
 
 
+def revise_week(week, gkey):
+    """Replace the days listed for this week in data/config/weekly-revisions.json."""
+    revision = load("weekly-revisions.json").get(gkey, {}).get(week["start"])
+    if not revision:
+        return
+    dates = [d["date"] for d in week["days"]]
+    rooms = {}
+    for s in week["sessions"]:
+        if s["row"] and s["room"]:
+            rooms.setdefault(s["row"], collections.Counter())[s["room"]] += 1
+    fresh = []
+    for date, rows in revision["days"].items():
+        if date not in dates:
+            raise ValueError("%s is not in the week of %s" % (date, week["start"]))
+        for row, cells in rows.items():
+            if row not in week["rows"]:
+                raise ValueError("%s: no row %s in this schedule" % (date, row))
+            if len(cells) > len(week["slots"]):
+                raise ValueError("%s row %s has %d cells, the schedule has %d time slots" % (date, row, len(cells), len(week["slots"])))
+            for slot, text in enumerate(cells):
+                if not text.strip():
+                    continue
+                cls = parsers.parse_class(text.strip())
+                if not cls:
+                    raise ValueError("%s row %s: cannot read '%s'" % (date, row, text))
+                cls.update(d=dates.index(date), s=slot, row=row,
+                           room=cls["room"] or (rooms[row].most_common(1)[0][0] if row in rooms else None))
+                fresh.append(cls)
+    revised = {dates.index(date) for date in revision["days"]}
+    before = sum(1 for s in week["sessions"] if s["d"] in revised)
+    week["sessions"] = [s for s in week["sessions"] if s["d"] not in revised] + fresh
+    week["sessions"].sort(key=lambda x: (x["d"], x["s"], x["row"] or "", x["c"], x["sec"] or "", x["grp"] or ""))
+    week["revised"] = {"received": revision.get("received"), "days": sorted(revision["days"])}
+    say("NOTE", "%s week of %s: %d day(s) replaced from weekly-revisions.json (%d classes in the PDF, %d now)"
+        % (gkey, week["start"], len(revised), before, len(fresh)))
+
+
 def read_week(path, batch, group, term, catalog, electives):
     """One weekly PDF -> the week as stored in data/master/weekly/, or None if it fails its checks."""
     gkey = "%s-%s" % (batch, group)
@@ -175,7 +213,12 @@ def read_week(path, batch, group, term, catalog, electives):
     if week["term"] not in (None, term):
         say("NOTE", "%s says Term %s but sits in the term %d folder" % (rel(path), week["term"], term))
     week.update(batch=batch, group=group, term=term, source=rel(path))
-    lookup = {parsers.norm_code(a): a for a in catalog}
+    try:
+        revise_week(week, gkey)
+    except ValueError as e:
+        say("SKIPPED", "%s: revision in weekly-revisions.json not applied: %s" % (rel(path), e))
+        return None
+    lookup ={parsers.norm_code(a): a for a in catalog}
     names = {}
     for s in week["sessions"]:
         abb = lookup.get(parsers.norm_code(s["c"]))

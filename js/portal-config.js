@@ -54,7 +54,21 @@ window.PORTAL_CONFIG = {
   //           that opens it in a new tab (a registration form, a poster)
   //   theme - how it is dressed: "onam" (green, with a pookalam) or
   //           "plain" (green, no motif)
+  //   by    - optional third line, smaller (who is holding it)
+  //   place - "top" (the default): above that day's classes.
+  //           "after": below that day's classes, for something held once
+  //           classes are over.
+  //   themes  - "onam" (green, a pookalam), "sports" (night purple and gold,
+  //           a crescent on the left and a sun on the right, text centred),
+  //           "plain" (green, no motif)
+  // An occasion that runs over several days gets one entry per date.
   events: [
+    { date: "2026-10-10", title: "Sports Night 2026",
+      note: "Crescent Crusaders vs Solstice Sovereigns",
+      theme: "sports", place: "after" },
+    { date: "2026-10-11", title: "Sports Night 2026",
+      note: "Crescent Crusaders vs Solstice Sovereigns",
+      theme: "sports", place: "after" },
     { date: "2026-10-13", title: "Onam", note: "Celebration by IMT MALCOM", theme: "onam",
       link: "https://forms.fillout.com/t/kGoetrtKVhus" }
   ],

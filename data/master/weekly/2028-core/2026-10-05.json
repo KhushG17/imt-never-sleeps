@@ -38,6 +38,15 @@
  "end": "2026-10-11",
  "group": "core",
  "mode": "section",
+ "revised": {
+  "days": [
+   "2026-10-08",
+   "2026-10-09",
+   "2026-10-10",
+   "2026-10-11"
+  ],
+  "received": "2026-10-09"
+ },
  "rowLabel": "Section",
  "rows": [
   "A",
@@ -439,16 +448,6 @@
    "sec": null
   },
   {
-   "c": "BCF",
-   "d": 3,
-   "grp": null,
-   "n": 3,
-   "room": "502",
-   "row": "B",
-   "s": 0,
-   "sec": null
-  },
-  {
    "c": "HRM",
    "d": 3,
    "grp": null,
@@ -466,16 +465,6 @@
    "room": "402",
    "row": "F",
    "s": 0,
-   "sec": null
-  },
-  {
-   "c": "BCF",
-   "d": 3,
-   "grp": null,
-   "n": 3,
-   "room": "501",
-   "row": "A",
-   "s": 1,
    "sec": null
   },
   {
@@ -569,6 +558,26 @@
    "sec": null
   },
   {
+   "c": "BCF",
+   "d": 3,
+   "grp": null,
+   "n": 2,
+   "room": "502",
+   "row": "B",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 3,
+   "grp": null,
+   "n": 2,
+   "room": "501",
+   "row": "A",
+   "s": 4,
+   "sec": null
+  },
+  {
    "c": "DAIB",
    "d": 4,
    "grp": null,
@@ -646,6 +655,16 @@
    "room": "402",
    "row": "F",
    "s": 2,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 4,
+   "grp": "1",
+   "n": 1,
+   "room": "501",
+   "row": "A",
+   "s": 3,
    "sec": null
   },
   {
@@ -676,6 +695,16 @@
    "room": "504",
    "row": "D",
    "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 4,
+   "grp": "1",
+   "n": 2,
+   "room": "501",
+   "row": "A",
+   "s": 4,
    "sec": null
   },
   {

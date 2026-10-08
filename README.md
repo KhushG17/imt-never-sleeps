@@ -87,6 +87,7 @@ data/config/                       Hand-edited settings
   programmes.json                  Programme codes and schedule groups
   timeline.json                    Term dates, exam windows, alumni dates
   overrides.json                   Corrections, elective lists, the TEST roll
+  weekly-revisions.json            Revised days of a week that arrived after its PDF
 
 data/master/                       Generated from "all files" every run
   students.json                    Every student: programme, batch, section, courses
@@ -263,6 +264,17 @@ any student whatever the timeline says. Real batches switch by date.
     even after the schedule has moved on to tomorrow's classes (after the
     student's last class, or at 8 pm). From the next date it is gone.
   - It is never part of the PDF.
+  - `place: "after"` puts the banner below that day's classes instead of
+    above them, for something held once classes are over.
+  - Second entry (9 Oct): **Sports Night 2026**, 10 and 11
+    Oct, "Crescent Crusaders vs Solstice Sovereigns" (the "by Sports Committee"
+    line was dropped at Khush's request; `by` stays available as an optional
+    smaller third line), no link, placed
+    after the day's classes. The moon rocks gently and the sun turns (not for
+    people who have asked their device for reduced motion). Its "sports" theme follows the poster: night purple on the
+    left and gold on the right, a crescent (Crescent Crusaders, juniors) at
+    the left end, a sun (Solstice Sovereigns, seniors) at the right end, and
+    the text centred between them. One entry per date.
   - When the occasion's day leads the list because the uploaded week is
     over, the older days sit under "Last week", not "Earlier this week".
 - Day notes and one-off entries from the schedule ("SSR Visits", "ADP
@@ -509,6 +521,25 @@ every run, so correct the college's file in `all files/` (or
 `data/config/overrides.json`), never the master file itself.
 
 ## Corrections received
+
+- **PGDM 2026-28, Term 2, Week 1, Thu 8 to Sun 11 Oct (received 9 Oct, as a
+  picture of the grid):** typed into `data/config/weekly-revisions.json` and
+  applied on top of the PDF each time `scripts/update.py` runs, so the PDF is
+  untouched. Against the PDF, three things changed:
+  - Thu 8 Oct, Section A: Business and Corporate Finance moved from 10:45 am
+    to 4:00 pm, and is now session 2 (was 3).
+  - Thu 8 Oct, Section B: Business and Corporate Finance moved from 9:15 am
+    to 2:30 pm, and is now session 2 (was 3).
+  - Fri 9 Oct: Design Thinking Group 1 sessions 1 and 2 added, 2:30 pm and
+    4:00 pm, Room 501.
+  Sat and Sun are the same as the PDF. Open point: the PDF also has Design
+  Thinking Group 1 sessions 1 and 2 on Wed 7 Oct (Room 503). The revision
+  covers Thu to Sun only, so Wed is left as the PDF has it.
+- **How to enter the next revised schedule:** add the group, the Monday of
+  the week and the changed dates to `data/config/weekly-revisions.json`, one
+  cell per time slot typed as on the schedule, then run `python
+  scripts/update.py`. Every class on a listed date is replaced; other dates
+  keep what the PDF says. The run prints how many classes were replaced.
 
 - **8 Oct 2026, DCP 2026-28 Section A.** The first Section A list paired ten
   roll numbers with the wrong names (five pairs swapped). Khush supplied

@@ -1,0 +1,50 @@
+{
+  "_about": [
+    "Revised days of a weekly schedule that arrived after the PDF (a mail, a picture of the grid).",
+    "Applied on top of the PDF every time scripts/update.py reads that week, so the PDF itself is never edited.",
+    "group -> Monday of the week -> days -> date -> row (section) -> one cell per time slot, left to right,",
+    "typed exactly as on the schedule (\"\" for an empty cell). Every class the PDF had on a listed date is",
+    "replaced by what is typed here; dates not listed keep what the PDF says.",
+    "The room is the row's usual room. Faculty initials can be typed as they appear; they are not stored."
+  ],
+  "2028-core": {
+    "2026-10-05": {
+      "received": "2026-10-09",
+      "from": "Updated schedule for Week-1 during Thu - Sun (Oct. 08 - 11, 2026), sent as a picture",
+      "days": {
+        "2026-10-08": {
+          "A": ["", "", "DAIB(2)RKR", "BR(8)AKB/FH", "BCF(2)PA"],
+          "B": ["", "DAIB(2)ST", "BR(8)NT/MK", "BCF(2)PA", ""],
+          "C": ["HRM(2)AB", "BR(8)AB/GS", "DAIB(2)ST", "", ""],
+          "D": ["", "", "DAIB(2)SAS", "", ""],
+          "E": ["", "DAIB(2)SKS", "", "", ""],
+          "F": ["DAIB(2)SAS", "", "HRM(2)AB", "", ""]
+        },
+        "2026-10-09": {
+          "A": ["", "HRM(3)FH", "LAB(4)CR", "DTI-G-1(1)SR", "DTI-G-1(2)SR"],
+          "B": ["", "DAIB(3)ST", "HRM(3)FH", "LAB(4)CR", ""],
+          "C": ["DAIB(3)ST", "HRM(3)AB", "", "BC(1)BB", "BC(2)BB"],
+          "D": ["", "", "", "BR(8)PJ/AD", ""],
+          "E": ["", "", "BR(8)NT/RM", "", ""],
+          "F": ["", "", "HRM(3)AB", "", "BR(8)SSG/DD"]
+        },
+        "2026-10-10": {
+          "A": ["", "DTI-G-2(1)SP", "DTI-G-2(2)SP", "DTI-G-11(1)SP/AB", "DTI-G-11(2)SP/AB"],
+          "B": ["", "", "", "", ""],
+          "C": ["", "DTI-G-1(3)SR", "DTI-G-1(4)SR", "DTI-G-1(5)SR", "DTI-G-1(6)SR"],
+          "D": ["", "DTI-G-7(1)AB", "DTI-G-7(2)AB", "DTI-G-4(1)RP", "DTI-G-4(2)RP"],
+          "E": ["", "DTI-G-8(1)NVS", "DTI-G-8(2)NVS", "DTI-G-9(1)NVS", "DTI-G-9(2)NVS"],
+          "F": ["MA(1)-GA", "MA(2)-GA", "", "DTI-G-10(1)MS", "DTI-G-10(1)MS"]
+        },
+        "2026-10-11": {
+          "A": ["", "", "", "MA(2)JM", "MA(3)JM"],
+          "B": ["", "MA(2)JM", "MA(3)JM", "", ""],
+          "C": ["LAB(1)SR", "LAB(1)SR", "", "", ""],
+          "D": ["", "", "", "", "DAIB(3)SAS"],
+          "E": ["", "", "", "", ""],
+          "F": ["MA(3)-GA", "MA(4)-GA", "", "DAIB(3)SAS", ""]
+        }
+      }
+    }
+  }
+}

@@ -823,3 +823,35 @@ button.btn-contact{ font:inherit; font-weight:600; font-size:13.5px; cursor:poin
 @media (max-width:360px){ .event-link{ width:40px; height:40px; } .event-note{ font-size:12px; } }
 @media (prefers-reduced-motion: reduce){ .event-link:hover{ transform:none!important; } }
 @media print{ .event-link{ display:none!important; } }
+
+/* Sports Night: night purple on the juniors' side, gold on the seniors',
+   a motif at each end and the text centred between them */
+.event-sports{
+  background:
+    radial-gradient(160px 110px at 0% 50%, rgba(142,99,224,.55), transparent 70%),
+    radial-gradient(160px 110px at 100% 50%, rgba(214,165,61,.5), transparent 70%),
+    linear-gradient(100deg, #1a0f30 0%, #120a1f 50%, #1f1608 100%);
+  justify-content:space-between;
+}
+.event-sports .event-text{ text-align:center; }
+.event-sports .event-title{
+  text-transform:uppercase; letter-spacing:.09em; font-size:17px;
+  background:linear-gradient(90deg, #cdb9ff 0%, #f4ecd8 50%, #f0c869 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.event-sports .event-note{ color:#e9e1f5; letter-spacing:.02em; }
+.event-sports .event-motif{ width:50px; height:50px; }
+.day-group > :not(.day-title) + .event-banner{ margin-top:12px; }
+@media (max-width:480px){ .event-sports .event-title{ font-size:15px; letter-spacing:.06em; } .event-sports{ gap:8px; padding:12px; } }
+@media (max-width:360px){ .event-sports .event-motif{ width:40px; height:40px; } .event-sports .event-title{ font-size:15px; letter-spacing:.06em; } }
+.event-by{ font-size:11.5px; margin-top:3px; opacity:.75; letter-spacing:.04em; }
+.event-sports .event-note{ text-wrap:balance; }
+/* the moon rocks and drifts, the sun turns */
+@media (prefers-reduced-motion: no-preference){
+  .event-sports .motif-moon{ animation:moonDrift 4.5s ease-in-out infinite; }
+  .event-sports .motif-sun{ animation:pookalamTurn 16s linear infinite; }
+}
+@keyframes moonDrift{
+  0%, 100%{ transform:translateY(2px) rotate(-10deg); }
+  50%{ transform:translateY(-3px) rotate(10deg); }
+}

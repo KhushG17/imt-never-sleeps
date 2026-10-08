@@ -207,17 +207,37 @@
     });
     return out + '<circle r="5.5" fill="#f7c948"/></svg>';
   }
-  function eventsOn(date){
-    return ((IMT.config.events) || []).filter(function(e){ return e.date === date; });
+  // Sports Night, juniors against seniors: a crescent for one side and a sun
+  // for the other, one at each end of the banner.
+  function crescent(){
+    return '<svg class="event-motif motif-moon" viewBox="-56 -56 112 112" aria-hidden="true">' +
+      '<circle r="54" fill="#1d1033"/><circle r="53" fill="none" stroke="#b79cf0" stroke-width="1.5"/>' +
+      '<path d="M14 -34 A36 36 0 1 0 14 34 A28 28 0 1 1 14 -34 Z" fill="#cdb9ff"/>' +
+      '<circle cx="22" cy="-6" r="3.2" fill="#f1e9ff"/><circle cx="31" cy="12" r="2" fill="#b79cf0"/><circle cx="10" cy="14" r="1.6" fill="#b79cf0"/></svg>';
+  }
+  function sun(){
+    var out = '<svg class="event-motif motif-sun" viewBox="-56 -56 112 112" aria-hidden="true">' +
+      '<circle r="54" fill="#2a1c08"/><circle r="53" fill="none" stroke="#f0c869" stroke-width="1.5"/>';
+    for(var i = 0; i < 12; i++){
+      out += '<path d="M-5 -26 L0 ' + (i % 2 ? -40 : -46) + ' L5 -26 Z" fill="#f0c869" transform="rotate(' + (i * 30) + ')"/>';
+    }
+    return out + '<circle r="20" fill="#f7d98a"/><circle r="20" fill="none" stroke="#c9972f" stroke-width="2"/></svg>';
+  }
+  function eventsOn(date, place){
+    return ((IMT.config.events) || []).filter(function(e){
+      return e.date === date && (!place || (e.place === 'after' ? 'after' : 'top') === place);
+    });
   }
   function eventBanner(e){
-    var theme = e.theme === 'onam' ? 'onam' : 'plain';
-    return '<div class="event-banner event-' + theme + '">' + (theme === 'onam' ? pookalam() : '') +
+    var theme = e.theme === 'onam' || e.theme === 'sports' ? e.theme : 'plain';
+    return '<div class="event-banner event-' + theme + '">' + (theme === 'onam' ? pookalam() : theme === 'sports' ? crescent() : '') +
       '<div class="event-text"><div class="event-title">' + IMT.escapeHtml(e.title) + '</div>' +
-      (e.note ? '<div class="event-note">' + IMT.escapeHtml(e.note) + '</div>' : '') + '</div>' +
+      (e.note ? '<div class="event-note">' + IMT.escapeHtml(e.note) + '</div>' : '') +
+      (e.by ? '<div class="event-by">' + IMT.escapeHtml(e.by) + '</div>' : '') + '</div>' +
       (e.link ? '<a class="event-link" href="' + IMT.escapeHtml(e.link) + '" target="_blank" rel="noopener" ' +
         'title="Open" aria-label="' + IMT.escapeHtml(e.title + (e.note ? ', ' + e.note : '')) + ': open the link">' +
         '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>' : '') +
+      (theme === 'sports' ? sun() : '') +
       '</div>';
   }
 
@@ -331,8 +351,9 @@
         return '<div class="day-group' + (slot.date === E ? ' is-today' : '') + '">' +
           '<div class="day-title">' + name + ', ' + p.d + ' ' + MONTHS[p.mo] + ' ' + p.y +
           (slot.date === E ? '<span class="today-badge">' + (E === realToday ? 'Today' : 'Tomorrow') + '</span>' : '') + '</div>' +
-          eventsOn(slot.date).map(eventBanner).join('') +
-          '<div class="day-free">The class schedule for this day is not uploaded yet.</div></div>';
+          eventsOn(slot.date, 'top').map(eventBanner).join('') +
+          '<div class="day-free">The class schedule for this day is not uploaded yet.</div>' +
+          eventsOn(slot.date, 'after').map(eventBanner).join('') + '</div>';
       }
       var data = shown[slot.wi].data, view = shown[slot.wi].view, di = slot.di, day = data.days[di];
       var third = data.rowLabel || 'Section';
@@ -343,7 +364,8 @@
       var isCurrent = day.date === E;
       var title = '<div class="day-title">' + dayLabel(data, di) +
         (isCurrent ? '<span class="today-badge">' + (E === realToday ? 'Today' : 'Tomorrow') + '</span>' : '') + '</div>';
-      var occasions = day.date >= E ? eventsOn(day.date) : []; // gone once its day has passed
+      var occasions = day.date >= E ? eventsOn(day.date, 'top') : []; // gone once its day has passed
+      var afterClasses = day.date >= E ? eventsOn(day.date, 'after') : []; // held once classes are over
       var body = occasions.map(eventBanner).join('') +
         (day.note ? '<div class="day-note">' + IMT.escapeHtml(day.note) + '</div>' : '');
 
@@ -400,6 +422,7 @@
         divider = '<div class="earlier-divider">' + weekLabel(data) + '</div>';
       }
       if(!o.past) lastWeek = slot.wi;
+      body += afterClasses.map(eventBanner).join('');
       return divider + '<div class="day-group' + (isCurrent ? ' is-today' : '') + (o.past && mixed ? ' is-past' : '') + '">' + title + body + '</div>';
     }).join('');
 
