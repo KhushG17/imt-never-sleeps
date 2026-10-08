@@ -209,6 +209,73 @@ def parse_class(text):
     return {"c": head, "sec": sec, "grp": grp, "n": num, "room": room}
 
 
+def day_bands(path, years):
+    """Which day each table row belongs to, worked out from where the day
+    labels sit on the page: {(page index, table index): [day per row]}.
+
+    A day label ("Tue, Oct 13, 2026") is one merged cell beside that day's
+    rows, written sideways and centred in it. The table finder sometimes
+    cuts that cell into pieces, so the label's text arrives as fragments
+    ("13, 2026" on one row, "Tue, Oct" three rows down) or lands on the wrong
+    row. The page itself still has each label as one line of text with a
+    position, and a label centred in its cell fixes that cell's edges: the
+    first day's band starts at the first data row and extends as far below
+    the label's centre as it does above; the next band starts where that one
+    ends; and so on. A row belongs to the band its own centre falls in.
+
+    A table is left out (so the cell text is used instead) when it has no
+    readable labels or the bands do not account for its rows.
+    """
+    import pymupdf
+    out = {}
+    doc = pymupdf.open(str(path))
+    for p_index, page in enumerate(doc):
+        lines = []
+        for block in page.get_text("dict")["blocks"]:
+            for line in block.get("lines", []):
+                text = clean("".join(span["text"] for span in line["spans"]))
+                if text:
+                    lines.append((line["bbox"], text))
+        for t_index, table in enumerate(page.find_tables().tables):
+            rows = table.extract()
+            boxes = [r.bbox for r in table.rows]
+            if len(boxes) != len(rows):
+                continue
+            header = [i for i, r in enumerate(rows) if sum(1 for c in r if parse_slot(clean(c))) >= 3]
+            first = header[-1] + 1 if header else 0
+            if first >= len(rows):
+                continue
+            x0, top, x1, bottom = table.bbox[0], boxes[first][1], table.bbox[2], boxes[-1][3]
+            labels = []
+            for (lx0, ly0, lx1, ly1), text in lines:
+                centre_x, centre_y = (lx0 + lx1) / 2, (ly0 + ly1) / 2
+                if not (top <= centre_y <= bottom and x0 - 2 <= centre_x <= x0 + 0.25 * (x1 - x0)):
+                    continue
+                day = parse_day(text, years)
+                if day is not None:
+                    labels.append((centre_y, day))
+            labels.sort(key=lambda l: l[0])
+            if not labels:
+                continue
+            bands, edge = [], top
+            for centre_y, day in labels:
+                height = 2 * (centre_y - edge)
+                if height <= 4:
+                    bands = None
+                    break
+                bands.append((edge, edge + height, day))
+                edge += height
+            if not bands or abs(edge - bottom) > 14:
+                continue
+            days = [None] * first
+            for box in boxes[first:]:
+                centre = (box[1] + box[3]) / 2
+                hit = [d for lo, hi, d in bands if lo <= centre < hi]
+                days.append(hit[0] if hit else bands[-1][2])
+            out[(p_index, t_index)] = days
+    return out
+
+
 def parse_weekly(path):
     """Read one weekly schedule PDF.
 
@@ -242,8 +309,10 @@ def parse_weekly(path):
                     break
         del day_rows[:], day_specials[:]
 
-    for _, tables in pages:
-        for table in tables:
+    bands = day_bands(path, years)
+    for p_index, (_, tables) in enumerate(pages):
+        for t_index, table in enumerate(tables):
+            banded = bands.get((p_index, t_index))
             for r_index, raw in enumerate(table):
                 cells = [clean(c) for c in raw]
                 parsed = [parse_slot(c) for c in cells]
@@ -274,7 +343,17 @@ def parse_weekly(path):
                     continue  # title rows above the first header
 
                 day_text = cells[cols["day"]] if cols["day"] < len(cells) else ""
-                if day_text:
+                if banded:
+                    # the day comes from where the row sits on the page; a whole date
+                    # written in the row itself must agree with it
+                    placed = banded[r_index]
+                    written = parse_day(day_text, years) if day_text else None
+                    if isinstance(written, dt.date) and isinstance(placed, dt.date) and written != placed:
+                        raise ParseError("a row labelled %s sits in the band of %s" % (written, placed))
+                    if placed != day:
+                        close_day()
+                        day = placed
+                elif day_text:
                     close_day()
                     day = parse_day(day_text, years)
                     if day is None:

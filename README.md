@@ -109,6 +109,11 @@ from the browser"), or drop them into `all files/_inbox/` and run the
 command. Student lists, allocation sheets and anything else go the second
 way only.
 
+**Days.** A row's day is read from where the day label sits on the page,
+not from the row's own cell, because a merged, sideways label is often cut
+into pieces by the table finder. A full date written in a row must still
+agree with it.
+
 **Checks.** A schedule is skipped, with a message, rather than loaded wrongly
 if: its class count differs from the raw PDF text, its time slots or a day
 label can't be read, or its days fall outside one Monday-Sunday week. It notes
@@ -484,6 +489,14 @@ every run, so correct the college's file in `all files/` (or
 - **8 Oct 2026, DCP 2025-27.** "Course and Section Name - Term V" received:
   160 students, five courses each, with sections (800 rows). No clashes this
   week, and every scheduled course-section has registered students.
+
+- **8 Oct 2026, first uploads from the upload page.** BFS 2026-28 Week 2
+  loaded at once. PGDM 2026-28 Week 2 was filed but skipped ("unreadable day
+  label: '13, 2026'"): in that PDF the table finder cut the sideways day
+  labels into pieces. The reader now takes each row's day from where the day
+  label sits on the page (a label is centred in its day's band), and uses
+  the text in the row only as a cross-check. The seven weeks loaded before
+  came out identical, and the skipped week loaded with 133 classes.
 
 ## Known oddities in the college's files
 
