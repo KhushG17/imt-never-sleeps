@@ -48,6 +48,7 @@ Exam seats on file: the Sep 2026 cycle only (Term 1 and Term 4), locked.
 ```
 all files/                         The college's files, exactly as received
   _inbox/                          Drop new files here; update.py files them
+  _superseded/                     Files replaced by a corrected version; not read
   batch 2027/
     handbook/
     core/term 5/                   Allocation sheet, student list
@@ -65,6 +66,7 @@ data/config/                       Hand-edited settings
 
 data/master/                       Generated from "all files" every run
   students.json                    Every student: programme, batch, section, courses
+  students.csv                     The same list as a sheet that opens in Excel
   courses.json                     Course list per batch, group and term
   weekly/<batch>-<group>/<monday>.json   Every week ever received
 ```
@@ -401,6 +403,30 @@ programme, section and (for the 2025-27 core batch) courses, and the bundled
 student file is readable in the repo. The 7 Oct build published 361 students.
 The 8 Oct build covers 1,328 across both batches. Khush decides whether and
 when to push it.
+
+## Looking at the master data
+
+- **In Excel:** open `data/master/students.csv`. One row per student, sorted
+  by batch, group, section and roll: roll number, name, batch, programme,
+  group, term, section, track, major, minor, electives, courses.
+- **Course lists:** `data/master/courses.json`, one block per batch, group and
+  term (for example `2028-dcp-2`).
+- **Weekly schedules:** `data/master/weekly/<batch>-<group>/<monday>.json`,
+  one file per week received.
+- **On GitHub:** the same files are in the repository under `data/master/`,
+  viewable in a browser or the GitHub phone app.
+
+These files are rebuilt by `python scripts/update.py` and are overwritten on
+every run, so correct the college's file in `all files/` (or
+`data/config/overrides.json`), never the master file itself.
+
+## Corrections received
+
+- **8 Oct 2026, DCP 2026-28 Section A.** The first Section A list paired ten
+  roll numbers with the wrong names (five pairs swapped). Khush supplied
+  "DCP 28 for Term II.xlsx"; the old file was moved to
+  `all files/_superseded/`, which the update does not read. Same 47 students
+  and rolls, ten names corrected, nothing else changed.
 
 ## Known oddities in the college's files
 

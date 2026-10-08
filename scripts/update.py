@@ -16,6 +16,7 @@ Full run (no flag), every time:
  2. Reads every file under "all files/" and "uploads/" again from scratch and
     rebuilds the master data in data/master/:
         students.json   every student: programme, batch, section, courses
+        students.csv    the same list as a sheet that opens in Excel
         courses.json    course lists per batch, group and term
         weekly/         every week ever received, per batch and group
  3. Rebuilds the three files the pages load, and re-stamps the pages' links
@@ -283,10 +284,30 @@ def bundle_weekly():
     return site
 
 
+def write_students_csv(students):
+    """data/master/students.csv: the same student list as students.json, as a
+    sheet that opens in Excel, sorted by batch, group, section and roll."""
+    import csv
+    names = programmes["programmes"]
+    rows = sorted(students.items(), key=lambda kv: (kv[1]["batch"], kv[1]["group"], kv[1].get("section", ""), kv[0]))
+    with (MASTER / "students.csv").open("w", newline="", encoding="utf-8-sig") as f:
+        w = csv.writer(f)
+        w.writerow(["Roll No", "Name", "Batch", "Programme", "Group", "Term", "Section", "Track",
+                    "Major", "Minor", "Electives", "Courses (course-section)"])
+        for roll, s in rows:
+            w.writerow([roll, s["name"], "%d-%s" % (int(s["batch"]) - 2, s["batch"][2:]),
+                        names.get(s.get("programme") or "", {}).get("name", ""), s["group"], s.get("term", ""),
+                        s.get("section", "") + (" (from elective)" if s.get("sectionAssumed") else ""),
+                        s.get("track", ""), s.get("major", ""), s.get("minor", ""),
+                        ", ".join(s.get("electives", [])),
+                        ", ".join("%s-%s" % kv for kv in sorted(s.get("courses", {}).items()))])
+
+
 def build_site(courses, students, weeks, timeline):
     shutil.rmtree(MASTER, ignore_errors=True)
     write_json(MASTER / "students.json", students)
     write_json(MASTER / "courses.json", courses)
+    write_students_csv(students)
     for gkey, by_start in weeks.items():
         for start, week in by_start.items():
             write_json(MASTER / "weekly" / gkey / ("%s.json" % start), week)
