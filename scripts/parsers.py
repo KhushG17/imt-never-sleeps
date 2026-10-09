@@ -209,6 +209,36 @@ def parse_class(text):
     return {"c": head, "sec": sec, "grp": grp, "n": num, "room": room}
 
 
+PAIR = r"\(\s*\d+\s*&\s*\d+\s*\)"
+
+
+def parse_group(text, span):
+    """A class written for the whole programme, not for one section's row: its
+    letter is a group, and "(3 & 4)" is two sessions back to back.
+
+        'DTI- A (1) - NVS', 1             -> [DTI group A session 1]
+        'DTI - C (3 & 4) -SRT - Gurukul', 2  -> [DTI group C session 3, DTI group C session 4], room Gurukul
+
+    Returns None unless the entry reads cleanly and fills exactly `span` slots.
+    """
+    m = re.search(r"\(\s*(\d+)\s*&\s*(\d+)\s*\)", text)
+    numbers = [int(m.group(1)), int(m.group(2))] if m else [None]
+    if len(numbers) != span:
+        return None
+    out = []
+    for n in numbers:
+        cls = parse_class(text if n is None else text[:m.start()] + "(%d)" % n + text[m.end():])
+        if not cls or not (cls["sec"] or cls["grp"]):
+            return None
+        cls["grp"], cls["sec"] = cls["grp"] or cls["sec"], None
+        if not cls["room"]:
+            # "... -SRT - Gurukul": the place is written after the faculty initials
+            tail = [p.strip() for p in text[text.rindex(")") + 1:].split("-") if p.strip()]
+            cls["room"] = tail[-1] if len(tail) >= 2 else None
+        out.append(cls)
+    return out
+
+
 def split_timed(text):
     """A cell holding entries that each carry their own time and room.
 
@@ -301,7 +331,7 @@ def parse_weekly(path):
     pages = pdf_tables(path)
     raw_text = "\n".join(p[0] for p in pages)
     years = {int(y) for y in re.findall(r"\b(20\d{2})\b", raw_text + " " + path.name)}
-    raw_count = len(re.findall(r"\(\s*\d+\s*\)", raw_text))
+    raw_count = len(re.findall(r"\(\s*\d+\s*\)", raw_text)) + 2 * len(re.findall(PAIR, raw_text))
 
     slots = slot_cols = None
     cols = {}                 # role -> column index: day, row, room, area
@@ -394,12 +424,11 @@ def parse_weekly(path):
                         for head, hours, where in timed:
                             ends = [i for i in range(s_idx, len(slots)) if hours and slots[i][1] == hours[1]]
                             span = ends[0] - s_idx + 1 if ends else 1
-                            cls = parse_class(head)
-                            if cls and span == 1:
-                                # the cell is merged across the sections, so the
-                                # row is the section the entry names
-                                cls.update(d=day, s=s_idx, row=cls["sec"] or row_key, room=where or cls["room"])
-                                sessions.append(cls)
+                            group = parse_group(head, span)
+                            if group:
+                                for i, cls in enumerate(group):
+                                    cls.update(d=day, s=s_idx + i, row=row_key, room=where or cls["room"])
+                                    sessions.append(cls)
                             else:
                                 sp = {"d": day, "s": s_idx, "span": span, "text": head, "rows": [row_key] if row_key else []}
                                 specials.append(sp)
@@ -417,6 +446,13 @@ def parse_weekly(path):
                         while (s_idx + span < len(slot_cols) and slot_cols[s_idx + span] < len(raw)
                                and raw[slot_cols[s_idx + span]] is None):
                             span += 1
+                        group = parse_group(text, span) if re.search(PAIR, text) else None
+                        if group:
+                            # "DTI- C (1 & 2)-SRT - Gurukul" across two slots: two group sessions
+                            for i, cls in enumerate(group):
+                                cls.update(d=day, s=s_idx + i, row=row_key)
+                                sessions.append(cls)
+                            continue
                         sp = {"d": day, "s": s_idx, "span": span, "text": text, "rows": [row_key] if row_key else []}
                         specials.append(sp)
                         day_specials.append((sp, len(day_rows) - 1))

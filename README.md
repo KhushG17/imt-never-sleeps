@@ -590,9 +590,15 @@ every run, so correct the college's file in `all files/` (or
     after the time; anything else (here "DTI - C (3 & 4) -SRT - Gurukul",
     3:45 to 6:45 pm) is kept as a note shown to both sections, as in Week 1.
     The week then loaded with 44 classes, and no other week on file changed.
-  - Open point: on Mon 12 Oct both sections see their own Design Thinking
-    class (3:45 to 5:00 pm) and the "DTI - C" entry at Gurukul at the same
-    time, because who belongs to "C" is not on file.
+  - **Corrected the same day (Khush): in DCP 2026-28 the letter in "DTI - A",
+    "DTI - B", "DTI - C" is a Design Thinking group, not a section,** and no
+    list says which roll number is in which group. So all three are listed
+    for every DCP 2026-28 student in the group card ("group sessions, attend
+    only your own group"), the same way PGDM 2026-28's numbered groups are.
+    "(3 & 4)" over 3:45 to 6:45 pm is read as two sessions back to back
+    (`parse_group` in `scripts/parsers.py`). Week 1's "DTI- C (1 & 2)" on
+    Sat 10 Oct is now read the same way. Week 2 has 46 classes, Week 1 has
+    53; no other group's weeks changed.
 
 ## Known oddities in the college's files
 

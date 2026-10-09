@@ -107,22 +107,42 @@
   {
    "c": "DTI",
    "d": 0,
-   "grp": null,
+   "grp": "A",
    "n": 1,
    "room": "301",
    "row": "A",
    "s": 4,
-   "sec": "A"
+   "sec": null
   },
   {
    "c": "DTI",
    "d": 0,
-   "grp": null,
+   "grp": "B",
    "n": 1,
    "room": "302",
-   "row": "B",
+   "row": "A",
    "s": 4,
-   "sec": "B"
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 0,
+   "grp": "C",
+   "n": 3,
+   "room": "Gurukul",
+   "row": "A",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 0,
+   "grp": "C",
+   "n": 4,
+   "room": "Gurukul",
+   "row": "A",
+   "s": 5,
+   "sec": null
   },
   {
    "c": "DBS",
@@ -237,22 +257,22 @@
   {
    "c": "DTI",
    "d": 2,
-   "grp": null,
+   "grp": "A",
    "n": 2,
    "room": "301",
    "row": "A",
    "s": 4,
-   "sec": "A"
+   "sec": null
   },
   {
    "c": "DTI",
    "d": 2,
-   "grp": null,
+   "grp": "B",
    "n": 2,
    "room": "302",
-   "row": "B",
+   "row": "A",
    "s": 4,
-   "sec": "B"
+   "sec": null
   },
   {
    "c": "DBS",
@@ -516,18 +536,7 @@
   ]
  ],
  "source": "uploads/batch 2028/dcp/term 2/weekly/2nd Weekly Schedule, Term II - DCP 2026-28.pdf",
- "specials": [
-  {
-   "d": 0,
-   "rows": [
-    "A",
-    "B"
-   ],
-   "s": 4,
-   "span": 2,
-   "text": "DTI - C (3 & 4) -SRT - Gurukul"
-  }
- ],
+ "specials": [],
  "start": "2026-10-12",
  "term": 2,
  "weekNumber": 2

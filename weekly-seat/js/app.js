@@ -401,7 +401,10 @@
         body += Object.keys(byCourse).map(function(code){
           return '<div class="group-card">' +
             '<div class="group-head">' + IMT.escapeHtml(courseName(data, code)) + ' <span>group sessions, attend only your own group</span></div>' +
-            '<ul class="group-list">' + byCourse[code].sort(function(a, b){ return a.grp - b.grp || a.s - b.s; }).map(function(x){
+            '<ul class="group-list">' + byCourse[code].sort(function(a, b){
+              // groups are numbered (1, 2, 11) in one programme and lettered (A, B, C) in another
+              return (isNaN(a.grp) || isNaN(b.grp) ? String(a.grp).localeCompare(String(b.grp)) : a.grp - b.grp) || a.s - b.s;
+            }).map(function(x){
               return '<li><span class="group-name">Group ' + IMT.escapeHtml(x.grp) + '</span>' +
                 '<span>' + slotLabel(data, x.s) + '</span><span>Room ' + IMT.escapeHtml(x.room || '-') + '</span>' +
                 '<span>Session ' + x.n + '</span>' +

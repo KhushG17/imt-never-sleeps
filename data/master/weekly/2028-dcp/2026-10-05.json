@@ -4,6 +4,7 @@
   "BC": "Business Communication",
   "DAIB": "Data Analytics and AI for Business",
   "DBS": "Digital Business Strategy",
+  "DTI": "Design Thinking",
   "FA": "Financial Accounting",
   "HRM": "Human Resource Management",
   "IAF": "Introduction to Accounting and Finance",
@@ -484,6 +485,26 @@
    "sec": "B"
   },
   {
+   "c": "DTI",
+   "d": 5,
+   "grp": "C",
+   "n": 1,
+   "room": "Gurukul",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "C",
+   "n": 2,
+   "room": "Gurukul",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
    "c": "IAF",
    "d": 5,
    "grp": null,
@@ -585,18 +606,7 @@
   ]
  ],
  "source": "all files/batch 2028/dcp/term 2/weekly/1st Weekly Schedule, Term II - DCP 2026-28.pdf",
- "specials": [
-  {
-   "d": 5,
-   "rows": [
-    "A",
-    "B"
-   ],
-   "s": 1,
-   "span": 2,
-   "text": "DTI- C (1 & 2)-SRT - Gurukul"
-  }
- ],
+ "specials": [],
  "start": "2026-10-05",
  "term": 2,
  "weekNumber": 1
