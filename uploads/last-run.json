@@ -2,16 +2,32 @@
  "messages": [
   {
    "kind": "FILED",
-   "text": "2-Weekly Schedule of PGDM - II (205-27) Term - V during Oct. 12 - 18, 2026.pdf -> batch 2027/core/term 5/weekly"
+   "text": "2nd Weekly Schedule, Term II - DCP 2026-28.pdf -> batch 2028/dcp/term 2/weekly"
+  },
+  {
+   "kind": "FILED",
+   "text": "3rd Weekly Schedule, Term V - DCP 2025-27.pdf -> batch 2027/dcp/term 5/weekly"
+  },
+  {
+   "kind": "SKIPPED",
+   "text": "uploads/batch 2028/dcp/term 2/weekly/2nd Weekly Schedule, Term II - DCP 2026-28.pdf: the PDF text has 44 class entries but 42 were read from the grid"
   }
  ],
- "ranAt": "2026-10-08T17:04:12Z",
+ "ranAt": "2026-10-09T16:05:41Z",
  "weeks": [
   {
    "classes": 82,
    "end": "2026-10-18",
    "file": "2-Weekly Schedule of PGDM - II (205-27) Term - V during Oct. 12 - 18, 2026.pdf",
    "group": "2027-core",
+   "start": "2026-10-12",
+   "term": 5
+  },
+  {
+   "classes": 39,
+   "end": "2026-10-18",
+   "file": "3rd Weekly Schedule, Term V - DCP 2025-27.pdf",
+   "group": "2027-dcp",
    "start": "2026-10-12",
    "term": 5
   },

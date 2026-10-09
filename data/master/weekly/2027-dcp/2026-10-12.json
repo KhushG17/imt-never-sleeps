@@ -1,0 +1,472 @@
+{
+ "batch": "2027",
+ "courses": {
+  "CMN": "Contract Management and Negotiations",
+  "IBPP": "International Business and Public Policy",
+  "IM": "International Marketing",
+  "IP": "Industry Project -I",
+  "MF": "Mutual Funds / ETFs; Pension Funds; and Hedge Funds"
+ },
+ "days": [
+  {
+   "date": "2026-10-12"
+  },
+  {
+   "date": "2026-10-13"
+  },
+  {
+   "date": "2026-10-14"
+  },
+  {
+   "date": "2026-10-15"
+  },
+  {
+   "date": "2026-10-16"
+  },
+  {
+   "date": "2026-10-17"
+  },
+  {
+   "date": "2026-10-18"
+  }
+ ],
+ "electives": [],
+ "end": "2026-10-18",
+ "group": "dcp",
+ "mode": "track",
+ "rowLabel": "Track",
+ "rows": [
+  "AQF",
+  "ITL",
+  "IBM-A",
+  "IBM-B",
+  "ITA"
+ ],
+ "sessions": [
+  {
+   "c": "IM",
+   "d": 0,
+   "grp": null,
+   "n": 1,
+   "room": "Old Audi",
+   "row": "IBM-B",
+   "s": 5,
+   "sec": "B"
+  },
+  {
+   "c": "IM",
+   "d": 0,
+   "grp": null,
+   "n": 2,
+   "room": "Old Audi",
+   "row": "IBM-B",
+   "s": 6,
+   "sec": "B"
+  },
+  {
+   "c": "IP",
+   "d": 1,
+   "grp": null,
+   "n": 2,
+   "room": "Old Audi",
+   "row": "IBM-A",
+   "s": 2,
+   "sec": "A"
+  },
+  {
+   "c": "IP",
+   "d": 1,
+   "grp": null,
+   "n": 1,
+   "room": "Gurukul",
+   "row": "ITL",
+   "s": 2,
+   "sec": "C"
+  },
+  {
+   "c": "IM",
+   "d": 1,
+   "grp": null,
+   "n": 3,
+   "room": "Old Audi",
+   "row": "IBM-B",
+   "s": 3,
+   "sec": "B"
+  },
+  {
+   "c": "IM",
+   "d": 1,
+   "grp": null,
+   "n": 4,
+   "room": "Old Audi",
+   "row": "IBM-B",
+   "s": 4,
+   "sec": "B"
+  },
+  {
+   "c": "IM",
+   "d": 1,
+   "grp": null,
+   "n": 1,
+   "room": "Old Audi",
+   "row": "IBM-A",
+   "s": 5,
+   "sec": "A"
+  },
+  {
+   "c": "IM",
+   "d": 1,
+   "grp": null,
+   "n": 2,
+   "room": "Old Audi",
+   "row": "IBM-A",
+   "s": 6,
+   "sec": "A"
+  },
+  {
+   "c": "MF",
+   "d": 2,
+   "grp": null,
+   "n": 4,
+   "room": "C-202",
+   "row": "AQF",
+   "s": 0,
+   "sec": "A"
+  },
+  {
+   "c": "IM",
+   "d": 2,
+   "grp": null,
+   "n": 5,
+   "room": "C-202",
+   "row": "IBM-B",
+   "s": 3,
+   "sec": "B"
+  },
+  {
+   "c": "IM",
+   "d": 2,
+   "grp": null,
+   "n": 6,
+   "room": "C-202",
+   "row": "IBM-B",
+   "s": 4,
+   "sec": "B"
+  },
+  {
+   "c": "IM",
+   "d": 2,
+   "grp": null,
+   "n": 3,
+   "room": "C-202",
+   "row": "IBM-A",
+   "s": 5,
+   "sec": "A"
+  },
+  {
+   "c": "IM",
+   "d": 2,
+   "grp": null,
+   "n": 4,
+   "room": "C-202",
+   "row": "IBM-A",
+   "s": 6,
+   "sec": "A"
+  },
+  {
+   "c": "MF",
+   "d": 3,
+   "grp": null,
+   "n": 5,
+   "room": "C-202",
+   "row": "AQF",
+   "s": 0,
+   "sec": "A"
+  },
+  {
+   "c": "IM",
+   "d": 3,
+   "grp": null,
+   "n": 7,
+   "room": "C-202",
+   "row": "IBM-B",
+   "s": 1,
+   "sec": "B"
+  },
+  {
+   "c": "IM",
+   "d": 3,
+   "grp": null,
+   "n": 8,
+   "room": "C-202",
+   "row": "IBM-B",
+   "s": 2,
+   "sec": "B"
+  },
+  {
+   "c": "IM",
+   "d": 3,
+   "grp": null,
+   "n": 5,
+   "room": "301",
+   "row": "IBM-A",
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "CMN",
+   "d": 3,
+   "grp": null,
+   "n": 1,
+   "room": "C-202",
+   "row": "ITL",
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "IM",
+   "d": 3,
+   "grp": null,
+   "n": 6,
+   "room": "301",
+   "row": "IBM-A",
+   "s": 4,
+   "sec": "A"
+  },
+  {
+   "c": "CMN",
+   "d": 3,
+   "grp": null,
+   "n": 2,
+   "room": "C-202",
+   "row": "ITL",
+   "s": 4,
+   "sec": "A"
+  },
+  {
+   "c": "CMN",
+   "d": 3,
+   "grp": null,
+   "n": 3,
+   "room": "C-202",
+   "row": "ITL",
+   "s": 5,
+   "sec": "A"
+  },
+  {
+   "c": "CMN",
+   "d": 3,
+   "grp": null,
+   "n": 4,
+   "room": "C-202",
+   "row": "ITL",
+   "s": 6,
+   "sec": "A"
+  },
+  {
+   "c": "CMN",
+   "d": 4,
+   "grp": null,
+   "n": 5,
+   "room": "Old Audi",
+   "row": "ITL",
+   "s": 1,
+   "sec": "A"
+  },
+  {
+   "c": "IP",
+   "d": 4,
+   "grp": null,
+   "n": 2,
+   "room": "Old Audi",
+   "row": "ITL",
+   "s": 2,
+   "sec": "C"
+  },
+  {
+   "c": "CMN",
+   "d": 4,
+   "grp": null,
+   "n": 6,
+   "room": "Old Audi",
+   "row": "ITL",
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "CMN",
+   "d": 4,
+   "grp": null,
+   "n": 7,
+   "room": "Old Audi",
+   "row": "ITL",
+   "s": 4,
+   "sec": "A"
+  },
+  {
+   "c": "CMN",
+   "d": 4,
+   "grp": null,
+   "n": 8,
+   "room": "Old Audi",
+   "row": "ITL",
+   "s": 5,
+   "sec": "A"
+  },
+  {
+   "c": "IBPP",
+   "d": 5,
+   "grp": null,
+   "n": 15,
+   "room": "Old Audi",
+   "row": "IBM-B",
+   "s": 0,
+   "sec": "B"
+  },
+  {
+   "c": "IBPP",
+   "d": 5,
+   "grp": null,
+   "n": 16,
+   "room": "Old Audi",
+   "row": "IBM-B",
+   "s": 1,
+   "sec": "B"
+  },
+  {
+   "c": "IBPP",
+   "d": 5,
+   "grp": null,
+   "n": 13,
+   "room": "Old Audi",
+   "row": "IBM-A",
+   "s": 2,
+   "sec": "A"
+  },
+  {
+   "c": "IBPP",
+   "d": 5,
+   "grp": null,
+   "n": 14,
+   "room": "Old Audi",
+   "row": "IBM-A",
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "IBPP",
+   "d": 6,
+   "grp": null,
+   "n": 17,
+   "room": "Gurukul",
+   "row": "IBM-B",
+   "s": 0,
+   "sec": "B"
+  },
+  {
+   "c": "IBPP",
+   "d": 6,
+   "grp": null,
+   "n": 18,
+   "room": "Gurukul",
+   "row": "IBM-B",
+   "s": 1,
+   "sec": "B"
+  },
+  {
+   "c": "IBPP",
+   "d": 6,
+   "grp": null,
+   "n": 15,
+   "room": "Gurukul",
+   "row": "IBM-A",
+   "s": 2,
+   "sec": "A"
+  },
+  {
+   "c": "IBPP",
+   "d": 6,
+   "grp": null,
+   "n": 16,
+   "room": "Gurukul",
+   "row": "IBM-A",
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "CMN",
+   "d": 6,
+   "grp": null,
+   "n": 9,
+   "room": "Old Audi",
+   "row": "ITL",
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "CMN",
+   "d": 6,
+   "grp": null,
+   "n": 10,
+   "room": "Old Audi",
+   "row": "ITL",
+   "s": 4,
+   "sec": "A"
+  },
+  {
+   "c": "CMN",
+   "d": 6,
+   "grp": null,
+   "n": 11,
+   "room": "Old Audi",
+   "row": "ITL",
+   "s": 5,
+   "sec": "A"
+  },
+  {
+   "c": "CMN",
+   "d": 6,
+   "grp": null,
+   "n": 12,
+   "room": "Old Audi",
+   "row": "ITL",
+   "s": 6,
+   "sec": "A"
+  }
+ ],
+ "slots": [
+  [
+   "09:00",
+   "10:15"
+  ],
+  [
+   "10:30",
+   "11:45"
+  ],
+  [
+   "12:00",
+   "13:15"
+  ],
+  [
+   "14:15",
+   "15:30"
+  ],
+  [
+   "15:45",
+   "17:00"
+  ],
+  [
+   "17:30",
+   "18:45"
+  ],
+  [
+   "19:00",
+   "20:15"
+  ]
+ ],
+ "source": "uploads/batch 2027/dcp/term 5/weekly/3rd Weekly Schedule, Term V - DCP 2025-27.pdf",
+ "specials": [],
+ "start": "2026-10-12",
+ "term": 5,
+ "weekNumber": 3
+}
