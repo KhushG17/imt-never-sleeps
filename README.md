@@ -575,6 +575,25 @@ every run, so correct the college's file in `all files/` (or
   same as the PDF; no classes on Thu 15 Oct. Week 2 is now on file for four
   of six groups; still to come: DCP 2026-28 and DCP 2025-27.
 
+- **9 Oct 2026, two uploads from the upload page: DCP 2025-27 and DCP
+  2026-28, both for 12 to 18 Oct.** Week 2 is now on file for all six groups.
+  - DCP 2025-27 loaded at once: 39 classes, the same as the PDF cell for
+    cell. The college titles this file "Week-3", so the page and the PDF name
+    say Week 3 for this group while the other five say Week 2.
+  - DCP 2026-28 was filed but skipped ("the PDF text has 44 class entries but
+    42 were read from the grid"). Its Design Thinking classes sit in one cell
+    merged across both sections, several entries in it, each with its own
+    time and room: "DTI- A (1) - NVS [3.45 to 5.00 pm] - 301 DTI - B (1)-NSR
+    - 302 [3.45 to 5.00 pm] - 302 ...". The reader now splits such a cell
+    (`split_timed` in `scripts/parsers.py`): an entry that names a section
+    and fits one time slot becomes that section's class in the room written
+    after the time; anything else (here "DTI - C (3 & 4) -SRT - Gurukul",
+    3:45 to 6:45 pm) is kept as a note shown to both sections, as in Week 1.
+    The week then loaded with 44 classes, and no other week on file changed.
+  - Open point: on Mon 12 Oct both sections see their own Design Thinking
+    class (3:45 to 5:00 pm) and the "DTI - C" entry at Gurukul at the same
+    time, because who belongs to "C" is not on file.
+
 ## Known oddities in the college's files
 
 Shown as printed, not corrected.

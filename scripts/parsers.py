@@ -209,6 +209,21 @@ def parse_class(text):
     return {"c": head, "sec": sec, "grp": grp, "n": num, "room": room}
 
 
+def split_timed(text):
+    """A cell holding entries that each carry their own time and room.
+
+        'DTI- A (1) - NVS [3.45 to 5.00 pm] - 301 DTI - B (1)-NSR - 302 [3.45 to 5.00 pm] - 302'
+        -> [('DTI- A (1) - NVS', ('15:45', '17:00'), '301'), ('DTI - B (1)-NSR - 302', ('15:45', '17:00'), '302')]
+
+    Returns [] for an ordinary cell.
+    """
+    out = []
+    for m in re.finditer(r"\s*(.+?)\s*\[([^\[\]]*)\]\s*-\s*(\S+)", text):
+        hours = parse_slot(re.sub(r"\bto\b", "-", m.group(2).replace(".", ":").replace(" :", ":")))
+        out.append((m.group(1).strip(), hours, m.group(3)))
+    return out if out and text[sum(len(m.group(0)) for m in re.finditer(r"\s*(.+?)\s*\[([^\[\]]*)\]\s*-\s*(\S+)", text)):].strip() == "" else []
+
+
 def day_bands(path, years):
     """Which day each table row belongs to, worked out from where the day
     labels sit on the page: {(page index, table index): [day per row]}.
@@ -370,6 +385,25 @@ def parse_weekly(path):
                 for s_idx, col in enumerate(slot_cols):
                     text = cells[col] if col < len(cells) else ""
                     if not text:
+                        continue
+                    timed = split_timed(text)
+                    if timed:
+                        # several entries in one merged cell, each with its own
+                        # time and room: "DTI- A (1) - NVS [3.45 to 5.00 pm] - 301 DTI - B ..."
+                        found_any = True
+                        for head, hours, where in timed:
+                            ends = [i for i in range(s_idx, len(slots)) if hours and slots[i][1] == hours[1]]
+                            span = ends[0] - s_idx + 1 if ends else 1
+                            cls = parse_class(head)
+                            if cls and span == 1:
+                                # the cell is merged across the sections, so the
+                                # row is the section the entry names
+                                cls.update(d=day, s=s_idx, row=cls["sec"] or row_key, room=where or cls["room"])
+                                sessions.append(cls)
+                            else:
+                                sp = {"d": day, "s": s_idx, "span": span, "text": head, "rows": [row_key] if row_key else []}
+                                specials.append(sp)
+                                day_specials.append((sp, len(day_rows) - 1))
                         continue
                     cls = parse_class(text)
                     if cls:
