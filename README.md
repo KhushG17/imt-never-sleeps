@@ -271,10 +271,12 @@ any student whatever the timeline says. Real batches switch by date.
   - It shows whether or not that week's schedule is uploaded: if it is not,
     the day is listed with the banner and the line "The class schedule for
     this day is not uploaded yet."
-  - It is the one exception to the day change (decided 9 Oct): on its date
-    it stays on top with a Today tag until the date ends (midnight IST),
-    even after the schedule has moved on to tomorrow's classes (after the
-    student's last class, or at 8 pm). From the next date it is gone.
+  - **A day with an occasion does not change early** (decided 10 Oct,
+    replacing the 9 Oct rule that moved the banner to the top once classes
+    ended): on that date the whole day stays as it is until midnight IST,
+    classes and banner in their usual places, with the Today tag. The
+    next day takes over at 12:00 am. Days without an occasion still change
+    after the student's last class, or at 8 pm.
   - It is never part of the PDF.
   - `place: "after"` puts the banner below that day's classes instead of
     above them, for something held once classes are over.

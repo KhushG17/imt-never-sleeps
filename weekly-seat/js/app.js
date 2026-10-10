@@ -269,6 +269,9 @@
     var weeks = (WEEKLY[s.groupKey] || []).slice().sort(function(a, b){ return a.start < b.start ? -1 : 1; });
     var realToday = IMT.istToday();
     var E = (s.alumni || !weeks.length || (weeks[0].mode === 'course' && !Object.keys(s.courses).length)) ? IMT.scheduleDay() : currentDayFor(weeks, s);
+    // a day with a campus occasion stays whole until midnight: its classes and
+    // the occasion keep their places all day, since the occasion lasts the day
+    if(eventsOn(realToday).length) E = realToday;
     // weeks that are not over yet; if every week on file is over, the newest one
     var live = weeks.filter(function(w){ return w.end >= E; });
     if(!live.length && weeks.length) live = [weeks[weeks.length - 1]];
@@ -340,16 +343,7 @@
     var pe = parseIso(E);
     var weekStart = IMT.addDays(E, -((new Date(Date.UTC(pe.y, pe.mo - 1, pe.d)).getUTCDay() + 6) % 7));
     var cardIndex = 0;
-    // an occasion is the exception to the day change: it lasts until its own
-    // date ends, so after the day's classes it stays on top, above tomorrow
-    var stillOn = '';
-    if(realToday < E && eventsOn(realToday).length){
-      var pt = parseIso(realToday);
-      stillOn = '<div class="day-group"><div class="day-title">' +
-        DAY_NAMES[(new Date(Date.UTC(pt.y, pt.mo - 1, pt.d)).getUTCDay() + 6) % 7] + ', ' + pt.d + ' ' + MONTHS[pt.mo] + ' ' + pt.y +
-        '<span class="today-badge">Today</span></div>' + eventsOn(realToday).map(eventBanner).join('') + '</div>';
-    }
-    listEl.innerHTML = stillOn + order.map(function(o){
+    listEl.innerHTML = order.map(function(o){
       var slot = days[o.i];
       if(slot.wi < 0){
         // a day outside every uploaded week, listed only for its occasion
