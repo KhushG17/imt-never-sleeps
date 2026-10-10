@@ -255,12 +255,9 @@ any student whatever the timeline says. Real batches switch by date.
   for 8 pm. Example: DCP 2026-28 on Sat 10 Oct has only Design Thinking
   Group C until 1:15 pm, so from 1:15 pm the Sports Night banner is on top
   and Sunday follows.
-- **The class count is of classes still to come** (10 Oct): the badge under
-  the name reads "21 classes left". It counts the day on top and every day
-  after it, across all the weeks listed, and drops a whole day at a time,
-  when that day gives way to the next (after the student's last class, or at
-  8 pm). Days under "Earlier this week" are not counted. The PDF still lists
-  and counts its whole week.
+- **No class count on the Weekly page** (removed 10 Oct at Khush's request;
+  it had read "21 classes left" for a day). The PDF still states how many
+  classes its week has.
 - **Campus occasions** (9 Oct): a green banner at the top of
   its day in Weekly, for every student, set by hand in `events` in
   `js/portal-config.js` (date, title, optional second line, optional link,

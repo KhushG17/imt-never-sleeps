@@ -17,7 +17,6 @@
   var weekOut = document.getElementById('weekOut');
   var nameOut = document.getElementById('nameOut');
   var metaOut = document.getElementById('metaOut');
-  var countOut = document.getElementById('countOut');
   var bannerEl = document.getElementById('banner');
   var pdfBtn = document.getElementById('pdfBtn');
   var backBtn = document.getElementById('backBtn');
@@ -305,12 +304,6 @@
     var shown = live.map(function(data){ return { data: data, view: buildView(data, s) }; });
     var last = shown[shown.length - 1].data;
     var label = shown.length === 1 ? weekLabel(first) : rangeLabel({ start: first.start, end: last.end });
-    // the count is of classes still to come, day by day: the day on top and
-    // every day after it. A day's classes all count until that day gives way
-    // to the next (after the student's last class, or at 8 pm).
-    var total = shown.reduce(function(n, w){
-      return n + w.view.classes.filter(function(x){ return w.data.days[x.d].date >= E; }).length;
-    }, 0);
     var firstView = shown[0].view;
     lastResult = { student: s, shown: shown, label: label };
 
@@ -319,7 +312,6 @@
     weekOut.textContent = label;
     nameOut.textContent = IMT.greeting(s);
     metaOut.textContent = 'Roll number ' + s.roll + (IMT.metaLine(s) ? ' · ' + IMT.metaLine(s) : '');
-    countOut.textContent = (total || 'No') + (total === 1 ? ' class' : ' classes') + ' left' + (firstView.all ? ', all ' + first.rowLabel.toLowerCase() + 's' : '');
     backBtn.href = '../?roll=' + encodeURIComponent(s.roll);
     bannerEl.textContent = firstView.banner;
     bannerEl.hidden = !firstView.banner;
