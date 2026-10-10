@@ -128,6 +128,16 @@ def file_inbox(root, timeline, weekly_only=False):
                 pass
         if info["term"] is None and info["batch"] and info["group"]:
             info["term"] = current_term(timeline.get("%s-%s" % (info["batch"], info["group"])), today)
+        if info["kind"] == "mess":
+            # the mess menu is for everyone: no batch, group or term
+            dest = root / "mess"
+            dest.mkdir(parents=True, exist_ok=True)
+            if (dest / path.name).exists():
+                say("NOTE", "replaced the earlier copy of %s" % path.name)
+                (dest / path.name).unlink()
+            shutil.move(str(path), str(dest / path.name))
+            say("FILED", "%s -> mess" % path.name)
+            continue
         if weekly_only and info["kind"] != "weekly":
             say("INBOX", "left in inbox, only weekly schedule PDFs can be sent from the upload page: %s" % path.name)
             continue
@@ -324,6 +334,36 @@ def build_master(overrides):
 
 # ------------------------------------------------------------------- 3. site
 
+MESS_DAYS_ON_SITE = 45
+
+
+def build_mess(roots):
+    """The mess menu: every menu PDF in <root>/mess laid over data/master/mess.json
+    (a later file wins for a date both have), then js/mess-data.js for the pages."""
+    master = MASTER / "mess.json"
+    mess = json.loads(master.read_text(encoding="utf-8")) if master.exists() else {"days": {}, "timings": {}, "note": ""}
+    files = sorted((p for root in roots for p in (root / "mess").glob("*.pdf")), key=lambda p: (p.stat().st_mtime, p.name))
+    for path in files:
+        try:
+            menu = parsers.parse_mess(path)
+        except Exception as e:
+            say("SKIPPED", "%s: %s" % (rel(path), e))
+            continue
+        mess["days"].update(menu["days"])
+        mess["timings"] = menu["timings"] or mess["timings"]
+        mess["note"] = menu["note"] or mess["note"]
+        for w in menu["warnings"]:
+            say("NOTE", "mess menu, %s: %s" % (path.name, w))
+        say("MESS", "%s: %s to %s, %d days" % (path.name, min(menu["days"]), max(menu["days"]), len(menu["days"])))
+    mess["days"] = dict(sorted(mess["days"].items()))
+    if not mess["days"]:
+        return
+    write_json(master, mess)
+    recent = dict(list(mess["days"].items())[-MESS_DAYS_ON_SITE:])
+    write_js(ROOT / "js" / "mess-data.js", "The mess menu, newest %d days, from data/master/mess.json." % MESS_DAYS_ON_SITE,
+             "MESS_DATA", {"days": recent, "timings": mess["timings"], "note": mess["note"]})
+
+
 def bundle_weekly():
     """weekly-seat/js/weekly-data.js from whatever is in data/master/weekly/."""
     site = {}
@@ -448,6 +488,7 @@ def run_uploads(timeline, overrides):
                 loaded.append({"group": gkey, "term": term, "start": week["start"], "end": week["end"],
                                "classes": len(week["sessions"]), "file": path.name})
     bundle_weekly()
+    build_mess([UPLOADS])
     report = {
         "ranAt": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "weeks": loaded,
@@ -471,5 +512,6 @@ if __name__ == "__main__":
         file_inbox(SOURCE, timeline)
         courses, students, weeks = build_master(overrides)
         build_site(courses, students, weeks, timeline, overrides)
+        build_mess([SOURCE, UPLOADS])
         stamp_pages()
         summary(students, weeks)

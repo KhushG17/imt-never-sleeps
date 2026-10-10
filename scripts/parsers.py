@@ -106,6 +106,9 @@ def describe(path):
     elif suffix == ".pdf":
         pages = pdf_tables(path)
         text = "\n".join(p[0] for p in pages) + " " + path.name
+        if "MESS MENU" in clean(text).upper():
+            info["kind"] = "mess"
+            return info
         rows = [r for _, tables in pages for t in tables for r in t]
         if any(sum(1 for c in r if parse_slot(clean(c))) >= 3 for r in rows):
             info["kind"] = "weekly"
@@ -517,6 +520,68 @@ def parse_weekly(path):
         "specials": specials,
         "warnings": warnings,
     }
+
+
+# ------------------------------------------------------------------- mess menu
+MEALS = ("breakfast", "lunch", "snacks", "dinner")
+
+
+def parse_mess(path):
+    """Read a mess menu PDF: one row per date, a column per meal.
+
+    Returns {'days': {'2026-10-10': {'breakfast': [...], 'lunch': [...], 'snacks': [...], 'dinner': [...]}},
+             'timings': {'breakfast': ['08:00', '09:15'], ...}, 'note': str, 'warnings': [...]}.
+    Items are kept as printed; only the spacing around commas is tidied.
+    """
+    pages = pdf_tables(path)
+    text = clean("\n".join(p[0] for p in pages))
+    days, warnings, cols, previous = {}, [], None, None
+    for _, tables in pages:
+        for table in tables:
+            for raw in table:
+                cells = [clean(c) for c in raw]
+                lower = [c.lower() for c in cells]
+                if "breakfast" in lower and "dinner" in lower:
+                    cols = {m: lower.index(m) for m in MEALS if m in lower}
+                    cols["date"] = next(i for i, c in enumerate(lower) if c == "date")
+                    cols["day"] = next((i for i, c in enumerate(lower) if c == "day"), None)
+                    continue
+                if not cols or cols["date"] >= len(cells):
+                    continue
+                m = re.fullmatch(r"(\d{1,2})[-/.](\d{1,2})[-/.](\d{4})", cells[cols["date"]])
+                if not m:
+                    continue
+                try:
+                    date = dt.date(int(m.group(3)), int(m.group(2)), int(m.group(1)))
+                except ValueError:
+                    date = None
+                named = cells[cols["day"]][:3].lower() if cols["day"] is not None and cols["day"] < len(cells) else ""
+                follows = previous + dt.timedelta(days=1) if previous else None
+                # a date that breaks the run while the weekday printed beside it
+                # fits the next day in line is a typing slip in the menu
+                if follows and date != follows and named and follows.strftime("%a").lower() == named:
+                    warnings.append("row dated %s read as %s (%s, the day after %s)"
+                                    % (cells[cols["date"]], follows.isoformat(), follows.strftime("%A"), previous.isoformat()))
+                    date = follows
+                if date is None:
+                    raise ParseError("unreadable date in the mess menu: %r" % cells[cols["date"]])
+                if named and date.strftime("%a").lower() != named:
+                    warnings.append("%s is a %s but the menu says %s" % (date.isoformat(), date.strftime("%A"), cells[cols["day"]]))
+                days[date.isoformat()] = {
+                    meal: [i.strip() for i in cells[cols[meal]].split(",") if i.strip()] if meal in cols and cols[meal] < len(cells) else []
+                    for meal in MEALS}
+                previous = date
+    if not days:
+        raise ParseError("no dated rows found in the mess menu")
+    timings = {}
+    for meal in MEALS:
+        m = re.search(meal + r"\s*:\s*(\d{1,2}:\d{2}\s*[ap]m)\s*to\s*(\d{1,2}:\d{2}\s*[ap]m)", text, re.I)
+        slot = parse_slot("%s - %s" % (m.group(1), m.group(2))) if m else None
+        if slot:
+            timings[meal] = list(slot)
+    note = re.search(r"(?:please note that\s*)?(menu is subject to[^.]*\.)", text, re.I)
+    return {"days": days, "timings": timings, "warnings": warnings,
+            "note": (note.group(1)[0].upper() + note.group(1)[1:]) if note else ""}
 
 
 # --------------------------------------------------------------------- courses

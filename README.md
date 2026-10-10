@@ -363,6 +363,10 @@ Google Analytics 4, on since 6 Oct 2026 (Measurement ID `G-F0R29KD608` in
 | How many saved a PDF | Event `save_pdf`, by `tool` |
 | How many added to calendar | Event `add_to_calendar`, by `tool` |
 | How many tapped Exam Seat while locked | Event `locked_tool_click` |
+| How many opened the mess menu | Event `tool_open` with `tool` = `mess`; `status` = `today`, `tomorrow` or `no_menu` (added 10 Oct) |
+| How many tapped an occasion's link (Onam form) | Event `event_click`, `result` = the occasion's title (added 10 Oct) |
+| Bounce rate, views per page | Automatic in GA: Reports, Engagement, Pages and screens (add the Bounce rate metric with the pencil icon) |
+| How often one person comes back | Automatic in GA: Reports, Retention; and "Sessions per user" / "Returning users" in Explore. GA tells people apart by a cookie in their browser, not by roll number |
 
 Every event carries `batch`. `tool`, `status`, `result` and `batch` are
 registered as event-scoped custom dimensions. Never sent: roll numbers, names,
@@ -373,6 +377,41 @@ addresses from 6 to 8 Oct; that is fixed, and the stored addresses can be
 removed in GA with a data deletion request (Admin, Data deletion requests,
 parameter `page_location` and `page_referrer`). `TEST` is not counted. Calendar icons clicked inside a downloaded PDF
 cannot be counted.
+
+## Mess menu
+
+Built and pushed 10 Oct 2026.
+
+- **What students see:** a round navy button, bottom right, on the portal,
+  Weekly and Exam Seat. It opens a card with the day's four meals (time and
+  items). The meal being served, or the next one, is tinted and tagged "Now"
+  or "Next". The arrows step a day at a time, from today to the last day the menu has (changed 10 Oct; at first only today and tomorrow). After dinner ends the
+  card opens on tomorrow. It needs no roll number. Esc, the cross, or a click
+  outside closes it. It is not printed and not in the PDFs.
+- **The button is always there**, fixed to the bottom right while the page
+  scrolls. (It is attached to `<html>`, not `<body>`: the body's CSS
+  `perspective`, used for the card tilt, would otherwise make it scroll away
+  with the page, which is what happened in the first build.) Beside it a small pop-up says what is on or next ("Snacks at
+  5:15 PM", and the first item). It shows for six seconds when a page opens
+  and again on hover or keyboard focus; tapping it opens the card.
+- **Where the menu comes from:** drop the mess menu PDF in `all files/_inbox`
+  and run `python scripts/update.py`. It is filed to `all files/mess/`, read
+  by `parse_mess` in `scripts/parsers.py`, added to `data/master/mess.json`
+  (which keeps every date ever read; a newer file wins for a date both have)
+  and bundled as `js/mess-data.js` (newest 45 days). Meal timings and the
+  "subject to change" line are read from the PDF too.
+- **From the upload page:** a mess menu PDF sent there is filed to
+  `uploads/mess/` and handled by the same Action (the page's wording still
+  says weekly schedules).
+- **When the menu runs out:** the card says "The menu for this day is not
+  uploaded yet." The current file covers 1 to 16 Oct 2026.
+- **Oddity in the first file:** row 16 is dated 16-07-2026 but printed as
+  Friday, straight after 15-10-2026; it is read as 16 Oct 2026 and the run
+  prints a NOTE. Items are shown as printed ("Besan LAddu", "Machurian").
+- **Switch:** `mess.enabled` in `js/portal-config.js`.
+- **Files:** `js/mess.js` (the button and card), `js/mess-data.js`
+  (generated), `data/master/mess.json` (generated), styles at the end of
+  `css/styles.css`.
 
 ## Decisions made
 

@@ -99,6 +99,13 @@ window.PORTAL_CONFIG = {
     measurementId: "G-F0R29KD608"
   },
 
+  // The mess menu: a floating button on the portal, Weekly and Exam Seat
+  // that opens today's and tomorrow's meals. The menu itself comes from the
+  // mess menu PDF (see README, "Mess menu"). Set enabled to false to hide it.
+  mess: {
+    enabled: true
+  },
+
   // Dummy rolls for trying the site. They are defined in
   // data/config/overrides.json and are never counted in usage tracking.
   //   TEST   a current student; also opens Exam Seat while it is locked

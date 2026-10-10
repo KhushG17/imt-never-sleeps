@@ -41,7 +41,7 @@ jobs:
         run: |
           git config user.name "weekly-upload"
           git config user.email "weekly-upload@users.noreply.github.com"
-          git add -A uploads data/master/weekly weekly-seat/js/weekly-data.js index.html weekly-seat/index.html exam-seat/index.html upload/index.html
+          git add -A uploads data/master/weekly data/master/mess.json weekly-seat/js/weekly-data.js js/mess-data.js index.html weekly-seat/index.html exam-seat/index.html upload/index.html
           if git diff --cached --quiet; then
             echo "Nothing changed."
             exit 0

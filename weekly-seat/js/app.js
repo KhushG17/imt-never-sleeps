@@ -158,6 +158,10 @@
     if(lastResult && e.target.closest('.card-cal-link')){
       IMT.track('add_to_calendar', lastResult.student, { tool: 'weekly' });
     }
+    var occasion = lastResult && e.target.closest('.event-link');
+    if(occasion){
+      IMT.track('event_click', lastResult.student, { tool: 'weekly', result: occasion.getAttribute('data-event') || '' });
+    }
   });
 
   function showNotice(s, title, text){
@@ -234,7 +238,7 @@
       '<div class="event-text"><div class="event-title">' + IMT.escapeHtml(e.title) + '</div>' +
       (e.note ? '<div class="event-note">' + IMT.escapeHtml(e.note) + '</div>' : '') +
       (e.by ? '<div class="event-by">' + IMT.escapeHtml(e.by) + '</div>' : '') + '</div>' +
-      (e.link ? '<a class="event-link" href="' + IMT.escapeHtml(e.link) + '" target="_blank" rel="noopener" ' +
+      (e.link ? '<a class="event-link" href="' + IMT.escapeHtml(e.link) + '" target="_blank" rel="noopener" data-event="' + IMT.escapeHtml(e.title) + '" ' +
         'title="Open" aria-label="' + IMT.escapeHtml(e.title + (e.note ? ', ' + e.note : '')) + ': open the link">' +
         '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>' : '') +
       (theme === 'sports' ? sun() : '') +
