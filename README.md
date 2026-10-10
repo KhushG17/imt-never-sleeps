@@ -249,6 +249,12 @@ any student whatever the timeline says. Real batches switch by date.
   If every week on file is over, the last one is shown in calendar order.
   "No classes" on free days, "Clash" tag when two of a
   student's classes share a slot.
+- **Group sessions end the day too** (10 Oct): the day changes after the last
+  thing listed for the student that day, and that now includes group
+  sessions (Design Thinking). Before, a day with only group sessions waited
+  for 8 pm. Example: DCP 2026-28 on Sat 10 Oct has only Design Thinking
+  Group C until 1:15 pm, so from 1:15 pm the Sports Night banner is on top
+  and Sunday follows.
 - **The class count is of classes still to come** (10 Oct): the badge under
   the name reads "21 classes left". It counts the day on top and every day
   after it, across all the weeks listed, and drops a whole day at a time,

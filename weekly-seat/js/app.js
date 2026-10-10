@@ -254,6 +254,8 @@
     week.days.forEach(function(day, di){
       if(day.date !== today) return;
       view.classes.forEach(function(x){ if(x.d === di) lastEnd = Math.max(lastEnd, minutes(week.slots[x.s][1])); });
+      // group sessions count too: one of them may be this student's last class of the day
+      view.groups.forEach(function(x){ if(x.d === di) lastEnd = Math.max(lastEnd, minutes(week.slots[x.s][1])); });
       view.specials.forEach(function(sp){ if(sp.d === di) lastEnd = Math.max(lastEnd, minutes(week.slots[sp.s + sp.span - 1][1])); });
     });
     if(lastEnd < 0) return IMT.scheduleDay();
