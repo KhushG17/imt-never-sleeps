@@ -1247,6 +1247,8 @@ body.portal footer, body.tool footer{ padding-bottom:84px; }
 
 .bus-shifts{ display:grid; grid-template-columns:1fr; gap:16px; }
 @media (min-width:860px){ .bus-shifts{ grid-template-columns:1fr 1fr; align-items:start; } }
+/* stacked (phones): the shift that is running comes first */
+@media (max-width:859px){ .bus-card.is-running{ order:-1; } }
 .bus-card{ background:var(--color-white-canvas); border-radius:var(--radius-cards); box-shadow:var(--shadow-subtle-2); padding:16px 16px 10px; }
 .bus-card-head{ display:flex; align-items:center; gap:12px; margin:0 2px 12px; }
 .bus-shift-ico{ width:42px; height:42px; flex-shrink:0; border-radius:13px; display:flex; align-items:center; justify-content:center; background:var(--color-peach-wash); color:#b9770e; }

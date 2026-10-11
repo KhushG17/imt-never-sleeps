@@ -473,8 +473,10 @@ Changed and pushed 12 Oct 2026.
   with how long until it leaves (the dot pulses gold inside 15 minutes).
   Below, Day shift and Night shift as two timetables: buses already gone in
   the current run are greyed, and the next one is filled navy and tagged
-  "Next". It goes by India time and refreshes every half minute. No roll
-  number needed.
+  "Next". On a phone, where the two are stacked, the shift that is running
+  (the one the very next bus belongs to) is shown first; side by side on a
+  laptop, Day stays on the left. It goes by India time and refreshes every
+  half minute. No roll number needed.
 - **Changing the timings:** edit `js/bus-data.js` by hand (24-hour times, in
   the order they run; the night shift's after-midnight times come last),
   then run `python scripts/update.py` so the pages pick up the new file.

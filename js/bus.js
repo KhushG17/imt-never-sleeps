@@ -64,6 +64,9 @@
     };
     document.getElementById('busNext').innerHTML = card(A, B, nextA) + card(B, A, nextB);
 
+    // the shift that is running (the one the very next bus belongs to) goes
+    // first on a phone, where the two timetables are stacked
+    var running = (nextA.wait <= nextB.wait ? nextA : nextB).shift;
     document.getElementById('busShifts').innerHTML = DATA.shifts.map(function(shift, si){
       var rows = Math.max(shift.fromA.length, shift.fromB.length), body = '';
       for(var i = 0; i < rows; i++){
@@ -78,7 +81,7 @@
       var night = /night/i.test(shift.name);
       var span = clock(shift.fromA[0] < shift.fromB[0] || night ? shift.fromA[0] : shift.fromB[0]) + ' to ' +
                  clock(night ? shift.fromA[shift.fromA.length - 1] : shift.fromB[shift.fromB.length - 1]);
-      return '<section class="bus-card' + (night ? ' is-night' : '') + '">' +
+      return '<section class="bus-card' + (night ? ' is-night' : '') + (si === running ? ' is-running' : '') + '">' +
         '<header class="bus-card-head"><span class="bus-shift-ico">' + (night ? MOON : SUN) + '</span>' +
           '<div><h2 class="bus-shift">' + IMT.escapeHtml(shift.name) + '</h2><p class="bus-span">' + span + ' · ' + (shift.fromA.length + shift.fromB.length) + ' buses</p></div></header>' +
         '<table class="bus-table"><thead><tr><th>' + route(A, B) + '</th><th>' + route(B, A) + '</th></tr></thead>' +
