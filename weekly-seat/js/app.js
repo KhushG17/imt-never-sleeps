@@ -18,12 +18,11 @@
   var nameOut = document.getElementById('nameOut');
   var metaOut = document.getElementById('metaOut');
   var bannerEl = document.getElementById('banner');
-  var pdfBtn = document.getElementById('pdfBtn');
   var backBtn = document.getElementById('backBtn');
   var otherBtn = document.getElementById('otherWeekBtn');
   var eyebrow = document.getElementById('eyebrow');
 
-  var lastResult = null; // {student, data, view} for what is on screen, used to build the PDF
+  var lastResult = null; // {student, shown, label} for what is on screen
 
   // ---- formatting ----
   function parseIso(iso){
@@ -152,7 +151,6 @@
   }
 
   // ---- page states ----
-  pdfBtn.addEventListener('click', function(){ savePdf(); });
   listEl.addEventListener('click', function(e){
     var cal = lastResult && e.target.closest('.card-cal-link');
     if(cal){
@@ -501,158 +499,6 @@
     results.hidden = false;
     IMT.attachTilt(listEl.querySelectorAll('.exam-card'));
     watchReach(s);
-  }
-
-  // ---- PDF ----
-  // Brand colors sampled from assets/imt-logo.png.
-  var PDF_NAVY = [30,57,140];
-  var PDF_GOLD = [212,165,42];
-  var PDF_MUTED = [120,120,120];
-  var PDF_INK = [25,25,25];
-
-  // Small vector calendar glyph (outline square + filled header strip).
-  function drawCalendarIcon(doc, x, y, size){
-    doc.setDrawColor.apply(doc, PDF_NAVY);
-    doc.setFillColor.apply(doc, PDF_NAVY);
-    doc.setLineWidth(0.2);
-    doc.roundedRect(x, y, size, size, 0.3, 0.3, 'S');
-    doc.rect(x, y, size, size * 0.32, 'F');
-  }
-
-  function buildPdf(){
-    var jsPDFCtor = window.jspdf && window.jspdf.jsPDF;
-    if(!jsPDFCtor || !lastResult) return null;
-    // Students think in weeks, so the PDF is one week: the week that is
-    // running (or, if none is, the one on screen), even when the page also
-    // lists the week after.
-    var s = lastResult.student, shown = lastResult.shown.slice(0, 1), banner = shown[0].view.banner;
-    var weekCount = shown[0].view.classes.length;
-
-    var doc = new jsPDFCtor({ unit:'mm', format:'a4' });
-    var marginX = 16, y = 20;
-    var pageW = doc.internal.pageSize.getWidth();
-    var pageH = doc.internal.pageSize.getHeight();
-
-    doc.setFont('helvetica','bold');
-    doc.setFontSize(17);
-    doc.setTextColor.apply(doc, PDF_NAVY);
-    doc.text('IMT NEVER SLEEPS', marginX, y);
-    y += 3;
-    doc.setDrawColor.apply(doc, PDF_GOLD);
-    doc.setLineWidth(0.6);
-    doc.line(marginX, y, pageW - marginX, y);
-    y += 7;
-
-    doc.setFont('helvetica','normal');
-    doc.setFontSize(10.5);
-    doc.setTextColor.apply(doc, PDF_MUTED);
-    doc.text('Weekly Schedule, ' + weekLabel(shown[0].data).replace(' · ', ', '), marginX, y);
-    y += 9;
-
-    doc.setFont('helvetica','bold');
-    doc.setFontSize(12);
-    doc.setTextColor.apply(doc, PDF_INK);
-    doc.text('Personalised Schedule for : ' + s.roll, marginX, y);
-    doc.setFont('helvetica','normal');
-    doc.setFontSize(9);
-    doc.setTextColor.apply(doc, PDF_MUTED);
-    doc.text(weekCount + (weekCount === 1 ? ' class' : ' classes') + (shown[0].view.all ? ', all ' + shown[0].data.rowLabel.toLowerCase() + 's' : ''),
-      pageW - marginX, y, { align:'right' });
-    y += 5;
-    doc.setFontSize(9.5);
-    doc.text([s.name, IMT.metaLine(s).replace(/ · /g, ', ')].filter(Boolean).join(', '), marginX, y);
-    y += 6;
-
-    // in calendar order
-    var third = shown[0].data.rowLabel || 'Section';
-    var rows = [], calLinks = [];
-    shown.forEach(function(w){
-      var data = w.data, view = w.view;
-      data.days.forEach(function(day, di){
-        if(day.note){ rows.push([dayLabel(data, di), '', day.note, '', '']); calLinks.push(null); }
-        var items = view.classes.filter(function(x){ return x.d === di; }).map(function(x){
-          return { s: x.s, row: [dayLabel(data, di), slotLabel(data, x.s),
-            courseName(data, x.c) + (view.tagElectives && data.electives.indexOf(x.c) >= 0 ? ' (elective)' : ''),
-            (rowText(x) || '-') + ' · ' + x.n, x.room || '-'], link: classLink(data, x) };
-        }).concat(view.specials.filter(function(sp){ return sp.d === di; }).map(function(sp){
-          return { s: sp.s, row: [dayLabel(data, di), slotLabel(data, sp.s, sp.span), sp.text, sp.rows.join(', '), ''],
-            link: googleCalendarLink(data, sp.d, sp.s, sp.span, sp.text, 'As printed on the weekly schedule.', '') };
-        })).concat(view.groups.filter(function(x){ return x.d === di; }).map(function(x){
-          return { s: x.s, row: [dayLabel(data, di), slotLabel(data, x.s), courseName(data, x.c) + ', Group ' + x.grp + ' only',
-            'G' + x.grp + ' · ' + x.n, x.room || '-'], link: classLink(data, x) };
-        }));
-        items.sort(function(a, b){ return a.s - b.s; });
-        items.forEach(function(it){ rows.push(it.row); calLinks.push(it.link); });
-      });
-    });
-    var calIconSize = 3.2;
-
-    doc.autoTable({
-      startY: y,
-      margin: { left: marginX, right: marginX, bottom: 26 },
-      head: [['Day','Time','Course', third + ' · Session','Room']],
-      body: rows,
-      theme: 'grid',
-      styles: { font:'helvetica', fontSize:8.5, cellPadding:2, textColor:PDF_INK, lineColor:[210,210,210], lineWidth:0.2, overflow:'linebreak' },
-      headStyles: { fillColor:[245,247,251], textColor:PDF_NAVY, fontStyle:'bold', halign:'left' },
-      columnStyles: {
-        0: { cellWidth: 30 },
-        1: { cellWidth: 34 },
-        2: { cellWidth: 'auto' },
-        3: { cellWidth: 28 },
-        4: { cellWidth: 26 + calIconSize + 3 }
-      },
-      // Calendar icon tucked into the Room cell - click it to add that class.
-      didDrawCell: function(cell){
-        if(cell.column.index !== 4 || cell.row.section !== 'body') return;
-        var url = calLinks[cell.row.index];
-        if(!url) return;
-        var iconX = cell.cell.x + cell.cell.width - 2.6 - calIconSize;
-        var iconY = cell.cell.y + cell.cell.height / 2 - calIconSize / 2;
-        drawCalendarIcon(doc, iconX, iconY, calIconSize);
-        doc.link(iconX - 0.8, iconY - 0.8, calIconSize + 1.6, calIconSize + 1.6, { url: url });
-      }
-    });
-
-    // Footer on the last page, anchored to the bottom.
-    var maxTextW = pageW - marginX * 2;
-    doc.setFontSize(7.5);
-    doc.setTextColor.apply(doc, PDF_MUTED);
-    var disclaimerLines = doc.splitTextToSize(
-      (banner ? banner + ' ' : '') +
-      'Unofficial, and still in development. This schedule is built from weekly schedules and lists shared by students, so a detail may occasionally be missing or out of date. Classes also get rescheduled, so please confirm against the latest official schedule.',
-      maxTextW
-    );
-    var creditY = pageH - 12;
-    var disclaimerY = creditY - 5 - (disclaimerLines.length - 1) * 3.4;
-    doc.setDrawColor(224,224,224);
-    doc.setLineWidth(0.2);
-    doc.line(marginX, disclaimerY - 6, pageW - marginX, disclaimerY - 6);
-    doc.text(disclaimerLines, marginX, disclaimerY);
-    doc.setFontSize(8);
-    doc.setTextColor.apply(doc, PDF_NAVY);
-    doc.textWithLink('Created by Khush Goyal', marginX, creditY, { url: 'https://www.linkedin.com/in/khushgoyal17/' });
-    // the feedback form, right-aligned on the credit line
-    var feedbackUrl = window.IMT.config.feedbackUrl;
-    if(feedbackUrl){
-      var fbText = 'Something wrong, or an idea? Give feedback';
-      doc.textWithLink(fbText, pageW - marginX - doc.getTextWidth(fbText), creditY, { url: feedbackUrl });
-    }
-
-    return doc;
-  }
-
-  function savePdf(){
-    var doc;
-    try{ doc = buildPdf(); }
-    catch(e){ doc = null; }
-    if(!doc){ window.alert('Could not prepare the PDF. Please try again.'); return; }
-    try{
-      var week = lastResult.shown[0].data;
-      doc.save(lastResult.student.roll + '_' + (week.weekNumber ? 'week' + week.weekNumber + '_' : '') + week.start + '_schedule.pdf');
-      IMT.track('save_pdf', lastResult.student, { tool: 'weekly' });
-    }
-    catch(e){ window.alert('Could not save the PDF. Please try again.'); }
   }
 
   // This page has no search of its own: the portal is the only way in, and

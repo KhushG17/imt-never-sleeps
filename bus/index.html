@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Bus Schedule · IMT Never Sleeps</title>
+<meta name="description" content="IMT Ghaziabad campus bus timings, day and night shift.">
+<link rel="icon" type="image/png" href="../assets/imt-logo.png">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="IMT Never Sleeps">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Caveat:wght@600;700&display=swap">
+<link rel="stylesheet" href="../css/styles.css?v=6ead3874">
+</head>
+<body class="tool">
+
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a class="brand" href="../" aria-label="IMT Never Sleeps, home">
+      <img class="brand-icon" src="../assets/imt-logo.png" alt="" width="30" height="33">
+      <span class="brand-name">IMT Never Sleeps</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navMenu">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+    </button>
+    <nav class="header-actions nav-menu" id="navMenu" aria-label="Site">
+      <div class="nav-group" id="navRes">
+        <button class="nav-link nav-res" id="resToggle" type="button" aria-expanded="false" aria-controls="resMenu">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="4" width="6.500" height="6.500" rx="1.800" stroke="currentColor" stroke-width="1.600"/><rect x="13.500" y="4" width="6.500" height="6.500" rx="1.800" stroke="currentColor" stroke-width="1.600"/><rect x="4" y="13.500" width="6.500" height="6.500" rx="1.800" stroke="currentColor" stroke-width="1.600"/><rect x="13.500" y="13.500" width="6.500" height="6.500" rx="1.800" stroke="currentColor" stroke-width="1.600"/></svg>
+          <span>Resources</span>
+          <svg class="nav-chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="res-menu" id="resMenu">
+          <a class="res-item" id="busNav" href="../bus/">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4.5" y="3.5" width="15" height="14" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 11h15M8 17.5V20M16 17.5V20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8.3" cy="14.200" r="1" fill="currentColor"/><circle cx="15.700" cy="14.200" r="1" fill="currentColor"/></svg>
+            <span>Bus Schedule</span>
+          </a>
+          <a class="res-item" id="studyNav" href="#" target="_blank" rel="noopener" hidden>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5M8 8h8M8 12h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Study Material</span>
+          </a>
+        </div>
+      </div>
+      <a class="nav-link" id="feedbackNav" href="https://forms.gle/y2CWo8Nq7o2GqytcA" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8A2.5 2.5 0 0 1 17.5 16H9l-4 4v-4.5A2.5 2.5 0 0 1 4 13.5v-8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span>Feedback</span>
+      </a>
+      <button class="nav-link nav-install" id="installNav" type="button" hidden>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.5v7M9 12l3 3 3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span id="installNavText">Install app</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<div class="hero-glow" aria-hidden="true"></div>
+
+<div class="wrap">
+  <div class="hero" id="top">
+    <span class="eyebrow">Day and night shift</span>
+    <h1>Campus <span class="cursive-accent">bus</span><br>schedule</h1>
+  </div>
+
+  <div id="results">
+    <div class="ticket-head id-card bus-head">
+      <div class="id-head">
+        <div class="id-who">
+          <div class="roll-lbl">CDL and Campus · every day</div>
+          <div class="roll-val">Next buses</div>
+        </div>
+        <a class="btn-ghost id-back" id="backBtn" href="../">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Back to portal
+        </a>
+      </div>
+      <div class="bus-nexts" id="busNext" aria-live="polite"></div>
+    </div>
+    <div class="bus-shifts" id="busShifts"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="disclaimer">
+    <span class="disclaimer-label">Disclaimer</span>
+    <div class="disclaimer-body">
+      <p class="disclaimer-text">These are the bus timings as shared with students. If a timing here is wrong or has changed, please tell us through <a href="https://forms.gle/y2CWo8Nq7o2GqytcA" target="_blank" rel="noopener">Feedback</a>.</p>
+      <ul class="disclaimer-list">
+        <li>This is an unofficial tool. Timings can change without notice; a bus may leave early or late.</li>
+        <li>"Next bus" goes by the time in India (IST).</li>
+      </ul>
+    </div>
+  </div>
+  <span class="credit">Created by <a href="https://www.linkedin.com/in/khushgoyal17/" target="_blank" rel="noopener">Khush Goyal</a></span>
+</footer>
+
+<script src="../js/portal-config.js?v=2eeb4280"></script>
+<script src="../js/site-data.js?v=dc0d8661"></script>
+<script src="../js/roster-data.js?v=82f614e9"></script>
+<script src="../js/common.js?v=00041372"></script>
+<script src="../js/mess-data.js?v=23ee862d"></script>
+<script src="../js/mess.js?v=8ed478b9"></script>
+<script src="../js/bus-data.js?v=5dcf333f"></script>
+<script src="../js/bus.js?v=808c48e2"></script>
+</body>
+</html>

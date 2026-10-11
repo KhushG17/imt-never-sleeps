@@ -309,7 +309,8 @@
     return savedRoll() ? 'remembered' : 'fresh';
   }
   var PAGE = /\/weekly-seat\//.test(window.location.pathname) ? 'weekly' :
-             /\/exam-seat\//.test(window.location.pathname) ? 'exam_seat' : 'portal';
+             /\/exam-seat\//.test(window.location.pathname) ? 'exam_seat' :
+             /\/bus\//.test(window.location.pathname) ? 'bus' : 'portal';
 
   // Things that go wrong on the page itself, at most three a visit.
   var errorsSent = 0;
@@ -337,7 +338,9 @@
     var t = e.target;
     if(!t || !t.closest) return;
     var what = t.closest('#navToggle') ? 'menu' :
-               t.closest('#navMenu a:not(#studyNav)') ? 'feedback' :
+               t.closest('#resToggle') ? 'resources' :
+               t.closest('#busNav') ? 'bus_schedule' :
+               t.closest('#feedbackNav') ? 'feedback' :
                t.closest('#backBtn, #noticeBack, #lockedBack') ? 'back_to_portal' : '';
     if(what) track('nav_click', null, { tool: PAGE, result: what });
   }, true);   // on the way down, so a handler that stops the click cannot hide it
@@ -413,26 +416,61 @@
     return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
   }
 
+  // ---- a clean edge for things that float ----
+  // The mess button, its bubble and the install pop-up float over the foot
+  // of the screen. This strip fades the page to white just beneath them, so
+  // they never sit on top of a class row. It lives on <html> for the same
+  // reason they do (see js/mess.js). Phones only; styled in css/styles.css.
+  var bottomFade = document.createElement('div');
+  bottomFade.className = 'bottom-fade';
+  bottomFade.setAttribute('aria-hidden', 'true');
+  document.documentElement.appendChild(bottomFade);
+
   // ---- the nav bar ----
   // On a laptop the links sit in the bar. On a phone they fold into a menu
   // behind the three-line button.
   var navToggle = document.getElementById('navToggle'), navMenu = document.getElementById('navMenu');
+  // While the menu is open the page behind it is blurred and dimmed (the
+  // "menu-open" class on <html>; see the nav bar styles), so the menu does
+  // not sit in a jumble of headings and cards.
   function closeMenu(){
     if(!navMenu) return;
     navMenu.classList.remove('is-open');
     navToggle.setAttribute('aria-expanded', 'false');
+    document.documentElement.classList.remove('menu-open');
+    closeRes();
+  }
+  // "Resources" is a drop-down inside the nav bar: Bus Schedule, Study Material.
+  var resToggle = document.getElementById('resToggle'), navRes = document.getElementById('navRes');
+  function closeRes(){
+    if(!navRes) return;
+    navRes.classList.remove('is-open');
+    resToggle.setAttribute('aria-expanded', 'false');
+  }
+  if(resToggle && navRes){
+    resToggle.addEventListener('click', function(e){
+      e.stopPropagation();
+      var open = navRes.classList.toggle('is-open');
+      resToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.addEventListener('click', function(e){ if(!navRes.contains(e.target)) closeRes(); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeRes(); });
+    // the bus page is reached with the same roll, so "Back to portal" knows who it is
+    var busNav = document.getElementById('busNav'), known = rollFromUrl();
+    if(busNav && known) busNav.href += '?roll=' + encodeURIComponent(known);
   }
   if(navToggle && navMenu){
     navToggle.addEventListener('click', function(e){
       e.stopPropagation();
       var open = navMenu.classList.toggle('is-open');
       navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.documentElement.classList.toggle('menu-open', open);
     });
     navMenu.addEventListener('click', function(e){ if(e.target.closest('a')) closeMenu(); });
     document.addEventListener('click', function(e){ if(!navMenu.contains(e.target)) closeMenu(); });
     document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeMenu(); });
   }
-  // "Install as an app": in the nav bar of every page, and in the greeting
+  // "Install app": in the nav bar of every page, and in the greeting
   // card on the main page. Each shows when the browser has offered
   // installing, and on iPhones (where it can only explain how); never inside
   // the installed app.

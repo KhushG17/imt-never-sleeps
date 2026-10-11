@@ -14,6 +14,7 @@
     { "src": "assets/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "shortcuts": [
-    { "name": "Weekly schedule", "short_name": "Weekly", "url": "weekly-seat/", "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }] }
+    { "name": "Weekly schedule", "short_name": "Weekly", "url": "weekly-seat/", "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Bus schedule", "short_name": "Bus", "url": "bus/", "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }] }
   ]
 }

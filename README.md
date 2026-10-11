@@ -452,18 +452,75 @@ that keep the parameter but it cannot be used in reports.
 
 Changed and pushed 12 Oct 2026.
 
-- **Nav bar, laptop:** Study Material and Feedback as buttons with icon and
-  text (Study Material was an icon alone), plus Install as an app, on
-  every page.
+- **Nav bar, laptop:** buttons with icon and text. Since 13 Oct they are
+  Resources (a drop-down: Bus Schedule, Study Material), Feedback and
+  Install app, on every page.
 - **Nav bar, phone (720px and under):** a three-line menu button; the menu
   lists the same items, icon and text. It closes on a tap outside, on Esc and
-  after a link is followed. Markup is the same on every page (`#navToggle`,
+  after a link is followed. While it is open the page behind is blurred and
+  dimmed (13 Oct), so the menu does not sit in a jumble of headings. Markup is the same on every page (`#navToggle`,
   `#navMenu`); the wiring is in `js/common.js`.
 - **Top of Weekly and Exam Seat:** one card (`.id-card`) with the week or
   "Exam seats for", the name, then chips for the roll number, programme,
   batch, term and section (and the number of papers on Exam Seat), with Save
   as PDF, Back to portal and the calendar hint inside it. Exam Seat now leads
   with the student's name; it used to lead with the roll number.
+
+## Bus schedule, and the Resources menu (13 Oct)
+
+- **A new page, `/bus/`:** the campus bus timings, CDL to Campus and Campus
+  to CDL. On top, a card with "Back to portal" and the next bus each way
+  with how long until it leaves (the dot pulses gold inside 15 minutes).
+  Below, Day shift and Night shift as two timetables: buses already gone in
+  the current run are greyed, and the next one is filled navy and tagged
+  "Next". It goes by India time and refreshes every half minute. No roll
+  number needed.
+- **Changing the timings:** edit `js/bus-data.js` by hand (24-hour times, in
+  the order they run; the night shift's after-midnight times come last),
+  then run `python scripts/update.py` so the pages pick up the new file.
+  Stop names are shown as written there ("CDL", "Campus").
+- **Nav bar:** Resources, Feedback, Install app. On a laptop, Resources is
+  a plain word with a small arrow (not a button like the other two) that
+  opens a simple drop-down: Bus Schedule first, then Study Material. On a
+  phone there is no drop-down: the menu lists Bus Schedule, Study Material,
+  Feedback and Install app, flat. "Install as an app" was shortened to
+  "Install app" here and in the greeting card.
+- **Counted as:** `tool_open` with `tool` = `bus`; nav taps as `nav_click`
+  with `result` = `resources` or `bus_schedule`.
+- The installed app's long-press shortcuts gain "Bus schedule".
+- Files: `bus/index.html`, `js/bus.js`, `js/bus-data.js`.
+
+## Weekly has no Save as PDF (13 Oct)
+
+Removed at Khush's request: the schedule is one tap away in the app and is
+remembered, so a saved copy goes out of date the moment a class moves. Gone
+with it: the button, the PDF code in `weekly-seat/js/app.js` and the two PDF
+library downloads on that page (it loads faster). "Back to portal" now sits
+at the right end of the name's line in the top card on a laptop, and above
+the week line on a phone (no room beside the name there); the calendar hint
+is alone at the card's foot. Exam Seat keeps
+its Save as PDF. The portal's third step now reads "Add classes to your
+Calendar". Older notes in this file about the Weekly PDF (one week only, its
+footer, occasions never being in it) describe what it did until 13 Oct.
+`save_pdf` in the usage counts now comes from Exam Seat only.
+
+## Clean edges for things that float (13 Oct)
+
+Several things sit on top of the page on a phone: the nav bar and its menu,
+the mess button, its "what is next" bubble, the mess menu card and the
+install pop-up. Each used to land on whatever was under it. Now:
+
+- **Menu open, or mess menu card open (phones):** the page behind is blurred
+  and dimmed (`menu-open` / `mess-open` on `<html>`); the bar, the menu and
+  the card stay sharp. A tap outside or Esc closes it and clears the blur.
+- **Above the nav bar, once scrolled:** a white fade behind the bar
+  (`.site-header::before`), so no content shows in the strip above it.
+- **Foot of the screen (phones):** a white fade (`.bottom-fade`, added by
+  `js/common.js`) under the mess button, the bubble and the install pop-up,
+  so class rows fade out before reaching them. It cannot be tapped and is not
+  printed.
+- Laptops are unchanged apart from the fade above the nav bar: there the
+  floating pieces sit in the empty margin.
 
 ## Remembered roll number, and installing as an app
 

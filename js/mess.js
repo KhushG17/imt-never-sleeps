@@ -119,6 +119,7 @@
     render();
     hideHint();
     panel.hidden = false;
+    document.documentElement.classList.add('mess-open');   // blurs the page behind, on phones
     fab.setAttribute('aria-expanded', 'true');
     fab.classList.add('is-open');
     var typed = document.getElementById('roll');   // the portal's roll box
@@ -129,6 +130,7 @@
   }
   function close(){
     panel.hidden = true;
+    document.documentElement.classList.remove('mess-open');
     fab.setAttribute('aria-expanded', 'false');
     fab.classList.remove('is-open');
   }
