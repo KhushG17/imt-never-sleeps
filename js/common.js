@@ -416,6 +416,41 @@
     return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
   }
 
+  // ---- staying up to date ----
+  // A phone does not reload an installed app when it is opened again: it
+  // brings back the page it had in memory, sometimes days old. So each time
+  // the page comes back into view (and at most once a minute) we fetch this
+  // page afresh and compare it with the copy we started from. Every script
+  // and stylesheet link in it carries a fingerprint (see stamp_pages in
+  // scripts/update.py), so any change to the site changes the page; if it
+  // differs, we reload. With no signal the fetch fails and nothing happens.
+  var pageAtStart = null, lastFreshCheck = 0;
+  function pageNow(){
+    return window.fetch(window.location.pathname, { cache: 'no-store' }).then(function(r){
+      if(!r.ok) throw new Error('not ok');
+      return r.text();
+    });
+  }
+  function checkFresh(){
+    if(!window.fetch || document.hidden || Date.now() - lastFreshCheck < 60000) return;
+    lastFreshCheck = Date.now();
+    pageNow().then(function(text){
+      if(pageAtStart === null){ pageAtStart = text; return; }
+      if(text !== pageAtStart){
+        pageAtStart = text;
+        // not while something is open in front of the student
+        if(document.querySelector('.mess-panel:not([hidden]), .nav-menu.is-open')) return;
+        window.location.reload();
+      }
+    }).catch(function(){});
+  }
+  if(window.location.protocol !== 'file:'){
+    window.addEventListener('load', checkFresh);
+    document.addEventListener('visibilitychange', checkFresh);
+    window.addEventListener('pageshow', function(e){ if(e.persisted){ lastFreshCheck = 0; checkFresh(); } });
+    window.addEventListener('online', function(){ lastFreshCheck = 0; checkFresh(); });
+  }
+
   // ---- a clean edge for things that float ----
   // The mess button, its bubble and the install pop-up float over the foot
   // of the screen. This strip fades the page to white just beneath them, so

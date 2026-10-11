@@ -562,6 +562,16 @@ Built and pushed 12 Oct 2026.
   - Installed, it opens full screen with its own icon, on the portal, which
     opens on the greeting because the roll is remembered. Long-pressing the
     icon on Android offers "Weekly schedule" directly.
+- **The installed app keeps itself current** (13 Oct). A phone does not
+  reload an installed app when it is reopened; it brings back the page it
+  had in memory, which left Khush's iPhone showing the site from before the
+  bus page. Now, each time a page comes back into view (at most once a
+  minute), `js/common.js` fetches that page afresh and reloads if it has
+  changed (every script and style link in it carries a fingerprint, so any
+  change to the site changes the page). `sw.js` also asks for pages with
+  `no-cache`, so the browser's ten-minute copy is never used for a page.
+  It does not reload while the menu or the mess card is open. Phones that
+  installed the app before 13 Oct need one manual restart to get this.
 - **With no signal**, pages already opened once still open, from a copy kept
   by `sw.js`. The rule is fresh first: every page and data file is fetched
   as usual and the copy is used only when that fails, so a newly uploaded

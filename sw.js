@@ -7,7 +7,7 @@
 // old copy; the copy is only for the lift, the basement and a dead Wi-Fi.
 // Fonts and the PDF library never change at their address, so those are
 // served from the kept copy straight away.
-var CACHE = 'imt-never-sleeps-v1';
+var CACHE = 'imt-never-sleeps-v2';
 var LIBRARIES = /^https:\/\/(fonts\.googleapis\.com|fonts\.gstatic\.com|cdnjs\.cloudflare\.com)\//;
 
 self.addEventListener('install', function(){ self.skipWaiting(); });
@@ -41,7 +41,10 @@ self.addEventListener('fetch', function(event){
   // to GitHub) is left alone; so is the upload page itself
   if(!ours || url.pathname.indexOf('/upload/') >= 0) return;
 
-  event.respondWith(fetch(request).then(function(response){ return keep(request, response); }).catch(function(){
+  // A page itself is always asked for afresh (never the browser's own
+  // ten-minute copy), so a change to the site shows on the very next open.
+  var asked = request.mode === 'navigate' ? fetch(request.url, { cache: 'no-cache', credentials: 'same-origin' }) : fetch(request);
+  event.respondWith(asked.then(function(response){ return keep(request, response); }).catch(function(){
     // offline: the same address if we have it, else the same page whatever
     // came after the "?" (the roll number, or a file's version stamp)
     return caches.match(request).then(function(hit){
