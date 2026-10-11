@@ -426,7 +426,7 @@ tap), the roll the device remembers supplies the group.
 | How many tapped an occasion's link | `event_click` | `result` = the occasion's title |
 | Nav bar and Back to portal | `nav_click` | `result` = `menu`, `feedback`, `back_to_portal`; `tool` = the page |
 | How many tapped Exam Seat while locked | `locked_tool_click` | |
-| Installing | `install_click`, `app_install` | `install_click`: `tool` = `nav` or `greeting`, `result` = `prompt` or `ios_hint` |
+| Installing | `install_click`, `install_popup`, `app_install` | `install_click`: `tool` = `nav` or `greeting`, `result` = `prompt` or `ios_hint`. `install_popup` (the pop-up on Weekly): `result` = `shown`, `install`, `dismissed` |
 | Something broke on a page | `page_error` | `result` = the browser's message, `tool` = the page (three a visit at most) |
 | Opened with no signal | `offline_opens` | `result` = how many times, reported on the next online visit |
 
@@ -488,8 +488,14 @@ Built and pushed 12 Oct 2026.
     button under the roll box and a pop-up on Weekly were tried and dropped):
     in the nav bar of every page (portal, Weekly, Exam Seat), and in the
     greeting card on the main page beside "Not you? Change roll number".
-    There is no pop-up. Both show only when the browser offers installing,
-    and never inside the installed app.
+    Both show only when the browser offers installing, and never inside the
+    installed app.
+  - **A small pop-up on Weekly as well** (`js/install.js`; dropped on 12 Oct,
+    brought back on 13 Oct at Khush's request): bottom left, after ten
+    seconds on the schedule, with the app icon, "Get the app", an Install
+    button and a cross. Not again for seven days after either (`QUIET_DAYS`).
+    On an iPhone it has no button and says how. Counted as `install_popup`,
+    `result` = `shown`, `install` or `dismissed`.
   - Android, and Chrome or Edge on a laptop: it opens the browser's own
     install box.
   - iPhone and iPad: no site can install itself there, so tapping it turns
