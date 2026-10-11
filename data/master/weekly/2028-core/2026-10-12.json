@@ -40,6 +40,18 @@
  "end": "2026-10-18",
  "group": "core",
  "mode": "section",
+ "revised": {
+  "days": [
+   "2026-10-12",
+   "2026-10-13",
+   "2026-10-14",
+   "2026-10-15",
+   "2026-10-16",
+   "2026-10-17",
+   "2026-10-18"
+  ],
+  "received": "2026-10-12"
+ },
  "rowLabel": "Section",
  "rows": [
   "A",
@@ -61,16 +73,6 @@
    "sec": null
   },
   {
-   "c": "TR",
-   "d": 0,
-   "grp": null,
-   "n": 2,
-   "room": "401",
-   "row": "E",
-   "s": 0,
-   "sec": null
-  },
-  {
    "c": "HRM",
    "d": 0,
    "grp": null,
@@ -107,16 +109,6 @@
    "n": 3,
    "room": "401",
    "row": "E",
-   "s": 1,
-   "sec": null
-  },
-  {
-   "c": "TR",
-   "d": 0,
-   "grp": null,
-   "n": 2,
-   "room": "402",
-   "row": "F",
    "s": 1,
    "sec": null
   },
@@ -221,6 +213,16 @@
    "sec": null
   },
   {
+   "c": "DAIB",
+   "d": 0,
+   "grp": null,
+   "n": 3,
+   "room": "501",
+   "row": "A",
+   "s": 4,
+   "sec": null
+  },
+  {
    "c": "TR",
    "d": 0,
    "grp": null,
@@ -344,7 +346,7 @@
    "c": "DAIB",
    "d": 1,
    "grp": null,
-   "n": 3,
+   "n": 4,
    "room": "501",
    "row": "A",
    "s": 2,
@@ -804,7 +806,7 @@
    "c": "DAIB",
    "d": 3,
    "grp": null,
-   "n": 4,
+   "n": 5,
    "room": "501",
    "row": "A",
    "s": 2,
@@ -853,20 +855,40 @@
   {
    "c": "DTI",
    "d": 3,
-   "grp": "3",
+   "grp": "6",
    "n": 1,
-   "room": "502",
-   "row": "B",
+   "room": "503",
+   "row": "C",
    "s": 3,
    "sec": null
   },
   {
    "c": "DTI",
    "d": 3,
-   "grp": "3",
+   "grp": "7",
+   "n": 1,
+   "room": "504",
+   "row": "D",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 3,
+   "grp": "6",
    "n": 2,
-   "room": "502",
-   "row": "B",
+   "room": "503",
+   "row": "C",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 3,
+   "grp": "7",
+   "n": 2,
+   "room": "504",
+   "row": "D",
    "s": 4,
    "sec": null
   },
@@ -887,16 +909,6 @@
    "n": 6,
    "room": "503",
    "row": "C",
-   "s": 0,
-   "sec": null
-  },
-  {
-   "c": "MA",
-   "d": 4,
-   "grp": null,
-   "n": 5,
-   "room": "402",
-   "row": "F",
    "s": 0,
    "sec": null
   },
@@ -941,16 +953,6 @@
    "sec": null
   },
   {
-   "c": "MA",
-   "d": 4,
-   "grp": null,
-   "n": 6,
-   "room": "402",
-   "row": "F",
-   "s": 1,
-   "sec": null
-  },
-  {
    "c": "BC",
    "d": 4,
    "grp": null,
@@ -987,6 +989,16 @@
    "n": 3,
    "room": "504",
    "row": "D",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 4,
+   "grp": null,
+   "n": 5,
+   "room": "401",
+   "row": "E",
    "s": 2,
    "sec": null
   },
@@ -1011,6 +1023,16 @@
    "sec": null
   },
   {
+   "c": "DTI",
+   "d": 4,
+   "grp": "3",
+   "n": 1,
+   "room": "502",
+   "row": "B",
+   "s": 3,
+   "sec": null
+  },
+  {
    "c": "BC",
    "d": 4,
    "grp": null,
@@ -1031,12 +1053,32 @@
    "sec": null
   },
   {
+   "c": "BR",
+   "d": 4,
+   "grp": null,
+   "n": 10,
+   "room": "402",
+   "row": "F",
+   "s": 3,
+   "sec": null
+  },
+  {
    "c": "DTI",
    "d": 4,
    "grp": "1",
    "n": 8,
    "room": "501",
    "row": "A",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 4,
+   "grp": "3",
+   "n": 2,
+   "room": "502",
+   "row": "B",
    "s": 4,
    "sec": null
   },
@@ -1073,20 +1115,10 @@
   {
    "c": "DTI",
    "d": 5,
-   "grp": "6",
-   "n": 1,
-   "room": "502",
-   "row": "B",
-   "s": 1,
-   "sec": null
-  },
-  {
-   "c": "DTI",
-   "d": 5,
    "grp": "7",
    "n": 3,
-   "room": "503",
-   "row": "C",
+   "room": "502",
+   "row": "B",
    "s": 1,
    "sec": null
   },
@@ -1123,20 +1155,10 @@
   {
    "c": "DTI",
    "d": 5,
-   "grp": "6",
-   "n": 2,
-   "room": "502",
-   "row": "B",
-   "s": 2,
-   "sec": null
-  },
-  {
-   "c": "DTI",
-   "d": 5,
    "grp": "7",
    "n": 4,
-   "room": "503",
-   "row": "C",
+   "room": "502",
+   "row": "B",
    "s": 2,
    "sec": null
   },
@@ -1147,6 +1169,16 @@
    "n": 4,
    "room": "504",
    "row": "D",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "LAB",
+   "d": 5,
+   "grp": null,
+   "n": 2,
+   "room": "402",
+   "row": "F",
    "s": 2,
    "sec": null
   },
@@ -1224,26 +1256,6 @@
    "c": "MA",
    "d": 6,
    "grp": null,
-   "n": 7,
-   "room": "402",
-   "row": "F",
-   "s": 0,
-   "sec": null
-  },
-  {
-   "c": "TR",
-   "d": 6,
-   "grp": null,
-   "n": 2,
-   "room": "501",
-   "row": "A",
-   "s": 1,
-   "sec": null
-  },
-  {
-   "c": "MA",
-   "d": 6,
-   "grp": null,
    "n": 6,
    "room": "502",
    "row": "B",
@@ -1274,29 +1286,9 @@
    "c": "MA",
    "d": 6,
    "grp": null,
-   "n": 8,
-   "room": "402",
-   "row": "F",
-   "s": 1,
-   "sec": null
-  },
-  {
-   "c": "MA",
-   "d": 6,
-   "grp": null,
    "n": 5,
    "room": "501",
    "row": "A",
-   "s": 2,
-   "sec": null
-  },
-  {
-   "c": "TR",
-   "d": 6,
-   "grp": null,
-   "n": 2,
-   "room": "503",
-   "row": "C",
    "s": 2,
    "sec": null
   },
@@ -1314,7 +1306,7 @@
    "c": "LAB",
    "d": 6,
    "grp": null,
-   "n": 2,
+   "n": 3,
    "room": "402",
    "row": "F",
    "s": 2,
@@ -1341,32 +1333,12 @@
    "sec": null
   },
   {
-   "c": "TR",
-   "d": 6,
-   "grp": null,
-   "n": 2,
-   "room": "504",
-   "row": "D",
-   "s": 3,
-   "sec": null
-  },
-  {
    "c": "MA",
    "d": 6,
    "grp": null,
    "n": 3,
    "room": "401",
    "row": "E",
-   "s": 3,
-   "sec": null
-  },
-  {
-   "c": "LAB",
-   "d": 6,
-   "grp": null,
-   "n": 3,
-   "room": "402",
-   "row": "F",
    "s": 3,
    "sec": null
   },

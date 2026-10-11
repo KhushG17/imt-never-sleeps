@@ -142,6 +142,9 @@
     if(go && !go.disabled){
       var dir = go.getAttribute('data-go');
       showing = IMT.addDays(showing, dir === 'next' ? 1 : -1);
+      // how far ahead people look: 0 is today, 1 tomorrow, and so on
+      var ahead = Math.round((Date.parse(showing) - Date.parse(today)) / 86400000);
+      IMT.track('mess_day', null, { tool: 'mess', result: String(ahead), status: (DATA.days || {})[showing] ? 'menu' : 'no_menu' });
       render();
       var again = panel.querySelector('.mess-arrow[data-go="' + dir + '"]:not([disabled])') || panel.querySelector('.mess-arrow:not([disabled])');
       if(again) again.focus();

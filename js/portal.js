@@ -23,6 +23,7 @@
   rollInput.addEventListener('keydown', function(e){ if(e.key === 'Enter') doSearch(true); });
   goBtn.addEventListener('click', function(){ doSearch(true); });
   clearBtn.addEventListener('click', function(){
+    IMT.forgetRoll();
     rollInput.value = '';
     greetCard.hidden = true;
     searchCard.hidden = false;
@@ -66,6 +67,7 @@
       return;
     }
     errBox.hidden = true;
+    IMT.saveRoll(s.roll);   // so the next visit opens straight on the greeting
 
     greetRoll.textContent = 'Roll number ' + s.roll;
     greetName.textContent = IMT.greeting(s);
@@ -140,8 +142,11 @@
   }
   showPill(normalPill());
 
-  // Coming back from a tool ("Back to portal") lands on the greeting again.
-  var fromUrl = IMT.rollFromUrl();
+  // Coming back from a tool ("Back to portal") lands on the greeting again,
+  // and so does a visit from a device that remembers the roll number.
+  var fromUrl = IMT.rollFromUrl() || IMT.savedRoll();
+  // how the main page was reached: 'portal' is "Back to portal" from a tool
+  IMT.track('portal_open', fromUrl ? IMT.student(fromUrl) : null, { tool: 'portal', entry: IMT.entry() });
   if(fromUrl){
     rollInput.value = fromUrl;
     doSearch();

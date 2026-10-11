@@ -45,6 +45,68 @@
           "F": ["MA(3)-GA", "MA(4)-GA", "", "DAIB(3)SAS", ""]
         }
       }
+    },
+    "2026-10-12": {
+      "received": "2026-10-12",
+      "from": "Updated Week-2 schedule (Oct. 12 - 18, 2026), a newer PDF than the one on file, sent as a picture of all seven days",
+      "days": {
+        "2026-10-12": {
+          "A": ["", "", "HRM(4)FH", "BE(1)MP", "DAIB(3)RKR"],
+          "B": ["", "HRM(4)FH", "CTI(1)ASP", "DAIB(4)ST", "TR(1)RPL"],
+          "C": ["BCF(1)RP", "MA(1)AV", "HRM(4)AB", "CTI(1)ASP", "DAIB(4)ST"],
+          "D": ["", "BCF(1)RP", "MA(1)AV", "", "CTI(1)ASP"],
+          "E": ["", "BCF(3)AS", "BE(1)MP", "", ""],
+          "F": ["", "", "BCF(3)AS", "HRM(4)AB", ""]
+        },
+        "2026-10-13": {
+          "A": ["BCF(3)PA", "HRM(5)FH", "DAIB(4)RKR", "BE(2)MP", "BC(1)TC"],
+          "B": ["HRM(5)FH", "BCF(3)PA", "CTI(2)ASP", "BC(1)TC", "BE(1)AA"],
+          "C": ["HRM(5)AB", "CTI(2)ASP", "BCF(2)RP", "BE(1)KD", ""],
+          "D": ["DAIB(4)SAS", "BCF(2)RP", "", "CTI(2)ASP", ""],
+          "E": ["", "", "BC(1)TC", "DAIB(3)SKS", "BE(2)MP"],
+          "F": ["", "DAIB(4)SAS", "HRM(5)AB", "BE(1)AA", ""]
+        },
+        "2026-10-14": {
+          "A": ["MA(4)JM", "BCF(4)PA", "BR(9)AKB/FH", "CTI(1)BB", "CTI(2)BB"],
+          "B": ["", "MA(4)JM", "BCF(4)PA", "BR(9)NT/MK", "CTI(3)ASP"],
+          "C": ["BCF(3)RP", "MA(2)AV", "CTI(3)ASP", "", ""],
+          "D": ["HRM(1)NJ", "BCF(3)RP", "MA(2)AV", "CTI(3)ASP", "BR(9)PJ/AD"],
+          "E": ["BCF(4)AS", "HRM(1)NJ", "", "", "BR(9)NT/RM"],
+          "F": ["", "BCF(4)AS", "", "BR(9)SSG/DD", ""]
+        },
+        "2026-10-15": {
+          "A": ["", "BCF(5)PA", "DAIB(5)RKR", "", ""],
+          "B": ["BCF(5)PA", "DAIB(5)ST", "CTI(4)ASP", "", ""],
+          "C": ["HRM(6)AB", "CTI(4)ASP", "DAIB(5)ST", "DTI-G-6(1)NS", "DTI-G-6(2)NS"],
+          "D": ["CTI(4)ASP", "HRM(2)NJ", "DAIB(5)SAS", "DTI-G-7(1)AB", "DTI-G-7(2)AB"],
+          "E": ["", "DAIB(4)SKS", "HRM(2)NJ", "", ""],
+          "F": ["DAIB(5)SAS", "HRM(6)AB", "", "", ""]
+        },
+        "2026-10-16": {
+          "A": ["", "HRM(6)FH", "BC(2)TC", "DTI-G-1(7)SR", "DTI-G-1(8)SR"],
+          "B": ["BC(2)TC", "DAIB(6)ST", "HRM(6)FH", "DTI-G-3(1)NS", "DTI-G-3(2)NS"],
+          "C": ["DAIB(6)ST", "MA(3)AV", "BR(9)AB/GS", "BC(3)BB", "BC(4)BB"],
+          "D": ["", "", "MA(3)AV", "", ""],
+          "E": ["", "BCF(5)AS", "DAIB(5)SKS", "BC(2)TC", ""],
+          "F": ["", "", "BCF(5)AS", "BR(10)SSG/DD", ""]
+        },
+        "2026-10-17": {
+          "A": ["", "DTI-G-2(3)SP", "DTI-G-2(4)SP", "DTI-G-11(3)SP/AB", "DTI-G-11(4)SP/AB"],
+          "B": ["", "DTI-G-7(3)AB", "DTI-G-7(4)AB", "", ""],
+          "C": ["", "", "", "", ""],
+          "D": ["", "DTI-G-8(3)NVS", "DTI-G-8(4)NVS", "DTI-G-9(3)NVS", "DTI-G-9(2)NVS"],
+          "E": ["LAB(1)SNS", "", "", "", ""],
+          "F": ["", "LAB(1)SNS", "LAB(2)SNS", "", ""]
+        },
+        "2026-10-18": {
+          "A": ["", "", "MA(5)JM", "MA(6)JM", ""],
+          "B": ["MA(5)JM", "MA(6)JM", "", "BR(10)NT/MK", ""],
+          "C": ["LAB(3)SR", "LAB(4)SR", "", "", ""],
+          "D": ["", "", "", "", ""],
+          "E": ["LAB(2)SNS", "LAB(3)SNS", "BR(10)NT/RM", "MA(3)-KG", "MA(4)-KG"],
+          "F": ["", "", "LAB(3)SNS", "", ""]
+        }
+      }
     }
   }
 }

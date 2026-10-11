@@ -1,0 +1,19 @@
+{
+  "name": "IMT Never Sleeps",
+  "short_name": "IMT Never Sleeps",
+  "description": "Your IMT Ghaziabad weekly class schedule, exam seat and mess menu, by roll number.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Weekly schedule", "short_name": "Weekly", "url": "weekly-seat/", "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

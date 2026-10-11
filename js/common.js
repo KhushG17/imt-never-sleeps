@@ -263,8 +263,15 @@
     // Google records each page's address and the address it was reached
     // from. Ours can end in ?roll=..., so both are sent without anything
     // after the "?": a roll number never leaves the site this way either.
+    // Campaign tags (utm_source and friends) are the one exception: they say
+    // which shared link brought the visit, and say nothing about the student.
     var bare = function(url){ return String(url || '').split('?')[0].split('#')[0]; };
-    var clean = { page_location: bare(window.location.href), page_referrer: bare(document.referrer) };
+    var tags = window.location.search.replace(/^\?/, '').split('&').filter(function(p){ return /^utm_[a-z]+=/i.test(p); });
+    var clean = {
+      page_location: bare(window.location.href) + (tags.length ? '?' + tags.join('&') : ''),
+      page_referrer: bare(document.referrer),
+      mode: installedApp() ? 'app' : 'browser'   // the installed app, or a browser tab
+    };
     window.gtag('set', clean);
     window.gtag('config', GA_ID, clean);
     var ga = document.createElement('script');
@@ -272,12 +279,68 @@
     ga.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_ID);
     document.head.appendChild(ga);
   }
+  // Every event says which group it came from, never which student: batch,
+  // programme, section and term, plus app or browser. When the caller has no
+  // student to hand, the roll this device remembers stands in.
   function track(name, s, params){
-    if(!trackingOn || (s && s.isTest)) return;
+    if(!trackingOn) return;
+    if(!s || !s.batchKey){
+      var known = rollFromUrl() || savedRoll();
+      if(known) s = student(known);
+    }
+    if(s && s.isTest) return;
     params = params || {};
     params.batch = (s && s.batchLabel) || 'unknown';
+    params.programme = (s && s.programme) || 'unknown';
+    params.section = (s && (s.section || s.track)) || 'unknown';
+    params.term = s && s.alumni ? 'alumni' : (s && s.term) ? 'Term ' + s.term : 'unknown';
+    params.mode = installedApp() ? 'app' : 'browser';
     window.gtag('event', name, params);
   }
+
+  // How this page was reached: 'link' (a roll in the address, from outside
+  // the site), 'portal' (a roll in the address, from our own pages),
+  // 'remembered' (no roll in the address, the device remembered one), or
+  // 'fresh' (no roll at all).
+  function entry(){
+    if(rollFromUrl()){
+      return document.referrer.indexOf(window.location.origin + '/') === 0 ? 'portal' : 'link';
+    }
+    return savedRoll() ? 'remembered' : 'fresh';
+  }
+  var PAGE = /\/weekly-seat\//.test(window.location.pathname) ? 'weekly' :
+             /\/exam-seat\//.test(window.location.pathname) ? 'exam_seat' : 'portal';
+
+  // Things that go wrong on the page itself, at most three a visit.
+  var errorsSent = 0;
+  function pageError(message){
+    if(errorsSent++ < 3) track('page_error', null, { tool: PAGE, result: String(message || 'unknown').slice(0, 90) });
+  }
+  window.addEventListener('error', function(e){ if(e && e.message) pageError(e.message); });
+  window.addEventListener('unhandledrejection', function(e){ pageError('promise: ' + (e && e.reason && e.reason.message || e && e.reason || '')); });
+
+  // Opens with no signal cannot be reported at the time. They are counted on
+  // the device and reported, as one number, the next time it is online.
+  var OFFLINE_KEY = 'imt.offlineOpens';
+  try {
+    var waiting = +window.localStorage.getItem(OFFLINE_KEY) || 0;
+    if(window.navigator.onLine === false){
+      window.localStorage.setItem(OFFLINE_KEY, String(waiting + 1));
+    } else if(waiting){
+      window.localStorage.removeItem(OFFLINE_KEY);
+      window.addEventListener('load', function(){ track('offline_opens', null, { tool: PAGE, result: String(waiting) }); });
+    }
+  } catch(e){}
+
+  // Taps on the nav bar and on "Back to portal".
+  document.addEventListener('click', function(e){
+    var t = e.target;
+    if(!t || !t.closest) return;
+    var what = t.closest('#navToggle') ? 'menu' :
+               t.closest('#navMenu a:not(#studyNav)') ? 'feedback' :
+               t.closest('#backBtn, #noticeBack, #lockedBack') ? 'back_to_portal' : '';
+    if(what) track('nav_click', null, { tool: PAGE, result: what });
+  }, true);   // on the way down, so a handler that stops the click cannot hide it
 
   // The Study Material icon in the header, next to Feedback. Its link is
   // studyMaterial.url in js/portal-config.js; with no link it stays hidden.
@@ -299,8 +362,113 @@
     }, { passive:true });
   }
 
+  // ---- the roll number, remembered on this device ----
+  // Kept in the browser's own storage, on this phone or laptop only: it is
+  // never sent anywhere. Typing a roll on the portal saves it; "Not you?
+  // Change roll number" forgets it. A browser that refuses storage (some
+  // private windows) simply does not remember.
+  var ROLL_KEY = 'imt.roll';
+  function savedRoll(){
+    try { return normRoll(window.localStorage.getItem(ROLL_KEY) || ''); } catch(e){ return ''; }
+  }
+  function saveRoll(roll){
+    try { window.localStorage.setItem(ROLL_KEY, normRoll(roll)); } catch(e){}
+  }
+  function forgetRoll(){
+    try { window.localStorage.removeItem(ROLL_KEY); } catch(e){}
+  }
+
+  // ---- installing the site as an app ----
+  // sw.js (at the site's root) keeps a copy of each page for when there is
+  // no signal. It only runs on https, and on localhost for trying it out.
+  var HERE = document.currentScript && document.currentScript.src;
+  if('serviceWorker' in navigator && HERE && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register(new URL('../sw.js', HERE).href).catch(function(){});
+    });
+  }
+  // Chrome, Edge and Android offer to install by firing this; we hold on to
+  // the offer and show our own "Install app" button (see portal.js). iPhones
+  // never fire it: there, it is Share, then "Add to Home Screen".
+  var installOffer = null, installWaiters = [];
+  window.addEventListener('beforeinstallprompt', function(e){
+    e.preventDefault();
+    installOffer = e;
+    installWaiters.forEach(function(fn){ fn(true); });
+  });
+  window.addEventListener('appinstalled', function(){
+    installOffer = null;
+    installWaiters.forEach(function(fn){ fn(false); });
+    track('app_install', null, {});
+  });
+  function onInstallable(fn){ installWaiters.push(fn); if(installOffer) fn(true); }
+  function install(){
+    if(!installOffer) return;
+    var offer = installOffer;
+    installOffer = null;
+    installWaiters.forEach(function(fn){ fn(false); });
+    offer.prompt();
+  }
+  function installedApp(){
+    return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
+  }
+
+  // ---- the nav bar ----
+  // On a laptop the links sit in the bar. On a phone they fold into a menu
+  // behind the three-line button.
+  var navToggle = document.getElementById('navToggle'), navMenu = document.getElementById('navMenu');
+  function closeMenu(){
+    if(!navMenu) return;
+    navMenu.classList.remove('is-open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }
+  if(navToggle && navMenu){
+    navToggle.addEventListener('click', function(e){
+      e.stopPropagation();
+      var open = navMenu.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    navMenu.addEventListener('click', function(e){ if(e.target.closest('a')) closeMenu(); });
+    document.addEventListener('click', function(e){ if(!navMenu.contains(e.target)) closeMenu(); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeMenu(); });
+  }
+  // "Install as an app": in the nav bar of every page, and in the greeting
+  // card on the main page. Each shows when the browser has offered
+  // installing, and on iPhones (where it can only explain how); never inside
+  // the installed app.
+  var onApple = /iphone|ipad|ipod/i.test(navigator.userAgent || '') || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  function wireInstall(button, label, where){
+    if(!button || installedApp()) return;
+    var offered = false;
+    button.hidden = !onApple;
+    onInstallable(function(can){ offered = can; button.hidden = !(can || onApple); });
+    button.addEventListener('click', function(e){
+      var typed = document.getElementById('roll');
+      var who = student(rollFromUrl() || (typed ? typed.value : '') || savedRoll());
+      if(offered){
+        track('install_click', who, { tool: where, result: 'prompt' });
+        closeMenu();
+        install();
+      } else {
+        // no site can install itself on an iPhone: say how, and keep the menu open
+        e.stopPropagation();
+        label.textContent = 'Tap Share, then "Add to Home Screen"';
+        button.classList.add('is-hint');
+        track('install_click', who, { tool: where, result: 'ios_hint' });
+      }
+    });
+  }
+  wireInstall(document.getElementById('installNav'), document.getElementById('installNavText'), 'nav');
+  wireInstall(document.getElementById('installBtn'), document.getElementById('installBtnText'), 'greeting');
+
   window.IMT = {
     config: CONFIG,
+    savedRoll: savedRoll,
+    saveRoll: saveRoll,
+    forgetRoll: forgetRoll,
+    onInstallable: onInstallable,
+    install: install,
+    installedApp: installedApp,
     normRoll: normRoll,
     todayIso: todayIso,
     student: student,
@@ -322,6 +490,7 @@
     examLockedLabel: examLockedLabel,
     rollFromUrl: rollFromUrl,
     track: track,
+    entry: entry,
     escapeHtml: escapeHtml,
     attachTilt: attachTilt
   };

@@ -51,6 +51,26 @@ is registered and its DNS managed at GoDaddy.
 | Upload page | Built at `/upload/`; needs an access key created once by Khush |
 | Published | Yes, but the live site still shows the build of 7 Oct. The master-data build of 8 Oct is local only until pushed |
 
+## How it grew
+
+The short history, so the next idea can be judged against where the last
+ones came from. Each line is the question students had at that point.
+
+| When | What was added | The question behind it |
+|---|---|---|
+| Sep 2026 | IMT Exam Seat Finder: one page, roll number in, hall and seat out | Where do I sit for each paper? |
+| Early Oct 2026 | Renamed IMT Never Sleeps: a portal with a greeting, and Weekly beside Exam Seat | What classes do I have this week, and where? |
+| 6 Oct | Usage tracking | Is anyone using it? |
+| 8 Oct | All six programmes from one master data set; the upload page | Can it stay current without a laptop? |
+| 9 Oct | imtneversleeps.com; campus occasions (Onam, Sports Night) | What else is on today? |
+| 10 Oct | Mess menu; the day changes after the last class | What is for lunch? |
+| 12 Oct | Remembered roll number, install as an app, nav menu, the wider usage tracking | Can it open in one tap, and what should come next? |
+
+What the usage numbers are for: `lead` (how soon the next class is when
+Weekly is opened), `mess_day` (how far ahead people look) and `fresh` (how
+often an out-of-date schedule is seen) are the three most likely to point at
+the next feature.
+
 ## Batch tracker
 
 One row per batch and schedule group. The term is worked out from
@@ -275,6 +295,18 @@ any student whatever the timeline says. Real batches switch by date.
     next day takes over at 12:00 am. Days without an occasion still change
     after the student's last class, or at 8 pm.
   - It is never part of the PDF.
+  - Third entry (12 Oct): **RESET 2026 by HAWC**, 15, 16 and
+    17 Oct, 6:30 pm each day, placed after the day's classes, with an arrow
+    to the registration form (https://forms.gle/PoV2eyZwjzAt9gRYA). Day 1
+    Penalty Shootout (Football Ground), Day 2 Arm Wrestling and Team Balance
+    (Basketball Court; the poster's "Team Balance Reach Challenge", shortened
+    at Khush's request), Day 3 Tug of War (Football Ground).
+    Its "reset" theme follows the poster: paper beige, deep teal, the year in
+    orange, a "HAWC · Day n" tag beside the title, the words running along
+    the banner (one line on a laptop, two or three on a phone), a picture for the day on the
+    left (`icon`: football, strength, rope), the venue (`where`) and the time
+    as a tag on the right (`time`; beside the venue when there is a link, as
+    here). `where` and `time` work on any theme.
   - `place: "after"` puts the banner below that day's classes instead of
     above them, for something held once classes are over.
   - Second entry (9 Oct): **Sports Night 2026**, 10 and 11
@@ -350,30 +382,130 @@ late?" from 10 pm to 5 am. Wording is in `js/common.js` (`greeting`,
 ## Usage tracking
 
 Google Analytics 4, on since 6 Oct 2026 (Measurement ID `G-F0R29KD608` in
-`js/portal-config.js`; set it to `""` to switch off).
+`js/portal-config.js`; set it to `""` to switch off). Widened on 12 Oct 2026
+so that product decisions can rest on numbers.
 
-| Question | Where to read it |
-|---|---|
-| How many people came | Users and page views (automatic) |
-| How many typed a roll number | Event `roll_search`, `result` = `found`, `batch_only`, `not_found` |
-| How many opened Weekly, Exam Seat or Study Material | Event `tool_open`, by `tool` (`weekly`, `exam_seat`, `study_material`), with `status` (`shown`, `locked`, `no_schedule`, `no_roster`, `no_seat`, `alumni`) |
-| How many saved a PDF | Event `save_pdf`, by `tool` |
-| How many added to calendar | Event `add_to_calendar`, by `tool` |
-| How many tapped Exam Seat while locked | Event `locked_tool_click` |
-| How many opened the mess menu | Event `tool_open` with `tool` = `mess`; `status` = `today`, `tomorrow` or `no_menu` (added 10 Oct) |
-| How many tapped an occasion's link (Onam form) | Event `event_click`, `result` = the occasion's title (added 10 Oct) |
-| Bounce rate, views per page | Automatic in GA: Reports, Engagement, Pages and screens (add the Bounce rate metric with the pencil icon) |
-| How often one person comes back | Automatic in GA: Reports, Retention; and "Sessions per user" / "Returning users" in Explore. GA tells people apart by a cookie in their browser, not by roll number |
+**What is never sent:** roll numbers, names. Every event is tagged with the
+student's group, not the student. `TEST` and `TESTA` send nothing. Page
+addresses and referrers go to Google without anything after the "?", except
+campaign tags (`utm_...`), which describe the link and not the person.
+Roll numbers did reach Google inside page addresses from 6 to 8 Oct; that
+was fixed on 8 Oct and the stored addresses can be removed in GA (Admin,
+Data deletion requests, parameters `page_location` and `page_referrer`).
 
-Every event carries `batch`. `tool`, `status`, `result` and `batch` are
-registered as event-scoped custom dimensions. Never sent: roll numbers, names,
-courses. Page addresses and referrers are sent to Google without anything
-after the "?", because ours carry `?roll=`. **Until 8 Oct 2026 they were sent
-whole**, so roll numbers (never names) reached Google Analytics inside page
-addresses from 6 to 8 Oct; that is fixed, and the stored addresses can be
-removed in GA with a data deletion request (Admin, Data deletion requests,
-parameter `page_location` and `page_referrer`). `TEST` is not counted. Calendar icons clicked inside a downloaded PDF
-cannot be counted.
+### On every event
+
+| Parameter | Values | Tells you |
+|---|---|---|
+| `batch` | `Batch 2026-28`, ... | Which batch |
+| `programme` | `PGDM`, `PGDM DCP`, `PGDM BFS`, ... | Which programme uses the site, and which does not |
+| `section` | `A`, `B`, ... or a DCP track | Which section |
+| `term` | `Term 2`, `Term 5`, `alumni` | Which term |
+| `mode` | `app`, `browser` | The installed app, or a browser tab |
+
+When an event has no student of its own (the mess menu on the portal, a nav
+tap), the roll the device remembers supplies the group.
+
+### Questions and where the answers are
+
+| Question | Event | Read it by |
+|---|---|---|
+| How many people came, bounce rate, views per page | automatic | Reports, Engagement, Pages and screens |
+| How often one person comes back | automatic | Reports, Retention (GA tells people apart by a browser cookie, not by roll) |
+| Which shared link brought them | automatic | Reports, Acquisition. Share links as `https://imtneversleeps.com/?utm_source=whatsapp&utm_medium=group&utm_campaign=week3` |
+| How the main page was reached | `portal_open` | `entry` = `fresh` (no roll yet), `remembered`, `link` (a roll in a link from outside), `portal` (Back to portal) |
+| How many typed a roll number | `roll_search` | `result` = `found`, `batch_only`, `not_found`. Only real typing: it falls as rolls are remembered |
+| How many opened Weekly, Exam Seat, Study Material, the mess menu | `tool_open` | `tool` = `weekly`, `exam_seat`, `study_material`, `mess`; `status` = `shown`, `locked`, `no_schedule`, `no_roster`, `no_seat`, `alumni` (mess: `today`, `tomorrow`, `no_menu`) |
+| How they got into Weekly or Exam Seat | `tool_open` | `entry` = `portal`, `link`, `remembered` |
+| How soon their next class was when they opened Weekly | `tool_open` (weekly) | `lead` = `in_class`, `under_30m`, `under_2h`, `later_today`, `tomorrow`, `later`, `none` |
+| Whether the schedule they saw was current | `tool_open` (weekly) | `fresh` = `live`, `partial`, `stale`, `missing`, `exam`, `none` |
+| Whether they scroll to next week, or back to days gone | `weekly_reach` | `result` = `next_week`, `earlier` (once each per visit) |
+| How far ahead they look in the mess menu | `mess_day` | `result` = days ahead (`1` is tomorrow); `status` = `menu` or `no_menu` |
+| How many saved a PDF | `save_pdf` | `tool` |
+| How many added a class or paper to their calendar, and which | `add_to_calendar` | `tool`, `course` (the course name) |
+| How many tapped an occasion's link | `event_click` | `result` = the occasion's title |
+| Nav bar and Back to portal | `nav_click` | `result` = `menu`, `feedback`, `back_to_portal`; `tool` = the page |
+| How many tapped Exam Seat while locked | `locked_tool_click` | |
+| Installing | `install_click`, `app_install` | `install_click`: `tool` = `nav` or `greeting`, `result` = `prompt` or `ios_hint` |
+| Something broke on a page | `page_error` | `result` = the browser's message, `tool` = the page (three a visit at most) |
+| Opened with no signal | `offline_opens` | `result` = how many times, reported on the next online visit |
+
+### To set up once in Google Analytics
+
+Admin, Data display, Custom definitions, Create custom dimension, scope
+**Event**, with the dimension name and the event parameter both exactly as
+written. Already registered: `tool`, `status`, `result`, `batch`. To add:
+
+`programme`, `section`, `term`, `mode`, `entry`, `lead`, `fresh`, `course`
+
+A dimension only fills from the day it is registered; events sent before
+that keep the parameter but it cannot be used in reports.
+
+### What it cannot tell you
+
+- Anything about one named student.
+- One student on two devices counts as two users.
+- Google may withhold rows with very few users.
+- Calendar icons clicked inside a downloaded PDF cannot be counted.
+
+## Nav bar and the top of the tool pages
+
+Changed and pushed 12 Oct 2026.
+
+- **Nav bar, laptop:** Study Material and Feedback as buttons with icon and
+  text (Study Material was an icon alone), plus Install as an app, on
+  every page.
+- **Nav bar, phone (720px and under):** a three-line menu button; the menu
+  lists the same items, icon and text. It closes on a tap outside, on Esc and
+  after a link is followed. Markup is the same on every page (`#navToggle`,
+  `#navMenu`); the wiring is in `js/common.js`.
+- **Top of Weekly and Exam Seat:** one card (`.id-card`) with the week or
+  "Exam seats for", the name, then chips for the roll number, programme,
+  batch, term and section (and the number of papers on Exam Seat), with Save
+  as PDF, Back to portal and the calendar hint inside it. Exam Seat now leads
+  with the student's name; it used to lead with the roll number.
+
+## Remembered roll number, and installing as an app
+
+Built and pushed 12 Oct 2026.
+
+- **The roll number is remembered on the device.** Typing it on the portal
+  saves it in that browser's own storage (`localStorage`, key `imt.roll`).
+  The next visit opens straight on the greeting, with Weekly and Exam Seat
+  one tap away. "Not you? Change roll number" forgets it. It never leaves
+  the device, and a browser that blocks storage simply does not remember.
+  - A roll that arrives in a link (`?roll=`) is used for that visit but is
+    not saved, so opening a friend's shared link does not replace your own.
+  - Weekly and Exam Seat opened with no roll in the address use the
+    remembered one; with none remembered they go back to the portal.
+  - Effect on the usage counts: `roll_search` now counts only real typing,
+    so it will fall for returning students. `tool_open` is unaffected.
+- **The site can be installed as an app** (a "PWA"): `manifest.webmanifest`
+  names it and gives the icons (`assets/icon-192.png`, `icon-512.png`,
+  `icon-maskable-512.png`, `apple-touch-icon.png`, all made from the logo),
+  and `sw.js` is the service worker.
+  - **"Install as an app" is offered in two places** (settled 12 Oct, after a
+    button under the roll box and a pop-up on Weekly were tried and dropped):
+    in the nav bar of every page (portal, Weekly, Exam Seat), and in the
+    greeting card on the main page beside "Not you? Change roll number".
+    There is no pop-up. Both show only when the browser offers installing,
+    and never inside the installed app.
+  - Android, and Chrome or Edge on a laptop: it opens the browser's own
+    install box.
+  - iPhone and iPad: no site can install itself there, so tapping it turns
+    the menu item into the instruction: Tap Share, then "Add to Home Screen".
+  - Counted as `install_click` (`tool` = `nav` or `greeting`, `result` =
+    `prompt` or `ios_hint`), and a completed install as `app_install`.
+  - Installed, it opens full screen with its own icon, on the portal, which
+    opens on the greeting because the roll is remembered. Long-pressing the
+    icon on Android offers "Weekly schedule" directly.
+- **With no signal**, pages already opened once still open, from a copy kept
+  by `sw.js`. The rule is fresh first: every page and data file is fetched
+  as usual and the copy is used only when that fails, so a newly uploaded
+  schedule is never hidden behind an old copy. Fonts and the PDF library are
+  served from the copy. The upload page and usage tracking are left alone.
+- Installs are counted as the event `app_install` (Android/Chrome only).
+- To retire every kept copy at once, change `CACHE` in `sw.js`.
 
 ## Mess menu
 
@@ -571,6 +703,28 @@ every run, so correct the college's file in `all files/` (or
 `data/config/overrides.json`), never the master file itself.
 
 ## Corrections received
+
+- **PGDM 2026-28, Term 2, Week 2, 12 to 18 Oct: a newer version of the whole
+  week (received 12 Oct, as a picture of a 240 KB PDF; the PDF on file is the
+  earlier 237 KB one, which the mail attachment and the upload page kept
+  sending).** All seven days are typed into
+  `data/config/weekly-revisions.json` and applied over the PDF. 133 classes
+  became 129. Against the earlier PDF:
+  - Technology Readiness session 2 is gone everywhere: Mon (Sections E, F)
+    and Sun (A, C, D).
+  - Section A, Data Analytics and AI for Business: session 3 moved from Tue
+    12:15 to Mon 4:00 pm; Tue 12:15 is now session 4; Thu 12:15 is session 5.
+  - Section E: Data Analytics session 5 added, Fri 12:15.
+  - Section F: Managerial Accounting 5 and 6 (Fri) and 7 and 8 (Sun) removed;
+    Business Research 10 added, Fri 2:30; Legal Aspects 2 moved from Sun
+    12:15 to Sat 12:15, and 3 from Sun 2:30 to Sun 12:15.
+  - Design Thinking: Group 3 sessions 1 and 2 moved from Thu to Fri (Room
+    502); Group 6 sessions 1 and 2 from Sat to Thu (Room 503); Group 7 gained
+    sessions 1 and 2 on Thu (Room 504), and its 3 and 4 on Sat moved from
+    Room 503 to 502.
+  - Wed 14 Oct is unchanged.
+  If the newer PDF itself is ever uploaded, delete this week's entry from
+  `weekly-revisions.json` so the PDF speaks for itself.
 
 - **PGDM 2026-28, Term 2, Week 1, Thu 8 to Sun 11 Oct (received 9 Oct, as a
   picture of the grid):** typed into `data/config/weekly-revisions.json` and

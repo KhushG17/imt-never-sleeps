@@ -154,8 +154,9 @@
   // ---- page states ----
   pdfBtn.addEventListener('click', function(){ savePdf(); });
   listEl.addEventListener('click', function(e){
-    if(lastResult && e.target.closest('.card-cal-link')){
-      IMT.track('add_to_calendar', lastResult.student, { tool: 'weekly' });
+    var cal = lastResult && e.target.closest('.card-cal-link');
+    if(cal){
+      IMT.track('add_to_calendar', lastResult.student, { tool: 'weekly', course: (cal.getAttribute('data-what') || '').slice(0, 90) });
     }
     var occasion = lastResult && e.target.closest('.event-link');
     if(occasion){
@@ -179,7 +180,7 @@
       (to ? '<span class="cls-end">to ' + to + '</span>' : '') + '</div>';
   }
   function calButton(href, what){
-    return '<a class="card-cal-link cls-cal" href="' + href + '" target="_blank" rel="noopener" title="Add to Google Calendar" ' +
+    return '<a class="card-cal-link cls-cal" href="' + href + '" target="_blank" rel="noopener" title="Add to Google Calendar" data-what="' + IMT.escapeHtml(what) + '" ' +
       'aria-label="Add ' + IMT.escapeHtml(what) + ' to Google Calendar">' + CAL_PLUS + '</a>';
   }
   function metaLine(parts){
@@ -231,17 +232,79 @@
       return e.date === date && (!place || (e.place === 'after' ? 'after' : 'top') === place);
     });
   }
+  // RESET 2026 (HAWC): one picture a day, in the poster's deep teal.
+  var RESET_ICONS = {
+    football: '<circle cx="0" cy="0" r="30" fill="#f3ead8" stroke="#0f4b45" stroke-width="3.5"/>' +
+      '<path d="M0 -12 L11.4 -3.7 L7 9.7 L-7 9.7 L-11.4 -3.7 Z" fill="#0f4b45"/>' +
+      '<path d="M0 -12 V-29 M11.4 -3.7 L27.5 -9 M7 9.7 L17 23.5 M-7 9.7 L-17 23.5 M-11.4 -3.7 L-27.5 -9" stroke="#0f4b45" stroke-width="3" stroke-linecap="round"/>',
+    strength: '<path d="M-14 0 H14" stroke="#0f4b45" stroke-width="7" stroke-linecap="round"/>' +
+      '<rect x="-25" y="-17" width="10" height="34" rx="3.5" fill="#0f4b45"/><rect x="15" y="-17" width="10" height="34" rx="3.5" fill="#0f4b45"/>' +
+      '<rect x="-33" y="-10" width="7" height="20" rx="3" fill="#e8921c"/><rect x="26" y="-10" width="7" height="20" rx="3" fill="#e8921c"/>',
+    rope: '<path d="M-33 6 C-20 -8 -10 14 0 2 S 20 -10 33 4" fill="none" stroke="#0f4b45" stroke-width="7" stroke-linecap="round"/>' +
+      '<path d="M-33 6 C-20 -8 -10 14 0 2 S 20 -10 33 4" fill="none" stroke="#f3ead8" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 7"/>' +
+      '<circle cx="0" cy="2" r="8" fill="#e8921c" stroke="#0f4b45" stroke-width="3"/>' +
+      '<path d="M-27 -14 l-8 6 8 6 M27 -16 l8 6 -8 6" fill="none" stroke="#0f4b45" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>'
+  };
+  function resetIcon(name){
+    return '<svg class="event-motif motif-reset" viewBox="-40 -40 80 80" aria-hidden="true">' + (RESET_ICONS[name] || RESET_ICONS.football) + '</svg>';
+  }
+  // "RESET 2026" -> RESET <b>2026</b>: the year takes the poster's orange
+  function titleWithYear(text){
+    return IMT.escapeHtml(text).replace(/\b(20\d{2})\b/, '<b>$1</b>');
+  }
   function eventBanner(e){
-    var theme = e.theme === 'onam' || e.theme === 'sports' ? e.theme : 'plain';
-    return '<div class="event-banner event-' + theme + '">' + (theme === 'onam' ? pookalam() : theme === 'sports' ? crescent() : '') +
-      '<div class="event-text"><div class="event-title">' + IMT.escapeHtml(e.title) + '</div>' +
+    var theme = e.theme === 'onam' || e.theme === 'sports' || e.theme === 'reset' ? e.theme : 'plain';
+    return '<div class="event-banner event-' + theme + '">' + (theme === 'onam' ? pookalam() : theme === 'sports' ? crescent() : theme === 'reset' ? resetIcon(e.icon) : '') +
+      '<div class="event-text"><div class="event-title">' + (theme === 'reset' ? titleWithYear(e.title) : IMT.escapeHtml(e.title)) + '</div>' +
       (e.note ? '<div class="event-note">' + IMT.escapeHtml(e.note) + '</div>' : '') +
+      (e.where ? '<div class="event-where"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.3" fill="currentColor"/></svg>' + IMT.escapeHtml((e.time && e.link ? e.time + ' · ' : '') + e.where) + '</div>' : '') +
       (e.by ? '<div class="event-by">' + IMT.escapeHtml(e.by) + '</div>' : '') + '</div>' +
+      // with a link the arrow takes the right-hand end, so the time moves beside the venue
+      (e.time && !(e.link && e.where) ? '<div class="event-time">' + IMT.escapeHtml(e.time) + '</div>' : '') +
       (e.link ? '<a class="event-link" href="' + IMT.escapeHtml(e.link) + '" target="_blank" rel="noopener" data-event="' + IMT.escapeHtml(e.title) + '" ' +
         'title="Open" aria-label="' + IMT.escapeHtml(e.title + (e.note ? ', ' + e.note : '')) + ': open the link">' +
         '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>' : '') +
       (theme === 'sports' ? sun() : '') +
       '</div>';
+  }
+
+  // How soon the student's next class is when they open the page, in broad
+  // steps: 'in_class', 'under_30m', 'under_2h', 'later_today', 'tomorrow',
+  // 'later', or 'none' when nothing is left in the weeks on file.
+  function leadTime(weeks, s){
+    var today = IMT.istToday(), tomorrow = IMT.addDays(today, 1), now = IMT.istMinutes();
+    var best = null, inClass = false;
+    weeks.forEach(function(w){
+      buildView(w, s).classes.forEach(function(x){
+        var date = w.days[x.d].date, from = minutes(w.slots[x.s][0]), to = minutes(w.slots[x.s][1]);
+        if(date === today && from <= now && now < to) inClass = true;
+        if(date < today || (date === today && from <= now)) return;
+        if(!best || date < best.date || (date === best.date && from < best.from)) best = { date: date, from: from };
+      });
+    });
+    if(inClass) return 'in_class';
+    if(!best) return 'none';
+    if(best.date === today) return best.from - now < 30 ? 'under_30m' : best.from - now < 120 ? 'under_2h' : 'later_today';
+    return best.date === tomorrow ? 'tomorrow' : 'later';
+  }
+
+  // Whether the student scrolls as far as next week, or back to the days
+  // gone: each is reported once, the first time its heading comes into view.
+  var reachWatcher = null;
+  function watchReach(s){
+    if(reachWatcher) reachWatcher.disconnect();
+    if(!('IntersectionObserver' in window)) return;
+    var sent = {};
+    reachWatcher = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting) return;
+        var what = /^Week\b/.test(en.target.textContent) ? 'next_week' : 'earlier';
+        if(sent[what]) return;
+        sent[what] = true;
+        IMT.track('weekly_reach', s, { tool: 'weekly', result: what });
+      });
+    });
+    Array.prototype.forEach.call(listEl.querySelectorAll('.earlier-divider'), function(el){ reachWatcher.observe(el); });
   }
 
   // The day this student's schedule should lead with. It is today until
@@ -281,7 +344,12 @@
     var first = live[0];
     var status = s.alumni ? 'alumni' : !first ? 'no_schedule' :
       (first.mode === 'course' && !Object.keys(s.courses).length) ? 'no_roster' : 'shown';
-    IMT.track('tool_open', s, { tool: 'weekly', status: status });
+    IMT.track('tool_open', s, {
+      tool: 'weekly', status: status, entry: IMT.entry(),
+      // how soon the student's next class is, and whether the schedule shown is current
+      lead: status === 'shown' ? leadTime(live, s) : 'none',
+      fresh: IMT.coverage(WEEKLY, s.groupKey).state || 'none'
+    });
     lastResult = null;
     notice.hidden = true;
     otherBtn.hidden = true;
@@ -311,7 +379,11 @@
     eyebrow.hidden = false;
     weekOut.textContent = label;
     nameOut.textContent = IMT.greeting(s);
-    metaOut.textContent = 'Roll number ' + s.roll + (IMT.metaLine(s) ? ' · ' + IMT.metaLine(s) : '');
+    // the roll number, then programme, batch, term and section, one chip each
+    metaOut.innerHTML = '<span class="id-chip id-chip-roll">Roll ' + IMT.escapeHtml(s.roll) + '</span>' +
+      IMT.metaLine(s).split(' · ').filter(Boolean).map(function(part){
+        return '<span class="id-chip">' + IMT.escapeHtml(part) + '</span>';
+      }).join('');
     backBtn.href = '../?roll=' + encodeURIComponent(s.roll);
     bannerEl.textContent = firstView.banner;
     bannerEl.hidden = !firstView.banner;
@@ -428,6 +500,7 @@
 
     results.hidden = false;
     IMT.attachTilt(listEl.querySelectorAll('.exam-card'));
+    watchReach(s);
   }
 
   // ---- PDF ----
@@ -585,7 +658,9 @@
   // This page has no search of its own: the portal is the only way in, and
   // it passes the roll in the URL. No roll, or one the portal doesn't know,
   // goes straight back there.
-  var fromUrl = IMT.rollFromUrl();
+  // (the installed app's "Weekly schedule" shortcut opens this page with
+  // no roll in the address: the one this device remembers is used)
+  var fromUrl = IMT.rollFromUrl() || IMT.savedRoll();
   var visitor = IMT.student(fromUrl);
   if(!fromUrl){
     window.location.replace('../');

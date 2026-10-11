@@ -61,8 +61,21 @@ window.PORTAL_CONFIG = {
   //   themes  - "onam" (green, a pookalam), "sports" (night purple and gold,
   //           a crescent on the left and a sun on the right, text centred),
   //           "plain" (green, no motif)
+  //           "reset" (HAWC's RESET 2026 poster: paper beige, deep teal and
+  //           orange; the title's year is picked out in orange)
+  //   icon  - for the "reset" theme, the picture on the left: "football",
+  //           "strength" or "rope"
+  //   time  - optional; shown as a small tag on the right ("6:30 PM"), or
+  //           before the venue when the occasion also has a link
+  //   where - optional; the venue, shown after the note
   // An occasion that runs over several days gets one entry per date.
   events: [
+    { date: "2026-10-15", title: "RESET 2026", by: "HAWC · Day 1", note: "Penalty Shootout",
+      where: "Football Ground", time: "6:30 PM", link: "https://forms.gle/PoV2eyZwjzAt9gRYA", theme: "reset", icon: "football", place: "after" },
+    { date: "2026-10-16", title: "RESET 2026", by: "HAWC · Day 2", note: "Arm Wrestling, Team Balance",
+      where: "Basketball Court", time: "6:30 PM", link: "https://forms.gle/PoV2eyZwjzAt9gRYA", theme: "reset", icon: "strength", place: "after" },
+    { date: "2026-10-17", title: "RESET 2026", by: "HAWC · Day 3", note: "Tug of War",
+      where: "Football Ground", time: "6:30 PM", link: "https://forms.gle/PoV2eyZwjzAt9gRYA", theme: "reset", icon: "rope", place: "after" },
     { date: "2026-10-10", title: "Sports Night 2026",
       note: "Crescent Crusaders vs Solstice Sovereigns",
       theme: "sports", place: "after" },

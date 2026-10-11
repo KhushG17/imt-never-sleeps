@@ -195,7 +195,6 @@
   var listEl = document.getElementById('list');
   var rollOut = document.getElementById('rollOut');
   var rollRoster = document.getElementById('rollRoster');
-  var countOut = document.getElementById('countOut');
   var eyebrowEl = document.getElementById('eyebrow');
   if(eyebrowEl) eyebrowEl.textContent = examHeadline();
   var backBtn = document.getElementById('backBtn');
@@ -234,8 +233,11 @@
 
   pdfBtn.addEventListener('click', function(){ savePdf(); });
   listEl.addEventListener('click', function(e){
-    if(lastResult && e.target.closest('.card-cal-link')){
-      window.IMT.track('add_to_calendar', window.IMT.student(lastResult.roll), { tool: 'exam_seat' });
+    var cal = lastResult && e.target.closest('.card-cal-link');
+    if(cal){
+      var card = cal.closest('.exam-card'), subject = card && card.querySelector('.exam-subject');
+      window.IMT.track('add_to_calendar', window.IMT.student(lastResult.roll),
+        { tool: 'exam_seat', course: subject ? subject.textContent.trim().slice(0, 90) : '' });
     }
   });
 
@@ -473,11 +475,15 @@
     backBtn.href = '../?roll=' + encodeURIComponent(v);
     entries = entries.slice().sort(function(a,b){ return sortKey(a) - sortKey(b); });
 
-    rollOut.textContent = v;
-    countOut.textContent = entries.length + (entries.length===1 ? ' paper' : ' papers');
-    var roster = rosterLine(v);
-    rollRoster.textContent = roster;
-    rollRoster.hidden = !roster;
+    // the name leads when the roster has it; the roll, the programme details
+    // and the number of papers follow as chips
+    var who = ROSTER[v], esc = window.IMT.escapeHtml;
+    rollOut.textContent = who && who.name ? who.name : v;
+    rollRoster.innerHTML = '<span class="id-chip id-chip-roll">Roll ' + esc(v) + '</span>' +
+      window.IMT.metaLine(window.IMT.student(v)).split(' · ').filter(Boolean).map(function(part){
+        return '<span class="id-chip">' + esc(part) + '</span>';
+      }).join('') +
+      '<span class="id-chip id-chip-count">' + entries.length + (entries.length===1 ? ' paper' : ' papers') + '</span>';
 
     var groups = [];
     var lastDate = null;
@@ -578,17 +584,19 @@
     document.getElementById('locked').hidden = false;
   }
   var IMT = window.IMT;
-  var fromUrl = IMT.rollFromUrl();
+  // (the installed app's "Weekly schedule" shortcut opens this page with
+  // no roll in the address: the one this device remembers is used)
+  var fromUrl = IMT.rollFromUrl() || IMT.savedRoll();
   var visitor = IMT.student(fromUrl);
   if(!fromUrl){
     window.location.replace('../');
   } else if(!visitor.groupKey){
     window.location.replace('../?roll=' + encodeURIComponent(fromUrl));
   } else if(IMT.examSeatLocked(visitor)){
-    IMT.track('tool_open', visitor, { tool: 'exam_seat', status: 'locked' });
+    IMT.track('tool_open', visitor, { tool: 'exam_seat', status: 'locked', entry: IMT.entry() });
     showCard('Exam Seat is locked', IMT.examLockedLabel(visitor) + '.', fromUrl);
   } else {
-    IMT.track('tool_open', visitor, { tool: 'exam_seat', status: ROLLS[fromUrl] ? 'shown' : 'no_seat' });
+    IMT.track('tool_open', visitor, { tool: 'exam_seat', status: ROLLS[fromUrl] ? 'shown' : 'no_seat', entry: IMT.entry() });
     showSeats(fromUrl);
   }
 })();

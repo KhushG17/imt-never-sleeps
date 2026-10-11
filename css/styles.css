@@ -945,3 +945,156 @@ button.btn-contact{ font:inherit; font-weight:600; font-size:13.5px; cursor:poin
 body.portal footer, body.tool footer{ padding-bottom:84px; }
 @media (prefers-reduced-motion: reduce){ .mess-panel{ animation:none; } .mess-fab:hover{ transform:none; } }
 @media print{ .mess-fab, .mess-panel{ display:none!important; } }
+
+/* ---------- the nav bar: links with icon and text; a menu on phones ---------- */
+.nav-link{
+  display:inline-flex; align-items:center; gap:7px; cursor:pointer;
+  font:600 13.5px var(--font-switzer); white-space:nowrap; text-decoration:none;
+  padding:9px 16px; border-radius:var(--radius-buttons);
+  border:1.5px solid var(--color-imt-navy); color:var(--color-imt-navy); background:var(--color-white-canvas);
+  transition:transform .15s cubic-bezier(.2,.8,.2,1), background .2s ease, color .2s ease;
+}
+.nav-link svg{ width:16px; height:16px; flex-shrink:0; }
+.nav-link:hover{ background:var(--color-imt-navy); color:#fff; transform:translateY(-2px); }
+.nav-link:active{ transform:translateY(0) scale(.97); }
+.nav-link.nav-install{ background:var(--color-imt-navy); color:#fff; }
+.nav-link.nav-install:hover{ background:var(--color-portrait-ink); border-color:var(--color-portrait-ink); }
+.nav-link:focus-visible, .nav-toggle:focus-visible{ outline:2px solid var(--color-imt-gold); outline-offset:2px; }
+.nav-toggle{
+  display:none; width:40px; height:40px; flex-shrink:0; border-radius:50%; cursor:pointer;
+  align-items:center; justify-content:center;
+  border:1.5px solid var(--color-imt-navy); color:var(--color-imt-navy); background:var(--color-white-canvas);
+  transition:background .2s ease, color .2s ease;
+}
+.nav-toggle svg{ width:19px; height:19px; }
+.nav-toggle[aria-expanded="true"]{ background:var(--color-imt-navy); color:#fff; }
+@media (max-width:720px){
+  .site-header{ perspective:none; }
+  .nav-toggle{ display:inline-flex; }
+  .nav-menu{
+    display:none; position:absolute; top:calc(100% + 8px); right:20px; z-index:31;
+    flex-direction:column; align-items:stretch; gap:2px; min-width:236px; max-width:calc(100vw - 40px);
+    padding:8px; background:var(--color-white-canvas); border-radius:20px;
+    box-shadow:var(--shadow-subtle-3), 0 20px 40px -16px rgba(8,48,76,.3);
+  }
+  .nav-menu.is-open{ display:flex; animation:messIn .16s cubic-bezier(.2,.8,.2,1); }
+  .nav-menu .nav-link{
+    border:0; border-radius:14px; padding:13px 14px; gap:12px; font-size:14.5px; text-align:left;
+    color:var(--color-portrait-ink); background:transparent; white-space:normal; transform:none;
+  }
+  .nav-menu .nav-link svg{ width:19px; height:19px; color:var(--color-imt-navy); }
+  .nav-menu .nav-link:hover{ background:var(--color-sky-wash); color:var(--color-portrait-ink); transform:none; }
+  .nav-menu .nav-link.nav-install{ background:var(--color-imt-navy); color:#fff; margin-top:4px; }
+  .nav-menu .nav-link.nav-install svg{ color:#fff; }
+  .nav-menu .nav-link.nav-install.is-hint{ background:var(--color-sky-wash); color:var(--color-portrait-ink); font-size:13px; }
+  .nav-menu .nav-link.nav-install.is-hint svg{ color:var(--color-imt-navy); }
+}
+@media (max-width:360px){ .nav-menu{ right:12px; } .nav-toggle{ width:38px; height:38px; } }
+@media (prefers-reduced-motion: reduce){ .nav-link:hover{ transform:none!important; } .nav-menu.is-open{ animation:none; } }
+@media print{ .nav-toggle, .nav-menu{ display:none!important; } }
+
+/* ---------- who this page is for: one card at the top of Weekly and Exam Seat ---------- */
+.ticket-head.id-card{
+  display:block; position:relative; overflow:hidden;
+  background:var(--color-white-canvas); border-radius:var(--radius-cards);
+  box-shadow:var(--shadow-subtle-2); padding:20px 22px 18px 26px; margin-bottom:24px;
+}
+.ticket-head.id-card::before{
+  /* the torch gold running into the wordmark navy, down the left edge */
+  content:""; position:absolute; left:0; top:0; bottom:0; width:6px;
+  background:linear-gradient(180deg, var(--color-imt-gold), var(--color-imt-navy));
+}
+.id-card .roll-lbl{ font-size:11.5px; letter-spacing:.07em; }
+.id-card .roll-val{ font-size:26px; line-height:1.2; margin-top:3px; }
+.id-chips{ display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+.id-chip{
+  font-size:12.5px; font-weight:600; white-space:nowrap; padding:5px 12px; border-radius:var(--radius-tags);
+  background:var(--color-sky-wash); color:var(--color-nautical-teal);
+}
+.id-chip-roll{ background:var(--color-imt-navy); color:#fff; letter-spacing:.02em; }
+.id-chip-count{ background:var(--color-peach-wash); color:var(--color-portrait-ink); }
+.id-card .actions{ margin:16px 0 0; padding-top:16px; border-top:1px solid var(--color-mist-hairline); }
+.id-card .cal-hint{ margin:12px 0 0; }
+@media (max-width:640px){
+  .tool .ticket-head.id-card{ padding:16px 16px 14px 20px; margin-bottom:20px; }
+  .tool .id-card .roll-val{ font-size:22px; }
+  .id-chip{ font-size:12px; padding:4px 10px; }
+  .tool .id-card .actions{ margin:14px 0 0; padding-top:14px; }
+}
+@media print{
+  .ticket-head.id-card{ box-shadow:none!important; border-radius:0; padding:0 0 8px; overflow:visible; }
+  .ticket-head.id-card::before{ display:none; }
+  .id-chip{ background:none!important; color:#000!important; padding:0 8px 0 0; }
+  .id-card .cal-hint{ display:none!important; }
+}
+
+/* "Install as an app" in the greeting card, beside "Not you?" */
+.greet-actions{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:18px; }
+.greet-actions .greet-clear{ margin-top:0; }
+.greet-install{ font-size:13px; padding:9px 18px; border-color:color-mix(in srgb, var(--color-imt-navy) 40%, transparent); color:var(--color-imt-navy); }
+.greet-install.is-hint{ font-size:12.5px; background:var(--color-sky-wash); border-color:transparent; }
+@media (max-width:480px){ .greet-actions{ flex-direction:column; align-items:center; } .greet-actions .btn-ghost{ white-space:nowrap; } }
+@media print{ .greet-actions{ display:none!important; } }
+
+/* ---------- RESET 2026 (HAWC): the poster's paper beige, deep teal and orange ---------- */
+.event-where{ display:flex; align-items:center; gap:4px; font-size:12px; margin-top:3px; opacity:.9; }
+.event-where svg{ width:13px; height:13px; flex-shrink:0; }
+.event-time{
+  position:relative; z-index:1; flex-shrink:0; white-space:nowrap;
+  font:700 12px var(--font-switzer); letter-spacing:.03em; padding:6px 11px; border-radius:var(--radius-tags);
+  background:rgba(255,255,255,.2); color:inherit;
+}
+.event-reset{
+  color:#0f4b45;
+  background:
+    linear-gradient(90deg, #0f4b45 0 6px, transparent 6px),
+    radial-gradient(140px 90px at 100% 0%, rgba(15,75,69,.16), transparent 70%),
+    radial-gradient(120px 80px at 0% 100%, rgba(232,146,28,.18), transparent 70%),
+    #f3ead8;
+  box-shadow:var(--shadow-subtle-2), inset 0 0 0 1px rgba(15,75,69,.14);
+  padding-left:20px;
+}
+/* the words run along the banner instead of stacking: title and "HAWC · Day n"
+   together, then the activity, then time and place. On a laptop that is one
+   line across the full width; on a phone it folds to two or three. */
+.event-reset .event-text{ display:flex; flex-wrap:wrap; align-items:center; column-gap:10px; row-gap:3px; }
+.event-reset .event-title{
+  order:1; font-size:21px; font-weight:800; letter-spacing:.04em; line-height:1.1; color:#0f4b45; text-transform:uppercase; white-space:nowrap;
+}
+.event-reset .event-title b{ color:#e8921c; font-style:italic; font-weight:800; margin-left:2px; display:inline-block; transform:rotate(-4deg); }
+.event-reset .event-by{
+  order:2; margin:0; opacity:1; white-space:nowrap;
+  font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  padding:3px 9px; border-radius:var(--radius-tags); background:#0f4b45; color:#f3ead8;
+}
+.event-reset .event-note{ order:3; flex-basis:100%; font-weight:700; font-size:13.5px; margin:0; opacity:1; color:#0f4b45; }
+.event-reset .event-where{ order:4; margin:0; color:#3d3d3d; }
+@media (min-width:860px){
+  .event-reset{ padding-top:14px; padding-bottom:14px; }
+  .event-reset .event-text{ flex-wrap:nowrap; column-gap:16px; }
+  .event-reset .event-note{ flex-basis:auto; flex:1; font-size:15px; padding-left:16px; border-left:1.5px solid rgba(15,75,69,.25); }
+  .event-reset .event-where{ font-size:13px; white-space:nowrap; padding:6px 12px; border-radius:var(--radius-tags); background:rgba(15,75,69,.09); color:#0f4b45; }
+}
+.event-reset .event-time{ background:#0f4b45; color:#f3ead8; }
+.event-reset .event-motif{ width:52px; height:52px; filter:none; }
+@media (prefers-reduced-motion: no-preference){
+  .event-reset .motif-reset{ animation:resetBob 3.2s ease-in-out infinite; }
+}
+@keyframes resetBob{ 0%, 100%{ transform:translateY(1.5px) rotate(-4deg); } 50%{ transform:translateY(-2.5px) rotate(4deg); } }
+@media (max-width:480px){
+  .event-reset{ gap:10px; padding:12px 12px 12px 18px; }
+  .event-reset .event-motif{ width:44px; height:44px; }
+  .event-reset .event-title{ font-size:18px; }
+  .event-reset .event-time{ font-size:11px; padding:5px 9px; }
+}
+.event-reset .event-link{ background:#e8921c; color:#12302c; }
+.event-reset .event-link:focus-visible{ outline-color:#0f4b45; }
+.event-reset .event-where{ font-weight:600; }
+@media (max-width:480px){
+  .event-reset .event-text{ column-gap:7px; }
+  .event-reset .event-title{ font-size:17px; letter-spacing:.02em; }
+  .event-reset .event-by{ font-size:9.5px; letter-spacing:.05em; padding:2px 7px; }
+  .event-reset .event-link{ width:40px; height:40px; }
+  .event-reset .event-motif{ width:40px; height:40px; }
+}
+@media (max-width:360px){ .event-reset .event-title{ font-size:15.5px; } .event-reset .event-motif{ width:34px; height:34px; } }
