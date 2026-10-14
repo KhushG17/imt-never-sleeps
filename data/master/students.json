@@ -2178,7 +2178,8 @@
    "CWB": "A",
    "DSCS": "A",
    "DSL-1": "A",
-   "LDM": "A"
+   "LDM": "A",
+   "PDRM": "A"
   },
   "group": "core",
   "major": "MKT",
@@ -2971,7 +2972,7 @@
    "CWB": "A",
    "EF": "A",
    "HRST": "A",
-   "PDRM": "A"
+   "PDRM": "B"
   },
   "group": "core",
   "major": "MKT",
@@ -3291,7 +3292,7 @@
    "CWB": "A",
    "DSCS": "A",
    "LDM": "A",
-   "PDRM": "A"
+   "PDRM": "B"
   },
   "group": "core",
   "major": "MKT",
@@ -5008,8 +5009,7 @@
    "CWB": "C",
    "DSCS": "A",
    "DSL-1": "B",
-   "LDM": "A",
-   "PDRM": "B"
+   "LDM": "A"
   },
   "group": "core",
   "major": "MKT",

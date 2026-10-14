@@ -779,6 +779,20 @@ every run, so correct the college's file in `all files/` (or
 
 ## Corrections received
 
+- **14 Oct 2026, PDRM sections, PGDM 2025-27 Term 5.** Khush sent the two
+  "APO Groups" lists for Pricing Dynamics and Revenue Management (Section A,
+  Section B). Tallied roll by roll against the master data: 139 students on
+  each side, 135 agree, every name matches. Four corrections, in
+  `data/config/overrides.json`:
+  - 250103016 and 250103039: Section A to Section B.
+  - 250101149: PDRM Section A added (the course list had no PDRM for him).
+  - 250103168: on neither list; most likely dropped PDRM (Khush), so PDRM is
+    taken off his courses (`"PDRM": null`); his other courses stay.
+  The lists also carry emails, phone numbers and dates of birth; nothing but
+  roll, name and section was read. They are kept in
+  `all files/_reference/`, which the update does not read, so they are never
+  taken for a student list.
+
 - **14 Oct 2026, roll 250103136 (PGDM Marketing 2025-27, Term 5).** The
   course list on file has him in Pricing Dynamics and Revenue Management
   (PDRM) Section A; Khush confirmed Section B. Set in

@@ -47,7 +47,23 @@
         "BF": "A"
       }
     },
-    "250103136": {
+    "250103016": {
+   "_why": "PDRM-B APO Groups list (received 14 Oct 2026) has her in Section B; the course list on file said A.",
+   "courses": { "PDRM": "B" }
+  },
+  "250103039": {
+   "_why": "PDRM-B APO Groups list (received 14 Oct 2026) has her in Section B; the course list on file said A.",
+   "courses": { "PDRM": "B" }
+  },
+  "250101149": {
+   "_why": "PDRM -A APO Groups list (received 14 Oct 2026) has him in Section A; the course list on file had no PDRM for him.",
+   "courses": { "PDRM": "A" }
+  },
+  "250103168": {
+   "_why": "On neither PDRM APO Groups list (14 Oct 2026); per Khush he has most likely dropped PDRM. His other courses stay.",
+   "courses": { "PDRM": null }
+  },
+  "250103136": {
    "_why": "Course list on file says PDRM Section A; Khush confirmed Section B (14 Oct 2026). Only this course changes.",
    "courses": { "PDRM": "B" }
   },

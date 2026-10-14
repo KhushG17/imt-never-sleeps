@@ -308,6 +308,9 @@ def build_master(overrides):
         if isinstance(entry.get("courses"), dict) and base.get("courses"):
             # a correction to one course's section keeps the student's other courses
             merged["courses"] = {**base["courses"], **entry["courses"]}
+        if isinstance(merged.get("courses"), dict):
+            # null takes a course away: "courses": { "PDRM": null }
+            merged["courses"] = {c: sec for c, sec in merged["courses"].items() if sec is not None}
         students[roll] = merged
 
     # a batch with only one section's list supplied: everyone else is in the other
