@@ -779,6 +779,14 @@ every run, so correct the college's file in `all files/` (or
 
 ## Corrections received
 
+- **14 Oct 2026, roll 250103136 (PGDM Marketing 2025-27, Term 5).** The
+  course list on file has him in Pricing Dynamics and Revenue Management
+  (PDRM) Section A; Khush confirmed Section B. Set in
+  `data/config/overrides.json` under `students`. A correction there can now
+  name just the course that changes: `"courses": { "PDRM": "B" }` keeps his
+  other courses as the file gives them (before, it would have replaced the
+  whole list).
+
 - **PGDM 2026-28, Term 2, Week 2, 12 to 18 Oct: a newer version of the whole
   week (received 12 Oct, as a picture of a 240 KB PDF; the PDF on file is the
   earlier 237 KB one, which the mail attachment and the upload page kept

@@ -303,7 +303,12 @@ def build_master(overrides):
                 weeks.setdefault(gkey, {})[week["start"]] = week
 
     for roll, entry in overrides["students"].items():
-        students[roll] = {**students.get(roll, {}), **entry}
+        base = students.get(roll, {})
+        merged = {**base, **{k: v for k, v in entry.items() if not k.startswith("_")}}
+        if isinstance(entry.get("courses"), dict) and base.get("courses"):
+            # a correction to one course's section keeps the student's other courses
+            merged["courses"] = {**base["courses"], **entry["courses"]}
+        students[roll] = merged
 
     # a batch with only one section's list supplied: everyone else is in the other
     defaulted = {}

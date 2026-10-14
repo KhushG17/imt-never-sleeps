@@ -47,7 +47,11 @@
         "BF": "A"
       }
     },
-    "TESTA": {
+    "250103136": {
+   "_why": "Course list on file says PDRM Section A; Khush confirmed Section B (14 Oct 2026). Only this course changes.",
+   "courses": { "PDRM": "B" }
+  },
+  "TESTA": {
       "name": "Test Alumni",
       "batch": "2027",
       "programme": "0101",
