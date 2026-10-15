@@ -1,0 +1,432 @@
+{
+ "batch": "2027",
+ "courses": {
+  "BF": "Behavioural Finance",
+  "BFSI&STY": "BFSI & Society",
+  "FIS": "Fixed Income Securities",
+  "HRM": "Human Resource Management",
+  "MLBFSI": "Machine Learning for BFSI",
+  "SERM": "Service Excellence & Relationship Management",
+  "VCPE": "Venture Capital & Private Equity"
+ },
+ "days": [
+  {
+   "date": "2026-10-19",
+   "note": "Holiday"
+  },
+  {
+   "date": "2026-10-20",
+   "note": "Holiday"
+  },
+  {
+   "date": "2026-10-21"
+  },
+  {
+   "date": "2026-10-22"
+  },
+  {
+   "date": "2026-10-23"
+  },
+  {
+   "date": "2026-10-24"
+  },
+  {
+   "date": "2026-10-25"
+  }
+ ],
+ "electives": [
+  "SERM",
+  "BF"
+ ],
+ "end": "2026-10-25",
+ "group": "bfs",
+ "mode": "section",
+ "revised": {
+  "days": [
+   "2026-10-21"
+  ],
+  "received": "2026-10-15"
+ },
+ "rowLabel": "Section",
+ "rows": [
+  "A",
+  "B"
+ ],
+ "sessions": [
+  {
+   "c": "FIS",
+   "d": 2,
+   "grp": null,
+   "n": 8,
+   "room": "New Audi",
+   "row": "A",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "FIS",
+   "d": 2,
+   "grp": null,
+   "n": 8,
+   "room": "New Audi",
+   "row": "B",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "FIS",
+   "d": 2,
+   "grp": null,
+   "n": 8,
+   "room": "New Audi",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "FIS",
+   "d": 2,
+   "grp": null,
+   "n": 8,
+   "room": "New Audi",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "SERM",
+   "d": 2,
+   "grp": null,
+   "n": 7,
+   "room": "C-001",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "SERM",
+   "d": 2,
+   "grp": null,
+   "n": 8,
+   "room": "C-001",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 2,
+   "grp": null,
+   "n": 10,
+   "room": "C-002",
+   "row": "B",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 2,
+   "grp": null,
+   "n": 10,
+   "room": "C-001",
+   "row": "A",
+   "s": 5,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 4,
+   "grp": null,
+   "n": 13,
+   "room": "C-002",
+   "row": "B",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "FIS",
+   "d": 4,
+   "grp": null,
+   "n": 9,
+   "room": "C-001",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 4,
+   "grp": null,
+   "n": 14,
+   "room": "C-002",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 4,
+   "grp": null,
+   "n": 13,
+   "room": "C-001",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "FIS",
+   "d": 4,
+   "grp": null,
+   "n": 9,
+   "room": "C-002",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "BF",
+   "d": 4,
+   "grp": null,
+   "n": 7,
+   "room": "C-001",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 4,
+   "grp": null,
+   "n": 14,
+   "room": "C-001",
+   "row": "A",
+   "s": 5,
+   "sec": null
+  },
+  {
+   "c": "BFSI&STY",
+   "d": 5,
+   "grp": null,
+   "n": 5,
+   "room": "C-001",
+   "row": "A",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "VCPE",
+   "d": 5,
+   "grp": null,
+   "n": 8,
+   "room": "C-002",
+   "row": "B",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 5,
+   "grp": null,
+   "n": 15,
+   "room": "C-001",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "BFSI&STY",
+   "d": 5,
+   "grp": null,
+   "n": 5,
+   "room": "C-002",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "VCPE",
+   "d": 5,
+   "grp": null,
+   "n": 8,
+   "room": "C-001",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 5,
+   "grp": null,
+   "n": 15,
+   "room": "C-002",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "VCPE",
+   "d": 5,
+   "grp": null,
+   "n": 9,
+   "room": "C-001",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 5,
+   "grp": null,
+   "n": 16,
+   "room": "C-002",
+   "row": "B",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 5,
+   "grp": null,
+   "n": 16,
+   "room": "C-001",
+   "row": "A",
+   "s": 6,
+   "sec": null
+  },
+  {
+   "c": "VCPE",
+   "d": 6,
+   "grp": null,
+   "n": 10,
+   "room": "C-001",
+   "row": "A",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "BFSI&STY",
+   "d": 6,
+   "grp": null,
+   "n": 6,
+   "room": "C-002",
+   "row": "B",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "BFSI&STY",
+   "d": 6,
+   "grp": null,
+   "n": 6,
+   "room": "C-001",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 6,
+   "grp": null,
+   "n": 17,
+   "room": "C-002",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 6,
+   "grp": null,
+   "n": 17,
+   "room": "C-001",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "VCPE",
+   "d": 6,
+   "grp": null,
+   "n": 9,
+   "room": "C-002",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "VCPE",
+   "d": 6,
+   "grp": null,
+   "n": 10,
+   "room": "C-002",
+   "row": "B",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 6,
+   "grp": null,
+   "n": 18,
+   "room": "C-001",
+   "row": "A",
+   "s": 5,
+   "sec": null
+  },
+  {
+   "c": "MLBFSI",
+   "d": 6,
+   "grp": null,
+   "n": 18,
+   "room": "C-002",
+   "row": "B",
+   "s": 6,
+   "sec": null
+  }
+ ],
+ "slots": [
+  [
+   "09:00",
+   "10:15"
+  ],
+  [
+   "10:30",
+   "11:45"
+  ],
+  [
+   "12:00",
+   "13:15"
+  ],
+  [
+   "14:15",
+   "15:30"
+  ],
+  [
+   "15:45",
+   "17:00"
+  ],
+  [
+   "17:30",
+   "18:45"
+  ],
+  [
+   "19:00",
+   "20:15"
+  ]
+ ],
+ "source": "all files/batch 2027/bfs/term 5/weekly/Week-3 Class Schedule Term-5 BFS-II (2025-27) Batch.pdf",
+ "specials": [
+  {
+   "d": 3,
+   "rows": [
+    "B"
+   ],
+   "s": 0,
+   "span": 7,
+   "text": "VB-SSR"
+  }
+ ],
+ "start": "2026-10-19",
+ "term": 5,
+ "weekNumber": 3
+}

@@ -122,9 +122,12 @@ def describe(path):
             info["kind"] = "courses"
     else:
         return info
-    m = re.search(r"(20\d{2})\s*[-–]\s*(\d{2})\b", text)
-    if m and not info["batch"]:
-        info["batch"] = "20" + m.group(2)
+    # "2025-27" names the batch; a date range such as "19/10/2026 - 25/10/2026"
+    # can look the same ("2026 - 25"), so only a pair two years apart counts
+    for m in re.finditer(r"(20\d{2})\s*[-–]\s*(\d{2})\b", text):
+        if not info["batch"] and int(m.group(2)) == int(m.group(1)[2:]) + 2:
+            info["batch"] = "20" + m.group(2)
+            break
     upper = text.upper()
     info["group"] = "dcp" if "DCP" in upper else "bfs" if "BFS" in upper else "core"
     m = re.search(r"TERM\s*[-–]?\s*(VI|IV|V|III|II|I|[1-6])\b", upper) or re.search(r"\bT\s*-\s*(VI|IV|V|III|II|I)\b", upper)
@@ -502,6 +505,26 @@ def parse_weekly(path):
         raise ParseError("no time-slot header row found")
     if len(sessions) != raw_count:
         raise ParseError("the PDF text has %d class entries but %d were read from the grid" % (raw_count, len(sessions)))
+
+    # an entry filling a whole day for every row ("Holiday - Mahashtami") is a
+    # note for that day, not a class-like entry
+    kept = []
+    for sp in specials:
+        if sp["s"] == 0 and sp["span"] == len(slots) and row_keys and set(sp["rows"]) >= set(row_keys):
+            notes[sp["d"]] = (notes.get(sp["d"], "") + " " + sp["text"]).strip()
+        else:
+            kept.append(sp)
+    # the same entry written in every slot of a row ("VB-SSR" seven times) is one
+    # entry across those slots
+    merged = []
+    for sp in sorted(kept, key=lambda x: (str(x["d"]), tuple(x["rows"]), x["s"])):
+        last = merged[-1] if merged else None
+        if (last and last["d"] == sp["d"] and last["rows"] == sp["rows"] and last["text"] == sp["text"]
+                and last["s"] + last["span"] == sp["s"]):
+            last["span"] += sp["span"]
+        else:
+            merged.append(sp)
+    specials[:] = merged
 
     dated = sorted({x for x in [s["d"] for s in sessions] + [s["d"] for s in specials] + list(notes) if isinstance(x, dt.date)})
     if not dated:

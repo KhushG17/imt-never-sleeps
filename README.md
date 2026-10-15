@@ -862,6 +862,20 @@ every run, so correct the college's file in `all files/` (or
 
 ## Corrections received
 
+- **15 Oct 2026, BFS 2025-27 Term 5, Week 3 (19 to 25 Oct).** 33 classes.
+  - The first run filed it under a batch "2025": the classifier took the
+    week's dates ("19/10/2026 - 25/10/2026" reads as "2026 - 25") for the
+    batch. It now only accepts a pair two years apart ("2025-27"). Refiled
+    under 2027.
+  - Whole-day rows for both sections ("Holiday - Mahashtami") are now read
+    as that day's note, and an entry repeated in every slot of a row
+    (Section B's "VB-SSR" on Thursday) as one entry across the day.
+  - The Wed 21 Oct Fixed Income Securities guest lecture (FIS-(8), 9:00 and
+    10:30) is for Sections A and B together in New Audi; the PDF row gave it
+    to Section A in C-001 only. Set right in `weekly-revisions.json`, with
+    Mon and Tue shown as "Holiday" like every programme.
+  No other week on file changed.
+
 - **15 Oct 2026, PGDM 2025-27 Term 5, Week 3 (19 to 25 Oct).** Loaded from
   the PDF: 54 classes. Two things in this PDF the reader had not met before,
   now handled in `scripts/parsers.py`:
