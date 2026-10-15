@@ -743,9 +743,10 @@ The documents:
 - Load the Term 2 and Term 5 seating plan when it is released (see
   "Unlocking Exam Seat"); the matching of each student to their paper is
   built and simulated.
-- When next week's BFS 2026-28 schedule arrives, shift Introduction to
-  Financial Markets session numbers down by one until the postponed class
+- Each new BFS 2026-28 week: shift Introduction to Financial Markets
+  session numbers down by one (done for Week 3) until the postponed class
   is held.
+- Week 3 (19 to 25 Oct) still to come for both DCP batches.
 
 **Stage B:** waits for IMT's permission and requirement list.
 
@@ -861,6 +862,24 @@ every run, so correct the college's file in `all files/` (or
 `data/config/overrides.json`), never the master file itself.
 
 ## Corrections received
+
+- **16 Oct 2026, PGDM 2026-28 Term 2 and BFS 2026-28 Term 2, Week 3 (19 to
+  25 Oct).** 87 and 24 classes. The PGDM file is named "PGDM - II (205-27)
+  Term - V" but its contents are PGDM 2026-28 Term II; it is filed by its
+  contents, under 2028.
+  - PGDM: the "Mon - Tue" holiday row above Wednesday pushed every day band
+    down a row, so Thursday's Section A classes were read as Wednesday's.
+    `day_bands` now leaves such a row out of the bands (it is still read as
+    both days' note).
+  - PGDM Saturday rows carry only a room, no section. A class there (BR(10)
+    in 501) now goes to the section that has that room all week (A); the
+    Design Thinking groups show to their groups as before.
+  - BFS: Introduction to Financial Markets is printed as IFM-(4) and IFM-(5);
+    shown as sessions 3 and 4 because the 15 Oct class was postponed. The
+    holiday cell spanning both days is shown as "Holiday" for both sections
+    (a revision's day note now replaces a whole-day entry on that day).
+  - Both show "Holiday" on Mon and Tue, like every programme.
+  No other week on file changed.
 
 - **15 Oct 2026, BFS 2025-27 Term 5, Week 3 (19 to 25 Oct).** 33 classes.
   - The first run filed it under a batch "2025": the classifier took the

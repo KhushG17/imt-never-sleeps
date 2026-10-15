@@ -107,6 +107,15 @@
           "F": ["", "", "LAB(3)SNS", "", ""]
         }
       }
+    },
+    "2026-10-19": {
+      "received": "2026-10-16",
+      "from": "Khush: the PDF's day note \"Mahashtami & Dussehra Holiday\" is shown simply as \"Holiday\" (the festival greeting above it names the day)",
+      "days": {},
+      "notes": {
+        "2026-10-19": "Holiday",
+        "2026-10-20": "Holiday"
+      }
     }
   },
   "2027-bfs": {
@@ -149,6 +158,24 @@
           "A": ["", "IFM(2)", "BV(6)", "SEBP(5)", "", ""],
           "B": ["IFM(2)", "FSA(4)", "SEBP(5)", "BV(6)", "", ""]
         }
+      }
+    },
+    "2026-10-19": {
+      "received": "2026-10-16",
+      "from": "Week-3 PDF: Introduction to Financial Markets is numbered IFM-(4) and IFM-(5), counting the Thu 15 Oct class that was postponed (Program Office mail, 14 Oct); shown as sessions 3 and 4, as Khush asked. Holiday rows shown as \"Holiday\", as for every programme",
+      "days": {
+        "2026-10-22": {
+          "A": ["MM(7)", "IFM(3)", "FSA(6)", "BV(7)", "", ""],
+          "B": ["IFM(3)", "MM(7)", "BV(7)", "", "", ""]
+        },
+        "2026-10-24": {
+          "A": ["", "IFM(4)", "CB(5)", "CB(6)", "", ""],
+          "B": ["CB(5)", "CB(6)", "IFM(4)", "", "", ""]
+        }
+      },
+      "notes": {
+        "2026-10-19": "Holiday",
+        "2026-10-20": "Holiday"
       }
     }
   }

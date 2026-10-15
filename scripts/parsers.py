@@ -279,6 +279,9 @@ def split_timed(text):
     return out if out and text[sum(len(m.group(0)) for m in re.finditer(r"\s*(.+?)\s*\[([^\[\]]*)\]\s*-\s*(\S+)", text)):].strip() == "" else []
 
 
+SPAN = "span"  # day_bands: a row standing for several days, read from its own text
+
+
 def day_bands(path, years):
     """Which day each table row belongs to, worked out from where the day
     labels sit on the page: {(page index, table index): [day per row]}.
@@ -313,6 +316,12 @@ def day_bands(path, years):
                 continue
             header = [i for i, r in enumerate(rows) if sum(1 for c in r if parse_slot(clean(c))) >= 3]
             first = header[-1] + 1 if header else 0
+            # a row standing for several holiday days ("Mon - Tue (Oct. 19 - 20, 2026")
+            # above the first day label is not part of any day's band
+            spans = 0
+            while first + spans < len(rows) and any(parse_day_span(clean(c)) for c in rows[first + spans] if c):
+                spans += 1
+            first += spans
             if first >= len(rows):
                 continue
             x0, top, x1, bottom = table.bbox[0], boxes[first][1], table.bbox[2], boxes[-1][3]
@@ -337,7 +346,7 @@ def day_bands(path, years):
                 edge += height
             if not bands or abs(edge - bottom) > 14:
                 continue
-            days = [None] * first
+            days = [None] * (first - spans) + [SPAN] * spans
             for box in boxes[first:]:
                 centre = (box[1] + box[3]) / 2
                 hit = [d for lo, hi, d in bands if lo <= centre < hi]
@@ -413,7 +422,7 @@ def parse_weekly(path):
                     continue  # title rows above the first header
 
                 day_text = cells[cols["day"]] if cols["day"] < len(cells) else ""
-                if banded:
+                if banded and banded[r_index] != SPAN:
                     # the day comes from where the row sits on the page; a whole date
                     # written in the row itself must agree with it
                     placed = banded[r_index]
@@ -505,6 +514,16 @@ def parse_weekly(path):
         raise ParseError("no time-slot header row found")
     if len(sessions) != raw_count:
         raise ParseError("the PDF text has %d class entries but %d were read from the grid" % (raw_count, len(sessions)))
+
+    # a row with only a room and no section ("501" on a Saturday) belongs to the
+    # section that has that room all week
+    room_rows = {}
+    for x in sessions:
+        if x["row"] and x["room"]:
+            room_rows.setdefault(x["room"], set()).add(x["row"])
+    for x in sessions:
+        if not x["row"] and not x["grp"] and len(room_rows.get(x["room"], ())) == 1:
+            x["row"] = next(iter(room_rows[x["room"]]))
 
     # an entry filling a whole day for every row ("Holiday - Mahashtami") is a
     # note for that day, not a class-like entry

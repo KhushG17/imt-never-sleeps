@@ -208,6 +208,9 @@ def revise_week(week, gkey):
         if date not in dates:
             raise ValueError("note for %s is not in the week of %s" % (date, week["start"]))
         week["days"][dates.index(date)]["note"] = text
+        # the note stands for the day: a whole-day entry on it ("Holiday - ...") goes
+        week["specials"] = [sp for sp in week.get("specials", []) if not (
+            sp["d"] == dates.index(date) and sp["s"] == 0 and sp["span"] == len(week["slots"]))]
     revised = {dates.index(date) for date in revision["days"]}
     before = sum(1 for s in week["sessions"] if s["d"] in revised)
     week["sessions"] = [s for s in week["sessions"] if s["d"] not in revised] + fresh
