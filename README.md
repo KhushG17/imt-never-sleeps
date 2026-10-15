@@ -312,6 +312,9 @@ any student whatever the timeline says. Real batches switch by date.
     just "Holiday" (set in `weekly-revisions.json`; the PDF says "Mahashtami &
     Dussehra Holiday"). Theme "festival",
     with `icon` "lotus" or "bow"; reusable for Diwali and other festivals.
+    Holiday for everyone (15 Oct): both days carry `holiday: "Holiday"`, so
+    every programme shows "Holiday" under the greeting, even where that
+    week's schedule is not uploaded yet.
     Animated (15 Oct): the lotus petals open and close, the bow draws and
     shoots its arrow, sparks drift up and a sheen sweeps the banner; all of
     it stops for devices set to reduce motion.

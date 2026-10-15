@@ -68,13 +68,16 @@ window.PORTAL_CONFIG = {
   //           orange; the title's year is picked out in orange)
   //   icon  - for the "reset" theme, the picture on the left: "football",
   //           "strength" or "rope"
+  //   holiday - optional; the day is a holiday for every student: this text
+  //           ("Holiday") is shown under the banner in every programme, even
+  //           where that week's schedule is not uploaded
   //   time  - optional; shown as a small tag on the right ("6:30 PM"), or
   //           before the venue when the occasion also has a link
   //   where - optional; the venue, shown after the note
   // An occasion that runs over several days gets one entry per date.
   events: [
-    { date: "2026-10-19", title: "Happy Mahashtami", theme: "festival", icon: "lotus" },
-    { date: "2026-10-20", title: "Happy Dussehra", theme: "festival", icon: "bow" },
+    { date: "2026-10-19", title: "Happy Mahashtami", theme: "festival", icon: "lotus", holiday: "Holiday" },
+    { date: "2026-10-20", title: "Happy Dussehra", theme: "festival", icon: "bow", holiday: "Holiday" },
     { date: "2026-10-15", title: "RESET 2026", by: "HAWC · Day 1", note: "Penalty Shootout",
       where: "Football Ground", time: "6:30 PM", link: "https://forms.gle/PoV2eyZwjzAt9gRYA", theme: "reset", icon: "football", place: "after" },
     { date: "2026-10-16", title: "RESET 2026", by: "HAWC · Day 2", note: "Arm Wrestling, Team Balance",

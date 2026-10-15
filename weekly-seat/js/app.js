@@ -225,6 +225,11 @@
     }
     return out + '<circle r="20" fill="#f7d98a"/><circle r="20" fill="none" stroke="#c9972f" stroke-width="2"/></svg>';
   }
+  // "Holiday" when an occasion on that date marks the day as a holiday for all
+  function holidayOn(date){
+    var h = ((IMT.config.events) || []).filter(function(e){ return e.date === date && e.holiday; })[0];
+    return h ? h.holiday : '';
+  }
   function eventsOn(date, place){
     return ((IMT.config.events) || []).filter(function(e){
       return e.date === date && (!place || (e.place === 'after' ? 'after' : 'top') === place);
@@ -450,7 +455,8 @@
           '<div class="day-title">' + name + ', ' + p.d + ' ' + MONTHS[p.mo] + ' ' + p.y +
           (slot.date === E ? '<span class="today-badge">' + (E === realToday ? 'Today' : 'Tomorrow') + '</span>' : '') + '</div>' +
           eventsOn(slot.date, 'top').map(eventBanner).join('') +
-          '<div class="day-free">The class schedule for this day is not uploaded yet.</div>' +
+          (holidayOn(slot.date) ? '<div class="day-note">' + IMT.escapeHtml(holidayOn(slot.date)) + '</div>'
+                               : '<div class="day-free">The class schedule for this day is not uploaded yet.</div>') +
           eventsOn(slot.date, 'after').map(eventBanner).join('') + '</div>';
       }
       var data = shown[slot.wi].data, view = shown[slot.wi].view, di = slot.di, day = data.days[di];
@@ -464,8 +470,10 @@
         (isCurrent ? '<span class="today-badge">' + (E === realToday ? 'Today' : 'Tomorrow') + '</span>' : '') + '</div>';
       var occasions = day.date >= E ? eventsOn(day.date, 'top') : []; // gone once its day has passed
       var afterClasses = day.date >= E ? eventsOn(day.date, 'after') : []; // held once classes are over
+      // a holiday for everyone (set on an occasion) shows unless the schedule has its own note
+      var note = day.note || holidayOn(day.date);
       var body = occasions.map(eventBanner).join('') +
-        (day.note ? '<div class="day-note">' + IMT.escapeHtml(day.note) + '</div>' : '');
+        (note ? '<div class="day-note">' + IMT.escapeHtml(note) + '</div>' : '');
 
       // classes and one-off entries share the grid, in time order
       var cards = classes.map(function(x){ return { s: x.s, row: x.row || '', html: function(){
