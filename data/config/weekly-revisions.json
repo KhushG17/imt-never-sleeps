@@ -109,6 +109,17 @@
       }
     }
   },
+  "2027-core": {
+    "2026-10-19": {
+      "received": "2026-10-15",
+      "from": "Khush: the PDF's day note \"Mahashtami & Dussehra Holiday\" is shown simply as \"Holiday\" (the festival greeting above it names the day)",
+      "days": {},
+      "notes": {
+        "2026-10-19": "Holiday",
+        "2026-10-20": "Holiday"
+      }
+    }
+  },
   "2028-bfs": {
     "2026-10-12": {
       "received": "2026-10-14",

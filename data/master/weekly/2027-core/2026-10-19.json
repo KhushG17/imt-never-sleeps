@@ -1,0 +1,634 @@
+{
+ "batch": "2027",
+ "courses": {
+  "BAM": "Business Analytics for Managers",
+  "BF": "Behavioral Finance",
+  "CM": "Channel Management",
+  "CSIW": "Creating and Sustaining an Inclusive Workplace",
+  "CTM": "Customer and Trade Marketing",
+  "CWB": "Creating Winning Brands",
+  "DSCS": "Digital Supply Chain Strategy",
+  "DSL1": "Digital and Social Media Tools-Lab1",
+  "EF": "Entrepreneurial Finance",
+  "FTBA": "Forecasting Techniques for Business Applications",
+  "HRST": "HR for Start-ups",
+  "ITC": "IT Consulting, Outsourcing and Vendor Management",
+  "LDM": "Logistics and Distribution Management",
+  "LEX": "Leadership Excellence: Creating High-Performing Teams",
+  "MDP": "Managing Digital Products and Projects",
+  "VCPE": "Venture Capital and Private Equity"
+ },
+ "days": [
+  {
+   "date": "2026-10-19",
+   "note": "Holiday"
+  },
+  {
+   "date": "2026-10-20",
+   "note": "Holiday"
+  },
+  {
+   "date": "2026-10-21"
+  },
+  {
+   "date": "2026-10-22",
+   "note": "SSR Visits"
+  },
+  {
+   "date": "2026-10-23"
+  },
+  {
+   "date": "2026-10-24"
+  },
+  {
+   "date": "2026-10-25"
+  }
+ ],
+ "electives": [],
+ "end": "2026-10-25",
+ "group": "core",
+ "mode": "course",
+ "revised": {
+  "days": [],
+  "received": "2026-10-15"
+ },
+ "rowLabel": null,
+ "rows": [],
+ "sessions": [
+  {
+   "c": "CM",
+   "d": 2,
+   "grp": null,
+   "n": 7,
+   "room": "C-201",
+   "row": null,
+   "s": 0,
+   "sec": "A"
+  },
+  {
+   "c": "BAM",
+   "d": 2,
+   "grp": null,
+   "n": 6,
+   "room": "Eklavya",
+   "row": null,
+   "s": 1,
+   "sec": "A"
+  },
+  {
+   "c": "CM",
+   "d": 2,
+   "grp": null,
+   "n": 8,
+   "room": "C-201",
+   "row": null,
+   "s": 1,
+   "sec": "A"
+  },
+  {
+   "c": "ITC",
+   "d": 2,
+   "grp": null,
+   "n": 5,
+   "room": "C-202",
+   "row": null,
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "CWB",
+   "d": 2,
+   "grp": null,
+   "n": 6,
+   "room": "C-201",
+   "row": null,
+   "s": 4,
+   "sec": "C"
+  },
+  {
+   "c": "CTM",
+   "d": 2,
+   "grp": null,
+   "n": 7,
+   "room": "C-201",
+   "row": null,
+   "s": 5,
+   "sec": "A"
+  },
+  {
+   "c": "CTM",
+   "d": 4,
+   "grp": null,
+   "n": 8,
+   "room": "C-202",
+   "row": null,
+   "s": 0,
+   "sec": "A"
+  },
+  {
+   "c": "CTM",
+   "d": 4,
+   "grp": null,
+   "n": 9,
+   "room": "C-202",
+   "row": null,
+   "s": 1,
+   "sec": "A"
+  },
+  {
+   "c": "CWB",
+   "d": 4,
+   "grp": null,
+   "n": 6,
+   "room": "C-201",
+   "row": null,
+   "s": 1,
+   "sec": "B"
+  },
+  {
+   "c": "FTBA",
+   "d": 4,
+   "grp": null,
+   "n": 9,
+   "room": "Eklavya",
+   "row": null,
+   "s": 1,
+   "sec": "A"
+  },
+  {
+   "c": "DSCS",
+   "d": 4,
+   "grp": null,
+   "n": 7,
+   "room": "C-202",
+   "row": null,
+   "s": 2,
+   "sec": "A"
+  },
+  {
+   "c": "ITC",
+   "d": 4,
+   "grp": null,
+   "n": 6,
+   "room": "C-403",
+   "row": null,
+   "s": 2,
+   "sec": "A"
+  },
+  {
+   "c": "LEX",
+   "d": 4,
+   "grp": null,
+   "n": 7,
+   "room": "C-201",
+   "row": null,
+   "s": 2,
+   "sec": "A"
+  },
+  {
+   "c": "DSCS",
+   "d": 4,
+   "grp": null,
+   "n": 8,
+   "room": "C-202",
+   "row": null,
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "EF",
+   "d": 4,
+   "grp": null,
+   "n": 5,
+   "room": "C-403",
+   "row": null,
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "FTBA",
+   "d": 4,
+   "grp": null,
+   "n": 9,
+   "room": "Eklavya",
+   "row": null,
+   "s": 3,
+   "sec": "B"
+  },
+  {
+   "c": "LEX",
+   "d": 4,
+   "grp": null,
+   "n": 8,
+   "room": "C-201",
+   "row": null,
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "EF",
+   "d": 4,
+   "grp": null,
+   "n": 6,
+   "room": "C-403",
+   "row": null,
+   "s": 4,
+   "sec": "A"
+  },
+  {
+   "c": "LDM",
+   "d": 4,
+   "grp": null,
+   "n": 8,
+   "room": "C-403",
+   "row": null,
+   "s": 4,
+   "sec": "A"
+  },
+  {
+   "c": "LEX",
+   "d": 4,
+   "grp": null,
+   "n": 9,
+   "room": "C-201",
+   "row": null,
+   "s": 4,
+   "sec": "A"
+  },
+  {
+   "c": "DSL1",
+   "d": 4,
+   "grp": null,
+   "n": 5,
+   "room": "C-201",
+   "row": null,
+   "s": 5,
+   "sec": "B"
+  },
+  {
+   "c": "VCPE",
+   "d": 4,
+   "grp": null,
+   "n": 5,
+   "room": "C-403",
+   "row": null,
+   "s": 5,
+   "sec": "A"
+  },
+  {
+   "c": "DSL1",
+   "d": 4,
+   "grp": null,
+   "n": 6,
+   "room": "C-201",
+   "row": null,
+   "s": 6,
+   "sec": "B"
+  },
+  {
+   "c": "VCPE",
+   "d": 4,
+   "grp": null,
+   "n": 6,
+   "room": "C-403",
+   "row": null,
+   "s": 6,
+   "sec": "A"
+  },
+  {
+   "c": "DSL1",
+   "d": 5,
+   "grp": null,
+   "n": 5,
+   "room": "C-201",
+   "row": null,
+   "s": 0,
+   "sec": "A"
+  },
+  {
+   "c": "VCPE",
+   "d": 5,
+   "grp": null,
+   "n": 7,
+   "room": "C-403",
+   "row": null,
+   "s": 0,
+   "sec": "A"
+  },
+  {
+   "c": "DSL1",
+   "d": 5,
+   "grp": null,
+   "n": 6,
+   "room": "C-201",
+   "row": null,
+   "s": 1,
+   "sec": "A"
+  },
+  {
+   "c": "VCPE",
+   "d": 5,
+   "grp": null,
+   "n": 8,
+   "room": "C-403",
+   "row": null,
+   "s": 1,
+   "sec": "A"
+  },
+  {
+   "c": "CSIW",
+   "d": 5,
+   "grp": null,
+   "n": 7,
+   "room": "C-201",
+   "row": null,
+   "s": 2,
+   "sec": "A"
+  },
+  {
+   "c": "EF",
+   "d": 5,
+   "grp": null,
+   "n": 7,
+   "room": "C-403",
+   "row": null,
+   "s": 2,
+   "sec": "A"
+  },
+  {
+   "c": "MDP",
+   "d": 5,
+   "grp": null,
+   "n": 9,
+   "room": "C-202",
+   "row": null,
+   "s": 2,
+   "sec": "A"
+  },
+  {
+   "c": "CSIW",
+   "d": 5,
+   "grp": null,
+   "n": 8,
+   "room": "C-201",
+   "row": null,
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "EF",
+   "d": 5,
+   "grp": null,
+   "n": 8,
+   "room": "C-403",
+   "row": null,
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "FTBA",
+   "d": 5,
+   "grp": null,
+   "n": 10,
+   "room": "Eklavya",
+   "row": null,
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "MDP",
+   "d": 5,
+   "grp": null,
+   "n": 10,
+   "room": "C-202",
+   "row": null,
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "FTBA",
+   "d": 5,
+   "grp": null,
+   "n": 10,
+   "room": "Eklavya",
+   "row": null,
+   "s": 4,
+   "sec": "B"
+  },
+  {
+   "c": "HRST",
+   "d": 5,
+   "grp": null,
+   "n": 7,
+   "room": "C-403",
+   "row": null,
+   "s": 4,
+   "sec": "A"
+  },
+  {
+   "c": "ITC",
+   "d": 5,
+   "grp": null,
+   "n": 7,
+   "room": "C-202",
+   "row": null,
+   "s": 4,
+   "sec": "A"
+  },
+  {
+   "c": "BF",
+   "d": 5,
+   "grp": null,
+   "n": 3,
+   "room": "C-201",
+   "row": null,
+   "s": 5,
+   "sec": "A"
+  },
+  {
+   "c": "HRST",
+   "d": 5,
+   "grp": null,
+   "n": 8,
+   "room": "C-403",
+   "row": null,
+   "s": 5,
+   "sec": "A"
+  },
+  {
+   "c": "ITC",
+   "d": 5,
+   "grp": null,
+   "n": 8,
+   "room": "C-202",
+   "row": null,
+   "s": 5,
+   "sec": "A"
+  },
+  {
+   "c": "BF",
+   "d": 5,
+   "grp": null,
+   "n": 4,
+   "room": "C-201",
+   "row": null,
+   "s": 6,
+   "sec": "A"
+  },
+  {
+   "c": "HRST",
+   "d": 5,
+   "grp": null,
+   "n": 9,
+   "room": "C-403",
+   "row": null,
+   "s": 6,
+   "sec": "A"
+  },
+  {
+   "c": "HRST",
+   "d": 6,
+   "grp": null,
+   "n": 10,
+   "room": "C-403",
+   "row": null,
+   "s": 0,
+   "sec": "A"
+  },
+  {
+   "c": "BAM",
+   "d": 6,
+   "grp": null,
+   "n": 7,
+   "room": "C-403",
+   "row": null,
+   "s": 1,
+   "sec": "B"
+  },
+  {
+   "c": "HRST",
+   "d": 6,
+   "grp": null,
+   "n": 11,
+   "room": "C-403",
+   "row": null,
+   "s": 1,
+   "sec": "A"
+  },
+  {
+   "c": "BAM",
+   "d": 6,
+   "grp": null,
+   "n": 7,
+   "room": "Eklavya",
+   "row": null,
+   "s": 2,
+   "sec": "A"
+  },
+  {
+   "c": "BAM",
+   "d": 6,
+   "grp": null,
+   "n": 8,
+   "room": "C-403",
+   "row": null,
+   "s": 2,
+   "sec": "B"
+  },
+  {
+   "c": "HRST",
+   "d": 6,
+   "grp": null,
+   "n": 12,
+   "room": "C-403",
+   "row": null,
+   "s": 2,
+   "sec": "A"
+  },
+  {
+   "c": "BAM",
+   "d": 6,
+   "grp": null,
+   "n": 8,
+   "room": "Eklavya",
+   "row": null,
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "EF",
+   "d": 6,
+   "grp": null,
+   "n": 9,
+   "room": "C-403",
+   "row": null,
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "EF",
+   "d": 6,
+   "grp": null,
+   "n": 10,
+   "room": "C-403",
+   "row": null,
+   "s": 4,
+   "sec": "A"
+  },
+  {
+   "c": "BF",
+   "d": 6,
+   "grp": null,
+   "n": 5,
+   "room": "C-201",
+   "row": null,
+   "s": 5,
+   "sec": "A"
+  },
+  {
+   "c": "BF",
+   "d": 6,
+   "grp": null,
+   "n": 6,
+   "room": "C-201",
+   "row": null,
+   "s": 6,
+   "sec": "A"
+  }
+ ],
+ "slots": [
+  [
+   "08:45",
+   "10:00"
+  ],
+  [
+   "10:15",
+   "11:30"
+  ],
+  [
+   "11:45",
+   "13:00"
+  ],
+  [
+   "14:00",
+   "15:15"
+  ],
+  [
+   "15:30",
+   "16:45"
+  ],
+  [
+   "17:15",
+   "18:30"
+  ],
+  [
+   "18:45",
+   "20:00"
+  ]
+ ],
+ "source": "all files/batch 2027/core/term 5/weekly/3-Weekly Schedule of PGDM - II (205-27) Term - V during Oct. 19 - 25, 2026.pdf",
+ "specials": [],
+ "start": "2026-10-19",
+ "term": 5,
+ "weekNumber": 3
+}

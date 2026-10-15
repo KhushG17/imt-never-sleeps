@@ -179,6 +179,19 @@ def parse_day(text, years):
     return None
 
 
+def parse_day_span(text):
+    """'Mon - Tue (Oct. 19 - 20, 2026' -> [date(2026,10,19), date(2026,10,20)];
+    anything else -> None. Used for a single row that covers several days,
+    such as a holiday."""
+    m = re.search(r"([a-z]{3})[a-z]*\.?\s+(\d{1,2})\s*[-–]\s*(\d{1,2}),?\s+(\d{4})", text.strip().lower())
+    if not m or m.group(1) not in MONTHS:
+        return None
+    first, last = int(m.group(2)), int(m.group(3))
+    if not 0 < last - first <= 6:
+        return None
+    return [dt.date(int(m.group(4)), MONTHS[m.group(1)], n) for n in range(first, last + 1)]
+
+
 def parse_class(text):
     """One timetable cell -> {'c', 'sec', 'grp', 'n', 'room'} or None.
 
@@ -209,6 +222,12 @@ def parse_class(text):
     r = re.search(r"\{([^{}]*)\}", tail)
     if r:
         room = re.sub(r"\s*-\s*", "-", clean(r.group(1)))
+    else:
+        # the opening brace sometimes goes missing in print: "SMC -201}" is
+        # faculty SM in room C-201
+        r = re.search(r"([A-Z])\s*-\s*(\d{3})\s*\}\s*$", tail)
+        if r:
+            room = "%s-%s" % (r.group(1), r.group(2))
     return {"c": head, "sec": sec, "grp": grp, "n": num, "room": room}
 
 
@@ -404,6 +423,18 @@ def parse_weekly(path):
                 elif day_text:
                     close_day()
                     day = parse_day(day_text, years)
+                    span = None if day is not None else parse_day_span(day_text)
+                    if span:
+                        # "Mon - Tue (Oct. 19 - 20, 2026" | "Mahashtami & Dussehra Holiday":
+                        # one row standing for several days with no classes; its text
+                        # becomes each day's note
+                        text = " ".join(c for i, c in enumerate(cells) if i != cols["day"] and c and not parse_class(c))
+                        if any(parse_class(c) for c in cells):
+                            raise ParseError("a row for several days (%r) also has classes in it" % day_text)
+                        for d in span:
+                            notes[d] = (notes.get(d, "") + " " + text).strip() or "No classes"
+                        day = None
+                        continue
                     if day is None:
                         raise ParseError("unreadable day label: %r" % day_text)
                 if day is None:

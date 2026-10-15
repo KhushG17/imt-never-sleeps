@@ -39,17 +39,24 @@ is registered and its DNS managed at GoDaddy.
 
 ## Current status
 
+Live at https://imtneversleeps.com (15 Oct 2026).
+
 | Part | Status |
 |---|---|
-| Portal (roll number, greeting, two buttons, live pill) | Built |
-| Weekly | Built for all six batch-and-programme groups, week of 5-11 Oct 2026 |
-| Exam Seat | Built, locked. Each student sees their own term: "Term 5 exams coming soon" or "Term 2 exams coming soon" |
-| Master data from the college's files | Built: 1,328 students, 6 course lists, 6 weekly schedules |
+| Portal (roll number remembered on the device, greeting, live pill) | Live |
+| Weekly | Live for all six batch-and-programme groups, Weeks 1 and 2 (5 to 18 Oct 2026), with corrections from mails |
+| Exam Seat | Live, locked until the Term 2 and Term 5 seating plan arrives |
+| Mess menu | Live, 1 to 16 Oct 2026 |
+| Bus Schedule | Live, with the next bus each way |
+| Campus events | Live (Onam, Sports Night, RESET 2026) |
+| Nav bar | Resources (Bus Schedule, Study Material), Feedback, Install app |
+| Installable app | Live: works offline, updates itself, install pop-up on Weekly |
+| Master data | 1,330 students, 6 course lists, 12 weekly schedules |
 | Weekly update | From the upload page in a browser (weekly PDFs), or one command on Khush's machine (everything) |
-| Usage tracking | On (Google Analytics 4) |
-| Study Material | Built: icon in the header next to Feedback, opens the term-wise SharePoint folder |
-| Upload page | Built at `/upload/`; needs an access key created once by Khush |
-| Published | Yes, but the live site still shows the build of 7 Oct. The master-data build of 8 Oct is local only until pushed |
+| Usage tracking | Google Analytics 4 with programme, section, term and app/browser on every event |
+
+**What comes next:** stage A of the roadmap below, built now without IMT.
+Stage B only if IMT gives permission and its requirement list.
 
 ## How it grew
 
@@ -65,6 +72,9 @@ ones came from. Each line is the question students had at that point.
 | 9 Oct | imtneversleeps.com; campus occasions (Onam, Sports Night) | What else is on today? |
 | 10 Oct | Mess menu; the day changes after the last class | What is for lunch? |
 | 12 Oct | Remembered roll number, install as an app, nav menu, the wider usage tracking | Can it open in one tap, and what should come next? |
+| 13 Oct | Bus Schedule page, Resources menu, cleaner phone overlays, the app updating itself | When is the next bus? |
+| 14 Oct | Course-section corrections from lists (PDRM) | Is my section right? |
+| 15 Oct | The roadmap: stage A now without IMT; stage B (Outlook sign-in, a smart timetable creator, mail notices, master search) only with IMT's permission | Can the timetable itself be made here? |
 
 What the usage numbers are for: `lead` (how soon the next class is when
 Weekly is opened), `mess_day` (how far ahead people look) and `fresh` (how
@@ -295,6 +305,16 @@ any student whatever the timeline says. Real batches switch by date.
     next day takes over at 12:00 am. Days without an occasion still change
     after the student's last class, or at 8 pm.
   - It is never part of the PDF.
+  - Festival greetings (15 Oct 2026), for every student: "Happy Mahashtami"
+    on Mon 19 Oct (deep red and gold, a lotus) and "Happy Dussehra" on Tue
+    20 Oct (saffron, a bow and arrow), on top of the day, title only (no
+    second line, at Khush's request). Below it, PGDM 2025-27's day note reads
+    just "Holiday" (set in `weekly-revisions.json`; the PDF says "Mahashtami &
+    Dussehra Holiday"). Theme "festival",
+    with `icon` "lotus" or "bow"; reusable for Diwali and other festivals.
+    Animated (15 Oct): the lotus petals open and close, the bow draws and
+    shoots its arrow, sparks drift up and a sheen sweeps the banner; all of
+    it stops for devices set to reduce motion.
   - Third entry (12 Oct): **RESET 2026 by HAWC**, 15, 16 and
     17 Oct, 6:30 pm each day, placed after the day's classes, with an arrow
     to the registration form (https://forms.gle/PoV2eyZwjzAt9gRYA). Day 1
@@ -653,22 +673,78 @@ Built and pushed 10 Oct 2026.
 - **Show everything, labelled, when the mapping is missing**, instead of
   showing nothing or guessing.
 - The original `imt-exam-seat-finder` site is left untouched.
+- **Roadmap (15 Oct 2026):** stage A is built now without IMT; stage B
+  starts only if IMT gives permission and its requirement list; then C
+  (ERP data, subject pages with Slide Gate, attendance) and D (IMTinder).
+- **No mail and no sign-in in stage A.** Notifications use the remembered
+  roll number; gossip of the day uses the roll number and a join code. Mail
+  and Outlook sign-in belong to stage B.
+- **The timetable creator decides by itself** on fixed rules and an
+  open-source scheduling solver, with no AI service and no hand fixes.
+- **Slide Gate stays a separate project**, linked in at stage C.
 
 ## Skipped for now
 
 - Faculty names (decided against).
 - Hero bubbles: tried twice, removed.
 - An `.ics` calendar download (Google Calendar links only).
+- Calendar subscriptions per section (15 Oct 2026): app notifications cover
+  the same need, sooner.
+- Sign-in by a code sent to the IMT mail (15 Oct 2026): mail is kept for
+  stage B.
+
+## Roadmap: stage A now, stage B only with IMT
+
+Decided by Khush, 15 Oct 2026.
+
+| Stage | When | What |
+|---|---|---|
+| **A** | Now, without IMT | Better hosting with a small server of our own; student list kept private; app notifications (tied to the remembered roll number, no sign-in); announcements from clubs, committees and the student council; gossip of the day (anonymous, entry with the roll number and a join code from the batch WhatsApp groups, moderated); Moodle and ERP links; dark mode; our own usage analytics. **No mail and no sign-in anywhere** |
+| **B** | Only if IMT gives permission and its requirement list | Outlook sign-in; a smart timetable creator with faculty availability that decides on fixed rules and a scheduling solver, with no AI service; notices by official IMT mail; master timetable search; dashboards; official status (owner, IT security check, privacy notice, a plan for after 2028) |
+| **C** | Later | ERP data, subject pages with Slide Gate (Khush's separate app, linked in), attendance |
+| **D** | After everything | IMTinder, its own project |
+
+Dropped: calendar subscriptions (app notifications cover them).
+
+The documents:
+
+- `docs/unified-system-plan.md`: the full plan for every stage (who uses
+  it, the timetable engine, notifications, student side, master timetable,
+  sign-in and privacy, security, analytics, how to build it, stages, open
+  questions).
+- `docs/requirements.md`: every feature in easy words, split into without
+  IMT (stage A) and needs IMT (stages B and C).
+- `docs/unified-data-checklist.md`: every piece of data stage B needs (127
+  items: in hand, partly, missing), kept up to date as files arrive.
 
 ## What is left
 
-1. Khush creates the access key for the upload page (see "Uploading from the
-   browser") and tries a real upload.
-2. UI and content changes (next round).
-3. Load the Term 2 and Term 5 seating plan when it is released (see
-   "Unlocking Exam Seat"). The matching of each student to their own paper
-   is built and simulated; it has not met a real Term 2/5 plan yet.
-4. Push the 8 Oct build to the live site (see Privacy below).
+**Stage A (now, without IMT):**
+
+1. Better hosting: a small server and database of our own (Supabase), and
+   the site moved off public GitHub Pages so the student list can be made
+   private.
+2. App notifications (class changes, reminders, announcements, events),
+   tied to the remembered roll number.
+3. Announcements from clubs, committees and the student council.
+4. Gossip of the day: join code, per-phone private ID, bot check,
+   moderation, rules; tell the Committee on Digital Communications before
+   launch.
+5. Moodle and ERP links in Resources (addresses needed).
+6. Dark mode.
+7. Our own usage analytics on the new server.
+
+**Ongoing:**
+
+- Load each new weekly schedule, mess menu and event as it comes.
+- Load the Term 2 and Term 5 seating plan when it is released (see
+  "Unlocking Exam Seat"); the matching of each student to their paper is
+  built and simulated.
+- When next week's BFS 2026-28 schedule arrives, shift Introduction to
+  Financial Markets session numbers down by one until the postponed class
+  is held.
+
+**Stage B:** waits for IMT's permission and requirement list.
 
 ## Files and details still needed from Khush
 
@@ -683,6 +759,10 @@ Built and pushed 10 Oct 2026.
 | Each week's schedule PDFs, all groups | Weekly update | Every week, through `/upload/` or into `all files/_inbox/` |
 | Seating-plan Excel for the Term 2 and Term 5 exams | Unlocking Exam Seat | When released |
 | Revised student or registration lists | Whenever sections or registrations change | As needed |
+| Moodle and ERP addresses | Stage A: links in Resources | Needed |
+| Club, committee and student council contacts | Stage A: who posts announcements | Needed |
+| Student moderators and the chat's rules | Stage A: gossip of the day | Needed before launch |
+| IMT's permission and requirement list | Stage B, with the data in `docs/unified-data-checklist.md` | Waiting on IMT |
 
 Received: all six groups' Week of 5 Oct schedules and course allocation
 sheets; student lists for all six groups (BFS 2025-27 as two elective lists);
@@ -778,6 +858,16 @@ every run, so correct the college's file in `all files/` (or
 `data/config/overrides.json`), never the master file itself.
 
 ## Corrections received
+
+- **15 Oct 2026, PGDM 2025-27 Term 5, Week 3 (19 to 25 Oct).** Loaded from
+  the PDF: 54 classes. Two things in this PDF the reader had not met before,
+  now handled in `scripts/parsers.py`:
+  - One row standing for two days, "Mon - Tue (Oct. 19 - 20, 2026)" with
+    "Mahashtami & Dussehra Holiday": both days get that note and no classes
+    (`parse_day_span`). Thursday's "SSR Visits" row is a note the same way.
+  - A room printed without its opening brace, "CTM-A(7) SMC -201}": read as
+    room C-201.
+  No week already on file changed.
 
 - **15 Oct 2026, BFS 2026-28 Term 2: Introduction to Financial Markets
   postponed** (BFS Program Office mail, 14 Oct). Both classes on Thu 15 Oct

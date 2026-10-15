@@ -250,9 +250,40 @@
   function titleWithYear(text){
     return IMT.escapeHtml(text).replace(/\b(20\d{2})\b/, '<b>$1</b>');
   }
+  // Festival greetings: a lotus for Durga Puja (Mahashtami), a bow and arrow
+  // for Dussehra, on a soft glowing disc.
+  var FESTIVAL_ICONS = {
+    // the outer petals open and close, the centre petal rises, a gold line glows
+    lotus: '<g stroke="#7a1010" stroke-width="1.6" stroke-linejoin="round">' +
+      '<path class="lp lp-ol" d="M-4 15 C-18 18 -28 10 -32 2 C-20 0 -10 6 -4 15Z" fill="#f08a24"/>' +
+      '<path class="lp lp-or" d="M4 15 C18 18 28 10 32 2 C20 0 10 6 4 15Z" fill="#f08a24"/>' +
+      '<path class="lp lp-il" d="M-2 14 C-14 10 -20 -2 -20 -12 C-10 -10 -3 -2 -2 14Z" fill="#f7c948"/>' +
+      '<path class="lp lp-ir" d="M2 14 C14 10 20 -2 20 -12 C10 -10 3 -2 2 14Z" fill="#f7c948"/>' +
+      '<path class="lp lp-c" d="M0 14 C-6 4 -6 -10 0 -22 C6 -10 6 4 0 14Z" fill="#ffd96a"/></g>' +
+      '<path class="lp-base" d="M-22 22 H22" stroke="#f7c948" stroke-width="2.4" stroke-linecap="round"/>',
+    // the string draws back with the arrow, the arrow flies off, a new one is nocked
+    bow: '<g fill="none" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path class="bw-bow" d="M-14 -26 C10 -18 10 18 -14 26" stroke="#7a2e00" stroke-width="4"/>' +
+      '<path class="bw-string" d="M-14 -26 L-14 26" stroke="#fff3d6" stroke-width="1.5"/>' +
+      '<g class="bw-arrow"><path d="M-24 0 H28" stroke="#7a2e00" stroke-width="3"/>' +
+      '<path d="M20 -6 L29 0 L20 6" stroke="#7a2e00" stroke-width="3"/>' +
+      '<path d="M-24 0 l-5 -5 M-24 0 l-5 5 M-19 0 l-5 -5 M-19 0 l-5 5" stroke="#b5482a" stroke-width="2"/></g></g>'
+  };
+  function festivalIcon(name){
+    return '<svg class="event-motif motif-festival" viewBox="-40 -40 80 80" aria-hidden="true">' +
+      '<circle class="fx-halo" r="38" fill="rgba(255,255,255,.18)"/><circle r="31" fill="rgba(255,255,255,.22)"/>' +
+      (FESTIVAL_ICONS[name] || FESTIVAL_ICONS.lotus) + '</svg>';
+  }
+  // a few drifting sparks behind the festival greeting
+  function festivalSparks(){
+    var out = '';
+    for(var i = 0; i < 7; i++) out += '<span class="fx-spark" style="--i:' + i + '"></span>';
+    return '<span class="fx-sparks" aria-hidden="true">' + out + '</span>';
+  }
   function eventBanner(e){
-    var theme = e.theme === 'onam' || e.theme === 'sports' || e.theme === 'reset' ? e.theme : 'plain';
-    return '<div class="event-banner event-' + theme + '">' + (theme === 'onam' ? pookalam() : theme === 'sports' ? crescent() : theme === 'reset' ? resetIcon(e.icon) : '') +
+    var theme = e.theme === 'onam' || e.theme === 'sports' || e.theme === 'reset' || e.theme === 'festival' ? e.theme : 'plain';
+    return '<div class="event-banner event-' + theme + (theme === 'festival' ? ' is-' + (e.icon === 'bow' ? 'bow' : 'lotus') : '') + '">' +
+      (theme === 'onam' ? pookalam() : theme === 'sports' ? crescent() : theme === 'reset' ? resetIcon(e.icon) : theme === 'festival' ? festivalSparks() + festivalIcon(e.icon) : '') +
       '<div class="event-text"><div class="event-title">' + (theme === 'reset' ? titleWithYear(e.title) : IMT.escapeHtml(e.title)) + '</div>' +
       (e.note ? '<div class="event-note">' + IMT.escapeHtml(e.note) + '</div>' : '') +
       (e.where ? '<div class="event-where"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.3" fill="currentColor"/></svg>' + IMT.escapeHtml((e.time && e.link ? e.time + ' · ' : '') + e.where) + '</div>' : '') +

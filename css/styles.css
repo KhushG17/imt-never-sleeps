@@ -1295,3 +1295,73 @@ body.portal footer, body.tool footer{ padding-bottom:84px; }
 /* the floating pieces live on <html>, outside the body's own sideways clip:
    this keeps a moving bubble from ever nudging the page a pixel wider */
 html{ overflow-x:clip; }
+
+/* ---------- festival greetings (Mahashtami, Dussehra, ...) ---------- */
+.event-festival{ color:#fff; }
+.event-festival.is-lotus{
+  background:
+    radial-gradient(160px 110px at 100% 0%, rgba(247,201,72,.45), transparent 70%),
+    linear-gradient(120deg, #6d0f1a 0%, #a3172a 55%, #c8352f 100%);
+}
+.event-festival.is-bow{
+  background:
+    radial-gradient(160px 110px at 100% 0%, rgba(255,243,214,.5), transparent 70%),
+    linear-gradient(120deg, #c2410c 0%, #ea7a0c 55%, #f59e0b 100%);
+}
+.event-festival .event-title{ font-size:19px; letter-spacing:.01em; color:#fff8e6; }
+.event-festival .event-note{ opacity:.95; }
+.event-festival .event-motif{ width:56px; height:56px; filter:drop-shadow(0 3px 6px rgba(0,0,0,.25)); }
+/* Moving parts. Everything below is off for anyone whose device asks for
+   reduced motion. */
+.event-festival .event-text{ position:relative; z-index:1; }
+.fx-sparks{ position:absolute; inset:0; pointer-events:none; overflow:hidden; border-radius:inherit; }
+.fx-spark{
+  position:absolute; bottom:-8px; left:calc(8% + var(--i) * 13%);
+  width:5px; height:5px; border-radius:50%; background:#ffe9a8; opacity:0;
+  box-shadow:0 0 8px 2px rgba(255,226,140,.8);
+}
+.event-festival.is-bow .fx-spark{ background:#fff3d6; }
+.event-festival::before{
+  /* a slow sheen sweeping across the banner */
+  content:""; position:absolute; top:0; bottom:0; left:-40%; width:35%; pointer-events:none;
+  background:linear-gradient(100deg, transparent, rgba(255,255,255,.22), transparent);
+  transform:skewX(-18deg); opacity:0;
+}
+.event-festival .lp, .event-festival .bw-arrow, .event-festival .bw-string, .event-festival .bw-bow, .event-festival .fx-halo{
+  transform-box:fill-box;
+}
+@media (prefers-reduced-motion: no-preference){
+  .event-festival::before{ animation:festSheen 4.5s ease-in-out infinite 1s; }
+  .fx-spark{ animation:festSpark 4.2s ease-in infinite; animation-delay:calc(var(--i) * .6s); }
+  .event-festival .fx-halo{ transform-origin:center; animation:festHalo 2.8s ease-in-out infinite; }
+  /* lotus */
+  .event-festival .lp-ol{ transform-origin:right bottom; animation:petalL 3.2s ease-in-out infinite; }
+  .event-festival .lp-or{ transform-origin:left bottom; animation:petalR 3.2s ease-in-out infinite; }
+  .event-festival .lp-il{ transform-origin:right bottom; animation:petalL 3.2s ease-in-out infinite .15s; }
+  .event-festival .lp-ir{ transform-origin:left bottom; animation:petalR 3.2s ease-in-out infinite .15s; }
+  .event-festival .lp-c{ transform-origin:center bottom; animation:petalC 3.2s ease-in-out infinite .3s; }
+  .event-festival .lp-base{ animation:festBase 3.2s ease-in-out infinite; }
+  /* bow */
+  .event-festival .bw-arrow{ animation:arrowShot 3.4s cubic-bezier(.5,0,.2,1) infinite; }
+  .event-festival .bw-string{ transform-origin:right center; animation:stringPull 3.4s cubic-bezier(.5,0,.2,1) infinite; }
+  .event-festival .bw-bow{ transform-origin:left center; animation:bowFlex 3.4s cubic-bezier(.5,0,.2,1) infinite; }
+}
+@keyframes festSheen{ 0%{ left:-40%; opacity:0; } 15%{ opacity:1; } 55%{ left:120%; opacity:0; } 100%{ left:120%; opacity:0; } }
+@keyframes festSpark{ 0%{ transform:translateY(0) scale(.6); opacity:0; } 15%{ opacity:.95; } 100%{ transform:translateY(-95px) translateX(10px) scale(1.1); opacity:0; } }
+@keyframes festHalo{ 0%, 100%{ transform:scale(1); opacity:.9; } 50%{ transform:scale(1.07); opacity:1; } }
+@keyframes petalL{ 0%, 100%{ transform:rotate(0deg); } 50%{ transform:rotate(-9deg); } }
+@keyframes petalR{ 0%, 100%{ transform:rotate(0deg); } 50%{ transform:rotate(9deg); } }
+@keyframes petalC{ 0%, 100%{ transform:translateY(0) scaleY(1); } 50%{ transform:translateY(-2px) scaleY(1.06); } }
+@keyframes festBase{ 0%, 100%{ opacity:.7; } 50%{ opacity:1; } }
+@keyframes arrowShot{
+  0%{ transform:translateX(0); opacity:1; }
+  35%{ transform:translateX(-7px); opacity:1; }
+  45%{ transform:translateX(-7px); opacity:1; }
+  60%{ transform:translateX(46px); opacity:0; }
+  61%{ transform:translateX(-10px); opacity:0; }
+  80%{ transform:translateX(0); opacity:1; }
+  100%{ transform:translateX(0); opacity:1; }
+}
+@keyframes stringPull{ 0%, 100%{ transform:translateX(0); } 35%, 45%{ transform:translateX(-6px); } 50%, 80%{ transform:translateX(0); } }
+@keyframes bowFlex{ 0%, 100%{ transform:scaleX(1); } 35%, 45%{ transform:scaleX(1.12); } 52%{ transform:scaleX(.95); } 60%{ transform:scaleX(1); } }
+@media (max-width:360px){ .event-festival .event-motif{ width:46px; height:46px; } .event-festival .event-title{ font-size:17px; } }

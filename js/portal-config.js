@@ -61,6 +61,9 @@ window.PORTAL_CONFIG = {
   //   themes  - "onam" (green, a pookalam), "sports" (night purple and gold,
   //           a crescent on the left and a sun on the right, text centred),
   //           "plain" (green, no motif)
+  //           "festival" (a greeting for a festival, for everyone; icon
+  //           "lotus" = deep red and gold for Durga Puja, "bow" = saffron for
+  //           Dussehra)
   //           "reset" (HAWC's RESET 2026 poster: paper beige, deep teal and
   //           orange; the title's year is picked out in orange)
   //   icon  - for the "reset" theme, the picture on the left: "football",
@@ -70,6 +73,8 @@ window.PORTAL_CONFIG = {
   //   where - optional; the venue, shown after the note
   // An occasion that runs over several days gets one entry per date.
   events: [
+    { date: "2026-10-19", title: "Happy Mahashtami", theme: "festival", icon: "lotus" },
+    { date: "2026-10-20", title: "Happy Dussehra", theme: "festival", icon: "bow" },
     { date: "2026-10-15", title: "RESET 2026", by: "HAWC · Day 1", note: "Penalty Shootout",
       where: "Football Ground", time: "6:30 PM", link: "https://forms.gle/PoV2eyZwjzAt9gRYA", theme: "reset", icon: "football", place: "after" },
     { date: "2026-10-16", title: "RESET 2026", by: "HAWC · Day 2", note: "Arm Wrestling, Team Balance",
