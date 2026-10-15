@@ -779,6 +779,13 @@ every run, so correct the college's file in `all files/` (or
 
 ## Corrections received
 
+- **15 Oct 2026, BFS 2026-28 Term 2: Introduction to Financial Markets
+  postponed** (BFS Program Office mail, 14 Oct). Both classes on Thu 15 Oct
+  (9:00 AM Section A, 10:30 AM Section B) are taken off that day in
+  `data/config/weekly-revisions.json` (no note shown, at Khush's request;
+  a revision can carry one with `"notes"` if ever wanted). When the new date
+  is announced, add the classes on that day the same way.
+
 - **14 Oct 2026, PDRM sections, PGDM 2025-27 Term 5.** Khush sent the two
   "APO Groups" lists for Pricing Dynamics and Revenue Management (Section A,
   Section B). Tallied roll by roll against the master data: 139 students on

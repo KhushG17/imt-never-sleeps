@@ -36,6 +36,12 @@
  "end": "2026-10-18",
  "group": "bfs",
  "mode": "section",
+ "revised": {
+  "days": [
+   "2026-10-15"
+  ],
+  "received": "2026-10-14"
+ },
  "rowLabel": "Section",
  "rows": [
   "A",
@@ -203,16 +209,6 @@
    "sec": null
   },
   {
-   "c": "IFM",
-   "d": 3,
-   "grp": null,
-   "n": 2,
-   "room": "C-101",
-   "row": "A",
-   "s": 0,
-   "sec": null
-  },
-  {
    "c": "SEBP",
    "d": 3,
    "grp": null,
@@ -229,16 +225,6 @@
    "n": 4,
    "room": "C-101",
    "row": "A",
-   "s": 1,
-   "sec": null
-  },
-  {
-   "c": "IFM",
-   "d": 3,
-   "grp": null,
-   "n": 2,
-   "room": "C-102",
-   "row": "B",
    "s": 1,
    "sec": null
   },

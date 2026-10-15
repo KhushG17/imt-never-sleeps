@@ -108,5 +108,17 @@
         }
       }
     }
+  },
+  "2028-bfs": {
+    "2026-10-12": {
+      "received": "2026-10-14",
+      "from": "BFS Program Office (Marisha Banerji) mail: the two Introduction to Financial Markets classes on Thu 15 Oct (9:00 Sec A, 10:30 Sec B) are postponed to a later date",
+      "days": {
+        "2026-10-15": {
+          "A": ["", "FSA(4)", "SEBP(4)", "MM(5)", "", ""],
+          "B": ["SEBP(4)", "", "MM(5)", "", "", ""]
+        }
+      }
+    }
   }
 }

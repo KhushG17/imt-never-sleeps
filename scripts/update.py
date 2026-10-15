@@ -203,6 +203,11 @@ def revise_week(week, gkey):
                 cls.update(d=dates.index(date), s=slot, row=row,
                            room=cls["room"] or (rooms[row].most_common(1)[0][0] if row in rooms else None))
                 fresh.append(cls)
+    for date, text in revision.get("notes", {}).items():
+        # a line shown at the top of that day ("... postponed"), as the PDFs' own day notes are
+        if date not in dates:
+            raise ValueError("note for %s is not in the week of %s" % (date, week["start"]))
+        week["days"][dates.index(date)]["note"] = text
     revised = {dates.index(date) for date in revision["days"]}
     before = sum(1 for s in week["sessions"] if s["d"] in revised)
     week["sessions"] = [s for s in week["sessions"] if s["d"] not in revised] + fresh
