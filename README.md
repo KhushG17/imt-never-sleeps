@@ -785,6 +785,10 @@ every run, so correct the college's file in `all files/` (or
   `data/config/weekly-revisions.json` (no note shown, at Khush's request;
   a revision can carry one with `"notes"` if ever wanted). When the new date
   is announced, add the classes on that day the same way.
+  The sessions after it are numbered one lower (Khush): Friday 16 Oct's
+  Introduction to Financial Markets is session 2 for both sections, not 3.
+  Later weeks' PDFs will need the same shift until the postponed class is
+  held.
 
 - **14 Oct 2026, PDRM sections, PGDM 2025-27 Term 5.** Khush sent the two
   "APO Groups" lists for Pricing Dynamics and Revenue Management (Section A,
