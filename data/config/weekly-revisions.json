@@ -155,6 +155,19 @@
           "B": ["", "HRM-B(6)-WSP", "MA-B(11)-PC", "FA-B(6)-BC", "MA-B(12)-PC", "", ""]
         }
       }
+    },
+    "2026-10-19": {
+      "received": "2026-10-16",
+      "from": "Week-3 PDF: its day notes (\"Maha-Ashtami Holiday\", \"Dussehra Holiday\") are shown simply as \"Holiday\", as for every programme. Updated picture of the same week (16 Oct): Sat 24 Oct adds DTI group C sessions 7 and 8, 10:30 to 1:15 in Gurukul",
+      "days": {
+        "2026-10-24": {
+          "A": ["", "DTI-G-C(7)SRT{Gurukul}", "DTI-G-C(8)SRT{Gurukul}", "EM(3)SK", "EM(4)SK", "", ""]
+        }
+      },
+      "notes": {
+        "2026-10-19": "Holiday",
+        "2026-10-20": "Holiday"
+      }
     }
   },
   "2028-bfs": {

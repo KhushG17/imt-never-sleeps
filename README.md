@@ -746,7 +746,7 @@ The documents:
 - Each new BFS 2026-28 week: shift Introduction to Financial Markets
   session numbers down by one (done for Week 3) until the postponed class
   is held.
-- Week 3 (19 to 25 Oct) still to come for both DCP batches.
+- Week 3 (19 to 25 Oct) still to come for DCP 2025-27.
 
 **Stage B:** waits for IMT's permission and requirement list.
 
@@ -862,6 +862,18 @@ every run, so correct the college's file in `all files/` (or
 `data/config/overrides.json`), never the master file itself.
 
 ## Corrections received
+
+- **16 Oct 2026, DCP 2026-28 Term 2, Week 3 (19 to 25 Oct).** 34 classes.
+  The first run skipped it: the PDF text has 34 entries but 30 were read.
+  Wednesday and Thursday have Design Thinking entries stacked in one cell
+  with no times ("DTI- A (3)-NVS - 301" over "DTI- B (3)-NS - 302", and two
+  "(4 & 5)" pairs side by side). `split_stacked` in `scripts/parsers.py` now
+  reads those, one group session per slot, shown to every section as before.
+  Mon and Tue show "Holiday". No other week on file changed.
+  Updated picture the same day: Sat 24 Oct gains DTI group C sessions 7 and 8
+  (10:30 to 1:15, Gurukul), added in `weekly-revisions.json` with the day's
+  other class (Section A's EM 3 and 4) retyped. The reader now accepts a
+  letter group in a revision (`DTI-G-C(7)SRT{Gurukul}`).
 
 - **16 Oct 2026, DCP 2026-28 Term 2, Fri 16 Oct** (picture of the day's
   changes). Section A's Managerial Accounting session 14 moves from 12:00 to

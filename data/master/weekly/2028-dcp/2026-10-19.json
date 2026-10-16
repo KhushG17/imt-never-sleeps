@@ -1,0 +1,450 @@
+{
+ "batch": "2028",
+ "courses": {
+  "DAIB": "Data Analytics and AI for Business",
+  "DBS": "Digital Business Strategy",
+  "DTI": "Design Thinking",
+  "EM": "Entrepreneurial Manager",
+  "FA": "Financial Accounting",
+  "HRM": "Human Resource Management",
+  "LAB": "Legal Aspects of Business",
+  "MM": "Marketing Management"
+ },
+ "days": [
+  {
+   "date": "2026-10-19",
+   "note": "Holiday"
+  },
+  {
+   "date": "2026-10-20",
+   "note": "Holiday"
+  },
+  {
+   "date": "2026-10-21"
+  },
+  {
+   "date": "2026-10-22"
+  },
+  {
+   "date": "2026-10-23"
+  },
+  {
+   "date": "2026-10-24"
+  },
+  {
+   "date": "2026-10-25"
+  }
+ ],
+ "electives": [],
+ "end": "2026-10-25",
+ "group": "dcp",
+ "mode": "section",
+ "revised": {
+  "days": [
+   "2026-10-24"
+  ],
+  "received": "2026-10-16"
+ },
+ "rowLabel": "Section",
+ "rows": [
+  "A",
+  "B"
+ ],
+ "sessions": [
+  {
+   "c": "HRM",
+   "d": 2,
+   "grp": null,
+   "n": 7,
+   "room": "301",
+   "row": "A",
+   "s": 0,
+   "sec": "A"
+  },
+  {
+   "c": "DAIB",
+   "d": 2,
+   "grp": null,
+   "n": 4,
+   "room": "302",
+   "row": "B",
+   "s": 0,
+   "sec": "B"
+  },
+  {
+   "c": "DAIB",
+   "d": 2,
+   "grp": null,
+   "n": 4,
+   "room": "301",
+   "row": "A",
+   "s": 1,
+   "sec": "A"
+  },
+  {
+   "c": "HRM",
+   "d": 2,
+   "grp": null,
+   "n": 7,
+   "room": "302",
+   "row": "B",
+   "s": 1,
+   "sec": "B"
+  },
+  {
+   "c": "DTI",
+   "d": 2,
+   "grp": "A",
+   "n": 3,
+   "room": "301",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 2,
+   "grp": "B",
+   "n": 3,
+   "room": "302",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 2,
+   "grp": "B",
+   "n": 4,
+   "room": "302",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 2,
+   "grp": "C",
+   "n": 5,
+   "room": "Gurukul",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 2,
+   "grp": "B",
+   "n": 5,
+   "room": "302",
+   "row": "A",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 2,
+   "grp": "C",
+   "n": 6,
+   "room": "Gurukul",
+   "row": "A",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 3,
+   "grp": null,
+   "n": 8,
+   "room": "302",
+   "row": "B",
+   "s": 0,
+   "sec": "B"
+  },
+  {
+   "c": "HRM",
+   "d": 3,
+   "grp": null,
+   "n": 8,
+   "room": "301",
+   "row": "A",
+   "s": 2,
+   "sec": "A"
+  },
+  {
+   "c": "MM",
+   "d": 3,
+   "grp": null,
+   "n": 10,
+   "room": "302",
+   "row": "B",
+   "s": 2,
+   "sec": "B"
+  },
+  {
+   "c": "DTI",
+   "d": 3,
+   "grp": "A",
+   "n": 4,
+   "room": "301",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 3,
+   "grp": "B",
+   "n": 6,
+   "room": "302",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 3,
+   "grp": "A",
+   "n": 5,
+   "room": "301",
+   "row": "A",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 4,
+   "grp": null,
+   "n": 9,
+   "room": "301",
+   "row": "A",
+   "s": 0,
+   "sec": "A"
+  },
+  {
+   "c": "DAIB",
+   "d": 4,
+   "grp": null,
+   "n": 5,
+   "room": "302",
+   "row": "B",
+   "s": 0,
+   "sec": "B"
+  },
+  {
+   "c": "DAIB",
+   "d": 4,
+   "grp": null,
+   "n": 5,
+   "room": "301",
+   "row": "A",
+   "s": 1,
+   "sec": "A"
+  },
+  {
+   "c": "HRM",
+   "d": 4,
+   "grp": null,
+   "n": 9,
+   "room": "302",
+   "row": "B",
+   "s": 1,
+   "sec": "B"
+  },
+  {
+   "c": "DBS",
+   "d": 4,
+   "grp": null,
+   "n": 7,
+   "room": "301",
+   "row": "A",
+   "s": 2,
+   "sec": "A"
+  },
+  {
+   "c": "MM",
+   "d": 4,
+   "grp": null,
+   "n": 11,
+   "room": "302",
+   "row": "B",
+   "s": 2,
+   "sec": "B"
+  },
+  {
+   "c": "FA",
+   "d": 4,
+   "grp": null,
+   "n": 7,
+   "room": "302",
+   "row": "B",
+   "s": 3,
+   "sec": "B"
+  },
+  {
+   "c": "FA",
+   "d": 4,
+   "grp": null,
+   "n": 8,
+   "room": "302",
+   "row": "B",
+   "s": 4,
+   "sec": "B"
+  },
+  {
+   "c": "EM",
+   "d": 4,
+   "grp": null,
+   "n": 1,
+   "room": "301",
+   "row": "A",
+   "s": 5,
+   "sec": "A"
+  },
+  {
+   "c": "EM",
+   "d": 4,
+   "grp": null,
+   "n": 2,
+   "room": "301",
+   "row": "A",
+   "s": 6,
+   "sec": "A"
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "C",
+   "n": 7,
+   "room": "Gurukul",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "C",
+   "n": 8,
+   "room": "Gurukul",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "EM",
+   "d": 5,
+   "grp": null,
+   "n": 3,
+   "room": "301",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "EM",
+   "d": 5,
+   "grp": null,
+   "n": 4,
+   "room": "301",
+   "row": "A",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "LAB",
+   "d": 6,
+   "grp": null,
+   "n": 3,
+   "room": "301",
+   "row": "A",
+   "s": 0,
+   "sec": "A"
+  },
+  {
+   "c": "LAB",
+   "d": 6,
+   "grp": null,
+   "n": 4,
+   "room": "301",
+   "row": "A",
+   "s": 1,
+   "sec": "A"
+  },
+  {
+   "c": "LAB",
+   "d": 6,
+   "grp": null,
+   "n": 3,
+   "room": "302",
+   "row": "B",
+   "s": 2,
+   "sec": "B"
+  },
+  {
+   "c": "EM",
+   "d": 6,
+   "grp": null,
+   "n": 5,
+   "room": "301",
+   "row": "A",
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "LAB",
+   "d": 6,
+   "grp": null,
+   "n": 4,
+   "room": "302",
+   "row": "B",
+   "s": 3,
+   "sec": "B"
+  },
+  {
+   "c": "EM",
+   "d": 6,
+   "grp": null,
+   "n": 6,
+   "room": "301",
+   "row": "A",
+   "s": 4,
+   "sec": "A"
+  }
+ ],
+ "slots": [
+  [
+   "09:00",
+   "10:15"
+  ],
+  [
+   "10:30",
+   "11:45"
+  ],
+  [
+   "12:00",
+   "13:15"
+  ],
+  [
+   "14:15",
+   "15:30"
+  ],
+  [
+   "15:45",
+   "17:00"
+  ],
+  [
+   "17:30",
+   "18:45"
+  ],
+  [
+   "19:00",
+   "20:15"
+  ]
+ ],
+ "source": "all files/batch 2028/dcp/term 2/weekly/3rd Weekly Schedule, Term II - DCP 2026-28.pdf",
+ "specials": [],
+ "start": "2026-10-19",
+ "term": 2,
+ "weekNumber": 3
+}

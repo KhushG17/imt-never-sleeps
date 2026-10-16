@@ -204,6 +204,7 @@ def parse_class(text):
         VB-A(13)-MZ           course VB, section A, session 13
         HRM(1)FH              course HRM, session 1
         DTI-G-5(1)AT          course DTI, group 5, session 1
+        DTI-G-C(7)SRT         course DTI, group C, session 7 (a letter group)
     """
     m = re.fullmatch(r"(.+?)\s*\(\s*(\d+)\s*\)\s*(.*)", text)
     if not m:
@@ -213,7 +214,7 @@ def parse_class(text):
     if head.endswith("-"):
         head = head[:-1].strip()
     else:
-        g = re.fullmatch(r"(.+?)\s*-\s*G\s*-\s*(\d+)", head)
+        g = re.fullmatch(r"(.+?)\s*-\s*G\s*-\s*(\w+)", head)
         s = re.fullmatch(r"(.+?)\s*-\s*([A-Z])", head)
         if g:
             head, grp = g.group(1), g.group(2)
@@ -277,6 +278,24 @@ def split_timed(text):
         hours = parse_slot(re.sub(r"\bto\b", "-", m.group(2).replace(".", ":").replace(" :", ":")))
         out.append((m.group(1).strip(), hours, m.group(3)))
     return out if out and text[sum(len(m.group(0)) for m in re.finditer(r"\s*(.+?)\s*\[([^\[\]]*)\]\s*-\s*(\S+)", text)):].strip() == "" else []
+
+
+def split_stacked(text):
+    """A cell holding several group entries one under another, no times given:
+
+        'DTI- A (3)-NVS - 301 DTI- B (3)-NS - 302'
+        -> ['DTI- A (3)-NVS - 301', 'DTI- B (3)-NS - 302']
+
+    Returns [] unless there are at least two and every one reads as a group
+    entry (one slot, or two for "(4 & 5)").
+    """
+    parts = [p.strip() for p in re.split(r"\s+(?=[A-Z]{2,}\s*-\s*[A-Z]\s*\()", text) if p.strip()]
+    if len(parts) < 2:
+        return []
+    for p in parts:
+        if not parse_group(p, 2 if re.search(PAIR, p) else 1):
+            return []
+    return parts
 
 
 SPAN = "span"  # day_bands: a row standing for several days, read from its own text
@@ -461,6 +480,14 @@ def parse_weekly(path):
                 for s_idx, col in enumerate(slot_cols):
                     text = cells[col] if col < len(cells) else ""
                     if not text:
+                        continue
+                    stacked = split_stacked(text)
+                    if stacked:
+                        found_any = True
+                        for part in stacked:
+                            for i, cls in enumerate(parse_group(part, 2 if re.search(PAIR, part) else 1)):
+                                cls.update(d=day, s=s_idx + i, row=row_key)
+                                sessions.append(cls)
                         continue
                     timed = split_timed(text)
                     if timed:
