@@ -145,6 +145,18 @@
       }
     }
   },
+  "2028-dcp": {
+    "2026-10-12": {
+      "received": "2026-10-16",
+      "from": "Changes in the DCP Term 2 schedule for Fri 16 Oct, sent as a picture: Section A's MA(14) moves from 12:00 to 14:15; Section B's MA(11) and FA(6) swap (MA at 12:00, FA at 14:15)",
+      "days": {
+        "2026-10-16": {
+          "A": ["HRM-A(6)-WSP", "MA-A(13)-PC", "", "MA-A(14)-PC", "", "", ""],
+          "B": ["", "HRM-B(6)-WSP", "MA-B(11)-PC", "FA-B(6)-BC", "MA-B(12)-PC", "", ""]
+        }
+      }
+    }
+  },
   "2028-bfs": {
     "2026-10-12": {
       "received": "2026-10-14",

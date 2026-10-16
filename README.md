@@ -863,6 +863,12 @@ every run, so correct the college's file in `all files/` (or
 
 ## Corrections received
 
+- **16 Oct 2026, DCP 2026-28 Term 2, Fri 16 Oct** (picture of the day's
+  changes). Section A's Managerial Accounting session 14 moves from 12:00 to
+  2:15 PM; Section B's Managerial Accounting session 11 and Financial
+  Accounting session 6 swap (MA at 12:00, FA at 2:15 PM). In
+  `weekly-revisions.json`; the rest of the day is unchanged.
+
 - **16 Oct 2026, PGDM 2026-28 Term 2 and BFS 2026-28 Term 2, Week 3 (19 to
   25 Oct).** 87 and 24 classes. The PGDM file is named "PGDM - II (205-27)
   Term - V" but its contents are PGDM 2026-28 Term II; it is filed by its

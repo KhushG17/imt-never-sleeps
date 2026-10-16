@@ -38,6 +38,12 @@
  "end": "2026-10-18",
  "group": "dcp",
  "mode": "section",
+ "revised": {
+  "days": [
+   "2026-10-16"
+  ],
+  "received": "2026-10-16"
+ },
  "rowLabel": "Section",
  "rows": [
   "A",
@@ -368,17 +374,7 @@
    "c": "MA",
    "d": 4,
    "grp": null,
-   "n": 14,
-   "room": "301",
-   "row": "A",
-   "s": 2,
-   "sec": "A"
-  },
-  {
-   "c": "FA",
-   "d": 4,
-   "grp": null,
-   "n": 6,
+   "n": 11,
    "room": "302",
    "row": "B",
    "s": 2,
@@ -388,7 +384,17 @@
    "c": "MA",
    "d": 4,
    "grp": null,
-   "n": 11,
+   "n": 14,
+   "room": "301",
+   "row": "A",
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "FA",
+   "d": 4,
+   "grp": null,
+   "n": 6,
    "room": "302",
    "row": "B",
    "s": 3,
