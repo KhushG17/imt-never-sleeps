@@ -863,6 +863,17 @@ every run, so correct the college's file in `all files/` (or
 
 ## Corrections received
 
+- **16 Oct 2026, mess menu 17 to 31 Oct** (`Mess_Menu_17th_to_31st_Oct_2026.pdf`,
+  filed under `all files/mess`). 15 days, so the menu now runs 1 to 31 Oct.
+  The 17 Oct breakfast, which the PDF's text printed away from its row, was
+  read in the right place; the last two rows are both numbered 14 in the
+  PDF, which does not matter.
+
+- **16 Oct 2026, PGDM 2026-28 Term 2, Section F, Wed 21 Oct** (notice: "On
+  Wednesday, HRM class will be held at 2:30pm"). HRM session 7 moves from
+  12:15 to 2:30 pm. In `weekly-revisions.json` the whole day is retyped (a
+  revision replaces every class on its date), with only Section F changed.
+
 - **16 Oct 2026, DCP 2026-28 Term 2, Week 3 (19 to 25 Oct).** 34 classes.
   The first run skipped it: the PDF text has 34 entries but 30 were read.
   Wednesday and Thursday have Design Thinking entries stacked in one cell

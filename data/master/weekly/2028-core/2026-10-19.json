@@ -42,7 +42,9 @@
  "group": "core",
  "mode": "section",
  "revised": {
-  "days": [],
+  "days": [
+   "2026-10-21"
+  ],
   "received": "2026-10-16"
  },
  "rowLabel": "Section",
@@ -196,16 +198,6 @@
    "sec": null
   },
   {
-   "c": "HRM",
-   "d": 2,
-   "grp": null,
-   "n": 7,
-   "room": "402",
-   "row": "F",
-   "s": 2,
-   "sec": null
-  },
-  {
    "c": "CTI",
    "d": 2,
    "grp": null,
@@ -232,6 +224,16 @@
    "n": 2,
    "room": "504",
    "row": "D",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 2,
+   "grp": null,
+   "n": 7,
+   "room": "402",
+   "row": "F",
    "s": 3,
    "sec": null
   },
