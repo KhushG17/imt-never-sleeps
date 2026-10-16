@@ -1,0 +1,246 @@
+{
+ "batch": "2027",
+ "courses": {
+  "IBPP": "International Business and Public Policy",
+  "IP": "Industry Project -I",
+  "MF": "Mutual Funds / ETFs; Pension Funds; and Hedge Funds"
+ },
+ "days": [
+  {
+   "date": "2026-10-19",
+   "note": "Holiday"
+  },
+  {
+   "date": "2026-10-20",
+   "note": "Holiday"
+  },
+  {
+   "date": "2026-10-21"
+  },
+  {
+   "date": "2026-10-22"
+  },
+  {
+   "date": "2026-10-23"
+  },
+  {
+   "date": "2026-10-24"
+  },
+  {
+   "date": "2026-10-25"
+  }
+ ],
+ "electives": [],
+ "end": "2026-10-25",
+ "group": "dcp",
+ "mode": "track",
+ "revised": {
+  "days": [],
+  "received": "2026-10-16"
+ },
+ "rowLabel": "Track",
+ "rows": [
+  "AQF",
+  "ITL",
+  "IBM-A",
+  "IBM-B",
+  "ITA"
+ ],
+ "sessions": [
+  {
+   "c": "MF",
+   "d": 3,
+   "grp": null,
+   "n": 6,
+   "room": "Old Audi",
+   "row": "AQF",
+   "s": 0,
+   "sec": "A"
+  },
+  {
+   "c": "IP",
+   "d": 3,
+   "grp": null,
+   "n": 3,
+   "room": "Old Audi",
+   "row": "ITL",
+   "s": 2,
+   "sec": "C"
+  },
+  {
+   "c": "IP",
+   "d": 3,
+   "grp": null,
+   "n": 4,
+   "room": "Old Audi",
+   "row": "ITL",
+   "s": 3,
+   "sec": "C"
+  },
+  {
+   "c": "IBPP",
+   "d": 4,
+   "grp": null,
+   "n": 19,
+   "room": "Old Audi",
+   "row": "IBM-B",
+   "s": 0,
+   "sec": "B"
+  },
+  {
+   "c": "IBPP",
+   "d": 4,
+   "grp": null,
+   "n": 20,
+   "room": "Old Audi",
+   "row": "IBM-B",
+   "s": 1,
+   "sec": "B"
+  },
+  {
+   "c": "IBPP",
+   "d": 4,
+   "grp": null,
+   "n": 17,
+   "room": "Old Audi",
+   "row": "IBM-A",
+   "s": 2,
+   "sec": "A"
+  },
+  {
+   "c": "IBPP",
+   "d": 4,
+   "grp": null,
+   "n": 18,
+   "room": "Old Audi",
+   "row": "IBM-A",
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "IBPP",
+   "d": 5,
+   "grp": null,
+   "n": 19,
+   "room": "Old Audi",
+   "row": "IBM-A",
+   "s": 0,
+   "sec": "A"
+  },
+  {
+   "c": "IBPP",
+   "d": 5,
+   "grp": null,
+   "n": 20,
+   "room": "Old Audi",
+   "row": "IBM-A",
+   "s": 1,
+   "sec": "A"
+  },
+  {
+   "c": "IP",
+   "d": 5,
+   "grp": null,
+   "n": 2,
+   "room": "Old Audi",
+   "row": "IBM-B",
+   "s": 2,
+   "sec": "B"
+  },
+  {
+   "c": "MF",
+   "d": 5,
+   "grp": null,
+   "n": 7,
+   "room": "Old Audi",
+   "row": "AQF",
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "MF",
+   "d": 5,
+   "grp": null,
+   "n": 8,
+   "room": "Old Audi",
+   "row": "AQF",
+   "s": 4,
+   "sec": "A"
+  },
+  {
+   "c": "IBPP",
+   "d": 6,
+   "grp": null,
+   "n": 21,
+   "room": "Old Audi",
+   "row": "IBM-A",
+   "s": 0,
+   "sec": "A"
+  },
+  {
+   "c": "IBPP",
+   "d": 6,
+   "grp": null,
+   "n": 22,
+   "room": "Old Audi",
+   "row": "IBM-A",
+   "s": 1,
+   "sec": "A"
+  },
+  {
+   "c": "IBPP",
+   "d": 6,
+   "grp": null,
+   "n": 21,
+   "room": "Old Audi",
+   "row": "IBM-B",
+   "s": 2,
+   "sec": "B"
+  },
+  {
+   "c": "IBPP",
+   "d": 6,
+   "grp": null,
+   "n": 22,
+   "room": "Old Audi",
+   "row": "IBM-B",
+   "s": 3,
+   "sec": "B"
+  }
+ ],
+ "slots": [
+  [
+   "09:00",
+   "10:15"
+  ],
+  [
+   "10:30",
+   "11:45"
+  ],
+  [
+   "12:00",
+   "13:15"
+  ],
+  [
+   "14:15",
+   "15:30"
+  ],
+  [
+   "15:45",
+   "17:00"
+  ],
+  [
+   "17:30",
+   "18:45"
+  ],
+  [
+   "19:00",
+   "20:15"
+  ]
+ ],
+ "source": "all files/batch 2027/dcp/term 5/weekly/4th Weekly Schedule, Term V - DCP 2025-27.pdf",
+ "specials": [],
+ "start": "2026-10-19",
+ "term": 5,
+ "weekNumber": 4
+}

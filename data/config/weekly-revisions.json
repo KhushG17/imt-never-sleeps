@@ -154,6 +154,17 @@
       }
     }
   },
+  "2027-dcp": {
+    "2026-10-19": {
+      "received": "2026-10-16",
+      "from": "Week-4 PDF (the college's own numbering; 19 to 25 Oct): its day notes (\"Maha-Ashtami Holiday\", \"DUSSEHRA - Holiday\") are shown simply as \"Holiday\", as for every programme",
+      "days": {},
+      "notes": {
+        "2026-10-19": "Holiday",
+        "2026-10-20": "Holiday"
+      }
+    }
+  },
   "2028-dcp": {
     "2026-10-12": {
       "received": "2026-10-16",

@@ -746,7 +746,7 @@ The documents:
 - Each new BFS 2026-28 week: shift Introduction to Financial Markets
   session numbers down by one (done for Week 3) until the postponed class
   is held.
-- Week 3 (19 to 25 Oct) still to come for DCP 2025-27.
+- The week of 19 to 25 Oct is now on file for all six groups.
 
 **Stage B:** waits for IMT's permission and requirement list.
 
@@ -862,6 +862,12 @@ every run, so correct the college's file in `all files/` (or
 `data/config/overrides.json`), never the master file itself.
 
 ## Corrections received
+
+- **16 Oct 2026, DCP 2025-27 Term 5, week of 19 to 25 Oct.** 16 classes,
+  loaded from the PDF without trouble. The college titles it "Week-4" (this
+  group's numbering runs one ahead of the others, as before), so the page
+  and PDF name say Week 4. Mon and Tue show "Holiday". Wed 21 Oct has no
+  classes. All six groups now have the week of 19 to 25 Oct.
 
 - **16 Oct 2026, mess menu 17 to 31 Oct** (`Mess_Menu_17th_to_31st_Oct_2026.pdf`,
   filed under `all files/mess`). 15 days, so the menu now runs 1 to 31 Oct.
