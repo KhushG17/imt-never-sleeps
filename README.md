@@ -863,6 +863,13 @@ every run, so correct the college's file in `all files/` (or
 
 ## Corrections received
 
+- **17 Oct 2026, PGDM 2026-28 Term 2, Week 2, Sat 17 and Sun 18 Oct** (edits,
+  picture). The struck-through cells on Sat 17 are cancelled: Design Thinking
+  group 11 sessions 3 and 4 (Section A, 2:30 and 4:00) and group 7 sessions 3
+  and 4 (Section B, 10:45 and 12:15). Sun 18: Section B's BR(10) is at 12:15
+  (was 2:30); Section E has MA(3) at 12:15, MA(4) at 2:30 and BR(10) at 4:00.
+  Retyped in `weekly-revisions.json`; Week 2's other days are unchanged.
+
 - **16 Oct 2026, DCP 2025-27 Term 5, week of 19 to 25 Oct.** 16 classes,
   loaded from the PDF without trouble. The college titles it "Week-4" (this
   group's numbering runs one ahead of the others, as before), so the page

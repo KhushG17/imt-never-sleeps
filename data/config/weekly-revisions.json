@@ -48,7 +48,7 @@
     },
     "2026-10-12": {
       "received": "2026-10-12",
-      "from": "Updated Week-2 schedule (Oct. 12 - 18, 2026), a newer PDF than the one on file, sent as a picture of all seven days",
+      "from": "Updated Week-2 schedule (Oct. 12 - 18, 2026), a newer PDF than the one on file, sent as a picture of all seven days. Edits of 17 Oct (picture of Sat 17 and Sun 18): DTI groups 11 (Section A) and 7 (Section B) on Sat 17 are struck through, i.e. cancelled; on Sun 18 Section B's BR(10) is at 12:15, and Section E has MA(3) at 12:15, MA(4) at 2:30 and BR(10) at 4:00",
       "days": {
         "2026-10-12": {
           "A": ["", "", "HRM(4)FH", "BE(1)MP", "DAIB(3)RKR"],
@@ -91,8 +91,8 @@
           "F": ["", "", "BCF(5)AS", "BR(10)SSG/DD", ""]
         },
         "2026-10-17": {
-          "A": ["", "DTI-G-2(3)SP", "DTI-G-2(4)SP", "DTI-G-11(3)SP/AB", "DTI-G-11(4)SP/AB"],
-          "B": ["", "DTI-G-7(3)AB", "DTI-G-7(4)AB", "", ""],
+          "A": ["", "DTI-G-2(3)SP", "DTI-G-2(4)SP", "", ""],
+          "B": ["", "", "", "", ""],
           "C": ["", "", "", "", ""],
           "D": ["", "DTI-G-8(3)NVS", "DTI-G-8(4)NVS", "DTI-G-9(3)NVS", "DTI-G-9(2)NVS"],
           "E": ["LAB(1)SNS", "", "", "", ""],
@@ -100,10 +100,10 @@
         },
         "2026-10-18": {
           "A": ["", "", "MA(5)JM", "MA(6)JM", ""],
-          "B": ["MA(5)JM", "MA(6)JM", "", "BR(10)NT/MK", ""],
+          "B": ["MA(5)JM", "MA(6)JM", "BR(10)NT/MK", "", ""],
           "C": ["LAB(3)SR", "LAB(4)SR", "", "", ""],
           "D": ["", "", "", "", ""],
-          "E": ["LAB(2)SNS", "LAB(3)SNS", "BR(10)NT/RM", "MA(3)-KG", "MA(4)-KG"],
+          "E": ["LAB(2)SNS", "LAB(3)SNS", "MA(3)-KG", "MA(4)-KG", "BR(10)NT/RM"],
           "F": ["", "", "LAB(3)SNS", "", ""]
         }
       }
