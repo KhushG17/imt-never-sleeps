@@ -863,6 +863,17 @@ every run, so correct the college's file in `all files/` (or
 
 ## Corrections received
 
+- **19 Oct 2026, PGDM 2026-28 Term 2, Week 3 (19 to 25 Oct): a newer PDF**
+  ("3-Weekly Schedule of PGDM-I(2026-28) Term - II Oct. 19 - 25, 2026.pdf").
+  Both PDFs for the week are in `all files`; the loader reads files in name
+  order and the last for a week wins, and this one sorts last. Against the
+  earlier one (87 classes, now 84):
+  - Section A, Fri 23: DAIB(7) moves to 10:45 and HRM(7) to 2:30.
+  - Section D: BR(10) moves from Wed 21 (4:00) to Fri 23 (2:30).
+  - Sun 25: MA 8 and 9 are gone for both Sections A and B.
+  - Section F's HRM at 2:30 on Wed 21 is now in the PDF itself, so the
+    correction typed for it is removed (only the "Holiday" notes remain).
+
 - **17 Oct 2026, PGDM 2026-28 Term 2, Week 2, Sat 17 and Sun 18 Oct** (edits,
   picture). The struck-through cells on Sat 17 are cancelled: Design Thinking
   group 11 sessions 3 and 4 (Section A, 2:30 and 4:00) and group 7 sessions 3

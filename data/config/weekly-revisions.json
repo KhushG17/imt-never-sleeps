@@ -110,17 +110,8 @@
     },
     "2026-10-19": {
       "received": "2026-10-16",
-      "from": "Khush: the PDF's day note \"Mahashtami & Dussehra Holiday\" is shown simply as \"Holiday\" (the festival greeting above it names the day). Notice (16 Oct): on Wed 21 Oct Section F's HRM class is at 2:30 pm, not 12:15; the rest of that day is as in the PDF",
-      "days": {
-        "2026-10-21": {
-          "A": ["MA(7)", "BCF(7)", "TR(2)", "CTI(3)", "CTI(4)"],
-          "B": ["", "MA(7)", "BCF(7)", "", "TR(2)"],
-          "C": ["BCF(4)", "TR(2)", "BR(10)", "MA(5)", "HRM(7)"],
-          "D": ["HRM(3)", "BCF(4)", "MA(5)", "TR(2)", "BR(10)"],
-          "E": ["BCF(6)", "HRM(3)", "", "", ""],
-          "F": ["", "BCF(6)", "", "HRM(7)", ""]
-        }
-      },
+      "from": "Khush: the PDF's day note \"Mahashtami & Dussehra Holiday\" is shown simply as \"Holiday\" (the festival greeting above it names the day)",
+      "days": {},
       "notes": {
         "2026-10-19": "Holiday",
         "2026-10-20": "Holiday"

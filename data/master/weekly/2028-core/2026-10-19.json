@@ -42,9 +42,7 @@
  "group": "core",
  "mode": "section",
  "revised": {
-  "days": [
-   "2026-10-21"
-  ],
+  "days": [],
   "received": "2026-10-16"
  },
  "rowLabel": "Section",
@@ -268,16 +266,6 @@
    "sec": null
   },
   {
-   "c": "BR",
-   "d": 2,
-   "grp": null,
-   "n": 10,
-   "room": "504",
-   "row": "D",
-   "s": 4,
-   "sec": null
-  },
-  {
    "c": "BCF",
    "d": 3,
    "grp": null,
@@ -468,7 +456,7 @@
    "sec": null
   },
   {
-   "c": "HRM",
+   "c": "DAIB",
    "d": 4,
    "grp": null,
    "n": 7,
@@ -578,7 +566,7 @@
    "sec": null
   },
   {
-   "c": "DAIB",
+   "c": "HRM",
    "d": 4,
    "grp": null,
    "n": 7,
@@ -594,6 +582,16 @@
    "n": 3,
    "room": "503",
    "row": "C",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "BR",
+   "d": 4,
+   "grp": null,
+   "n": 10,
+   "room": "504",
+   "row": "D",
    "s": 3,
    "sec": null
   },
@@ -758,16 +756,6 @@
    "sec": null
   },
   {
-   "c": "MA",
-   "d": 6,
-   "grp": null,
-   "n": 8,
-   "room": "502",
-   "row": "B",
-   "s": 0,
-   "sec": null
-  },
-  {
    "c": "LAB",
    "d": 6,
    "grp": null,
@@ -794,16 +782,6 @@
    "n": 4,
    "room": "501",
    "row": "A",
-   "s": 1,
-   "sec": null
-  },
-  {
-   "c": "MA",
-   "d": 6,
-   "grp": null,
-   "n": 9,
-   "room": "502",
-   "row": "B",
    "s": 1,
    "sec": null
   },
@@ -838,16 +816,6 @@
    "sec": null
   },
   {
-   "c": "MA",
-   "d": 6,
-   "grp": null,
-   "n": 8,
-   "room": "501",
-   "row": "A",
-   "s": 2,
-   "sec": null
-  },
-  {
    "c": "TR",
    "d": 6,
    "grp": null,
@@ -865,16 +833,6 @@
    "room": "402",
    "row": "F",
    "s": 2,
-   "sec": null
-  },
-  {
-   "c": "MA",
-   "d": 6,
-   "grp": null,
-   "n": 9,
-   "room": "501",
-   "row": "A",
-   "s": 3,
    "sec": null
   },
   {
@@ -954,7 +912,7 @@
    "18:45"
   ]
  ],
- "source": "all files/batch 2028/core/term 2/weekly/3-Weekly Schedule of PGDM - II (205-27) Term - V during Oct. 19 - 25, 2026.pdf",
+ "source": "all files/batch 2028/core/term 2/weekly/3-Weekly Schedule of PGDM-I(2026-28) Term - II Oct. 19 - 25, 2026.pdf",
  "specials": [],
  "start": "2026-10-19",
  "term": 2,
