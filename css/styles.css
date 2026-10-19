@@ -47,6 +47,10 @@ body{
   font-variant-numeric:tabular-nums;
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
+  /* "clip", like the html rule near the end of this file, cuts anything that
+     sticks out sideways without making the body a scroll area of its own;
+     as a scroll area it would stop the header below from staying put */
+  overflow-x:clip;
   perspective:1600px;
 }
 h1,h2,h3{ font-family:var(--font-basier-circle); text-wrap:balance; margin:0; }

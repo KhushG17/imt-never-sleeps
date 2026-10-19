@@ -863,6 +863,14 @@ every run, so correct the college's file in `all files/` (or
 
 ## Corrections received
 
+- **19 Oct 2026, the navbar now stays fixed at the top on every page** (it
+  scrolled away on phones and desktop). Cause: `html{ overflow-x:clip }`
+  (added with the floating buttons) stopped `body{ overflow-x:hidden }` from
+  passing up to the page, so the body became a scroll area of its own and the
+  header's `position:sticky` had nothing to stick to. The body is now `clip`
+  too. Checked on all four pages, phone and desktop: the bar stays at 14 px
+  from the top, no sideways scrolling, menus open in place when scrolled.
+
 - **19 Oct 2026, PGDM 2026-28 Term 2, Week 3 (19 to 25 Oct): a newer PDF**
   ("3-Weekly Schedule of PGDM-I(2026-28) Term - II Oct. 19 - 25, 2026.pdf").
   Both PDFs for the week are in `all files`; the loader reads files in name
