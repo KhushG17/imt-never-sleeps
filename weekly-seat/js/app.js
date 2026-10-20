@@ -105,50 +105,7 @@
   // shown, labelled, with a banner saying so, rather than nothing at all.
   // Group sessions (e.g. Design Thinking groups) are listed for everyone in
   // the programme, since group membership isn't in the files.
-  function buildView(data, s){
-    var view = { all: false, classes: [], groups: [], specials: [], banner: '' };
-    var key = data.mode === 'track' ? s.track : s.section;
-    var what = (data.rowLabel || 'section').toLowerCase();
-    var hasCourses = Object.keys(s.courses).length > 0;
-    var isElective = function(x){ return data.electives.indexOf(x.c) >= 0; };
-    if(data.mode === 'course' || (data.mode === 'track' && hasCourses)){
-      // each class names its course and section: the student's own registrations decide
-      view.classes = data.sessions.filter(function(x){ return s.courses[x.c] === x.sec; });
-    } else {
-      view.all = !key;
-      if(view.all){
-        view.banner = 'Your ' + what + ' isn\'t loaded yet, so this shows every ' + what + ' of ' +
-          (s.programme || 'your programme') + '. Check the ' + what + ' on each class.';
-      }
-      // electives are tagged only while we don't know which one this student chose
-      view.tagElectives = data.electives.length > 0 && !s.electives;
-      if(view.tagElectives){
-        view.banner += (view.banner ? ' ' : '') + 'Classes tagged Elective are only for students who chose that course.';
-      }
-      data.sessions.forEach(function(x){
-        if(x.grp){ view.groups.push(x); return; }
-        if(isElective(x)){
-          // an elective is attended by those who chose it, whichever section's
-          // row it is printed in; with no choice on file, every elective is
-          // shown (tagged) so the student can pick out their own
-          if(!s.electives || s.electives.indexOf(x.c) >= 0) view.classes.push(x);
-          return;
-        }
-        if(!view.all && x.row !== key) return;
-        view.classes.push(x);
-      });
-      view.specials = data.specials.filter(function(sp){
-        return view.all || !sp.rows.length || sp.rows.indexOf(key) >= 0;
-      });
-    }
-    view.clash = {};
-    if(!view.all){
-      var seen = {};
-      view.classes.forEach(function(x){ var k = x.d + ':' + x.s; seen[k] = (seen[k] || 0) + 1; });
-      Object.keys(seen).forEach(function(k){ if(seen[k] > 1) view.clash[k] = true; });
-    }
-    return view;
-  }
+  var buildView = IMT.buildView;   // in js/common.js, shared with the master timetable
 
   // ---- page states ----
   listEl.addEventListener('click', function(e){

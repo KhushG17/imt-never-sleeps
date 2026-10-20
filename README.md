@@ -447,7 +447,9 @@ tap), the roll the device remembers supplies the group.
 | How many saved a PDF | `save_pdf` | `tool` |
 | How many added a class or paper to their calendar, and which | `add_to_calendar` | `tool`, `course` (the course name) |
 | How many tapped an occasion's link | `event_click` | `result` = the occasion's title |
-| Nav bar and Back to portal | `nav_click` | `result` = `menu`, `feedback`, `back_to_portal`; `tool` = the page |
+| Nav bar and Back to portal | `nav_click` | `result` = `menu`, `feedback`, `back_to_portal`, `lms`, `erp`; `tool` = the page |
+| Master timetable use (staff) | `tool_open`, `master_unlock`, `master_view`, `master_action` | `tool` = `master`; `status` = `locked`/`shown`; `master_unlock` `result` = `ok`/`wrong`; `master_view` `result` = the tab; `master_action` `result` = `open_section`, `copy_window`, `copy_list`, `csv`, `see_on_board` |
+| Which theme people switch to | `theme_change` | `result` = `light` or `dark` (the theme just switched to); `tool` = the page. Uses the existing `result` dimension |
 | How many tapped Exam Seat while locked | `locked_tool_click` | |
 | Installing | `install_click`, `install_popup`, `app_install` | `install_click`: `tool` = `nav` or `greeting`, `result` = `prompt` or `ios_hint`. `install_popup` (the pop-up on Weekly): `result` = `shown`, `install`, `dismissed` |
 | Something broke on a page | `page_error` | `result` = the browser's message, `tool` = the page (three a visit at most) |
@@ -734,7 +736,7 @@ The documents:
    moderation, rules; tell the Committee on Digital Communications before
    launch.
 5. Moodle and ERP links in Resources (addresses needed).
-6. Dark mode.
+6. ~~Dark mode.~~ Built 19 Oct 2026 (see "Changes made, not yet pushed"); to be pushed on Khush's word. The same section covers LMS and ERP in Resources and a lite master timetable, both built.
 7. Our own usage analytics on the new server.
 
 **Ongoing:**
@@ -763,7 +765,7 @@ The documents:
 | Each week's schedule PDFs, all groups | Weekly update | Every week, through `/upload/` or into `all files/_inbox/` |
 | Seating-plan Excel for the Term 2 and Term 5 exams | Unlocking Exam Seat | When released |
 | Revised student or registration lists | Whenever sections or registrations change | As needed |
-| Moodle and ERP addresses | Stage A: links in Resources | Needed |
+| ~~Moodle and ERP links~~ | Stage A: LMS and ERP in Resources | Received 19 Oct 2026; built (not yet pushed) |
 | Club, committee and student council contacts | Stage A: who posts announcements | Needed |
 | Student moderators and the chat's rules | Stage A: gossip of the day | Needed before launch |
 | IMT's permission and requirement list | Stage B, with the data in `docs/unified-data-checklist.md` | Waiting on IMT |
@@ -860,6 +862,139 @@ when to push it.
 These files are rebuilt by `python scripts/update.py` and are overwritten on
 every run, so correct the college's file in `all files/` (or
 `data/config/overrides.json`), never the master file itself.
+
+## Changes made, not yet pushed
+
+Built locally on 19 Oct 2026; Khush said not to push these (only the fixed
+navbar, commit `a08ccc6`, was pushed). Everything below is in the working
+copy and passes its tests.
+
+- **Dark mode, on every page** (home, Weekly, Exam Seat, Bus, Master, the
+  upload page).
+  - **One switch, two states.** A round sun/moon button in the bar, just left
+    of Resources on a laptop and beside the menu button on a phone (never
+    inside the Resources list). Moon while the page is light, sun while it is
+    dark. There is no "Auto" in the interface: until the switch is used,
+    nothing is kept and the page follows the phone or laptop live (dark at
+    night if the device is). Switching to what the device already shows hands
+    control back to the device. The choice is kept on that device only
+    (`imt.theme` in the browser's storage).
+  - `js/theme.js` runs in each page's `<head>`, before anything is drawn, so
+    there is no flash; it sets `data-theme` ("light" or "dark", what is shown)
+    and `data-theme-pref` ("auto", "light" or "dark", what is kept) on
+    `<html>`, and the browser bar colour.
+  - Colours are the existing named tokens with a second set of values
+    (`:root[data-theme="dark"]` in `css/styles.css`, inside `@media screen`,
+    so printing and saved PDFs stay light). New tokens: `--color-page` (behind
+    the cards), `--color-accent` (the navy used as text, a border or an icon;
+    the navy as a button background stays `--color-imt-navy`), and a few for
+    the upload report, bus rows and so on.
+  - The logo sits on a light plate in dark (its navy lettering would vanish).
+  - One light-mode change: helper text `--color-slate-helper` is `#6b6b6b`
+    (was `#797979`, 4.35:1 on white and 3.75:1 on the grey boxes; now 5.3:1
+    and 4.6:1), so both themes reach WCAG AA.
+  - Checked by `dark_test.py` (72 checks): behaviour (no flash, follows the
+    device live, the switch's two states and the return to "follow the
+    device", remembered across pages, print stays light) and an automatic
+    text-contrast check on every page and every master tab, both themes,
+    phone and desktop, menus and the mess card open. Banners and gradients
+    are checked by eye; past bus times are faded on purpose; disabled buttons
+    are exempt.
+  - Tracking: `theme_change` with `result` = the theme just switched to.
+- **LMS and ERP in Resources**, side by side on one line (desktop drop-down
+  and the phone menu), with plain icons (a graduation cap, an institute
+  building), in a new tab.
+  - ERP: `https://erp.imt.edu/login.htm` everywhere.
+  - LMS (Moodle): on a laptop `https://lms.imt.edu/login/`; on an iPhone or
+    iPad the Moodle Workplace app page in the App Store; on Android its Google
+    Play page. The addresses are `lms` and `erp` in `js/portal-config.js`.
+  - Counted as `nav_click` with `result` = `lms` or `erp`.
+  - Checked by `links_test.py` (91 checks, desktop, iPhone and Android
+    browsers, all five pages).
+- **Master timetable** at `/master/` (a hidden address: no link anywhere on
+  the site; marked `noindex`). Behind a password.
+  - **The lock is a soft lock.** Only a salted SHA-256 hash of the password is
+    in `master/js/app.js` (the password itself is in no file), but anyone
+    who reads that code can get past it, and a short password can be guessed
+    by a tool. It is acceptable only because the page shows nothing that is
+    not already published in `weekly-seat/js/weekly-data.js`. Real protection
+    needs the stage A server. To change the password: compute
+    `sha256("imt-never-sleeps/master:" + password)` and put it in `HASH`.
+    Unlocking is remembered on that device (`imt.master`); the Lock button
+    forgets it.
+  - **Built from the same published weekly data** as Weekly, so it updates
+    with every upload: the newest weeks per group (now 5 to 25 Oct, 960
+    classes, 22 rooms, six groups). One colour per programme. Five views; the
+    tab in the address (`#find`) is remembered on reload.
+  - **Look:** a flat, square-cornered "operations console" (no capsules or
+    pills): underlined tabs, a calendar strip for days, a strip of numbers,
+    tiles, tables, hairline borders, all in the site's colour tokens so dark
+    mode comes with it. Redesigned 20 Oct 2026 after Khush said the first
+    version's capsule shapes were not liked.
+    - *Rooms board*: rooms down the side, time across, every class a block,
+      grouped as Rooms 3xx, 4xx, 5xx, the C block and halls. A time cursor
+      (slider, drag, tap, a bar of the load strip, the arrow keys, **Now** or
+      N) shows what is running, how many rooms are in use, and every free
+      room as a tile ("till 2:30 PM" or "all day", longest free first). A
+      strip above the board draws how many rooms are in use through the
+      day (the shape of the day, the lunch dip, the peak). Week and day
+      strip; the programme key highlights one programme; a combined lecture
+      is one block ("A+B"); two classes in one room at overlapping times are
+      outlined and flagged "!". A block opens its details and "Open this
+      section's week". Below: hours booked per room per day for the week. On
+      a phone the board opens centred on the cursor.
+    - *Week by section*: the classic grid (days across, time slots down) for
+      one section or track, or one student by roll number (using
+      `IMT.buildView`, shared with Weekly in `js/common.js`). Holidays are
+      hatched and labelled; group sessions are dashed; electives are tagged;
+      a course key sits underneath.
+    - *Find a time*: tick any sections (grouped by programme); each gets a
+      strip for each day, and a green "All free" strip shows the windows (of
+      at least a chosen length, inside a chosen day) when all are free.
+      "Best windows" is a table of the longest, each with Copy; selecting a
+      green window also copies it ("Wed, 21 Oct 2026, 5:15 - 8:30 PM (free
+      for ...)"). A day-long note ("Holiday", "SSR Visits") counts as away.
+    - *Search*: one box. Words narrow it together: a course, a room
+      (`c201` and `C-201` are the same), a weekday, `today`, a section letter,
+      a programme or batch (`bfs`, `2026`), `group 3`, or a whole roll number
+      for that student's week. Results are a table (time, class, programme,
+      section, room). Programme and "the week on show / every week" pickers.
+      **Copy** puts one line per class on the clipboard; **Download CSV**
+      saves them.
+    - *Checks*: possible room clashes (two different classes in one room at
+      overlapping times; a combined lecture is not one), classes without a
+      room, and section overlaps (only for programmes laid out by section;
+      electives and group sessions are not counted). Each clash has "See on
+      the board". The tab shows the total. On the data of 19 Oct there are 7
+      possible room clashes (for example C-403 on Fri 9 Oct, 2:00 PM, and
+      C-202 on Wed 14 Oct, where a 15-minute difference between two
+      programmes' slot grids makes classes overlap).
+  - **Left out, as decided:** no faculty filter and no free-teacher finder
+    (teacher initials are not stored in the site's data). Room capacity is not
+    known; "known rooms" are those named in a schedule.
+  - Counted as `tool_open` with `tool` = `master` (`status` = `locked` or
+    `shown`), `master_unlock` (`result` = `ok` or `wrong`), `master_view`
+    (`result` = the tab) and `master_action` (`result` = `open_section`,
+    `copy_window`, `copy_list`, `csv`, `see_on_board`). No search word, filter,
+    roll number or password is ever sent.
+  - Checked by `master_test.py` (90 checks) against answers worked out
+    separately in Python from the data file: the lock; the board's counts and
+    every free room's "till" time at three moments; the room groups, the load
+    strip's 52 bars and their heights, the arrow keys and N; Now, drag, week
+    and day changes, the key's highlight, the A+B block, details; the section grids
+    against the data and four students' grids against their Weekly pages;
+    four combinations of sections in Find a time (every day's windows, the
+    best-window order, the copy); eleven searches, Copy and the CSV; the
+    clash count, the badge and "See on the board"; and phones (no sideways
+    page scroll, board centred on the cursor).
+
+- **Staff tiles for the test rolls (20 Oct 2026).** Typing `TEST` or `TESTA`
+  (the `testRolls` in `js/portal-config.js`) on the home screen now adds two
+  more tiles under Weekly and Exam Seat: **Upload timetable** (`/upload/`) and
+  **Master timetable** (`/master/`). Any other roll number shows only Weekly
+  and Exam Seat. The tiles are hidden in the page and shown by `js/portal.js`
+  when the roll is a test roll; they are links to pages that keep their own
+  locks (the upload page's access key, the master page's password).
 
 ## Corrections received
 

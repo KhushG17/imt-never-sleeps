@@ -308,7 +308,8 @@
     }
     return savedRoll() ? 'remembered' : 'fresh';
   }
-  var PAGE = /\/weekly-seat\//.test(window.location.pathname) ? 'weekly' :
+  var PAGE = /\/master\//.test(window.location.pathname) ? 'master' :
+             /\/weekly-seat\//.test(window.location.pathname) ? 'weekly' :
              /\/exam-seat\//.test(window.location.pathname) ? 'exam_seat' :
              /\/bus\//.test(window.location.pathname) ? 'bus' : 'portal';
 
@@ -340,6 +341,8 @@
     var what = t.closest('#navToggle') ? 'menu' :
                t.closest('#resToggle') ? 'resources' :
                t.closest('#busNav') ? 'bus_schedule' :
+               t.closest('#lmsNav') ? 'lms' :
+               t.closest('#erpNav') ? 'erp' :
                t.closest('#feedbackNav') ? 'feedback' :
                t.closest('#backBtn, #noticeBack, #lockedBack') ? 'back_to_portal' : '';
     if(what) track('nav_click', null, { tool: PAGE, result: what });
@@ -534,8 +537,86 @@
   wireInstall(document.getElementById('installNav'), document.getElementById('installNavText'), 'nav');
   wireInstall(document.getElementById('installBtn'), document.getElementById('installBtnText'), 'greeting');
 
+  // ---- LMS and ERP, side by side in Resources ----
+  // The addresses are in js/portal-config.js. On a phone the LMS goes to its
+  // app (App Store on an iPhone, Google Play on Android); anywhere else, to
+  // the website.
+  var lmsNav = document.getElementById('lmsNav'), erpNav = document.getElementById('erpNav');
+  if(lmsNav && CONFIG.lms){
+    var onAndroid = /android/i.test(navigator.userAgent || '');
+    lmsNav.href = (onApple && CONFIG.lms.ios) || (onAndroid && CONFIG.lms.android) || CONFIG.lms.web || lmsNav.href;
+  }
+  if(erpNav && CONFIG.erp && CONFIG.erp.url) erpNav.href = CONFIG.erp.url;
+
+  // ---- the light / dark switch, left of Resources ----
+  // One button: moon while the page is light, sun while it is dark. js/theme.js
+  // (in the <head>) does the work; this only wires the button and keeps its
+  // words right, including when the device changes theme by itself. Which
+  // theme was switched to is counted (never who).
+  var themeBtn = document.getElementById('themeBtn');
+  if(themeBtn && window.IMTTheme){
+    var labelTheme = function(){
+      var next = window.IMTTheme.shown() === 'dark' ? 'light' : 'dark';
+      themeBtn.setAttribute('aria-label', 'Switch to ' + next + ' mode');
+      themeBtn.setAttribute('title', 'Switch to ' + next + ' mode');
+    };
+    labelTheme();
+    document.addEventListener('imt-theme', labelTheme);
+    themeBtn.addEventListener('click', function(){
+      var now = window.IMTTheme.toggle();
+      track('theme_change', null, { tool: PAGE, result: now });
+    });
+  }
+
+  // ---- which classes are one student's (Weekly and the master timetable) ----
+  function buildView(data, s){
+    var view = { all: false, classes: [], groups: [], specials: [], banner: '' };
+    var key = data.mode === 'track' ? s.track : s.section;
+    var what = (data.rowLabel || 'section').toLowerCase();
+    var hasCourses = Object.keys(s.courses).length > 0;
+    var isElective = function(x){ return data.electives.indexOf(x.c) >= 0; };
+    if(data.mode === 'course' || (data.mode === 'track' && hasCourses)){
+      // each class names its course and section: the student's own registrations decide
+      view.classes = data.sessions.filter(function(x){ return s.courses[x.c] === x.sec; });
+    } else {
+      view.all = !key;
+      if(view.all){
+        view.banner = 'Your ' + what + ' isn\'t loaded yet, so this shows every ' + what + ' of ' +
+          (s.programme || 'your programme') + '. Check the ' + what + ' on each class.';
+      }
+      // electives are tagged only while we don't know which one this student chose
+      view.tagElectives = data.electives.length > 0 && !s.electives;
+      if(view.tagElectives){
+        view.banner += (view.banner ? ' ' : '') + 'Classes tagged Elective are only for students who chose that course.';
+      }
+      data.sessions.forEach(function(x){
+        if(x.grp){ view.groups.push(x); return; }
+        if(isElective(x)){
+          // an elective is attended by those who chose it, whichever section's
+          // row it is printed in; with no choice on file, every elective is
+          // shown (tagged) so the student can pick out their own
+          if(!s.electives || s.electives.indexOf(x.c) >= 0) view.classes.push(x);
+          return;
+        }
+        if(!view.all && x.row !== key) return;
+        view.classes.push(x);
+      });
+      view.specials = data.specials.filter(function(sp){
+        return view.all || !sp.rows.length || sp.rows.indexOf(key) >= 0;
+      });
+    }
+    view.clash = {};
+    if(!view.all){
+      var seen = {};
+      view.classes.forEach(function(x){ var k = x.d + ':' + x.s; seen[k] = (seen[k] || 0) + 1; });
+      Object.keys(seen).forEach(function(k){ if(seen[k] > 1) view.clash[k] = true; });
+    }
+    return view;
+  }
+
   window.IMT = {
     config: CONFIG,
+    buildView: buildView,
     savedRoll: savedRoll,
     saveRoll: saveRoll,
     forgetRoll: forgetRoll,

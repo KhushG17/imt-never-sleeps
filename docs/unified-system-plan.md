@@ -30,7 +30,7 @@ change parts of it.
 | 3 to 5. Making the timetable, the engine, handling changes | B |
 | 6. Notifications | A for app alerts and the in-app list; B for Outlook mail and the morning digest |
 | 7. Student side | A for announcements, gossip of the day, Moodle and ERP links, reminders; C for subject pages and Slide Gate |
-| 8. Master timetable | B |
+| 8. Master timetable | A for a lite version (built 19 Oct 2026: hidden address, soft password, five views - rooms board, week by section, find a time, search, checks - from the published weekly schedules, no teachers); B for the full one with official lists, teachers and sign-in |
 | 9. Sign-in, privacy and approval | B |
 | 10. Security | A for the fixes to the current site; A and B for the rules |
 | 11. Analytics | A for our own usage counts; B for dashboards built on official data |

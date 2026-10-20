@@ -16,6 +16,8 @@
   var weeklyBtn = document.getElementById('weeklyBtn');
   var examBtn = document.getElementById('examBtn');
   var examSub = document.getElementById('examSub');
+  var uploadBtn = document.getElementById('uploadBtn');
+  var masterBtn = document.getElementById('masterBtn');
   var clearBtn = document.getElementById('clearBtn');
   var EXAM_SUB_OPEN = examSub.textContent;
 
@@ -82,6 +84,8 @@
     var locked = IMT.examSeatLocked(s);
     setLocked(examBtn, locked);
     examSub.textContent = locked ? IMT.examLockedLabel(s) : EXAM_SUB_OPEN;
+    // the two staff pages show for the test rolls only (portal-config.js, testRolls)
+    uploadBtn.hidden = masterBtn.hidden = !s.isTest;
 
     searchCard.hidden = true;
     stepsStrip.hidden = true;

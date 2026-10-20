@@ -458,7 +458,7 @@ def summary(students, weeks):
         print("\n%d file(s) need attention - see the SKIPPED / INBOX lines above." % len(skipped))
 
 
-PAGES = ["index.html", "weekly-seat/index.html", "exam-seat/index.html", "bus/index.html", "upload/index.html"]
+PAGES = ["index.html", "weekly-seat/index.html", "exam-seat/index.html", "bus/index.html", "master/index.html", "upload/index.html"]
 
 
 def stamp_pages():

@@ -44,7 +44,7 @@ offline and updates itself, the upload page, usage counts.
 | S2 | Gossip of the day | An anonymous chat for IMT students | No mail and no sign-in: entry with the remembered roll number plus a join code shared in the batch WhatsApp groups and changed regularly; a private random ID per phone for moderation; a bot check; student moderators; rules agreed before launch. It falls under the handbook's social media policy, so tell the Committee on Digital Communications before launch. Moves to Outlook sign-in in stage B |
 | S3 | Moodle and ERP links | Two links in Resources | The two addresses |
 | S4 | Notification system (app) | Alerts on the phone: a class moved, a class in 30 minutes, new announcements, events | No sign-in: the phone registers with the roll number it already remembers. On iPhone it works only after "Add to Home Screen" |
-| S5 | Dark mode | Light and dark themes, following the phone, with a switch | Nothing |
+| S5 | Dark mode | Light and dark themes, following the phone, with a switch | Nothing. **Built 19 Oct 2026** (not yet pushed) |
 
 **Behind the scenes:** S1, S2 and S4 need a small server and database of our
 own (Supabase, free to low cost), set up with the better hosting. **No mail
@@ -79,7 +79,7 @@ Items marked **C** come after the rest of stage B.
 
 | # | Feature | In easy words | Who at IMT |
 |---|---|---|---|
-| O7 | Master timetable | Faculty and admins search by roll number, course, section, room, teacher or date | Program offices (needs O1 and official lists) |
+| O7 | Master timetable | Faculty and admins search by roll number, course, section, room, teacher or date | Program offices (needs O1 and official lists). **A lite version exists since 19 Oct 2026** (stage A: hidden address, soft password, no teachers, from the published weekly schedules); this item is the full one |
 | O8 | Free room and free teacher finder | Which rooms and which teachers are free at a given time | Admin office (room list), program offices |
 | O9 | Faculty's own timetable | Each teacher sees their own week | Program offices, faculty |
 | O10 | Subject pages (C) | One page per course: sessions, teacher, slides, notices | Program offices, faculty |

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Master Timetable · IMT Never Sleeps</title>
+<meta name="description" content="Master timetable, staff view.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="../assets/imt-logo.png">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="IMT Never Sleeps">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Caveat:wght@600;700&display=swap">
+<script src="../js/theme.js?v=702672a2"></script>
+<link rel="stylesheet" href="../css/styles.css?v=e3828735">
+</head>
+<body class="tool master">
+
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a class="brand" href="../" aria-label="IMT Never Sleeps, home">
+      <img class="brand-icon" src="../assets/imt-logo.png" alt="" width="30" height="33">
+      <span class="brand-name">IMT Never Sleeps</span>
+    </a>
+    <button class="theme-toggle" id="themeBtn" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+      <svg class="th-ico th-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.500A8 8 0 0 1 9.500 4a8 8 0 1 0 10.500 10.500Z" stroke="currentColor" stroke-width="1.700" stroke-linejoin="round"/></svg>
+      <svg class="th-ico th-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.700"/><path d="M12 3v2.200M12 18.800V21M3 12h2.200M18.800 12H21M5.600 5.600l1.600 1.600M16.800 16.800l1.600 1.600M5.600 18.400l1.600-1.600M16.800 7.200l1.600-1.600" stroke="currentColor" stroke-width="1.700" stroke-linecap="round"/></svg>
+    </button>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navMenu">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+    </button>
+    <nav class="header-actions nav-menu" id="navMenu" aria-label="Site">
+      <div class="nav-group" id="navRes">
+        <button class="nav-link nav-res" id="resToggle" type="button" aria-expanded="false" aria-controls="resMenu">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="4" width="6.500" height="6.500" rx="1.800" stroke="currentColor" stroke-width="1.600"/><rect x="13.500" y="4" width="6.500" height="6.500" rx="1.800" stroke="currentColor" stroke-width="1.600"/><rect x="4" y="13.500" width="6.500" height="6.500" rx="1.800" stroke="currentColor" stroke-width="1.600"/><rect x="13.500" y="13.500" width="6.500" height="6.500" rx="1.800" stroke="currentColor" stroke-width="1.600"/></svg>
+          <span>Resources</span>
+          <svg class="nav-chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="res-menu" id="resMenu">
+          <a class="res-item" id="busNav" href="../bus/">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4.5" y="3.5" width="15" height="14" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 11h15M8 17.5V20M16 17.5V20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8.3" cy="14.200" r="1" fill="currentColor"/><circle cx="15.700" cy="14.200" r="1" fill="currentColor"/></svg>
+            <span>Bus Schedule</span>
+          </a>
+          <a class="res-item" id="studyNav" href="#" target="_blank" rel="noopener" hidden>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5M8 8h8M8 12h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Study Material</span>
+          </a>
+          <div class="res-pair">
+            <a class="res-item" id="lmsNav" href="https://lms.imt.edu/login/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2.500 9.500 12 5l9.500 4.500L12 14 2.500 9.500Z" stroke="currentColor" stroke-width="1.600" stroke-linejoin="round"/><path d="M6.500 11.800V16c0 1.200 2.500 2.500 5.500 2.500s5.500-1.300 5.500-2.500v-4.200M21.500 9.500V15" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>LMS</span>
+            </a>
+            <a class="res-item" id="erpNav" href="https://erp.imt.edu/login.htm" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 20.500h18M5 20.500V9.500M19 20.500V9.500M9.500 20.500V9.500M14.500 20.500V9.500M2.500 9 12 3.500 21.500 9H2.500Z" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>ERP</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <a class="nav-link" id="feedbackNav" href="https://forms.gle/y2CWo8Nq7o2GqytcA" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8A2.5 2.5 0 0 1 17.5 16H9l-4 4v-4.5A2.5 2.5 0 0 1 4 13.5v-8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span>Feedback</span>
+      </a>
+      <button class="nav-link nav-install" id="installNav" type="button" hidden>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.5v7M9 12l3 3 3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span id="installNavText">Install app</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<div class="hero-glow" aria-hidden="true"></div>
+
+<div class="wrap mt-wrap">
+
+  <!-- the password gate -->
+  <div id="gate">
+    <div class="hero" id="top">
+      <span class="eyebrow">Staff view</span>
+      <h1>Master <span class="cursive-accent">time</span>table</h1>
+    </div>
+    <div class="mt-gatecard">
+      <label class="field-label" for="lockInput">Password</label>
+      <form class="search-row" id="lockForm" autocomplete="off">
+        <input class="up-input" id="lockInput" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Enter the password">
+        <button class="btn-rainbow" type="submit">Unlock</button>
+      </form>
+      <div class="error" id="lockError" role="alert" hidden></div>
+    </div>
+  </div>
+
+  <!-- everything below shows once unlocked -->
+  <div class="mt-app" id="app" hidden>
+    <div class="mt-top">
+      <div>
+        <span class="mt-kicker">Staff view</span>
+        <h1 class="mt-page-title">Master timetable</h1>
+        <p class="mt-note" id="dataNote"></p>
+      </div>
+      <button class="mt-lock" id="lockBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="10.500" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.700"/><path d="M8 10.500V8a4 4 0 0 1 8 0v2.500" stroke="currentColor" stroke-width="1.700" stroke-linecap="round"/></svg>
+        Lock
+      </button>
+    </div>
+
+    <div class="mt-tabs" role="tablist" aria-label="Master timetable views">
+      <button class="mt-tab" id="tab-board" type="button" role="tab" aria-selected="true" aria-controls="panel-board">Rooms board</button>
+      <button class="mt-tab" id="tab-sections" type="button" role="tab" aria-selected="false" aria-controls="panel-sections">Week by section</button>
+      <button class="mt-tab" id="tab-find" type="button" role="tab" aria-selected="false" aria-controls="panel-find">Find a time</button>
+      <button class="mt-tab" id="tab-search" type="button" role="tab" aria-selected="false" aria-controls="panel-search">Search</button>
+      <button class="mt-tab" id="tab-checks" type="button" role="tab" aria-selected="false" aria-controls="panel-checks">Checks <span class="mt-badge" id="checksBadge" hidden></span></button>
+    </div>
+
+    <!-- 1. rooms board -->
+    <section id="panel-board" role="tabpanel" aria-labelledby="tab-board">
+      <div class="mt-panel">
+        <div class="mt-prow">
+          <div class="mt-weeknav">
+            <button class="mt-step" id="bPrev" type="button" aria-label="Previous week">&#8249;</button>
+            <span class="mt-weeklbl" id="bWeek"></span>
+            <button class="mt-step" id="bNext" type="button" aria-label="Next week">&#8250;</button>
+          </div>
+          <div class="mt-legend" id="bLegend" aria-label="Programmes: select one to highlight it"></div>
+        </div>
+        <div class="mt-days" id="bDays" role="group" aria-label="Day"></div>
+        <div class="mt-timebar">
+          <button class="mt-now" id="bNow" type="button">Now</button>
+          <input class="mt-range" id="bTime" type="range" step="5" aria-label="Time of day">
+          <output class="mt-timeout" id="bTimeOut" for="bTime"></output>
+        </div>
+        <p class="mt-keys-hint"><kbd>&larr;</kbd> <kbd>&rarr;</kbd> move the time by 15 minutes &nbsp;&middot;&nbsp; <kbd>N</kbd> now &nbsp;&middot;&nbsp; drag or tap anywhere on the board</p>
+      </div>
+      <div class="mt-kpis" id="bSummary" aria-live="polite"></div>
+      <div class="mt-tiles" id="bFree"></div>
+      <div class="bd-scroll" id="bBoard"></div>
+      <div class="mt-detail" id="bDetail" hidden></div>
+      <details class="mt-panel mt-load" open>
+        <summary>Room load for the week <span>hours booked, room by room</span></summary>
+        <div id="bLoad"></div>
+      </details>
+    </section>
+
+    <!-- 2. a section's week, or one student's -->
+    <section id="panel-sections" role="tabpanel" aria-labelledby="tab-sections" hidden>
+      <div class="mt-panel">
+        <div class="mt-fields">
+          <div class="mt-field"><label class="field-label" for="sGroup">Programme and batch</label><select class="mt-input" id="sGroup"></select></div>
+          <div class="mt-field"><label class="field-label" for="sUnit" id="sUnitLabel">Section</label><select class="mt-input" id="sUnit"></select></div>
+          <div class="mt-field"><label class="field-label" for="sRoll">or a roll number</label><input class="mt-input" id="sRoll" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 260601001"></div>
+        </div>
+        <div class="mt-weeknav">
+          <button class="mt-step" id="sPrev" type="button" aria-label="Previous week">&#8249;</button>
+          <span class="mt-weeklbl" id="sWeek"></span>
+          <button class="mt-step" id="sNext" type="button" aria-label="Next week">&#8250;</button>
+        </div>
+      </div>
+      <div id="sOut"></div>
+    </section>
+
+    <!-- 3. a time that suits several sections at once -->
+    <section id="panel-find" role="tabpanel" aria-labelledby="tab-find" hidden>
+      <div class="mt-panel">
+        <p class="mt-lead">Tick the sections that must all be free. Each day shows their classes as strips, with the shared free time in green. Select a green window to copy it.</p>
+        <div class="mt-picks" id="cPicks"></div>
+        <div class="mt-prow mt-prow-top">
+          <div class="mt-weeknav">
+            <button class="mt-step" id="cPrev" type="button" aria-label="Previous week">&#8249;</button>
+            <span class="mt-weeklbl" id="cWeek"></span>
+            <button class="mt-step" id="cNext" type="button" aria-label="Next week">&#8250;</button>
+          </div>
+          <div class="mt-fields mt-fields-inline">
+            <div class="mt-field"><label class="field-label" for="cLen">At least</label>
+              <select class="mt-input" id="cLen"><option value="60">1 hour</option><option value="75" selected>75 minutes</option><option value="90">90 minutes</option><option value="120">2 hours</option><option value="180">3 hours</option></select></div>
+            <div class="mt-field"><label class="field-label" for="cWinA">Day starts</label><input class="mt-input" id="cWinA" type="time" step="900" value="08:00"></div>
+            <div class="mt-field"><label class="field-label" for="cWinB">Day ends</label><input class="mt-input" id="cWinB" type="time" step="900" value="20:30"></div>
+          </div>
+        </div>
+      </div>
+      <div id="cBest"></div>
+      <div id="cOut"></div>
+    </section>
+
+    <!-- 4. search -->
+    <section id="panel-search" role="tabpanel" aria-labelledby="tab-search" hidden>
+      <div class="mt-panel">
+        <label class="field-label" for="qIn">Search classes</label>
+        <div class="mt-searchbox">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="6.500" stroke="currentColor" stroke-width="1.800"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.800" stroke-linecap="round"/></svg>
+          <input class="mt-search" id="qIn" type="search" autocomplete="off" spellcheck="false" placeholder="a course, a room, a day, a section, a roll number">
+        </div>
+        <p class="mt-hint">Words narrow it down together: <b>tech readiness thu</b>, <b>501 wed</b>, <b>bfs a</b>, <b>design thinking group 3</b>, or a whole roll number for that student's week.</p>
+        <div class="mt-prow mt-prow-top">
+          <div class="mt-fields mt-fields-inline">
+            <div class="mt-field"><label class="field-label" for="qGroup">Programme and batch</label><select class="mt-input" id="qGroup"></select></div>
+            <div class="mt-field"><label class="field-label" for="qScope">When</label><select class="mt-input" id="qScope"></select></div>
+          </div>
+          <div class="mt-actions">
+            <button class="mt-btn" id="qCopy" type="button">Copy</button>
+            <button class="mt-btn" id="qCsv" type="button">Download CSV</button>
+          </div>
+        </div>
+      </div>
+      <div class="mt-count" id="qCount" aria-live="polite"></div>
+      <div id="qOut"></div>
+    </section>
+
+    <!-- 5. things in the schedules worth a second look -->
+    <section id="panel-checks" role="tabpanel" aria-labelledby="tab-checks" hidden>
+      <p class="mt-lead mt-lead-pad">The published schedules, checked for things that look wrong. A combined lecture (the same course, in one room, for several sections) is not a clash.</p>
+      <div id="kOut"></div>
+    </section>
+  </div>
+</div>
+
+<div class="mt-toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<footer>
+  <div class="disclaimer">
+    <span class="disclaimer-label">Disclaimer</span>
+    <div class="disclaimer-body">
+      <p class="disclaimer-text">The master timetable is built from the weekly schedules published to students, so it is only as complete and current as they are. Always confirm against the official schedule.</p>
+      <ul class="disclaimer-list">
+        <li>Rooms are those named in the published schedules. Room capacity and teachers are not in this data.</li>
+        <li>The password only keeps casual visitors out of this page. It is not a security measure.</li>
+      </ul>
+    </div>
+  </div>
+  <span class="credit">Created by <a href="https://www.linkedin.com/in/khushgoyal17/" target="_blank" rel="noopener">Khush Goyal</a></span>
+</footer>
+
+<script src="../js/portal-config.js?v=e0e3b78f"></script>
+<script src="../js/site-data.js?v=dc0d8661"></script>
+<script src="../js/roster-data.js?v=41d72d77"></script>
+<script src="../weekly-seat/js/weekly-data.js?v=81a5b912"></script>
+<script src="../js/common.js?v=9be72262"></script>
+<script src="js/app.js?v=8af474ce"></script>
+</body>
+</html>

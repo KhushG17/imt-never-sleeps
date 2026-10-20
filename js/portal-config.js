@@ -106,6 +106,16 @@ window.PORTAL_CONFIG = {
     url: "https://imtgzb-my.sharepoint.com/:f:/g/personal/dcp26khushgoyal_imt_ac_in/IgCNsHVzKIz2Q7N7Vaec049qAQwAX5m6zlpiZ0aakGt8rFI?e=MwAYU9"
   },
 
+  // LMS (Moodle) and ERP, side by side in the Resources menu. On a phone the
+  // LMS opens its app page (App Store on an iPhone, Google Play on Android);
+  // on a laptop it opens the website. The ERP is the same everywhere.
+  lms: {
+    web: "https://lms.imt.edu/login/",
+    ios: "https://apps.apple.com/in/app/moodle-workplace/id1470929705",
+    android: "https://play.google.com/store/apps/details?id=com.moodle.workplace&hl=en_IN"
+  },
+  erp: { url: "https://erp.imt.edu/login.htm" },
+
   // The upload page at /upload/: which GitHub repository weekly schedules
   // are sent to. See README, "Uploading from the browser".
   upload: {
