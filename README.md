@@ -736,7 +736,7 @@ The documents:
    moderation, rules; tell the Committee on Digital Communications before
    launch.
 5. Moodle and ERP links in Resources (addresses needed).
-6. ~~Dark mode.~~ Built 19 Oct 2026 (see "Changes made, not yet pushed"); to be pushed on Khush's word. The same section covers LMS and ERP in Resources and a lite master timetable, both built.
+6. ~~Dark mode.~~ Built 19 Oct 2026 and pushed 20 Oct 2026 (see "Dark mode, LMS and ERP, master timetable, staff tiles"). The same section covers LMS and ERP in Resources and a lite master timetable, both live.
 7. Our own usage analytics on the new server.
 
 **Ongoing:**
@@ -765,7 +765,7 @@ The documents:
 | Each week's schedule PDFs, all groups | Weekly update | Every week, through `/upload/` or into `all files/_inbox/` |
 | Seating-plan Excel for the Term 2 and Term 5 exams | Unlocking Exam Seat | When released |
 | Revised student or registration lists | Whenever sections or registrations change | As needed |
-| ~~Moodle and ERP links~~ | Stage A: LMS and ERP in Resources | Received 19 Oct 2026; built (not yet pushed) |
+| ~~Moodle and ERP links~~ | Stage A: LMS and ERP in Resources | Received 19 Oct 2026; built and pushed 20 Oct 2026 |
 | Club, committee and student council contacts | Stage A: who posts announcements | Needed |
 | Student moderators and the chat's rules | Stage A: gossip of the day | Needed before launch |
 | IMT's permission and requirement list | Stage B, with the data in `docs/unified-data-checklist.md` | Waiting on IMT |
@@ -863,11 +863,10 @@ These files are rebuilt by `python scripts/update.py` and are overwritten on
 every run, so correct the college's file in `all files/` (or
 `data/config/overrides.json`), never the master file itself.
 
-## Changes made, not yet pushed
+## Dark mode, LMS and ERP, master timetable, staff tiles (pushed 20 Oct 2026)
 
-Built locally on 19 Oct 2026; Khush said not to push these (only the fixed
-navbar, commit `a08ccc6`, was pushed). Everything below is in the working
-copy and passes its tests.
+Built 19 to 20 Oct 2026 and pushed on Khush's word as commit `6ebde55` (the
+fixed navbar went earlier, commit `a08ccc6`). All of it passes its tests.
 
 - **Dark mode, on every page** (home, Weekly, Exam Seat, Bus, Master, the
   upload page).
