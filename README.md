@@ -735,7 +735,7 @@ The documents:
 4. Gossip of the day: join code, per-phone private ID, bot check,
    moderation, rules; tell the Committee on Digital Communications before
    launch.
-5. Moodle and ERP links in Resources (addresses needed).
+5. ~~Moodle and ERP links in Resources.~~ Done and live 20 Oct 2026 (LMS and ERP side by side; the LMS opens its app store page on a phone).
 6. ~~Dark mode.~~ Built 19 Oct 2026 and pushed 20 Oct 2026 (see "Dark mode, LMS and ERP, master timetable, staff tiles"). The same section covers LMS and ERP in Resources and a lite master timetable, both live.
 7. Our own usage analytics on the new server.
 
