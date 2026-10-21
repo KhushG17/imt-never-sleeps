@@ -1173,6 +1173,16 @@ Built on 20 Oct 2026; waiting for Khush to say push.
   pinch zoom and scrolling still work (kept for accessibility). The master
   timetable's swipe lock still passes (15/15).
 
+## Garba Night, 23 Oct 2026 (not yet pushed)
+
+- An event banner on Fri 23 Oct (below that day's classes) in a new `garba`
+  look: magenta, orange and gold with mirror-work dots, a turning rangoli
+  mandala at one end and crossed dandiya sticks at the other, a sheen across
+  (motion off for reduced-motion devices). Third line: "CULCOM" (`by`). Entry in
+  `events` in `js/portal-config.js`; art in `weekly-seat/js/app.js`
+  (`garbaMandala`, `dandiya`), look in `css/styles.css`. No time or venue yet:
+  add `time`, `where`, `note` or `link` to the same entry when known.
+
 ## Corrections received
 
 - **19 Oct 2026, the navbar now stays fixed at the top on every page** (it

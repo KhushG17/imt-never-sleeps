@@ -242,10 +242,39 @@
     for(var i = 0; i < 7; i++) out += '<span class="fx-spark" style="--i:' + i + '"></span>';
     return '<span class="fx-sparks" aria-hidden="true">' + out + '</span>';
   }
+  // Garba Night: a turning rangoli mandala at one end, crossed dandiya sticks at the other
+  function garbaMandala(){
+    var out = '<svg class="event-motif motif-garba-a" viewBox="-56 -56 112 112" aria-hidden="true">' +
+      '<circle r="54" fill="#4a0e6b"/><circle r="53" fill="none" stroke="#ffd24a" stroke-width="1.6"/>';
+    for(var m = 0; m < 16; m++){ var ma = m / 16 * 2 * Math.PI; out += '<circle cx="' + (Math.cos(ma) * 47.5).toFixed(1) + '" cy="' + (Math.sin(ma) * 47.5).toFixed(1) + '" r="2" fill="#fff4c2"/>'; }
+    [ { r: 35, n: 12, rx: 10, ry: 5.6, fill: '#e91e78', off: 0 },
+      { r: 25, n: 12, rx: 8.5, ry: 4.6, fill: '#ff8a1c', off: 15 },
+      { r: 15.5, n: 8, rx: 7, ry: 3.8, fill: '#ffd24a', off: 0 } ].forEach(function(ring){
+      for(var i = 0; i < ring.n; i++){
+        var deg = ring.off + i / ring.n * 360, a = deg * Math.PI / 180, cx = Math.cos(a) * ring.r, cy = Math.sin(a) * ring.r;
+        out += '<ellipse cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" rx="' + ring.rx + '" ry="' + ring.ry + '" fill="' + ring.fill + '" transform="rotate(' + deg.toFixed(1) + ' ' + cx.toFixed(1) + ' ' + cy.toFixed(1) + ')"/>';
+      }
+    });
+    return out + '<circle r="7.500" fill="#14b8a6"/><circle r="3.200" fill="#fff4c2"/></svg>';
+  }
+  function dandiyaStick(rot){
+    var bands = '';
+    ['#ffd24a', '#e91e78', '#14b8a6', '#ffd24a', '#e91e78', '#14b8a6'].forEach(function(c, i){ bands += '<rect x="-5.500" y="' + (-27 + i * 9) + '" width="11" height="4.500" fill="' + c + '"/>'; });
+    return '<g transform="rotate(' + rot + ')"><rect x="-5.500" y="-30" width="11" height="60" rx="5.500" fill="#f6e2b3"/>' + bands +
+      '<circle cy="-31" r="6" fill="#ffd24a"/><circle cy="31" r="6" fill="#ffd24a"/>' +
+      '<path d="M0 -34 q-6 -6 -9 -2 M0 -34 q6 -6 9 -2" fill="none" stroke="#e91e78" stroke-width="2" stroke-linecap="round"/></g>';
+  }
+  function dandiya(){
+    return '<svg class="event-motif motif-garba-b" viewBox="-56 -56 112 112" aria-hidden="true">' +
+      '<circle r="54" fill="#4a0e6b"/><circle r="53" fill="none" stroke="#ffd24a" stroke-width="1.6"/>' +
+      dandiyaStick(-36) + dandiyaStick(36) +
+      '<path d="M0 -8 L2.400 -2.400 L8 0 L2.400 2.400 L0 8 L-2.400 2.400 L-8 0 L-2.400 -2.400Z" fill="#fff4c2"/>' +
+      '<circle cx="-36" cy="-34" r="2" fill="#fff4c2"/><circle cx="38" cy="30" r="2" fill="#fff4c2"/><circle cx="-34" cy="34" r="1.600" fill="#ffd24a"/><circle cx="36" cy="-32" r="1.600" fill="#ffd24a"/></svg>';
+  }
   function eventBanner(e){
-    var theme = e.theme === 'onam' || e.theme === 'sports' || e.theme === 'reset' || e.theme === 'festival' ? e.theme : 'plain';
+    var theme = e.theme === 'onam' || e.theme === 'sports' || e.theme === 'reset' || e.theme === 'festival' || e.theme === 'garba' ? e.theme : 'plain';
     return '<div class="event-banner event-' + theme + (theme === 'festival' ? ' is-' + (e.icon === 'bow' ? 'bow' : 'lotus') : '') + '">' +
-      (theme === 'onam' ? pookalam() : theme === 'sports' ? crescent() : theme === 'reset' ? resetIcon(e.icon) : theme === 'festival' ? festivalSparks() + festivalIcon(e.icon) : '') +
+      (theme === 'onam' ? pookalam() : theme === 'sports' ? crescent() : theme === 'reset' ? resetIcon(e.icon) : theme === 'festival' ? festivalSparks() + festivalIcon(e.icon) : theme === 'garba' ? garbaMandala() : '') +
       '<div class="event-text"><div class="event-title">' + (theme === 'reset' ? titleWithYear(e.title) : IMT.escapeHtml(e.title)) + '</div>' +
       (e.note ? '<div class="event-note">' + IMT.escapeHtml(e.note) + '</div>' : '') +
       (e.where ? '<div class="event-where"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.3" fill="currentColor"/></svg>' + IMT.escapeHtml((e.time && e.link ? e.time + ' · ' : '') + e.where) + '</div>' : '') +
@@ -255,7 +284,7 @@
       (e.link ? '<a class="event-link" href="' + IMT.escapeHtml(e.link) + '" target="_blank" rel="noopener" data-event="' + IMT.escapeHtml(e.title) + '" ' +
         'title="Open" aria-label="' + IMT.escapeHtml(e.title + (e.note ? ', ' + e.note : '')) + ': open the link">' +
         '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>' : '') +
-      (theme === 'sports' ? sun() : '') +
+      (theme === 'sports' ? sun() : theme === 'garba' ? dandiya() : '') +
       '</div>';
   }
 

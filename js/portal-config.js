@@ -58,7 +58,8 @@ window.PORTAL_CONFIG = {
   //   place - "top" (the default): above that day's classes.
   //           "after": below that day's classes, for something held once
   //           classes are over.
-  //   themes  - "onam" (green, a pookalam), "sports" (night purple and gold,
+  //   themes  - "garba" (Garba Night: magenta, orange and gold, a turning rangoli mandala and
+  //           crossed dandiya sticks), "onam" (green, a pookalam), "sports" (night purple and gold,
   //           a crescent on the left and a sun on the right, text centred),
   //           "plain" (green, no motif)
   //           "festival" (a greeting for a festival, for everyone; icon
@@ -76,6 +77,7 @@ window.PORTAL_CONFIG = {
   //   where - optional; the venue, shown after the note
   // An occasion that runs over several days gets one entry per date.
   events: [
+    { date: "2026-10-23", title: "Garba Night", by: "CULCOM", theme: "garba", place: "after" },
     { date: "2026-10-19", title: "Happy Mahashtami", theme: "festival", icon: "lotus", holiday: "Holiday" },
     { date: "2026-10-20", title: "Happy Dussehra", theme: "festival", icon: "bow", holiday: "Holiday" },
     { date: "2026-10-15", title: "RESET 2026", by: "HAWC · Day 1", note: "Penalty Shootout",

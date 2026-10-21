@@ -1829,3 +1829,38 @@ kbd{ font:600 11px var(--font-switzer); padding:1px 6px; border:1px solid var(--
 
 /* No double-tap zoom: a quick second tap on a button, card or the page no longer zooms in. Pinch zoom and scrolling still work. */
 html, body, a, button, input, select, textarea, label, summary, [role="button"], .step, .btn-ghost{ touch-action:manipulation; }
+
+/* ---------- Garba Night: chaniya-choli colours, a turning mandala and crossed dandiya sticks ---------- */
+.event-garba{
+  background:
+    radial-gradient(150px 100px at 0% 50%, rgba(255,210,74,.35), transparent 70%),
+    radial-gradient(150px 100px at 100% 50%, rgba(20,184,166,.4), transparent 70%),
+    linear-gradient(100deg, #4a0e6b 0%, #a3125f 38%, #d9480f 100%);
+  justify-content:space-between; color:#fff;
+}
+/* mirror-work: a scatter of small bright dots across the banner */
+.event-garba::before{
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:.55;
+  background-image:
+    radial-gradient(circle, rgba(255,244,194,.9) 0 1.4px, transparent 1.8px),
+    radial-gradient(circle, rgba(255,210,74,.8) 0 1.2px, transparent 1.6px);
+  background-size:46px 34px, 62px 46px; background-position:6px 8px, 24px 20px;
+}
+.event-garba .event-text{ text-align:center; }
+.event-garba .event-title{ text-transform:uppercase; letter-spacing:.1em; font-size:18px; color:#fff; text-shadow:0 1px 6px rgba(60,0,60,.55); }
+.event-garba .event-note{ color:#fff4d6; text-wrap:balance; }
+.event-garba .event-motif{ width:64px; height:64px; filter:drop-shadow(0 2px 5px rgba(40,0,50,.45)); }
+@media (max-width:480px){ .event-garba{ gap:8px; padding:12px; } .event-garba .event-title{ font-size:15px; letter-spacing:.07em; } .event-garba .event-motif{ width:54px; height:54px; } }
+@media (max-width:360px){ .event-garba .event-motif{ width:40px; } .event-garba .event-motif{ height:40px; } }
+/* the mandala turns, the dandiya sticks tap together, a sheen crosses the banner */
+@media (prefers-reduced-motion: no-preference){
+  .event-garba .motif-garba-a{ animation:pookalamTurn 18s linear infinite; }
+  .event-garba .motif-garba-b{ animation:dandiyaTap 1.6s ease-in-out infinite; }
+  .event-garba::after{
+    content:""; position:absolute; top:0; bottom:0; left:-40%; width:30%; pointer-events:none;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,.25), transparent); transform:skewX(-18deg);
+    animation:garbaSheen 6s ease-in-out infinite;
+  }
+}
+@keyframes dandiyaTap{ 0%, 100%{ transform:rotate(-7deg) scale(1); } 45%{ transform:rotate(7deg) scale(1.06); } 55%{ transform:rotate(7deg) scale(1.06); } }
+@keyframes garbaSheen{ 0%, 55%{ left:-40%; } 100%{ left:140%; } }
