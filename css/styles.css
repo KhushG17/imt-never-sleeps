@@ -1826,3 +1826,6 @@ kbd{ font:600 11px var(--font-switzer); padding:1px 6px; border:1px solid var(--
   .mt-day em{ display:none; }
 }
 @media print{ .master .mt-tabs, .master .mt-lock, .master .mt-toast{ display:none!important; } }
+
+/* No double-tap zoom: a quick second tap on a button, card or the page no longer zooms in. Pinch zoom and scrolling still work. */
+html, body, a, button, input, select, textarea, label, summary, [role="button"], .step, .btn-ghost{ touch-action:manipulation; }

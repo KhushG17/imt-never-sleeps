@@ -1165,6 +1165,14 @@ Built on 20 Oct 2026; waiting for Khush to say push.
   settings say which app scheme the site allows). Checked by `lms_app_test.py`
   (6 checks, with the Android and iPhone browser identities).
 
+## No double-tap zoom (22 Oct 2026, not yet pushed)
+
+- A quick double tap on a phone zoomed the page in. `css/styles.css` now sets
+  `touch-action: manipulation` on the page, links, buttons and fields on every
+  page (Home, Weekly, Exam Seat, Bus, master, upload): double-tap zoom is off,
+  pinch zoom and scrolling still work (kept for accessibility). The master
+  timetable's swipe lock still passes (15/15).
+
 ## Corrections received
 
 - **19 Oct 2026, the navbar now stays fixed at the top on every page** (it
