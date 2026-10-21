@@ -1183,6 +1183,26 @@ Built on 20 Oct 2026; waiting for Khush to say push.
   (`garbaMandala`, `dandiya`), look in `css/styles.css`. No time or venue yet:
   add `time`, `where`, `note` or `link` to the same entry when known.
 
+## Master timetable: one tab per job (22 Oct 2026, not yet pushed)
+
+- The master timetable now opens on the things staff actually do, one tab each:
+  **Student** (type a name or roll number, suggestions appear, tap the student,
+  their week shows right there with week arrows; keyboard and phone friendly),
+  **Vacant rooms** (pick a day and a window, see the rooms free for all of it,
+  grouped, each with "till 3:45 PM" or "rest of the day", Now button, Copy the
+  list; the old room board sits below it), **Section timetable** (programme
+  and section, week by week), **Common time** (when chosen sections are all
+  free), **Checks** (room clashes, with the count on the tab) and **Detailed search**
+  (the old free-text search with Copy and CSV, last).
+- Student suggestions come from the roster (students with a schedule on file,
+  test rolls left out): matches on any part of the name or the start of the
+  roll number, best matches first, up to seven. Vacant rooms are worked out
+  from the room named on each class, and counted against an independent
+  calculation in the tests. Events counted: `find_student`, `vacant_now`,
+  `copy_vacant`. Code: `master/js/app.js` ("0. FIND"), `master/index.html`.
+- Checked by `find_test.py` (32 checks) plus the updated `master_test.py` (90),
+  `swipe_test.py` (15) and the dark-mode suite (72).
+
 ## Corrections received
 
 - **19 Oct 2026, the navbar now stays fixed at the top on every page** (it

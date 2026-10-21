@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Caveat:wght@600;700&display=swap">
 <script src="../js/theme.js?v=702672a2"></script>
-<link rel="stylesheet" href="../css/styles.css?v=d73073ac">
+<link rel="stylesheet" href="../css/styles.css?v=9bc9f8f0">
 </head>
 <body class="tool master">
 
@@ -109,15 +109,49 @@
     </div>
 
     <div class="mt-tabs" role="tablist" aria-label="Master timetable views">
-      <button class="mt-tab" id="tab-board" type="button" role="tab" aria-selected="true" aria-controls="panel-board">Rooms board</button>
-      <button class="mt-tab" id="tab-sections" type="button" role="tab" aria-selected="false" aria-controls="panel-sections">Week by section</button>
-      <button class="mt-tab" id="tab-find" type="button" role="tab" aria-selected="false" aria-controls="panel-find">Find a time</button>
-      <button class="mt-tab" id="tab-search" type="button" role="tab" aria-selected="false" aria-controls="panel-search">Search</button>
+      <button class="mt-tab" id="tab-student" type="button" role="tab" aria-selected="true" aria-controls="panel-student">Student</button>
+      <button class="mt-tab" id="tab-board" type="button" role="tab" aria-selected="false" aria-controls="panel-board">Vacant rooms</button>
+      <button class="mt-tab" id="tab-sections" type="button" role="tab" aria-selected="false" aria-controls="panel-sections">Section timetable</button>
+      <button class="mt-tab" id="tab-find" type="button" role="tab" aria-selected="false" aria-controls="panel-find">Common time</button>
       <button class="mt-tab" id="tab-checks" type="button" role="tab" aria-selected="false" aria-controls="panel-checks">Checks <span class="mt-badge" id="checksBadge" hidden></span></button>
+      <button class="mt-tab" id="tab-search" type="button" role="tab" aria-selected="false" aria-controls="panel-search">Detailed search</button>
     </div>
 
-    <!-- 1. rooms board -->
-    <section id="panel-board" role="tabpanel" aria-labelledby="tab-board">
+    <!-- 1. a student: type a name or roll number, tap the name, see the week -->
+    <section id="panel-student" role="tabpanel" aria-labelledby="tab-student">
+      <div class="mt-panel mt-home">
+        <label class="field-label" for="hIn">Student name or roll number</label>
+        <div class="mt-searchbox mt-suggest">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="6.500" stroke="currentColor" stroke-width="1.800"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.800" stroke-linecap="round"/></svg>
+          <input class="mt-search" id="hIn" type="text" role="combobox" aria-expanded="false" aria-controls="hList" aria-autocomplete="list" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Start typing a name or a roll number">
+          <ul class="mt-sug" id="hList" role="listbox" aria-label="Suggestions" hidden></ul>
+        </div>
+        <p class="mt-hint">Suggestions appear as you type. Tap the student you want to see their week, class by class. Use the arrows to move between weeks.</p>
+        <div class="mt-weeknav" id="uNav" hidden>
+          <button class="mt-step" id="uPrev" type="button" aria-label="Previous week">&#8249;</button>
+          <span class="mt-weeklbl" id="uWeek"></span>
+          <button class="mt-step" id="uNext" type="button" aria-label="Next week">&#8250;</button>
+        </div>
+      </div>
+      <div id="uOut"></div>
+    </section>
+
+
+    <!-- 2. vacant rooms: the finder, then the board hour by hour -->
+    <section id="panel-board" role="tabpanel" aria-labelledby="tab-board" hidden>
+      <div class="mt-panel mt-vacant">
+        <div class="mt-vac-head"><h2 class="mt-h2">Vacant rooms</h2><button class="mt-btn" id="hFreeNow" type="button">Now</button></div>
+        <div class="mt-fields mt-fields-3">
+          <div class="mt-field"><label class="field-label" for="hDay">Day</label><select class="mt-input" id="hDay"></select></div>
+          <div class="mt-field"><label class="field-label" for="hFrom">From</label><input class="mt-input" id="hFrom" type="time" step="900"></div>
+          <div class="mt-field"><label class="field-label" for="hTo">To</label><input class="mt-input" id="hTo" type="time" step="900"></div>
+        </div>
+        <div class="mt-count" id="hFreeCount" aria-live="polite"></div>
+        <div id="hFreeOut"></div>
+        <div class="mt-actions mt-actions-left"><button class="mt-btn" id="hFreeCopy" type="button">Copy the list</button></div>
+      </div>
+
+      <h2 class="mt-h2 mt-h2-pad">Room board <span class="mt-h2-sub">every room, hour by hour</span></h2>
       <div class="mt-panel">
         <div class="mt-prow">
           <div class="mt-weeknav">
@@ -145,13 +179,12 @@
       </details>
     </section>
 
-    <!-- 2. a section's week, or one student's -->
+    <!-- 3. a section's week, or one student's -->
     <section id="panel-sections" role="tabpanel" aria-labelledby="tab-sections" hidden>
       <div class="mt-panel">
         <div class="mt-fields">
           <div class="mt-field"><label class="field-label" for="sGroup">Programme and batch</label><select class="mt-input" id="sGroup"></select></div>
           <div class="mt-field"><label class="field-label" for="sUnit" id="sUnitLabel">Section</label><select class="mt-input" id="sUnit"></select></div>
-          <div class="mt-field"><label class="field-label" for="sRoll">or a roll number</label><input class="mt-input" id="sRoll" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 260601001"></div>
         </div>
         <div class="mt-weeknav">
           <button class="mt-step" id="sPrev" type="button" aria-label="Previous week">&#8249;</button>
@@ -162,7 +195,7 @@
       <div id="sOut"></div>
     </section>
 
-    <!-- 3. a time that suits several sections at once -->
+    <!-- 4. a time that suits several sections at once -->
     <section id="panel-find" role="tabpanel" aria-labelledby="tab-find" hidden>
       <div class="mt-panel">
         <p class="mt-lead">Tick the sections that must all be free. Each day shows their classes as strips, with the shared free time in green. Select a green window to copy it.</p>
@@ -185,7 +218,7 @@
       <div id="cOut"></div>
     </section>
 
-    <!-- 4. search -->
+    <!-- 6. search -->
     <section id="panel-search" role="tabpanel" aria-labelledby="tab-search" hidden>
       <div class="mt-panel">
         <label class="field-label" for="qIn">Search classes</label>
@@ -238,6 +271,6 @@
 <script src="../js/roster-data.js?v=16f1c0e2"></script>
 <script src="../weekly-seat/js/weekly-data.js?v=81a5b912"></script>
 <script src="../js/common.js?v=e0082b53"></script>
-<script src="js/app.js?v=a8f95b87"></script>
+<script src="js/app.js?v=aa311908"></script>
 </body>
 </html>

@@ -1,8 +1,12 @@
 /* Master timetable (staff view): a hidden page, behind a password.
 
    Built from window.WEEKLY_DATA, the same published weekly schedules the
-   student pages use (the newest weeks per group). Five views of one list of
+   student pages use (the newest weeks per group). Six views of one list of
    classes:
+     Student           type a name or roll number, tap the student from the
+                       suggestions, see their week
+     Vacant rooms      the rooms free for any day and time you choose, and below
+                       it the board: every room, hour by hour
      Rooms board       rooms down the side, time across: what is running at any
                        moment, which rooms are free and until when
      Week by section   the classic grid for one section, track or student
@@ -381,7 +385,7 @@
     if(act.getAttribute('data-act') === 'close'){ $('bDetail').hidden = true; state.sel = -1; Array.prototype.forEach.call($('bBoard').querySelectorAll('.is-sel'), function(x){ x.classList.remove('is-sel'); }); return; }
     var b = state.blocks[state.sel]; if(!b) return;
     IMT.track('master_action', null, { tool: 'master', result: 'open_section' });
-    $('sRoll').value = ''; $('sGroup').value = b.g; fillUnits(); $('sUnit').value = b.units[0];
+    $('sGroup').value = b.g; fillUnits(); $('sUnit').value = b.units[0];
     state.sIdx[b.g] = WEEKLY[b.g].map(function(w){ return w.start; }).indexOf(mondayOf(b.date));
     switchTab('sections');
   });
@@ -422,7 +426,7 @@
   // ======================================================================
   // 2. WEEK BY SECTION (or student)
   // ======================================================================
-  var sGroup = $('sGroup'), sUnit = $('sUnit'), sRoll = $('sRoll');
+  var sGroup = $('sGroup'), sUnit = $('sUnit');
   function fillUnits(){
     var g = sGroup.value, wk = WEEKLY[g][WEEKLY[g].length - 1], prev = sUnit.value;
     $('sUnitLabel').textContent = unitWord(wk);
@@ -452,21 +456,13 @@
     }
     return items;
   }
-  function renderSections(){
-    var g = sGroup.value, roll = IMT.normRoll(sRoll.value), student = null, view = null, banner = '';
-    sUnit.disabled = !!roll; sGroup.disabled = !!roll;
-    if(roll){
-      student = IMT.student(roll);
-      if(!student.groupKey || !WEEKLY[student.groupKey]){
-        $('sWeek').textContent = ''; $('sPrev').disabled = $('sNext').disabled = true;
-        $('sOut').innerHTML = '<div class="empty">That roll number is not one we have a schedule for.</div>'; return;
-      }
-      g = student.groupKey;
-    }
+  // draws one week as a grid: for a student (o.student) or for a section or track (o.g, o.unit). o names the page elements.
+  function drawWeek(o){
+    var g = o.g, student = o.student, view = null, banner = '';
     var ws = sWeeks(g), i = Math.max(0, Math.min(ws.length - 1, sIndex(g))), week = ws[i];
-    $('sWeek').textContent = weekLabel(week.start); $('sPrev').disabled = i <= 0; $('sNext').disabled = i >= ws.length - 1;
+    $(o.week).textContent = weekLabel(week.start); $(o.prev).disabled = i <= 0; $(o.next).disabled = i >= ws.length - 1;
     if(student){ view = IMT.buildView(week, student); if(view.banner) banner = '<div class="view-banner">' + esc(view.banner) + '</div>'; }
-    var items = gridItems(week, g, sUnit.value, view), byCell = {}, used = {};
+    var items = gridItems(week, g, o.unit, view), byCell = {}, used = {};
     items.forEach(function(it){ (byCell[it.d + ':' + it.s] = byCell[it.d + ':' + it.s] || []).push(it); if(it.code) used[it.code] = it.name; });
     var head = '<div class="gr-corner"></div>' + week.days.map(function(d, di){
       var note = d.note || '', has = items.some(function(it){ return it.d === di; });
@@ -482,14 +478,21 @@
       }).join('');
     }).join('');
     var title = student ? '<div class="mt-who"><b>' + esc(student.name || 'Roll ' + student.roll) + '</b><span>' + esc([student.programme, student.batchLabel, student.section ? 'Section ' + student.section : (student.track ? 'Track ' + student.track : '')].filter(Boolean).join(' · ')) + '</span></div>' :
-      '<div class="mt-who"><b>' + esc(groupLabel(g)) + ' · ' + esc(unitWord(week) + ' ' + sUnit.value) + '</b><span>Week ' + (week.weekNumber || '') + ' · ' + esc(weekLabel(week.start)) + '</span></div>';
+      '<div class="mt-who"><b>' + esc(groupLabel(g)) + ' · ' + esc(unitWord(week) + ' ' + o.unit) + '</b><span>Week ' + (week.weekNumber || '') + ' · ' + esc(weekLabel(week.start)) + '</span></div>';
     var keys = Object.keys(used).sort(natural).map(function(c){ return '<span class="mt-key-pill mt-hue" style="--h:' + courseHue(c) + '"><i></i><b>' + esc(c) + '</b> ' + esc(used[c]) + '</span>'; }).join('');
     var empty = items.length ? '' : '<div class="empty">No classes in this week.</div>';
-    $('sOut').innerHTML = title + banner + '<div class="gr-scroll"><div class="gr" style="--days:7">' + head + body + '</div></div>' + empty + (keys ? '<div class="mt-keys">' + keys + '</div>' : '');
+    $(o.out).innerHTML = title + banner + '<div class="gr-scroll"><div class="gr" style="--days:7">' + head + body + '</div></div>' + empty + (keys ? '<div class="mt-keys">' + keys + '</div>' : '');
   }
-  function sStep(n){
-    var roll = IMT.normRoll(sRoll.value), g = roll && IMT.student(roll).groupKey ? IMT.student(roll).groupKey : sGroup.value;
-    state.sIdx[g] = Math.max(0, Math.min(sWeeks(g).length - 1, sIndex(g) + n)); renderSections();
+  function renderSections(){ drawWeek({ out: 'sOut', week: 'sWeek', prev: 'sPrev', next: 'sNext', g: sGroup.value, unit: sUnit.value, student: null }); }
+  // the Student tab: whoever was picked from the suggestions
+  var picked = null;
+  function renderStudent(){
+    $('uNav').hidden = !picked;
+    if(!picked){ $('uOut').innerHTML = ''; return; }
+    drawWeek({ out: 'uOut', week: 'uWeek', prev: 'uPrev', next: 'uNext', g: picked.groupKey, unit: '', student: picked });
+  }
+  function stepWeek(g, n, redraw){
+    state.sIdx[g] = Math.max(0, Math.min(sWeeks(g).length - 1, sIndex(g) + n)); redraw();
   }
 
   // ======================================================================
@@ -766,13 +769,148 @@
     app.addEventListener('touchend', lift); app.addEventListener('touchcancel', lift);
   })();
 
+
+  // ======================================================================
+  // 0. FIND: one box for a student (name or roll number), a section or a room, and the rooms that are vacant
+  // ======================================================================
+  var PEOPLE = null;
+  function people(){
+    if(PEOPLE) return PEOPLE;
+    PEOPLE = [];
+    Object.keys(window.ROSTER_DATA || {}).forEach(function(roll){
+      var s = IMT.student(roll);
+      if(s.isTest || !s.groupKey || !WEEKLY[s.groupKey]) return;
+      var unit = s.section ? 'Section ' + s.section : (s.track ? 'Track ' + s.track : '');
+      PEOPLE.push({ kind: 'student', roll: roll, name: s.name || roll, lower: (s.name || '').toLowerCase(), sub: [groupShort(s.groupKey), unit].filter(Boolean).join(' · ') });
+    });
+    return PEOPLE;
+  }
+  var SECTION_LIST = null;
+  function sectionList(){
+    if(SECTION_LIST) return SECTION_LIST;
+    SECTION_LIST = [];
+    GROUPS.forEach(function(g){
+      var wk = WEEKLY[g][WEEKLY[g].length - 1];
+      UNITS[g].forEach(function(u){ SECTION_LIST.push({ kind: 'section', g: g, u: u, name: groupShort(g) + ' · ' + unitWord(wk) + ' ' + u, sub: groupLabel(g), hay: (groupShort(g) + ' ' + groupLabel(g) + ' ' + unitWord(wk) + ' ' + u).toLowerCase() }); });
+    });
+    return SECTION_LIST;
+  }
+  function suggestions(q, kinds){
+    q = String(q || '').trim().toLowerCase();
+    if(q.length < 2) return [];
+    var nq = norm(q), toks = q.split(/\s+/).filter(Boolean), out = [];
+    if(kinds.indexOf('student') >= 0){
+      var found = [];
+      people().forEach(function(p){
+        var hit = toks.every(function(t){ return p.lower.indexOf(t) >= 0 || p.roll.toLowerCase().indexOf(t) >= 0; });
+        if(!hit) return;
+        var words = p.lower.split(/\s+/), score = p.roll.toLowerCase().indexOf(nq) === 0 ? 3 : (words.some(function(w){ return w.indexOf(toks[0]) === 0; }) ? 2 : 1);
+        found.push({ p: p, score: score });
+      });
+      found.sort(function(a, b){ return b.score - a.score || natural(a.p.name, b.p.name); });
+      found.slice(0, 7).forEach(function(f){ out.push(f.p); });
+    }
+    if(kinds.indexOf('section') >= 0 && !/^\d+$/.test(q)){
+      sectionList().filter(function(x){ return toks.every(function(t){ return x.hay.indexOf(t) >= 0; }); }).slice(0, 4).forEach(function(x){ out.push(x); });
+    }
+    if(kinds.indexOf('room') >= 0){
+      ROOM_ORDER.filter(function(r){ return norm(r).indexOf(nq) >= 0 && (/\d/.test(q) || /room/.test(q)); }).slice(0, 3).forEach(function(r){ out.push({ kind: 'room', room: r, name: 'Room ' + r, sub: roomGroup(r).label }); });
+    }
+    return out;
+  }
+  // a type-ahead list on an input: arrows and Enter work, a tap picks, Escape closes
+  function attachSuggest(input, list, kinds, onPick){
+    var items = [], active = -1, blurTimer = 0;
+    function close(){ list.hidden = true; input.setAttribute('aria-expanded', 'false'); input.removeAttribute('aria-activedescendant'); active = -1; }
+    function paint(){
+      Array.prototype.forEach.call(list.children, function(li, i){ li.classList.toggle('is-active', i === active); li.setAttribute('aria-selected', i === active ? 'true' : 'false'); });
+      if(active >= 0){ input.setAttribute('aria-activedescendant', list.children[active].id); list.children[active].scrollIntoView({ block: 'nearest' }); } else input.removeAttribute('aria-activedescendant');
+    }
+    function open(){
+      clearTimeout(blurTimer);
+      items = suggestions(input.value, kinds); active = -1;
+      if(!items.length){
+        if(String(input.value).trim().length >= 2){ list.innerHTML = '<li class="mt-sug-none" role="presentation">No match. Try a different spelling or the roll number.</li>'; list.hidden = false; input.setAttribute('aria-expanded', 'true'); } else close();
+        return;
+      }
+      list.innerHTML = items.map(function(it, i){
+        return '<li role="option" id="' + list.id + '-' + i + '" data-i="' + i + '" aria-selected="false"><span class="mt-sug-kind is-' + it.kind + '">' + (it.kind === 'student' ? 'Student' : it.kind === 'section' ? 'Section' : 'Room') + '</span>' +
+          '<span class="mt-sug-main"><b>' + esc(it.name) + '</b><em>' + esc(it.kind === 'student' ? it.roll + ' · ' + it.sub : it.sub) + '</em></span></li>';
+      }).join('');
+      list.hidden = false; input.setAttribute('aria-expanded', 'true');
+    }
+    function pick(i){ var it = items[i]; if(!it) return; close(); onPick(it); }
+    input.addEventListener('input', open);
+    input.addEventListener('focus', function(){ if(String(input.value).trim().length >= 2) open(); });
+    input.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowDown' && !list.hidden){ e.preventDefault(); active = Math.min(items.length - 1, active + 1); paint(); }
+      else if(e.key === 'ArrowUp' && !list.hidden){ e.preventDefault(); active = Math.max(0, active - 1); paint(); }
+      else if(e.key === 'Enter' && !list.hidden && items.length){ e.preventDefault(); pick(active >= 0 ? active : 0); }
+      else if(e.key === 'Escape'){ close(); }
+    });
+    list.addEventListener('mousedown', function(e){ e.preventDefault(); });       // keep the input focused, so a tap picks before the list closes
+    list.addEventListener('click', function(e){ var li = e.target.closest('li[data-i]'); if(li) pick(+li.getAttribute('data-i')); });
+    document.addEventListener('click', function(e){ if(!e.target.closest('.mt-suggest')) close(); });
+    input.addEventListener('blur', function(){ blurTimer = setTimeout(close, 120); });
+  }
+  function openStudent(it){
+    picked = IMT.student(it.roll); $('hIn').value = it.name; state.sIdx = {};
+    IMT.track('master_action', null, { tool: 'master', result: 'find_student' });
+    renderStudent();
+    var out = $('uOut'); if(out.scrollIntoView) out.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }
+
+  // vacant rooms: no class in the room at any moment of the window
+  function toTime(m){ var h = Math.floor(m / 60), mi = m % 60; return (h < 10 ? '0' : '') + h + ':' + (mi < 10 ? '0' : '') + mi; }
+  function renderVacant(){
+    var date = $('hDay').value, a = $('hFrom').value ? mins($('hFrom').value) : 0, b = $('hTo').value ? mins($('hTo').value) : 0;
+    if(!date || !a || !b || b <= a){ $('hFreeCount').textContent = 'Choose a day, then a start before the end.'; $('hFreeOut').innerHTML = ''; $('hFreeCopy').disabled = true; return; }
+    var busy = {}, nextAt = {};
+    EVENTS.forEach(function(e){
+      if(e.date !== date || !e.room) return;
+      if(e.start < b && e.end > a) busy[e.room] = 1;
+      else if(e.start >= b && (nextAt[e.room] == null || e.start < nextAt[e.room])) nextAt[e.room] = e.start;
+    });
+    var free = ROOM_ORDER.filter(function(r){ return !busy[r]; });
+    $('hFreeCount').textContent = free.length + ' of ' + ROOM_ORDER.length + ' rooms are vacant ' + range(a, b) + ', ' + dateLabel(date);
+    var groups = [];
+    free.forEach(function(r){
+      var g = roomGroup(r), last = groups[groups.length - 1];
+      if(!last || last.k !== g.k){ last = { k: g.k, label: g.label, rooms: [] }; groups.push(last); }
+      last.rooms.push(r);
+    });
+    $('hFreeOut').innerHTML = free.length ? groups.map(function(g){
+      return '<div class="mt-vac-group"><h3>' + esc(g.label) + '</h3><div class="mt-chips">' + g.rooms.map(function(r){
+        return '<span class="mt-room-chip"><b>' + esc(r) + '</b><em>' + (nextAt[r] != null ? 'till ' + esc(clock(nextAt[r])) : 'rest of the day') + '</em></span>';
+      }).join('') + '</div></div>';
+    }).join('') : '<div class="empty">No room is free for that whole window. Try a shorter one.</div>';
+    $('hFreeCopy').disabled = !free.length; $('hFreeCopy').setAttribute('data-text', 'Vacant rooms ' + range(a, b) + ', ' + dateLabel(date) + ': ' + free.join(', '));
+  }
+  function vacantNow(){
+    var d = DATE_LIST.indexOf(today) >= 0 ? today : $('hDay').value, nowM = IMT.istMinutes();
+    var from = d === today && nowM >= LO && nowM <= HI ? Math.floor(nowM / 15) * 15 : 600;
+    $('hDay').value = d; $('hFrom').value = toTime(from); $('hTo').value = toTime(Math.min(from + 75, 23 * 60 + 45));
+    renderVacant();
+  }
+  function setupHome(){
+    $('hDay').innerHTML = DATE_LIST.map(function(d){ return option(d, dateLabel(d), d === state.date); }).join('');
+    $('hFrom').value = toTime(Math.floor(state.time / 15) * 15); $('hTo').value = toTime(Math.floor(state.time / 15) * 15 + 75);
+    renderVacant();
+    ['hDay', 'hFrom', 'hTo'].forEach(function(id){ $(id).addEventListener('change', function(){ renderVacant(); }); $(id).addEventListener('input', function(){ if(id !== 'hDay') renderVacant(); }); });
+    $('hFreeNow').addEventListener('click', function(){ vacantNow(); IMT.track('master_action', null, { tool: 'master', result: 'vacant_now' }); });
+    $('hFreeCopy').addEventListener('click', function(){ IMT.track('master_action', null, { tool: 'master', result: 'copy_vacant' }); copyText($('hFreeCopy').getAttribute('data-text') || '', 'Copied'); });
+    attachSuggest($('hIn'), $('hList'), ['student'], openStudent);
+  }
+
   // ======================================================================
   // tabs and start
   // ======================================================================
-  var TABS = ['board', 'sections', 'find', 'search', 'checks'];
+  var TABS = ['student', 'board', 'sections', 'find', 'checks', 'search'];
   function switchTab(t, quiet){
     TABS.forEach(function(o){ $('tab-' + o).setAttribute('aria-selected', o === t ? 'true' : 'false'); $('panel-' + o).hidden = o !== t; });
     if(t === 'sections') renderSections();
+    if(t === 'student') renderStudent();
+    if(t === 'board') renderBoard();
     if(!quiet){
       IMT.track('master_view', null, { tool: 'master', result: t });
       try { window.history.replaceState(null, '', '#' + t); } catch(e){}
@@ -791,7 +929,7 @@
     sGroup.innerHTML = GROUPS.map(function(g){ return option(g, groupLabel(g)); }).join(''); fillUnits();
     qGroup.innerHTML = option('', 'All programmes') + GROUPS.map(function(g){ return option(g, groupLabel(g)); }).join('');
     renderPicks(); CHECKS = runChecks(); renderChecks();
-    renderBoard(); renderFind(); renderSearch();
+    renderBoard(); renderFind(); renderSearch(); setupHome();
 
     $('bPrev').addEventListener('click', function(){ setWeek(WEEK_STARTS[WEEK_STARTS.indexOf(state.week) - 1]); });
     $('bNext').addEventListener('click', function(){ setWeek(WEEK_STARTS[WEEK_STARTS.indexOf(state.week) + 1]); });
@@ -799,9 +937,10 @@
     $('cNext').addEventListener('click', function(){ setWeek(WEEK_STARTS[WEEK_STARTS.indexOf(state.week) + 1]); });
     sGroup.addEventListener('change', function(){ fillUnits(); renderSections(); });
     sUnit.addEventListener('change', renderSections);
-    sRoll.addEventListener('input', renderSections);
-    $('sPrev').addEventListener('click', function(){ sStep(-1); });
-    $('sNext').addEventListener('click', function(){ sStep(1); });
+    $('sPrev').addEventListener('click', function(){ stepWeek(sGroup.value, -1, renderSections); });
+    $('sNext').addEventListener('click', function(){ stepWeek(sGroup.value, 1, renderSections); });
+    $('uPrev').addEventListener('click', function(){ if(picked) stepWeek(picked.groupKey, -1, renderStudent); });
+    $('uNext').addEventListener('click', function(){ if(picked) stepWeek(picked.groupKey, 1, renderStudent); });
     TABS.forEach(function(t){ $('tab-' + t).addEventListener('click', function(){ switchTab(t); }); });
     var at = (window.location.hash || '').replace('#', '');
     if(TABS.indexOf(at) > 0) switchTab(at, true);
