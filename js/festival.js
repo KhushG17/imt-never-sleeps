@@ -10,7 +10,7 @@
    For a look outside those dates add ?festival=on to the address, and
    ?festival=off to switch it off for a visit.
 
-   Fireworks: one goes off by itself every 5 to 10 seconds, a different kind
+   Fireworks: one goes off by itself every 3 to 6 seconds, a different kind
    and place each time, on a canvas that sits behind the page's cards and
    text (so nothing is covered). Tapping a firecracker at the foot sets one
    off in front. A device that asks for reduced motion gets the lights and
@@ -390,11 +390,11 @@
     });
   }
 
-  // ---------------------------------------------------------------- the sky show: one every 5 to 10 seconds
+  // ---------------------------------------------------------------- the sky show: one every 3 to 6 seconds
   paintSwitches();
   window.IMTFestival = { burst: function(x, y){ return tapBurst(x, y, 'anar'); }, show: autoShow, log: LOG, calm: calm, layers: { sky: sky, front: front },
                          sound: { log: SLOG, mode: function(){ return mode; }, state: Snd.state, master: Snd.master, set: function(m){ setSound(m, false); } } };
   if(!calm){
-    (function next(wait){ setTimeout(function(){ autoShow(); next(rnd(5000, 10000)); }, wait); })(1400);   // the first soon after the page opens, then one every 5 to 10 seconds
+    (function next(wait){ setTimeout(function(){ autoShow(); next(rnd(3000, 6000)); }, wait); })(1400);   // the first soon after the page opens, then one every 3 to 6 seconds
   }
 })();

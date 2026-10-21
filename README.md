@@ -1065,7 +1065,7 @@ Built on 20 Oct 2026; waiting for Khush to say push.
     removed: they rendered glitchy on a phone.)
   - **Sky show**: a canvas fixed BEHIND the page's cards and text (nothing is
     covered, taps pass through). A first burst about a second after load, then
-    one every 5 to 10 seconds at random places, picked from six kinds: peony,
+    one every 3 to 6 seconds at random places, picked from six kinds: peony,
     chrysanthemum, willow, ring, a rocket that climbs then bursts, and a
     cluster of small bursts. Brighter colours on a dark page, deeper with a
     soft halo on a light one. Sparks and rays in the garland are animated in
@@ -1115,7 +1115,7 @@ Built on 20 Oct 2026; waiting for Khush to say push.
   Exam Seat, Bus only, never upload or master): orange/purple/green lights with
   hanging pumpkins, ghosts, bats and a spider; four characters at the foot
   (pumpkin, ghost, bat, cauldron) that act when tapped (`festival_tap` result =
-  `pumpkin`, `ghost`, `bat`, `cauldron`); behind the content every 5 to 10 s a
+  `pumpkin`, `ghost`, `bat`, `cauldron`); behind the content every 3 to 6 s a
   random sky show: bats flying by, a ghost floating up, a witch on her broom,
   will-o'-the-wisps or lightning (a faint wash, not a flash). Same golden bell
   and footer button for sound, same `imt.festSound` choice, `festival_sound`

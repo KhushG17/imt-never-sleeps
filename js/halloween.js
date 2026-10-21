@@ -13,7 +13,7 @@
    two never run together. Shares css/festival.css (the row, the bell, the
    canvases).
 
-   Sky show: one every 5 to 10 seconds, a different kind and place each time,
+   Sky show: one every 3 to 6 seconds, a different kind and place each time,
    on a canvas BEHIND the page's cards and text (nothing is covered, taps pass
    through). A tap on a character acts in front of the page. A device that asks
    for reduced motion gets the lights and characters, still, and no sky show.
@@ -503,11 +503,11 @@
     });
   }
 
-  // ---------------------------------------------------------------- the sky show: one every 5 to 10 seconds
+  // ---------------------------------------------------------------- the sky show: one every 3 to 6 seconds
   paintSwitches();
   window.IMTFestival = { burst: function(x, y){ return tapAct(x, y, 'pumpkin'); }, show: autoShow, log: LOG, calm: calm, theme: 'halloween', layers: { sky: sky, front: front },
                          sound: { log: SLOG, mode: function(){ return mode; }, state: Snd.state, master: Snd.master, set: function(m){ setSound(m, false); } } };
   if(!calm){
-    (function next(wait){ setTimeout(function(){ autoShow(); next(rnd(5000, 10000)); }, wait); })(1400);
+    (function next(wait){ setTimeout(function(){ autoShow(); next(rnd(3000, 6000)); }, wait); })(1400);
   }
 })();
