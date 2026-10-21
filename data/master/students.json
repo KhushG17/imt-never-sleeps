@@ -14632,6 +14632,36 @@
   "section": "A",
   "term": 2
  },
+ "DIWA": {
+  "batch": "2027",
+  "courses": {
+   "BF": "A",
+   "CWB": "C",
+   "DSCS": "A",
+   "FTBA": "A",
+   "PAF": "A"
+  },
+  "group": "core",
+  "major": "MKT",
+  "minor": "BA",
+  "name": "Diwali Preview",
+  "programme": "0103"
+ },
+ "HALLO": {
+  "batch": "2027",
+  "courses": {
+   "BF": "A",
+   "CWB": "C",
+   "DSCS": "A",
+   "FTBA": "A",
+   "PAF": "A"
+  },
+  "group": "core",
+  "major": "MKT",
+  "minor": "BA",
+  "name": "Halloween Preview",
+  "programme": "0103"
+ },
  "TEST": {
   "batch": "2027",
   "courses": {

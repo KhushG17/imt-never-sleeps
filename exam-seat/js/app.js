@@ -563,7 +563,7 @@
         var r = el.getBoundingClientRect();
         var px = (e.clientX - r.left) / r.width - 0.5;
         var py = (e.clientY - r.top) / r.height - 0.5;
-        el.style.transform = 'translateY(-3px) rotateX(' + (py * -6).toFixed(2) + 'deg) rotateY(' + (px * 6).toFixed(2) + 'deg)';
+        el.style.transform = 'perspective(1600px) translateY(-3px) rotateX(' + (py * -6).toFixed(2) + 'deg) rotateY(' + (px * 6).toFixed(2) + 'deg)';
       });
       el.addEventListener('mouseleave', function(){
         el.style.transform = '';

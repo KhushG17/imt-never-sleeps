@@ -1,0 +1,76 @@
+/* ---------- festival decorations (Diwali and Halloween) ----------
+   js/festival.js builds the Diwali look and js/halloween.js the Halloween one;
+   both use the rules here. Loaded by Home, Weekly, Exam Seat and Bus only: never by the upload page or
+   the master timetable. js/festival.js builds the pieces and only when the
+   festival dates in js/portal-config.js are on. Nothing here touches the
+   page's own background: it is lights, flowers and firecrackers laid over it,
+   and fireworks in the sky behind the content. Everything is decoration (aria-hidden) and ignores the pointer,
+   except the row of firecrackers at the foot of the page. */
+
+/* Halloween: a purple wire (a lighter one on a dark page), the bulbs twinkle the same way */
+html.fest-halloween .fest-wire{ stroke:#5b3f7e; }
+[data-theme="dark"] html.fest-halloween .fest-wire, html.fest-halloween[data-theme="dark"] .fest-wire{ stroke:#a98bd6; }
+
+/* ---- the garland under the navbar: fairy lights and marigolds ---- */
+.fest-garland{ position:relative; height:0; z-index:3; pointer-events:none; }
+/* only the lights (the first box inside); the bell is a button beside them */
+.fest-garland > div > svg{ position:absolute; left:0; top:-10px; width:100%; height:62px; overflow:visible; }
+.fest-wire{ fill:none; stroke:#8a5a2b; stroke-width:1.5; stroke-linecap:round; }
+[data-theme="dark"] .fest-wire{ stroke:#c98f4e; }
+.fest-glow{ animation:festTwinkle 2.4s ease-in-out infinite; }
+.fest-b.g2 .fest-glow{ animation-duration:1.7s; animation-delay:-.6s; }
+.fest-b.g3 .fest-glow{ animation-duration:2.9s; animation-delay:-1.3s; }
+.fest-b.g4 .fest-glow{ animation-duration:2.1s; animation-delay:-.2s; }
+@keyframes festTwinkle{ 0%, 100%{ opacity:.18; } 50%{ opacity:.62; } }
+
+/* room under the garland on a phone's tool pages, where the page starts close to the bar */
+@media (max-width:640px){ html.fest-on .tool .wrap{ padding-block-start:46px; } }
+
+/* ---- the row of firecrackers at the foot of the page ---- */
+.fest-row{ display:flex; justify-content:center; align-items:flex-end; flex-wrap:wrap; gap:6px 14px; margin:0 0 8px; }
+.fest-note{ flex-basis:100%; text-align:center; margin:2px 0 0; font-size:12px; color:var(--color-slate-helper); }
+.fest-tap{
+  width:54px; height:78px; padding:4px; background:none; border:0; border-radius:12px; cursor:pointer; color:inherit;
+  display:flex; align-items:flex-end; justify-content:center; transition:transform .15s cubic-bezier(.2,.8,.2,1);
+}
+.fest-tap svg{ width:100%; height:100%; overflow:visible; }
+.fest-tap:hover{ transform:translateY(-4px) rotate(-3deg); }
+.fest-tap:active{ transform:translateY(0) scale(.92); }
+.fest-tap:focus-visible{ outline:2px solid var(--color-imt-gold); outline-offset:2px; }
+.fest-tap.is-lit{ animation:festPop .5s cubic-bezier(.2,.8,.2,1); }
+@keyframes festPop{ 0%{ transform:scale(1); } 30%{ transform:scale(1.18) rotate(-4deg); } 100%{ transform:scale(1); } }
+/* ---- the sound switch: a golden bell hanging from the garland, and a button in the footer ---- */
+.fest-bell{
+  position:absolute; right:max(8px, env(safe-area-inset-right)); top:28px; z-index:4; width:36px; height:48px; padding:0; border:0; background:none;
+  cursor:pointer; pointer-events:auto; transform-origin:50% 0; transition:transform .2s ease; filter:drop-shadow(0 3px 3px rgba(0,0,0,.2));
+}
+.fest-bell svg{ width:100%; height:100%; overflow:visible; }
+.fest-bell:hover{ transform:rotate(-7deg); }
+.fest-bell:focus-visible{ outline:2px solid var(--color-imt-gold); outline-offset:2px; border-radius:8px; }
+.fest-bell.is-ring{ animation:festRing .9s ease-out; }
+@keyframes festRing{ 0%, 100%{ transform:rotate(0); } 18%{ transform:rotate(-15deg); } 38%{ transform:rotate(12deg); } 58%{ transform:rotate(-7deg); } 78%{ transform:rotate(4deg); } }
+.fest-bell[aria-pressed="false"] .fest-on-mark, .fest-sound[aria-pressed="false"] .fest-on-mark{ display:none; }
+.fest-bell[aria-pressed="true"] .fest-off-mark, .fest-sound[aria-pressed="true"] .fest-off-mark{ display:none; }
+.fest-sound{
+  flex-basis:auto; display:inline-flex; align-items:center; gap:7px; margin:8px auto 0; padding:6px 13px; cursor:pointer;
+  font:600 12.5px var(--font-switzer); border:1px solid var(--color-ash-divider); border-radius:8px; background:var(--color-white-canvas); color:var(--color-portrait-ink);
+}
+.fest-sound svg{ width:17px; height:17px; }
+.fest-sound:hover{ border-color:var(--color-accent); }
+.fest-sound:focus-visible{ outline:2px solid var(--color-imt-gold); outline-offset:2px; }
+.fest-row .fest-sound{ flex:0 0 auto; }
+
+/* ---- the fireworks ----
+   The sky show sits BEHIND the page's cards and text (the page's content is raised above it), so nothing is
+   covered; a tap on a firecracker bursts in front. Neither takes a tap or a click. */
+.fest-sky{ position:fixed; inset:0; z-index:0; pointer-events:none; width:100%; height:100%; }
+.fest-fx{ position:fixed; inset:0; z-index:35; pointer-events:none; width:100%; height:100%; }
+html.fest-on footer{ position:relative; z-index:1; }
+
+/* calm: no moving parts for anyone whose device asks for reduced motion (the lights and firecrackers stay, still) */
+@media (prefers-reduced-motion: reduce){
+  .fest-glow, .fest-tap.is-lit, .fest-bell.is-ring{ animation:none!important; }
+  .fest-glow{ opacity:.4; }
+  .fest-tap:hover{ transform:none; }
+}
+@media print{ .fest-garland, .fest-row, .fest-sky, .fest-fx, .fest-bell{ display:none!important; } }

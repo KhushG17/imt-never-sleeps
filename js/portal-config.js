@@ -13,7 +13,7 @@ window.PORTAL_CONFIG = {
     lockedLabel: "Term {term} exams coming soon",
     alumniLabel: "No more exams, you have graduated",
     // Rolls that can open Exam Seat even while it is locked.
-    openFor: ["TEST"],
+    openFor: ["TEST", "DIWA", "HALLO"],
     liveLabel: "Exam seating is live"
   },
 
@@ -116,6 +116,26 @@ window.PORTAL_CONFIG = {
   },
   erp: { url: "https://erp.imt.edu/login.htm" },
 
+  // Festival decorations (js/festival.js and css/festival.css for Diwali: fairy lights and marigolds under
+  // the navbar, firecrackers at the foot of the page, fireworks in the sky; js/halloween.js and
+  // css/halloween.css for Halloween: orange lights with bats and ghosts, pumpkins and ghosts at the foot,
+  // bats, ghosts and lightning in the sky). Home, Weekly, Exam Seat and Bus only (never the upload page or
+  // the master timetable). Each theme shows from `from` to `until`, India time, and switches itself off
+  // after. `on: false` switches all of it off sooner; `sound: false` keeps the looks but takes the sound
+  // away. The page's own background is not touched. To look at one outside its dates add ?festival=diwali
+  // or ?festival=halloween to the address (?festival=off hides it). The app icon follows the same dates:
+  // .github/workflows/seasonal-icon.yml (scripts/seasonal_icon.py) swaps it each night.
+  festival: {
+    on: true,
+    sound: true,
+    // typing one of these as a roll number shows that look whatever the date (for trying it)
+    previewRolls: { DIWA: "diwali", HALLO: "halloween" },
+    themes: [
+      { name: "diwali",    from: "2026-11-01", until: "2026-11-12", greeting: "Happy Diwali" },
+      { name: "halloween", from: "2026-10-25", until: "2026-10-31", greeting: "Happy Halloween" }
+    ]
+  },
+
   // The upload page at /upload/: which GitHub repository weekly schedules
   // are sent to. See README, "Uploading from the browser".
   upload: {
@@ -142,6 +162,8 @@ window.PORTAL_CONFIG = {
   //   TEST   a current student; also opens Exam Seat while it is locked
   //          (its sample seats are under the TEST key in exam-seat/js/exam-data.js)
   //   TESTA  an alumni, to see what a graduated batch gets
+  //   DIWA   like TEST, with the Diwali look on whatever the date (festival.previewRolls)
+  //   HALLO  like TEST, with the Halloween look on whatever the date
   // Set to [] to switch them off.
-  testRolls: ["TEST", "TESTA"]
+  testRolls: ["TEST", "TESTA", "DIWA", "HALLO"]
 };

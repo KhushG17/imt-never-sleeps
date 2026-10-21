@@ -47,6 +47,36 @@
         "BF": "A"
       }
     },
+    "DIWA": {
+      "name": "Diwali Preview",
+      "batch": "2027",
+      "programme": "0103",
+      "group": "core",
+      "major": "MKT",
+      "minor": "BA",
+      "courses": {
+        "CWB": "C",
+        "DSCS": "A",
+        "FTBA": "A",
+        "PAF": "A",
+        "BF": "A"
+      }
+    },
+    "HALLO": {
+      "name": "Halloween Preview",
+      "batch": "2027",
+      "programme": "0103",
+      "group": "core",
+      "major": "MKT",
+      "minor": "BA",
+      "courses": {
+        "CWB": "C",
+        "DSCS": "A",
+        "FTBA": "A",
+        "PAF": "A",
+        "BF": "A"
+      }
+    },
     "250103016": {
    "_why": "PDRM-B APO Groups list (received 14 Oct 2026) has her in Section B; the course list on file said A.",
    "courses": { "PDRM": "B" }

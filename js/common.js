@@ -35,6 +35,27 @@
   }
   function istNow(){ return new Date(Date.now() + IST_OFFSET_MS); } // read with getUTC*()
   function istToday(){ return isoOf(istNow()); }
+
+  // Which festival look is on today, if any (js/portal-config.js, festival): the first theme whose dates
+  // (India time) include today. ?festival=off hides it; ?festival=on shows the first theme outside its dates;
+  // ?festival=halloween or =diwali shows that one; a preview roll (DIWA, HALLO) shows its theme whatever the date. Returns { name, greeting, sound } or null.
+  // the roll in the address, else the one remembered on this device, if it is one of festival.previewRolls
+  function previewName(F){
+    var m = /[?&]roll=([^&]+)/.exec(window.location.search), r = '';
+    try { r = m ? normRoll(decodeURIComponent(m[1])) : savedRoll(); } catch(e){}
+    return (F.previewRolls && F.previewRolls[r]) || '';
+  }
+  function festivalTheme(){
+    var F = CONFIG.festival; if(!F) return null;
+    var list = F.themes || [F], forced = (/[?&]festival=(\w+)/.exec(window.location.search) || [])[1], today = istToday(), pick = null;
+    if(forced === 'off') return null;
+    if(forced && forced !== 'on'){ list.forEach(function(t){ if(t.name === forced) pick = t; }); }
+    else if(forced === 'on'){ list.forEach(function(t){ if(!pick && (!t.from || today >= t.from) && (!t.until || today <= t.until)) pick = t; }); pick = pick || list[0]; }
+    else if(previewName(F)){ var want = previewName(F); list.forEach(function(t){ if(t.name === want) pick = t; }); }
+    else if(F.on !== false){ list.forEach(function(t){ if(!pick && (!t.from || today >= t.from) && (!t.until || today <= t.until)) pick = t; }); }
+    return pick ? { name: pick.name || 'diwali', greeting: pick.greeting || '', sound: F.sound !== false && pick.sound !== false } : null;
+  }
+
   function istMinutes(){ var n = istNow(); return n.getUTCHours() * 60 + n.getUTCMinutes(); } // minutes since midnight, IST
   function scheduleDay(){
     var now = istNow();
@@ -242,7 +263,7 @@
         var r = el.getBoundingClientRect();
         var px = (e.clientX - r.left) / r.width - 0.5;
         var py = (e.clientY - r.top) / r.height - 0.5;
-        el.style.transform = 'translateY(-3px) rotateX(' + (py * -6).toFixed(2) + 'deg) rotateY(' + (px * 6).toFixed(2) + 'deg)';
+        el.style.transform = 'perspective(1600px) translateY(-3px) rotateX(' + (py * -6).toFixed(2) + 'deg) rotateY(' + (px * 6).toFixed(2) + 'deg)';
       });
       el.addEventListener('mouseleave', function(){ el.style.transform = ''; });
     });
@@ -255,7 +276,8 @@
   // names or courses - including in page addresses, see below. The test roll is not counted. Page views are counted
   // automatically by Google Analytics once the ID is set.
   var GA_ID = (CONFIG.analytics && CONFIG.analytics.measurementId) || '';
-  var trackingOn = !!GA_ID && window.location.protocol !== 'file:';
+  // (the staff upload page is never counted)
+  var trackingOn = !!GA_ID && window.location.protocol !== 'file:' && !/\/upload\//.test(window.location.pathname);
   if(trackingOn){
     window.dataLayer = window.dataLayer || [];
     window.gtag = function(){ window.dataLayer.push(arguments); };
@@ -637,6 +659,7 @@
     coverage: coverage,
     scheduleDay: scheduleDay,
     istToday: istToday,
+    festivalTheme: festivalTheme,
     istMinutes: istMinutes,
     addDays: addDays,
     metaLine: metaLine,

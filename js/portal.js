@@ -21,11 +21,21 @@
   var clearBtn = document.getElementById('clearBtn');
   var EXAM_SUB_OPEN = examSub.textContent;
 
+  // a preview roll (DIWA, HALLO) switches the festival look, and leaving it switches it back: reload once to match
+  function syncFestival(){
+    var want = IMT.festivalTheme ? IMT.festivalTheme() : null, w = want ? want.name : '', root = document.documentElement;
+    var have = root.classList.contains('fest-halloween') ? 'halloween' : root.classList.contains('fest-on') ? 'diwali' : '';
+    if(w === have) return;
+    try { if(window.sessionStorage.getItem('imt.festSync') === w) return; window.sessionStorage.setItem('imt.festSync', w); } catch(e){ return; }
+    window.location.reload();
+  }
+
   rollInput.addEventListener('input', function(){ errBox.hidden = true; });
   rollInput.addEventListener('keydown', function(e){ if(e.key === 'Enter') doSearch(true); });
   goBtn.addEventListener('click', function(){ doSearch(true); });
   clearBtn.addEventListener('click', function(){
     IMT.forgetRoll();
+    syncFestival();
     rollInput.value = '';
     greetCard.hidden = true;
     searchCard.hidden = false;
@@ -70,6 +80,7 @@
     }
     errBox.hidden = true;
     IMT.saveRoll(s.roll);   // so the next visit opens straight on the greeting
+    syncFestival();
 
     greetRoll.textContent = 'Roll number ' + s.roll;
     greetName.textContent = IMT.greeting(s);

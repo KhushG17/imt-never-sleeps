@@ -995,6 +995,159 @@ fixed navbar went earlier, commit `a08ccc6`). All of it passes its tests.
   when the roll is a test roll; they are links to pages that keep their own
   locks (the upload page's access key, the master page's password).
 
+## Smooth navbar, swiping, upload navigation, Diwali icon and decorations (20 Oct 2026, not yet pushed)
+
+Built on 20 Oct 2026; waiting for Khush to say push.
+
+- **The sticky navbar no longer shakes.** Three causes, all removed:
+  1. `perspective:1600px` on `<body>` put the sticky header inside a 3D
+     rendering context. The tilts now carry their own `perspective()`
+     (`transform:perspective(1600px) ...`), in the animations, the button
+     hover and the JS tilt in `common.js` and `exam-seat/js/app.js`.
+  2. `will-change:transform` on every `.exam-card` made each card its own
+     paint layer (dozens on a long schedule), which stutters a phone.
+  3. The entrance animations used `forwards`, which left the header holding an
+     identity transform (`matrix(1,0,0,1,0,0)`) for ever, and a transformed
+     sticky header gets a paint layer of its own. They now use `backwards`:
+     the animation plays, then the element goes back to its ordinary styles
+     (`transform:none`). `cardIn` takes its start offset from `--rise`.
+  The shake itself is a painting effect I could not see in the test browser
+  (the header's position was perfectly steady in every measurement, before and
+  after), so these are the known causes, removed. If it persists on a
+  particular phone, note the phone and browser.
+- **Master timetable, swiping on a phone.** The tabs, the rooms board, the
+  week grid and the tables scroll sideways inside a page that scrolls up and
+  down; on an iPhone one finger could move both at once. `master/js/app.js`
+  now decides from the first few pixels of a swipe: sideways moves the box
+  only (with a little coasting when the finger lifts, none for a slow drag),
+  up or down moves the page only. `overscroll-behavior-x:contain` keeps a
+  sideways swipe from turning into the browser's back gesture. Taps are
+  untouched. Checked by `swipe_test.py` (15 checks): real finger drags, and
+  the page's own logic with the browser's built-in touch scrolling switched
+  off, so only the page's code can move the boxes.
+- **The upload page has the same navigation as every other page** (brand,
+  light/dark switch, Resources with Bus Schedule, Study Material, LMS and ERP,
+  Feedback; the phone menu). Its Sign out button stays, now an entry in that
+  menu, hidden until someone signs in. The page loads `site-data.js` and
+  `common.js` for this; `common.js` does not report the staff upload page to
+  analytics (`trackingOn` skips `/upload/`). Checked by `upload_nav_test.py`
+  (23 checks): same parts, links, sizes and positions as the Bus page on a
+  laptop and a phone, the theme switch, Sign out, and the entrance animation.
+- **Diwali app icon.** The gold torch and "IMT" of the logo on a midnight sky
+  with a warm glow and sparkles; the four navy dots became four lit diyas.
+  - Drawn by `scripts/make_diwali_icon.py` (Pillow and Playwright) into
+    `assets/icons/diwali/`: `icon-192.png`, `icon-512.png`,
+    `icon-maskable-512.png` (everything inside the central 80% so any mask
+    shape leaves it whole) and `apple-touch-icon.png` (180). The ordinary
+    icons are kept in `assets/icons/standard/`.
+  - `python scripts/app_icon.py diwali` (or `standard`) copies a set over the
+    four files the site uses and tags every address that points at them with
+    `?v=<set>` (the manifest, its shortcuts, each page's apple-touch-icon,
+    the install pop-up), so devices fetch the new picture. **It is set to
+    Diwali now.** After Diwali (8 Nov 2026) run `python scripts/app_icon.py
+    standard` and push.
+  - The browser-tab icon (the plain logo, `assets/imt-logo.png`) is unchanged.
+  - Phones that already have the app: Android refreshes the icon by itself
+    within a day or two; an iPhone keeps the icon from when the app was added,
+    so the app has to be removed and added again to show the new one.
+  - Checked by `icon_test.py` (12 checks): every manifest icon loads at its
+    stated size and is the dark Diwali picture, each page's home-screen link is
+    versioned and loads, the install pop-up, and the standard set is kept.
+
+- **Diwali decorations** on Home, Weekly, Exam Seat and Bus; **never** on the
+  upload page or the master timetable (they do not even load the files).
+  The page's own background is not touched: it is decoration laid over it.
+  - Under the navbar: a garland of twinkling fairy lights and swaying
+    marigolds (an SVG that fits the screen width, redrawn on resize). At the
+    foot of the page: four firecrackers (flowerpot, rocket, sparkler, ground
+    chakra) that, tapped, set off a burst in front of the page; "Happy Diwali
+    · tap a firecracker" beneath. (The three diyas above the heading were
+    removed: they rendered glitchy on a phone.)
+  - **Sky show**: a canvas fixed BEHIND the page's cards and text (nothing is
+    covered, taps pass through). A first burst about a second after load, then
+    one every 5 to 10 seconds at random places, picked from six kinds: peony,
+    chrysanthemum, willow, ring, a rocket that climbs then bursts, and a
+    cluster of small bursts. Brighter colours on a dark page, deeper with a
+    soft halo on a light one. Sparks and rays in the garland are animated in
+    the SVG itself. A tap on a cracker is counted as `festival_tap` with
+    `result` = `anar`, `rocket`, `sparkler` or `chakri` (never who).
+  - **Sound** (made in the browser with Web Audio, no files): boom, crackle,
+    rocket whistle, shimmer, pops and fizz, behind a compressor
+    with the level capped (master 0.55). The sky show is SILENT until the
+    visitor turns sound on with the golden bell hanging from the garland (top
+    right) or the "Sound off/on" button in the footer; the choice is saved
+    (`imt.festSound`: `on` / `off`). Tapping a cracker sounds unless the
+    visitor has switched sound off. Switching it on makes no sound itself (the bell just rings visually). Turning it on is counted as
+    `festival_sound` (`result` = `on`/`off`). A browser only starts sound after
+    a tap, so a saved "on" wakes with the first tap on the page.
+    `festival.sound:false` in the config removes the bell, button and sound.
+  - A device that asks for reduced motion gets the lights, still, and no
+    fireworks, bell or sound. Printing hides everything. Everything is
+    `aria-hidden` except the four cracker buttons and the sound controls
+    (labelled, reachable by keyboard).
+  - **Dates and switches** (`festival` in `js/portal-config.js`): on, from
+    20 Oct 2026, until 12 Nov 2026 (Diwali is 8 Nov), India time; it switches
+    itself off after `until`. `on:false` turns it off sooner;
+    `?festival=on` shows it outside the dates and `?festival=off` hides it for
+    a visit. To end it for good, remove `festival.js` and `festival.css` from
+    the four pages (or just let the date pass).
+  - Files: `css/festival.css`, `js/festival.js`.
+  - Checked by `festival_test.py` and `sound_test.py` (42 checks on the sound: default silence, bell and footer switch, each cracker and show kind, saved choice, mute, reduced motion, config off, print): where it shows (and that the
+    upload and master pages load nothing), the same background on, off and in
+    dark, the dates (before, first day, Diwali, last day, after), the
+    switches, taps passing through, no sideways scroll, the navbar still
+    steady and working, the phone layout, the bursts (start, draw, go quiet,
+    no repeat within ten minutes), each cracker and its count, reduced motion,
+    dark mode and print.
+
+## Halloween theme and icon; Diwali held back until 1 Nov (20 Oct 2026, not yet pushed)
+
+- **Plan**: the Diwali look and icon are built but stay off until **1 Nov 2026
+  (India time)**; the new Halloween look and icon run **25 to 31 Oct**. Nothing
+  here is pushed yet. After 12 Nov everything is back to ordinary.
+- **Dates and switch** (`festival` in `js/portal-config.js`): `themes` is a list
+  of `{ name, from, until, greeting }` (diwali 1 to 12 Nov, halloween 25 to 31
+  Oct); `IMT.festivalTheme()` in `js/common.js` picks today's (India time).
+  `on:false` turns everything off, `sound:false` keeps the looks but no sound.
+  To look early: `?festival=halloween` or `?festival=diwali`; `?festival=off`
+  hides it. Only one theme ever runs.
+- **Halloween look** (`js/halloween.js`, shares `css/festival.css`; Home, Weekly,
+  Exam Seat, Bus only, never upload or master): orange/purple/green lights with
+  hanging pumpkins, ghosts, bats and a spider; four characters at the foot
+  (pumpkin, ghost, bat, cauldron) that act when tapped (`festival_tap` result =
+  `pumpkin`, `ghost`, `bat`, `cauldron`); behind the content every 5 to 10 s a
+  random sky show: bats flying by, a ghost floating up, a witch on her broom,
+  will-o'-the-wisps or lightning (a faint wash, not a flash). Same golden bell
+  and footer button for sound, same `imt.festSound` choice, `festival_sound`
+  event. Sound is synthesised (wing flutter, ghost "whoo", thunder, witch laugh,
+  music-box notes, creaking door, bubbles); sky silent until sound is switched
+  on, taps sound unless muted; switching on is silent. Reduced motion: still
+  lights and characters only.
+- **App icons**: `scripts/make_halloween_icon.py` draws `assets/icons/halloween/`
+  (night sky, moon glow, gold logo, bats, four jack-o'-lanterns);
+  `assets/icons/diwali/` and `standard/` as before. The ordinary icon is in use
+  now. `scripts/seasonal_icon.py` picks the set from the same dates, and
+  `.github/workflows/seasonal-icon.yml` runs it every night at 23:40 IST for the
+  next day and commits the change (so the icon changes by itself on 25 Oct, 1
+  Nov and 13 Nov once this is pushed). Android refreshes an installed app's icon
+  within a day or two; an iPhone keeps the icon it was added with.
+- **Preview rolls `DIWA` and `HALLO`** (like `TEST`: dummy students defined in
+  `data/config/overrides.json`, in `testRolls`, Exam Seat open for them via
+  `examSeat.openFor`, the same eight sample seats copied into
+  `exam-seat/js/exam-data.js`, upload/master tiles on Home, never counted in
+  usage). Typing one on Home shows its theme at once (the page reloads once)
+  whatever the date, and it follows the roll to Weekly, Exam Seat and Bus;
+  "Change roll number" returns to the ordinary look. Set by
+  `festival.previewRolls` in `js/portal-config.js`; the roll beats the date,
+  `?festival=` beats the roll. Note: regenerating `exam-data.js` from a seating
+  plan drops the sample seats for `TEST`, `DIWA` and `HALLO` unless the plan has
+  them. Checked by `preview_roll_test.py` (19 checks).
+- **To do by hand**: nothing, once pushed. If you push after 25 Oct the theme
+  shows at once and the icon follows that night.
+- Checked by `halloween_test.py`, `festival_test.py` (Diwali, dated 5 Nov),
+  `sound_test.py` (Diwali sound), `icon_test.py` (19 checks: sets, dates, switch
+  and back, nightly job).
+
 ## Corrections received
 
 - **19 Oct 2026, the navbar now stays fixed at the top on every page** (it

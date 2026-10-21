@@ -718,6 +718,55 @@
   });
 
   // ======================================================================
+  // swiping on a phone
+  // ======================================================================
+  // The tabs, the board, the week grid and the tables scroll sideways inside a
+  // page that scrolls up and down. Some phones (iPhones) let one finger move
+  // both at once, so a swipe along a board drags the page up or down as well.
+  // Here the first few pixels of a swipe decide: sideways moves the box
+  // sideways only (with a little momentum when you let go); up or down moves
+  // the page only. Everything else about touch is left to the browser.
+  (function(){
+    var SIDEWAYS = '.mt-tabs, .bd-scroll, .gr-scroll, .mt-table-wrap';
+    var box = null, mode = '', sx = 0, sy = 0, startLeft = 0, lastX = 0, lastT = 0, vx = 0, raf = 0;
+    function stopFling(){ if(raf){ cancelAnimationFrame(raf); raf = 0; } }
+    app.addEventListener('touchstart', function(e){
+      stopFling(); box = null; mode = '';
+      if(e.touches.length !== 1) return;
+      var b = e.target.closest(SIDEWAYS);
+      if(!b || b.scrollWidth <= b.clientWidth + 1) return;
+      box = b; sx = lastX = e.touches[0].clientX; sy = e.touches[0].clientY; startLeft = b.scrollLeft; lastT = e.timeStamp; vx = 0;
+    }, { passive: true });
+    app.addEventListener('touchmove', function(e){
+      if(!box || e.touches.length !== 1) return;
+      var t = e.touches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+      if(!mode){
+        if(Math.abs(dx) < 4 && Math.abs(dy) < 4) return;       // too small to tell yet
+        mode = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+        if(mode === 'y') box.style.overflowX = 'hidden';       // up or down: the box stays put until the finger lifts
+      }
+      if(mode !== 'x') return;
+      if(e.cancelable) e.preventDefault();                      // sideways: the page does not move
+      var dt = e.timeStamp - lastT;
+      if(dt > 0) vx = (lastX - t.clientX) / dt;                 // px per ms, positive = towards the right
+      lastX = t.clientX; lastT = e.timeStamp;
+      box.scrollLeft = startLeft - dx;
+    }, { passive: false });
+    function lift(e){
+      var b = box, m = mode, v = vx; box = null; mode = '';
+      if(!b) return;
+      if(m === 'y'){ b.style.overflowX = ''; return; }
+      if(m !== 'x' || Math.abs(v) < 0.2 || (e && e.timeStamp - lastT > 120)) return;
+      var speed = Math.max(-3, Math.min(3, v)) * 16;            // px per frame
+      (function step(){
+        var before = b.scrollLeft; b.scrollLeft += speed; speed *= 0.94;
+        if(Math.abs(speed) > 0.5 && b.scrollLeft !== before) raf = requestAnimationFrame(step); else raf = 0;
+      })();
+    }
+    app.addEventListener('touchend', lift); app.addEventListener('touchcancel', lift);
+  })();
+
+  // ======================================================================
   // tabs and start
   // ======================================================================
   var TABS = ['board', 'sections', 'find', 'search', 'checks'];

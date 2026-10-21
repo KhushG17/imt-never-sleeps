@@ -21,6 +21,8 @@ window.EXAM_CONFIG = {
   rollPrefixTerm: {
     "26": 1,
     "25": 4,
-    "TEST": 4
+    "TEST": 4,
+    "DIWA": 4,
+    "HALLO": 4
   }
 };

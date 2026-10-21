@@ -1,0 +1,53 @@
+# Every night at 23:40 India time: put the app icon for the day about to begin
+# in use (a festival's while its dates run, the ordinary one otherwise) and
+# commit it if it changed. The dates are in js/portal-config.js (festival.themes).
+# See scripts/seasonal_icon.py.
+name: Seasonal app icon
+
+on:
+  schedule:
+    - cron: "10 18 * * *"   # 18:10 UTC = 23:40 IST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: seasonal-icon
+  cancel-in-progress: false
+
+jobs:
+  icon:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install the PDF reader
+        run: pip install pymupdf
+
+      - name: Choose the icon for tomorrow (India time)
+        # the job runs at 23:40 IST, so it picks the icon for the day about to begin
+        run: python scripts/seasonal_icon.py "$(TZ=Asia/Kolkata date -d '+30 minutes' +%F)"
+
+      - name: Rebuild the page links
+        run: python scripts/update.py
+
+      - name: Publish the result
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "seasonal-icon"
+          git config user.email "seasonal-icon@users.noreply.github.com"
+          git add -A assets manifest.webmanifest js/install.js index.html weekly-seat/index.html exam-seat/index.html bus/index.html master/index.html upload/index.html
+          if git diff --cached --quiet; then
+            echo "Nothing changed."
+            exit 0
+          fi
+          git commit -m "App icon for the day"
+          git push
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" || true
