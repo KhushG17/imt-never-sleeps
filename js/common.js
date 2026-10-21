@@ -567,6 +567,26 @@
   if(lmsNav && CONFIG.lms){
     var onAndroid = /android/i.test(navigator.userAgent || '');
     lmsNav.href = (onApple && CONFIG.lms.ios) || (onAndroid && CONFIG.lms.android) || CONFIG.lms.web || lmsNav.href;
+    // A tap on a phone tries the app first. Android: an "intent" link opens the app when it is installed and
+    // goes to Google Play when it is not. iPhone: the app's address is tried, and if the page is still in
+    // front a moment later (nothing opened) the App Store page opens. The href above stays the store page
+    // for anyone whose browser blocks this.
+    lmsNav.addEventListener('click', function(e){
+      var L = CONFIG.lms, store = onApple ? L.ios : L.android;
+      if(!(onApple || onAndroid) || !L.scheme || !L.site || !store) return;
+      e.preventDefault();
+      if(onAndroid){
+        window.location.href = 'intent://' + L.site + '#Intent;scheme=' + L.scheme + ';' + (L.androidPackage ? 'package=' + L.androidPackage + ';' : '') +
+          'S.browser_fallback_url=' + encodeURIComponent(store) + ';end';
+        return;
+      }
+      var gone = false, timer = 0;
+      function away(){ gone = true; clearTimeout(timer); }
+      document.addEventListener('visibilitychange', function(){ if(document.hidden) away(); });
+      window.addEventListener('pagehide', away);
+      timer = setTimeout(function(){ if(!gone) window.location.href = store; }, 1400);
+      window.location.href = L.scheme + '://' + L.site;
+    });
   }
   if(erpNav && CONFIG.erp && CONFIG.erp.url) erpNav.href = CONFIG.erp.url;
 

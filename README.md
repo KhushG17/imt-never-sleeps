@@ -1148,6 +1148,23 @@ Built on 20 Oct 2026; waiting for Khush to say push.
   `sound_test.py` (Diwali sound), `icon_test.py` (19 checks: sets, dates, switch
   and back, nightly job).
 
+## LMS opens the installed app (21 Oct 2026, not yet pushed)
+
+- A tap on **LMS** on a phone now tries the Moodle Workplace app first and goes
+  to the store only if it is not installed. Android: an `intent://` link with the
+  app's package (`com.moodle.workplace`) and the Play Store page as its
+  fallback, so Android decides. iPhone: the app's address
+  `mmworkplace://https://lms.imt.edu` is tried and, if the page is still in
+  front 1.4 s later, the App Store page opens (iOS cannot say whether an app is
+  installed). Laptop: the website, unchanged. The link's own address stays the
+  store page for browsers that block this. Settings: `lms.site`, `lms.scheme`,
+  `lms.androidPackage` in `js/portal-config.js`; code in `js/common.js`.
+- `mmworkplace` is the Workplace app's default URL scheme (Moodle Workplace app
+  docs). **Not yet tried on a real phone**: if the app opens but not at the
+  right site, or does not open, the scheme may need changing (IMT's Moodle
+  settings say which app scheme the site allows). Checked by `lms_app_test.py`
+  (6 checks, with the Android and iPhone browser identities).
+
 ## Corrections received
 
 - **19 Oct 2026, the navbar now stays fixed at the top on every page** (it

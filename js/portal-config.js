@@ -112,7 +112,13 @@ window.PORTAL_CONFIG = {
   lms: {
     web: "https://lms.imt.edu/login/",
     ios: "https://apps.apple.com/in/app/moodle-workplace/id1470929705",
-    android: "https://play.google.com/store/apps/details?id=com.moodle.workplace&hl=en_IN"
+    android: "https://play.google.com/store/apps/details?id=com.moodle.workplace&hl=en_IN",
+    // Opening the installed app: the Moodle Workplace app answers to mmworkplace://<site address>
+    // (its default URL scheme, per the Moodle Workplace app docs). Tried first on a phone; if the app
+    // is not there the store page opens instead.
+    site: "https://lms.imt.edu",
+    scheme: "mmworkplace",
+    androidPackage: "com.moodle.workplace"
   },
   erp: { url: "https://erp.imt.edu/login.htm" },
 
