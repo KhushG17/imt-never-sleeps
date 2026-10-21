@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Caveat:wght@600;700&display=swap">
 <script src="../js/theme.js?v=702672a2"></script>
-<link rel="stylesheet" href="../css/styles.css?v=9bc9f8f0">
+<link rel="stylesheet" href="../css/styles.css?v=3c79bee2">
 </head>
 <body class="tool master">
 
@@ -109,16 +109,17 @@
     </div>
 
     <div class="mt-tabs" role="tablist" aria-label="Master timetable views">
-      <button class="mt-tab" id="tab-student" type="button" role="tab" aria-selected="true" aria-controls="panel-student">Student</button>
-      <button class="mt-tab" id="tab-board" type="button" role="tab" aria-selected="false" aria-controls="panel-board">Vacant rooms</button>
+      <button class="mt-tab" id="tab-search" type="button" role="tab" aria-selected="true" aria-controls="panel-search">Detailed search</button>
+      <button class="mt-tab" id="tab-student" type="button" role="tab" aria-selected="false" aria-controls="panel-student">Student</button>
+      <button class="mt-tab" id="tab-rooms" type="button" role="tab" aria-selected="false" aria-controls="panel-rooms">Rooms</button>
       <button class="mt-tab" id="tab-sections" type="button" role="tab" aria-selected="false" aria-controls="panel-sections">Section timetable</button>
+      <button class="mt-tab" id="tab-board" type="button" role="tab" aria-selected="false" aria-controls="panel-board">Vacant rooms</button>
       <button class="mt-tab" id="tab-find" type="button" role="tab" aria-selected="false" aria-controls="panel-find">Common time</button>
       <button class="mt-tab" id="tab-checks" type="button" role="tab" aria-selected="false" aria-controls="panel-checks">Checks <span class="mt-badge" id="checksBadge" hidden></span></button>
-      <button class="mt-tab" id="tab-search" type="button" role="tab" aria-selected="false" aria-controls="panel-search">Detailed search</button>
     </div>
 
     <!-- 1. a student: type a name or roll number, tap the name, see the week -->
-    <section id="panel-student" role="tabpanel" aria-labelledby="tab-student">
+    <section id="panel-student" role="tabpanel" aria-labelledby="tab-student" hidden>
       <div class="mt-panel mt-home">
         <label class="field-label" for="hIn">Student name or roll number</label>
         <div class="mt-searchbox mt-suggest">
@@ -179,6 +180,20 @@
       </details>
     </section>
 
+    <!-- 1b. a room: type its name, tap it, see what is on now and what is coming -->
+    <section id="panel-rooms" role="tabpanel" aria-labelledby="tab-rooms" hidden>
+      <div class="mt-panel mt-home">
+        <label class="field-label" for="rIn">Room name</label>
+        <div class="mt-searchbox mt-suggest">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="6.500" stroke="currentColor" stroke-width="1.800"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.800" stroke-linecap="round"/></svg>
+          <input class="mt-search" id="rIn" type="text" role="combobox" aria-expanded="false" aria-controls="rList" aria-autocomplete="list" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Start typing a room, like 501 or Gurukul">
+          <ul class="mt-sug" id="rList" role="listbox" aria-label="Suggestions" hidden></ul>
+        </div>
+        <p class="mt-hint">Tap a room to see what is happening in it right now, and everything coming up, day by day.</p>
+      </div>
+      <div id="rOut"></div>
+    </section>
+
     <!-- 3. a section's week, or one student's -->
     <section id="panel-sections" role="tabpanel" aria-labelledby="tab-sections" hidden>
       <div class="mt-panel">
@@ -219,7 +234,7 @@
     </section>
 
     <!-- 6. search -->
-    <section id="panel-search" role="tabpanel" aria-labelledby="tab-search" hidden>
+    <section id="panel-search" role="tabpanel" aria-labelledby="tab-search">
       <div class="mt-panel">
         <label class="field-label" for="qIn">Search classes</label>
         <div class="mt-searchbox">
@@ -271,6 +286,6 @@
 <script src="../js/roster-data.js?v=16f1c0e2"></script>
 <script src="../weekly-seat/js/weekly-data.js?v=81a5b912"></script>
 <script src="../js/common.js?v=e0082b53"></script>
-<script src="js/app.js?v=aa311908"></script>
+<script src="js/app.js?v=d9494966"></script>
 </body>
 </html>

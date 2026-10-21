@@ -1203,6 +1203,25 @@ Built on 20 Oct 2026; waiting for Khush to say push.
 - Checked by `find_test.py` (32 checks) plus the updated `master_test.py` (90),
   `swipe_test.py` (15) and the dark-mode suite (72).
 
+## Master timetable: "Right now", a Rooms tab, new tab order (22 Oct 2026)
+
+- **Tab order**: Detailed search, Student, Rooms, Section timetable, Vacant
+  rooms, Common time, Checks. It opens on Detailed search.
+- **Right now** on top of the Student and Section timetable results: what is
+  happening this minute (India time), what is next and when ("today 12:15 PM, in
+  1h 15m", "tomorrow ..."), and the rest of today. If today is outside the
+  weeks on file it says so and shows only upcoming classes.
+- **Rooms** (new): type a room (from one character: `5`, `501`, `Gurukul`,
+  `C-002`); suggestions say "in use now" or "free now"; tap one for the same
+  Right now panel (what is in it now or "Nobody is using it right now", what is
+  next) and a Schedule for today and every day ahead, today first, the running
+  class marked and finished ones dimmed, "Free all day." where nothing is held.
+  A class for several sections at once counts once.
+- Checked by `find_test.py` (42): every one of the 22 rooms' now/next against an
+  independent reading of the weekly data at a fixed time, five sections the same
+  way, the Student panel, the order and default tab, phone and dark mode.
+  `master_test.py` (90), `swipe_test.py` (15) and the dark suite (72) still pass.
+
 ## Corrections received
 
 - **19 Oct 2026, the navbar now stays fixed at the top on every page** (it

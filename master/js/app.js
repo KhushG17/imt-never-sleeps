@@ -3,8 +3,12 @@
    Built from window.WEEKLY_DATA, the same published weekly schedules the
    student pages use (the newest weeks per group). Six views of one list of
    classes:
+     Search            the detailed search: a course, room, day, section or roll
+                       number; copy or download what it finds
      Student           type a name or roll number, tap the student from the
-                       suggestions, see their week
+                       suggestions, see what is on now and their week
+     Room              type a room, tap it: what is on now, what is next, and
+                       its schedule day by day
      Vacant rooms      the rooms free for any day and time you choose, and below
                        it the board: every room, hour by hour
      Rooms board       rooms down the side, time across: what is running at any
@@ -423,6 +427,59 @@
     $('bLoad').innerHTML = html;
   }
 
+
+  // ======================================================================
+  // "RIGHT NOW": what is on at this moment, what is next, what is left today
+  // (for a student, a section or a room), from a list of { date, start, end, title, sub, room }
+  // ======================================================================
+  function whenText(e, d, m){
+    if(e.date === d) return 'today ' + clock(e.start) + ' (in ' + minutesText(e.start - m) + ')';
+    return (IMT.addDays(d, 1) === e.date ? 'tomorrow' : shortDate(e.date)) + ' ' + clock(e.start);
+  }
+  function liveCard(e, kind, when){
+    return '<div class="mt-live-row is-' + kind + '"><div class="mt-live-time">' + esc(range(e.start, e.end)) + '</div><div class="mt-live-what"><b>' + esc(e.title) + '</b>' +
+      '<span>' + esc([e.sub, e.room ? 'Room ' + e.room : ''].filter(Boolean).join(' · ')) + '</span>' + (when ? '<em class="mt-live-when">' + esc(when) + '</em>' : '') + '</div></div>';
+  }
+  function liveHtml(events, o){
+    o = o || {};
+    var d = IMT.istToday(), m = IMT.istMinutes();
+    var list = events.filter(function(e){ return !e.cont; });
+    var cur = events.filter(function(e){ return e.date === d && e.start <= m && m < e.end; }).filter(function(e, i, a){ return !e.cont || !a.some(function(x){ return !x.cont && x.start === e.start && x.title === e.title; }); });
+    var later = list.filter(function(e){ return e.date === d && e.start > m; });
+    var upcoming = list.filter(function(e){ return e.date > d || (e.date === d && e.start > m); });
+    var next = upcoming[0];
+    var head = '<div class="mt-live-head"><span class="mt-live-dot" aria-hidden="true"></span><b>Right now</b><em>' + esc(shortDate(d) + ' · ' + clock(m)) + '</em></div>';
+    var body;
+    if(cur.length) body = '<div class="mt-live-label">Happening now</div>' + cur.map(function(e){ return liveCard(e, 'now'); }).join('');
+    else body = '<div class="mt-live-none">' + (o.room ? 'Nobody is using ' + esc(o.room) + ' right now.' : 'No class right now.') + '</div>';
+    if(next) body += '<div class="mt-live-label">' + (cur.length ? 'Then' : 'Next') + '</div>' + liveCard(next, 'next', whenText(next, d, m));
+    else body += '<div class="mt-live-label">Next</div><div class="mt-live-none">Nothing coming up in the weeks on file.</div>';
+    var rest = later.slice(next && next.date === d ? 1 : 0, 6);
+    if(rest.length) body += '<div class="mt-live-label">Later today</div>' + rest.map(function(e){ return liveCard(e, 'later'); }).join('');
+    if(!DATES[d]) body += '<p class="mt-live-note">Today is outside the weeks on file, so only upcoming classes show.</p>';
+    return '<section class="mt-live" aria-label="Right now">' + head + body + '</section>';
+  }
+  // every class of a student, or of a section or track, across the weeks on file
+  function personEvents(g, unit, student){
+    var out = [];
+    WEEKLY[g].forEach(function(week){
+      var view = student ? IMT.buildView(week, student) : null;
+      gridItems(week, g, unit, view).forEach(function(it){
+        var sl = week.slots[it.s];
+        out.push({ date: week.days[it.d].date, start: mins(sl[0]), end: mins(sl[1]), cont: !!it.cont, title: it.text ? it.text : it.name,
+                   sub: it.text ? '' : 'Session ' + it.n + (it.grp ? ' · Group ' + it.grp : '') + (it.elective ? ' · Elective' : ''), room: it.room || '' });
+      });
+    });
+    return out.sort(function(a, b){ return a.date < b.date ? -1 : a.date > b.date ? 1 : a.start - b.start; });
+  }
+  // every class held in a room, a class for several sections at once counted once
+  function roomEvents(room){
+    return mergeBlocks(EVENTS.filter(function(e){ return e.room === room; })).map(function(b){
+      return { date: b.date, start: b.a, end: b.b, title: b.name, room: '',
+               sub: (b.grp ? 'Group ' + b.grp : b.word + ' ' + b.units.join(' + ')) + ' · ' + groupShort(b.g) + ' · session ' + b.n };
+    }).sort(function(a, b){ return a.date < b.date ? -1 : a.date > b.date ? 1 : a.start - b.start; });
+  }
+
   // ======================================================================
   // 2. WEEK BY SECTION (or student)
   // ======================================================================
@@ -481,7 +538,7 @@
       '<div class="mt-who"><b>' + esc(groupLabel(g)) + ' · ' + esc(unitWord(week) + ' ' + o.unit) + '</b><span>Week ' + (week.weekNumber || '') + ' · ' + esc(weekLabel(week.start)) + '</span></div>';
     var keys = Object.keys(used).sort(natural).map(function(c){ return '<span class="mt-key-pill mt-hue" style="--h:' + courseHue(c) + '"><i></i><b>' + esc(c) + '</b> ' + esc(used[c]) + '</span>'; }).join('');
     var empty = items.length ? '' : '<div class="empty">No classes in this week.</div>';
-    $(o.out).innerHTML = title + banner + '<div class="gr-scroll"><div class="gr" style="--days:7">' + head + body + '</div></div>' + empty + (keys ? '<div class="mt-keys">' + keys + '</div>' : '');
+    $(o.out).innerHTML = liveHtml(personEvents(g, o.unit, student)) + title + banner + '<div class="gr-scroll"><div class="gr" style="--days:7">' + head + body + '</div></div>' + empty + (keys ? '<div class="mt-keys">' + keys + '</div>' : '');
   }
   function renderSections(){ drawWeek({ out: 'sOut', week: 'sWeek', prev: 'sPrev', next: 'sNext', g: sGroup.value, unit: sUnit.value, student: null }); }
   // the Student tab: whoever was picked from the suggestions
@@ -797,7 +854,7 @@
   }
   function suggestions(q, kinds){
     q = String(q || '').trim().toLowerCase();
-    if(q.length < 2) return [];
+    if(q.length < (kinds.indexOf('room') >= 0 ? 1 : 2)) return [];
     var nq = norm(q), toks = q.split(/\s+/).filter(Boolean), out = [];
     if(kinds.indexOf('student') >= 0){
       var found = [];
@@ -814,7 +871,11 @@
       sectionList().filter(function(x){ return toks.every(function(t){ return x.hay.indexOf(t) >= 0; }); }).slice(0, 4).forEach(function(x){ out.push(x); });
     }
     if(kinds.indexOf('room') >= 0){
-      ROOM_ORDER.filter(function(r){ return norm(r).indexOf(nq) >= 0 && (/\d/.test(q) || /room/.test(q)); }).slice(0, 3).forEach(function(r){ out.push({ kind: 'room', room: r, name: 'Room ' + r, sub: roomGroup(r).label }); });
+      var dd = IMT.istToday(), mm = IMT.istMinutes();
+      ROOM_ORDER.filter(function(r){ return norm(r).indexOf(nq.replace(/^room/, '')) >= 0; }).slice(0, 8).forEach(function(r){
+        var using = EVENTS.some(function(e){ return e.room === r && e.date === dd && e.start <= mm && mm < e.end; });
+        out.push({ kind: 'room', room: r, name: /^\d+$/.test(r) ? 'Room ' + r : r, sub: roomGroup(r).label + ' · ' + (using ? 'in use now' : 'free now') });
+      });
     }
     return out;
   }
@@ -830,7 +891,7 @@
       clearTimeout(blurTimer);
       items = suggestions(input.value, kinds); active = -1;
       if(!items.length){
-        if(String(input.value).trim().length >= 2){ list.innerHTML = '<li class="mt-sug-none" role="presentation">No match. Try a different spelling or the roll number.</li>'; list.hidden = false; input.setAttribute('aria-expanded', 'true'); } else close();
+        if(String(input.value).trim().length >= (kinds.indexOf('room') >= 0 ? 1 : 2)){ list.innerHTML = '<li class="mt-sug-none" role="presentation">' + (kinds.indexOf('room') >= 0 ? 'No such room. Try a number like 501 or a name like Gurukul.' : 'No match. Try a different spelling or the roll number.') + '</li>'; list.hidden = false; input.setAttribute('aria-expanded', 'true'); } else close();
         return;
       }
       list.innerHTML = items.map(function(it, i){
@@ -841,7 +902,7 @@
     }
     function pick(i){ var it = items[i]; if(!it) return; close(); onPick(it); }
     input.addEventListener('input', open);
-    input.addEventListener('focus', function(){ if(String(input.value).trim().length >= 2) open(); });
+    input.addEventListener('focus', function(){ if(String(input.value).trim().length >= (kinds.indexOf('room') >= 0 ? 1 : 2)) open(); });
     input.addEventListener('keydown', function(e){
       if(e.key === 'ArrowDown' && !list.hidden){ e.preventDefault(); active = Math.min(items.length - 1, active + 1); paint(); }
       else if(e.key === 'ArrowUp' && !list.hidden){ e.preventDefault(); active = Math.max(0, active - 1); paint(); }
@@ -858,6 +919,34 @@
     IMT.track('master_action', null, { tool: 'master', result: 'find_student' });
     renderStudent();
     var out = $('uOut'); if(out.scrollIntoView) out.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }
+
+
+  // ======================================================================
+  // ROOM: type a room, tap it, see what is on now and what is coming, day by day
+  // ======================================================================
+  var pickedRoom = '';
+  function renderRoom(){
+    if(!pickedRoom){ $('rOut').innerHTML = ''; return; }
+    var evs = roomEvents(pickedRoom), d = IMT.istToday(), m = IMT.istMinutes();
+    var days = DATE_LIST.filter(function(x){ return x >= d; });
+    if(!days.length) days = DATE_LIST.slice(-3);
+    var byDate = {}; evs.forEach(function(e){ (byDate[e.date] = byDate[e.date] || []).push(e); });
+    var cur = evs.filter(function(e){ return e.date === d && e.start <= m && m < e.end; })[0];
+    var title = /^\d+$/.test(pickedRoom) ? 'Room ' + pickedRoom : pickedRoom;
+    var sched = days.map(function(x){
+      var list = byDate[x] || [];
+      return '<div class="mt-sched-day' + (x === d ? ' is-today' : '') + '"><h3>' + esc(dateLabel(x)) + (x === d ? ' <span>Today</span>' : '') + '</h3>' +
+        (list.length ? list.map(function(e){ return '<div class="mt-live-row' + (cur && e === cur ? ' is-now' : (x === d && e.end <= m ? ' is-past' : '')) + '"><div class="mt-live-time">' + esc(range(e.start, e.end)) + '</div><div class="mt-live-what"><b>' + esc(e.title) + '</b><span>' + esc(e.sub) + '</span></div></div>'; }).join('') : '<div class="mt-live-none">Free all day.</div>') + '</div>';
+    }).join('');
+    $('rOut').innerHTML = '<div class="mt-who"><b>' + esc(title) + '</b><span>' + esc(roomGroup(pickedRoom).label) + ' · ' + evs.length + ' classes on file</span></div>' + liveHtml(evs, { room: title }) +
+      '<h2 class="mt-h2 mt-h2-pad">Schedule <span class="mt-h2-sub">today and the days ahead</span></h2>' + sched;
+  }
+  function openRoom(it){
+    pickedRoom = it.room; $('rIn').value = it.name;
+    IMT.track('master_action', null, { tool: 'master', result: 'find_room' });
+    renderRoom();
+    var out = $('rOut'); if(out.scrollIntoView) out.scrollIntoView({ block: 'start', behavior: 'smooth' });
   }
 
   // vacant rooms: no class in the room at any moment of the window
@@ -900,16 +989,18 @@
     $('hFreeNow').addEventListener('click', function(){ vacantNow(); IMT.track('master_action', null, { tool: 'master', result: 'vacant_now' }); });
     $('hFreeCopy').addEventListener('click', function(){ IMT.track('master_action', null, { tool: 'master', result: 'copy_vacant' }); copyText($('hFreeCopy').getAttribute('data-text') || '', 'Copied'); });
     attachSuggest($('hIn'), $('hList'), ['student'], openStudent);
+    attachSuggest($('rIn'), $('rList'), ['room'], openRoom);
   }
 
   // ======================================================================
   // tabs and start
   // ======================================================================
-  var TABS = ['student', 'board', 'sections', 'find', 'checks', 'search'];
+  var TABS = ['search', 'student', 'rooms', 'sections', 'board', 'find', 'checks'];
   function switchTab(t, quiet){
     TABS.forEach(function(o){ $('tab-' + o).setAttribute('aria-selected', o === t ? 'true' : 'false'); $('panel-' + o).hidden = o !== t; });
     if(t === 'sections') renderSections();
     if(t === 'student') renderStudent();
+    if(t === 'rooms') renderRoom();
     if(t === 'board') renderBoard();
     if(!quiet){
       IMT.track('master_view', null, { tool: 'master', result: t });
