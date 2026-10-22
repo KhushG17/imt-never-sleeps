@@ -1222,6 +1222,13 @@ Built on 20 Oct 2026; waiting for Khush to say push.
   way, the Student panel, the order and default tab, phone and dark mode.
   `master_test.py` (90), `swipe_test.py` (15) and the dark suite (72) still pass.
 
+## BFS 2025-27, Sunday 25 Oct revised (22 Oct 2026)
+
+- Revised class schedule mail: on Sun 25 Oct **MLBFSI-(18) for Section B moves
+  from 7:00 - 8:15 PM to 3:45 - 5:00 PM** (Section A keeps its 5:30 PM slot, the
+  rest of the day is as before). Applied as a day revision for 2027-bfs, week of
+  19 Oct, in `data/config/weekly-revisions.json`; the PDF itself is untouched.
+
 ## Corrections received
 
 - **19 Oct 2026, the navbar now stays fixed at the top on every page** (it

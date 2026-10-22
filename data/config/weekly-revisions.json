@@ -121,11 +121,15 @@
   "2027-bfs": {
     "2026-10-19": {
       "received": "2026-10-15",
-      "from": "Week-3 PDF: the Wed 21 Oct Fixed Income Securities guest lecture (FIS-(8), 9:00 and 10:30) is printed once for Sections A and B combined, in New Audi; the PDF row gives it to Section A in C-001 only. Holiday rows shown as \"Holiday\", as for every programme",
+      "from": "Week-3 PDF: the Wed 21 Oct Fixed Income Securities guest lecture (FIS-(8), 9:00 and 10:30) is printed once for Sections A and B combined, in New Audi; the PDF row gives it to Section A in C-001 only. Holiday rows shown as \"Holiday\", as for every programme. Sun 25 Oct revised (received 22 Oct 2026): MLBFSI-(18) for Section B is preponed from 7:00 PM to 3:45 PM",
       "days": {
         "2026-10-21": {
           "A": ["FIS(8){New Audi}", "FIS(8){New Audi}", "SERM(7)", "SERM(8)", "", "HRM(10)", ""],
           "B": ["FIS(8){New Audi}", "FIS(8){New Audi}", "", "", "HRM(10)", "", ""]
+        },
+        "2026-10-25": {
+          "A": ["VCPE(10)", "BFSI&STY(6)", "MLBFSI(17)", "", "", "MLBFSI(18)", ""],
+          "B": ["BFSI&STY(6)", "MLBFSI(17)", "VCPE(9)", "VCPE(10)", "MLBFSI(18)", "", ""]
         }
       },
       "notes": {
