@@ -1,6 +1,8 @@
 # Every night at 23:40 India time: put the app icon for the day about to begin
 # in use (a festival's while its dates run, the ordinary one otherwise) and
 # commit it if it changed. The dates are in js/portal-config.js (festival.themes).
+# It only swaps the icon files and their addresses (scripts/app_icon.py); it does not
+# rebuild the data, which needs files that are not in the repository.
 # See scripts/seasonal_icon.py.
 name: Seasonal app icon
 
@@ -27,15 +29,9 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install the PDF reader
-        run: pip install pymupdf
-
       - name: Choose the icon for tomorrow (India time)
         # the job runs at 23:40 IST, so it picks the icon for the day about to begin
         run: python scripts/seasonal_icon.py "$(TZ=Asia/Kolkata date -d '+30 minutes' +%F)"
-
-      - name: Rebuild the page links
-        run: python scripts/update.py
 
       - name: Publish the result
         env:

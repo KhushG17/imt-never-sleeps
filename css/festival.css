@@ -18,6 +18,8 @@ html.fest-halloween .fest-wire{ stroke:#5b3f7e; }
 .fest-wire{ fill:none; stroke:#8a5a2b; stroke-width:1.5; stroke-linecap:round; }
 [data-theme="dark"] .fest-wire{ stroke:#c98f4e; }
 .fest-glow{ animation:festTwinkle 2.4s ease-in-out infinite; }
+.fest-b.g1 .fest-glow, .fest-b.g2 .fest-glow{ animation-name:none; opacity:.45; }   /* only half the bulbs twinkle: fewer repaints on a phone */
+.fest-lite .fest-glow{ animation:none!important; opacity:.45; }
 .fest-b.g2 .fest-glow{ animation-duration:1.7s; animation-delay:-.6s; }
 .fest-b.g3 .fest-glow{ animation-duration:2.9s; animation-delay:-1.3s; }
 .fest-b.g4 .fest-glow{ animation-duration:2.1s; animation-delay:-.2s; }

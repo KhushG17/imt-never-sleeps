@@ -42,6 +42,14 @@
   root.classList.add('fest-on', 'fest-halloween');
   function rnd(a, b){ return a + Math.random() * (b - a); }
   function pick(list){ return list[Math.floor(Math.random() * list.length)]; }
+
+  // Slow phones: if the show makes the page run below about 30 frames a second, switch to a lighter look for the
+  // rest of the visit: the lights and characters stop moving, and the sky show comes every 9 to 15 seconds.
+  var lite = false;
+  function goLite(){
+    if(lite) return; lite = true; root.classList.add('fest-lite');
+    Array.prototype.forEach.call(document.querySelectorAll('.fest-garland animate, .fest-garland animateTransform, .fest-row animate, .fest-row animateTransform'), function(e){ e.parentNode && e.parentNode.removeChild(e); });
+  }
   function isDark(){ return root.getAttribute('data-theme') === 'dark'; }
 
   // ---------------------------------------------------------------- the garland and the characters (SVG)
@@ -276,14 +284,16 @@
   // Two canvases: one BEHIND the page (the sky show) and one in front (for a tap on a character). A layer exists
   // only while something is on it. Everything on a layer is an "actor": step(ctx, dark) draws it and says if it lives on.
   function Layer(cls){
-    var canvas = null, ctx = null, actors = [], raf = 0, W = 0, H = 0, DPR = 1;
-    function fit(){ if(!canvas) return; DPR = Math.min(2, window.devicePixelRatio || 1); W = root.clientWidth; H = window.innerHeight; canvas.width = W * DPR; canvas.height = H * DPR; }
+    var lastT = 0, avgGap = 0, seen = 0, canvas = null, ctx = null, actors = [], raf = 0, W = 0, H = 0, DPR = 1;
+    function fit(){ if(!canvas) return; DPR = Math.min(1.5, window.devicePixelRatio || 1); W = root.clientWidth; H = window.innerHeight; canvas.width = W * DPR; canvas.height = H * DPR; }
     function ensure(){
       if(canvas) return;
       canvas = document.createElement('canvas'); canvas.className = cls; canvas.setAttribute('aria-hidden', 'true');
       root.appendChild(canvas); ctx = canvas.getContext('2d'); fit(); window.addEventListener('resize', fit);
     }
     function tick(){
+      var now = performance.now();
+      if(lastT){ var gap = now - lastT; if(gap < 250){ avgGap = avgGap ? avgGap * .9 + gap * .1 : gap; if(++seen > 30 && avgGap > 34) goLite(); } } lastT = now;
       var dark = isDark();
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.clearRect(0, 0, W, H);
       for(var i = actors.length - 1; i >= 0; i--){
@@ -291,7 +301,7 @@
         if(alive === false) actors.splice(i, 1);
       }
       if(actors.length) raf = requestAnimationFrame(tick);
-      else { raf = 0; ctx.clearRect(0, 0, W, H); }
+      else { raf = 0; lastT = 0; ctx.clearRect(0, 0, W, H); }
     }
     function add(a){ ensure(); actors.push(a); if(!raf) raf = requestAnimationFrame(tick); }
     return { add: add, size: function(){ ensure(); return [W, H]; }, count: function(){ return actors.length; } };
@@ -322,12 +332,12 @@
       age++; y -= speed; x = x0 + Math.sin(age / 26 + sw) * 20;
       if(age > life || y < -s * 2) return false;
       var a = fade(age, life, 30) * (dark ? .8 : .92); c.globalAlpha = a; c.translate(x, y);
-      c.shadowColor = dark ? 'rgba(190,210,255,.8)' : 'rgba(140,100,220,.55)'; c.shadowBlur = 14;
+      c.fillStyle = dark ? 'rgba(190,210,255,.18)' : 'rgba(140,100,220,.16)'; c.beginPath(); c.arc(0, s * .1, s * .78, 0, 6.2832); c.fill();   // a soft glow (a plain circle: shadows are slow on phones)
       c.fillStyle = dark ? 'rgba(236,244,255,.9)' : '#fff'; c.strokeStyle = dark ? 'rgba(200,215,255,.6)' : 'rgba(80,60,130,.5)'; c.lineWidth = 1.5;
       c.beginPath(); c.arc(0, 0, s * .5, Math.PI, 0); c.lineTo(s * .5, s * .62);
       var w = Math.sin(age / 6) * s * .05;
       for(var i = 0; i < 4; i++){ var px = s * .5 - (i + 1) * s * .25; c.quadraticCurveTo(px + s * .125, s * (.62 + (i % 2 ? -.12 : .12)) + w, px, s * .62); }
-      c.closePath(); c.fill(); c.stroke(); c.shadowBlur = 0;
+      c.closePath(); c.fill(); c.stroke();
       c.fillStyle = '#2a1747'; c.beginPath(); c.ellipse(-s * .19, -s * .05, s * .07, s * .1, 0, 0, 6.2832); c.ellipse(s * .19, -s * .05, s * .07, s * .1, 0, 0, 6.2832); c.fill();
       c.beginPath(); c.ellipse(0, s * .22, s * .07, s * .11, 0, 0, 6.2832); c.fill();
       return true;
@@ -361,8 +371,8 @@
       age++; if(age > 26) return false;
       var a = age < 4 ? 1 : age < 8 ? .2 : age < 11 ? .95 : Math.max(0, 1 - (age - 11) / 15);
       c.globalAlpha = a * (dark ? .12 : .08); c.fillStyle = dark ? '#b9a4ff' : '#7c3aed'; c.fillRect(0, 0, w, h);   // a faint wash, not a blinding flash
-      c.globalAlpha = a; c.strokeStyle = dark ? '#efe6ff' : '#6d28d9'; c.lineWidth = 2.6; c.lineJoin = 'round'; c.shadowColor = dark ? '#b794ff' : '#a78bfa'; c.shadowBlur = 14;
-      line(c, pts); c.lineWidth = 1.4; bolts.forEach(function(b){ line(c, b); });
+      c.strokeStyle = dark ? '#b794ff' : '#a78bfa'; c.lineJoin = 'round'; c.globalAlpha = a * .3; c.lineWidth = 9; line(c, pts);   // a wide faint stroke for the glow
+      c.globalAlpha = a; c.strokeStyle = dark ? '#efe6ff' : '#6d28d9'; c.lineWidth = 2.6; line(c, pts); c.lineWidth = 1.4; bolts.forEach(function(b){ line(c, b); });
       return true;
     } };
   }
@@ -397,7 +407,7 @@
         p.life++; if(p.life > p.max) return; alive = true;
         p.x += p.vx; p.y += p.vy; if(kind === 'ember'){ p.vy += .03; p.vx *= .99; } else p.vx = Math.sin(p.life / 7 + p.r) * .6;
         var a = 1 - p.life / p.max;
-        if(kind === 'ember'){ c.globalAlpha = a; c.fillStyle = pick(['#ffd54a', '#ff8a1c', '#ff5a1c']); c.shadowColor = '#ff8a1c'; c.shadowBlur = 8; c.beginPath(); c.arc(p.x, p.y, p.r, 0, 6.2832); c.fill(); }
+        if(kind === 'ember'){ c.globalAlpha = a; c.fillStyle = pick(['#ffd54a', '#ff8a1c', '#ff5a1c']); c.beginPath(); c.arc(p.x, p.y, p.r, 0, 6.2832); c.fill(); }
         else { c.globalAlpha = a * .9; c.strokeStyle = dark ? '#9bff7a' : '#2fa83f'; c.lineWidth = 1.6; c.beginPath(); c.arc(p.x, p.y, p.r * (1 + p.life / p.max * .6), 0, 6.2832); c.stroke(); }
       });
       return alive;
@@ -508,6 +518,6 @@
   window.IMTFestival = { burst: function(x, y){ return tapAct(x, y, 'pumpkin'); }, show: autoShow, log: LOG, calm: calm, theme: 'halloween', layers: { sky: sky, front: front },
                          sound: { log: SLOG, mode: function(){ return mode; }, state: Snd.state, master: Snd.master, set: function(m){ setSound(m, false); } } };
   if(!calm){
-    (function next(wait){ setTimeout(function(){ autoShow(); next(rnd(3000, 6000)); }, wait); })(1400);
+    (function next(wait){ setTimeout(function(){ autoShow(); next(lite ? rnd(9000, 15000) : rnd(3000, 6000)); }, wait); })(1400);
   }
 })();

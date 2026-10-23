@@ -41,6 +41,14 @@
   function rnd(a, b){ return a + Math.random() * (b - a); }
   function pick(list){ return list[Math.floor(Math.random() * list.length)]; }
 
+  // Slow phones: if the show makes the page run below about 30 frames a second, switch to a lighter look for the
+  // rest of the visit: the lights and characters stop moving, and the sky show comes every 9 to 15 seconds.
+  var lite = false;
+  function goLite(){
+    if(lite) return; lite = true; root.classList.add('fest-lite');
+    Array.prototype.forEach.call(document.querySelectorAll('.fest-garland animate, .fest-garland animateTransform, .fest-row animate, .fest-row animateTransform'), function(e){ e.parentNode && e.parentNode.removeChild(e); });
+  }
+
   // ---------------------------------------------------------------- the garland and the firecrackers (SVG)
   var BULBS = ['#ffd54a', '#ff8a3c', '#ff4f7b', '#4fd8ff', '#9bff7a'];
   function animate(attr, values, dur, begin){
@@ -211,8 +219,8 @@
   // Two canvases: one BEHIND the page (the sky, for the shows that go off by themselves) and one in front
   // (for a tap on a firecracker). A layer exists only while something is on it.
   function Layer(cls, z){
-    var canvas = null, ctx = null, parts = [], rockets = [], raf = 0, W = 0, H = 0, DPR = 1, frame = 0;
-    function fit(){ if(!canvas) return; DPR = Math.min(2, window.devicePixelRatio || 1); W = root.clientWidth; H = window.innerHeight; canvas.width = W * DPR; canvas.height = H * DPR; }
+    var lastT = 0, avgGap = 0, seen = 0, canvas = null, ctx = null, parts = [], rockets = [], raf = 0, W = 0, H = 0, DPR = 1, frame = 0;
+    function fit(){ if(!canvas) return; DPR = Math.min(1.5, window.devicePixelRatio || 1); W = root.clientWidth; H = window.innerHeight; canvas.width = W * DPR; canvas.height = H * DPR; }
     function ensure(){
       if(canvas) return;
       canvas = document.createElement('canvas'); canvas.className = cls; canvas.setAttribute('aria-hidden', 'true');
@@ -222,6 +230,8 @@
     function launch(r){ ensure(); rockets.push(r); start(); }
     function start(){ if(!raf) raf = requestAnimationFrame(tick); }
     function tick(){
+      var now = performance.now();
+      if(lastT){ var gap = now - lastT; if(gap < 250){ avgGap = avgGap ? avgGap * .9 + gap * .1 : gap; if(++seen > 30 && avgGap > 34) goLite(); } } lastT = now;
       var dark = root.getAttribute('data-theme') === 'dark';
       frame++;
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.clearRect(0, 0, W, H);
@@ -230,7 +240,7 @@
       for(var r = rockets.length - 1; r >= 0; r--){
         var k = rockets[r]; k.x += k.vx; k.y += k.vy; k.vy *= .985; k.life++;
         parts.push({ x: k.x, y: k.y, px: k.x, py: k.y, vx: rnd(-.4, .4), vy: rnd(.2, .9), life: 0, max: 16 + rnd(0, 10), color: dark ? '#ffd9a0' : '#e8590c', size: rnd(1.2, 2.2), grav: .02, fric: .96, hist: null });
-        ctx.globalAlpha = 1; ctx.fillStyle = dark ? '#fff1b8' : '#f59e00'; ctx.shadowColor = '#ff9a1a'; ctx.shadowBlur = 8; ctx.beginPath(); ctx.arc(k.x, k.y, 2.4, 0, 6.2832); ctx.fill();
+        ctx.globalAlpha = 1; ctx.fillStyle = dark ? '#fff1b8' : '#f59e00'; ctx.beginPath(); ctx.arc(k.x, k.y, 2.4, 0, 6.2832); ctx.fill(); ctx.globalAlpha = .25; ctx.beginPath(); ctx.arc(k.x, k.y, 5.5, 0, 6.2832); ctx.fill(); ctx.globalAlpha = 1;
         if(k.y <= k.ty || k.life > 120){ rockets.splice(r, 1); k.then(k.x, k.y); }
       }
       for(var i = parts.length - 1; i >= 0; i--){
@@ -239,7 +249,7 @@
           p.life++; var fa = 1 - p.life / p.max; if(fa <= 0){ parts.splice(i, 1); continue; }
           var rad = p.size * (0.4 + 0.6 * (p.life / p.max)), g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rad);
           g.addColorStop(0, p.color); g.addColorStop(1, 'rgba(255,255,255,0)');
-          ctx.globalAlpha = fa * (dark ? .45 : .3); ctx.fillStyle = g; ctx.shadowBlur = 0; ctx.beginPath(); ctx.arc(p.x, p.y, rad, 0, 6.2832); ctx.fill();
+          ctx.globalAlpha = fa * (dark ? .45 : .3); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, p.y, rad, 0, 6.2832); ctx.fill();
           continue;
         }
         if(p.delay > 0){ p.delay--; continue; }
@@ -249,7 +259,7 @@
         if(a <= 0){ parts.splice(i, 1); continue; }
         if(p.strobe && ((frame + i) % 7) < 3) a *= .25;
         if(p.hist){ p.hist.push(p.x, p.y); if(p.hist.length > (p.trail || 0) * 2) p.hist.splice(0, 2); }
-        ctx.strokeStyle = p.color; ctx.fillStyle = p.color; ctx.lineWidth = p.size; ctx.shadowColor = p.color; ctx.shadowBlur = dark ? 0 : 6;
+        ctx.strokeStyle = p.color; ctx.fillStyle = p.color; ctx.lineWidth = p.size;
         if(p.hist && p.hist.length >= 4){
           for(var h = 2; h < p.hist.length; h += 2){
             ctx.globalAlpha = a * (h / p.hist.length); ctx.beginPath(); ctx.moveTo(p.hist[h - 2], p.hist[h - 1]); ctx.lineTo(p.hist[h], p.hist[h + 1]); ctx.stroke();
@@ -257,9 +267,9 @@
         } else { ctx.globalAlpha = a; ctx.beginPath(); ctx.moveTo(p.px, p.py); ctx.lineTo(p.x, p.y); ctx.stroke(); }
         ctx.globalAlpha = a; ctx.beginPath(); ctx.arc(p.x, p.y, p.size * .6, 0, 6.2832); ctx.fill();
       }
-      ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+      ctx.globalAlpha = 1;
       if(parts.length || rockets.length) raf = requestAnimationFrame(tick);
-      else { raf = 0; ctx.clearRect(0, 0, W, H); }
+      else { raf = 0; lastT = 0; ctx.clearRect(0, 0, W, H); }
     }
     return { add: add, launch: launch, size: function(){ ensure(); return [W, H]; }, count: function(){ return parts.length + rockets.length; } };
   }
@@ -280,13 +290,13 @@
   function flash(x, y, r, color){ return { flash: true, x: x, y: y, size: r, life: 0, max: 14, color: color }; }
   // the kinds of firework; R is how far a burst reaches, in pixels
   var KINDS = {
-    peony: function(x, y, R, c){ var out = [flash(x, y, R * .9, c[0])], n = 64; for(var i = 0; i < n; i++) out.push(P(x, y, i / n * 6.2832 + rnd(0, .1), R * .035 * rnd(.8, 1.05), { max: rnd(70, 95), color: c[i % c.length], size: rnd(1.9, 3), grav: .03, fric: .965 })); return out; },
-    chrysanthemum: function(x, y, R, c){ var out = [flash(x, y, R, c[0])], n = 80; for(var i = 0; i < n; i++) out.push(P(x, y, i / n * 6.2832 + rnd(0, .12), R * .034 * rnd(.7, 1.05), { max: rnd(80, 110), color: c[i % c.length], size: rnd(1.6, 2.4), grav: .035, fric: .966, trail: 9, strobe: i % 5 === 0 })); return out; },
-    willow: function(x, y, R, c){ var out = [flash(x, y, R * .8, '#ffcf5a')], n = 56; for(var i = 0; i < n; i++) out.push(P(x, y, i / n * 6.2832 + rnd(0, .1), R * .03 * rnd(.7, 1.05), { max: rnd(125, 165), color: root.getAttribute('data-theme') === 'dark' ? '#ffd36b' : '#e08a00', size: rnd(1.6, 2.2), grav: .055, fric: .974, trail: 12 })); return out; },
+    peony: function(x, y, R, c){ var out = [flash(x, y, R * .9, c[0])], n = 40; for(var i = 0; i < n; i++) out.push(P(x, y, i / n * 6.2832 + rnd(0, .1), R * .035 * rnd(.8, 1.05), { max: rnd(70, 95), color: c[i % c.length], size: rnd(1.9, 3), grav: .03, fric: .965 })); return out; },
+    chrysanthemum: function(x, y, R, c){ var out = [flash(x, y, R, c[0])], n = 48; for(var i = 0; i < n; i++) out.push(P(x, y, i / n * 6.2832 + rnd(0, .12), R * .034 * rnd(.7, 1.05), { max: rnd(80, 110), color: c[i % c.length], size: rnd(1.6, 2.4), grav: .035, fric: .966, trail: 5, strobe: i % 5 === 0 })); return out; },
+    willow: function(x, y, R, c){ var out = [flash(x, y, R * .8, '#ffcf5a')], n = 36; for(var i = 0; i < n; i++) out.push(P(x, y, i / n * 6.2832 + rnd(0, .1), R * .03 * rnd(.7, 1.05), { max: rnd(125, 165), color: root.getAttribute('data-theme') === 'dark' ? '#ffd36b' : '#e08a00', size: rnd(1.6, 2.2), grav: .055, fric: .974, trail: 6 })); return out; },
     ring: function(x, y, R, c){
-      var out = [flash(x, y, R * .7, c[0])], n = 54, tilt = rnd(-.9, .9), ct = Math.cos(tilt), st = Math.sin(tilt), sp = R * .036;
+      var out = [flash(x, y, R * .7, c[0])], n = 36, tilt = rnd(-.9, .9), ct = Math.cos(tilt), st = Math.sin(tilt), sp = R * .036;
       for(var i = 0; i < n; i++){ var a = i / n * 6.2832, vx = Math.cos(a) * sp, vy = Math.sin(a) * sp * .38; out.push({ x: x, y: y, px: x, py: y, vx: vx * ct - vy * st, vy: vx * st + vy * ct, life: 0, max: rnd(68, 84), color: c[0], size: 2.6, grav: .018, fric: .968, trail: 0, hist: null, strobe: false, delay: 0 }); }
-      for(var j = 0; j < 22; j++) out.push(P(x, y, rnd(0, 6.2832), R * .02 * rnd(.4, 1), { max: rnd(60, 80), color: c[c.length - 1], size: 1.8, grav: .03, fric: .96 }));
+      for(var j = 0; j < 12; j++) out.push(P(x, y, rnd(0, 6.2832), R * .02 * rnd(.4, 1), { max: rnd(60, 80), color: c[c.length - 1], size: 1.8, grav: .03, fric: .96 }));
       return out;
     }
   };
@@ -395,6 +405,6 @@
   window.IMTFestival = { burst: function(x, y){ return tapBurst(x, y, 'anar'); }, show: autoShow, log: LOG, calm: calm, layers: { sky: sky, front: front },
                          sound: { log: SLOG, mode: function(){ return mode; }, state: Snd.state, master: Snd.master, set: function(m){ setSound(m, false); } } };
   if(!calm){
-    (function next(wait){ setTimeout(function(){ autoShow(); next(rnd(3000, 6000)); }, wait); })(1400);   // the first soon after the page opens, then one every 3 to 6 seconds
+    (function next(wait){ setTimeout(function(){ autoShow(); next(lite ? rnd(9000, 15000) : rnd(3000, 6000)); }, wait); })(1400);   // the first soon after the page opens, then one every 3 to 6 seconds
   }
 })();

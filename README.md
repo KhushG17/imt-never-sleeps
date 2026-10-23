@@ -1252,6 +1252,25 @@ Built on 20 Oct 2026; waiting for Khush to say push.
   `rolling_test.py` (written for the week of 5 Oct) fails 2 of 31 only because
   those two groups no longer carry that week.
 
+## Lag on phones fixed; the nightly icon job repaired (23 Oct 2026)
+
+- **Lag**: the festival effects were heavy on phones. Measured with the page
+  slowed to a phone's speed (4x CPU): ordinary page 17 ms a frame; Diwali 92 ms
+  (about 11 frames a second); Halloween 23 ms. Causes: a glow ("shadow blur")
+  on every spark, long sparkler trails, 60-80 sparks a burst, a full-resolution
+  canvas, and about 30 animated bulbs and 15 swaying decorations repainted every
+  frame. Now: no shadow blur (a plain larger circle for glow), 36-48 sparks,
+  shorter trails, canvas at most 1.5x resolution, only half the bulbs twinkle.
+  Measured again: Diwali 19 ms, Halloween 20 ms (ordinary 17).
+- **Safety net**: if a phone still runs below about 30 frames a second while a
+  show is on, the page switches itself to a lighter look for that visit (lights
+  and characters stop moving, sky show every 9 to 15 seconds instead of 3 to 6).
+- **Seasonal icon job** (`.github/workflows/seasonal-icon.yml`): it ran every
+  night and failed (21 and 22 Oct) because it also tried to rebuild the data, which
+  needs the `all files` folder that is not in the repository. It now only swaps
+  the icon files (`scripts/app_icon.py`), which is all it ever needed. Nothing
+  was changed by the failed runs.
+
 ## Corrections received
 
 - **19 Oct 2026, the navbar now stays fixed at the top on every page** (it
