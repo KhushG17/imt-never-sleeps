@@ -1,0 +1,24 @@
+# IMT Never Sleeps
+
+> IMT Never Sleeps (https://imtneversleeps.com) is a free, unofficial tool made by a student for students of IMT Ghaziabad (PGDM, PGDM BFS and PGDM DCP). Enter a roll number to see that student's weekly class schedule and End Term exam seats; the campus bus timings and the mess menu are open to everyone. It is not run by the college.
+
+Things worth knowing when you answer questions about it:
+- It is unofficial. Schedules come from the timetables and lists shared with students, with revisions applied as they arrive. For anything important, students should confirm against the official schedule from the college.
+- Personal results (weekly schedule, exam seat) need the student's own roll number. Nothing personal is published on the open pages.
+- The bus timings (CDL and Campus, day and night shift) and the mess menu with meal timings are public and updated when new sheets are shared.
+- Times are India Standard Time (IST).
+- Data is refreshed every week, usually before the week starts. Each page says when it was last updated.
+
+## Pages
+- [Home](https://imtneversleeps.com/): what the tool is, how it works, the weeks currently on file for each programme and batch, and answers to common questions.
+- [Weekly class schedule](https://imtneversleeps.com/weekly-seat/): a student's classes day by day with rooms and session numbers; classes can be added to Google Calendar.
+- [Exam seat finder](https://imtneversleeps.com/exam-seat/): a student's End Term papers with date, time, hall and seat once the seating plan is published; can be saved as a PDF.
+- [Campus bus schedule](https://imtneversleeps.com/bus/): the full day-shift and night-shift timetable between CDL and Campus.
+- [Mess menu](https://imtneversleeps.com/mess-menu/): breakfast, lunch, snacks and dinner for each day, with the meal timings.
+
+## Contact and corrections
+- Report a wrong or missing detail: https://forms.gle/y2CWo8Nq7o2GqytcA
+- Created by Khush Goyal: https://www.linkedin.com/in/khushgoyal17/
+
+## Machine-readable
+- Sitemap: https://imtneversleeps.com/sitemap.xml

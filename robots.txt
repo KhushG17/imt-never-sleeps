@@ -1,0 +1,16 @@
+# IMT Never Sleeps: https://imtneversleeps.com
+# Everyone is welcome, search engines and AI assistants alike (GPTBot, ChatGPT-User, OAI-SearchBot,
+# PerplexityBot, ClaudeBot, Google-Extended, Applebot-Extended, Bingbot ...), so that people who ask
+# them about IMT Ghaziabad's schedule, bus or mess menu can be pointed here.
+User-agent: *
+Allow: /
+
+# Staff pages, the upload inbox and raw data folders are not for search results.
+# (This only asks crawlers to stay away; it is not security.)
+Disallow: /master/
+Disallow: /upload/
+Disallow: /uploads/
+Disallow: /data/
+Disallow: /js/roster-data.js
+
+Sitemap: https://imtneversleeps.com/sitemap.xml

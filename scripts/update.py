@@ -52,6 +52,7 @@ import sys
 from pathlib import Path
 
 import parsers
+import seo
 
 ROOT = Path(__file__).resolve().parent.parent
 SOURCE = ROOT / "all files"      # the college's files; never on GitHub
@@ -458,7 +459,7 @@ def summary(students, weeks):
         print("\n%d file(s) need attention - see the SKIPPED / INBOX lines above." % len(skipped))
 
 
-PAGES = ["index.html", "weekly-seat/index.html", "exam-seat/index.html", "bus/index.html", "master/index.html", "upload/index.html"]
+PAGES = ["index.html", "weekly-seat/index.html", "exam-seat/index.html", "bus/index.html", "mess-menu/index.html", "master/index.html", "upload/index.html"]
 
 
 def stamp_pages():
@@ -511,6 +512,7 @@ def run_uploads(timeline, overrides):
         "messages": [{"kind": k, "text": t} for k, t in messages if k != "WEEK"],
     }
     write_json(UPLOADS / "last-run.json", report)
+    seo.build()
     stamp_pages()
     print("\n%d week(s) on file from uploads." % len(loaded))
 
@@ -529,5 +531,6 @@ if __name__ == "__main__":
         courses, students, weeks = build_master(overrides)
         build_site(courses, students, weeks, timeline, overrides)
         build_mess([SOURCE, UPLOADS])
+        seo.build()
         stamp_pages()
         summary(students, weeks)

@@ -1271,6 +1271,92 @@ Built on 20 Oct 2026; waiting for Khush to say push.
   the icon files (`scripts/app_icon.py`), which is all it ever needed. Nothing
   was changed by the failed runs.
 
+## SEO, AEO and GEO for imtneversleeps.com (23 Oct 2026, not yet pushed)
+
+**What the site was missing** (audit): no `robots.txt`, no `sitemap.xml`, no canonical
+links, no share cards (WhatsApp/LinkedIn showed a bare link), no structured data,
+no `llms.txt`, no 404 page, weak titles ("IMT Never Sleeps"), and almost no
+readable text: the pages are tools, and what a crawler that does not run
+scripts (most AI assistants' crawlers) saw was an empty box. The bus times and the
+mess menu existed only inside scripts.
+
+**What was done**
+- **Text for crawlers and AI, hidden from visitors** (`scripts/seo.py`, run by
+  `scripts/update.py` after every data change, also in the GitHub upload job): an
+  "about" block inside `<noscript>` on each public page. A crawler or AI assistant
+  that runs no scripts reads it; a visitor never sees it, so the pages look exactly as
+  before (Khush did not want visible explanatory text). It says what the site is, links
+  the four tools, lists "Schedules on file" (latest week per programme and batch, with
+  a last-updated date), and answers common questions. The bus timetable is also plain
+  HTML inside the page, replaced by the live one as soon as scripts run. No FAQ markup
+  is published (Google asks that marked-up questions be visible).
+- **New page `/mess-menu/`**: the menu day by day with meal timings, as plain
+  HTML; with scripts, today is first and marked, tomorrow next, past days dimmed
+  (`js/mess-menu.js`). Linked from the Resources menu and the footer. The old
+  floating mess button is unchanged.
+- **Head of every public page**: unique title (under 66 characters) and description,
+  canonical, `en-IN`, index/follow with full snippets, Open Graph and X cards with
+  a 1200x630 picture (`assets/og-image.png`, `scripts/make_og_image.py`), and JSON-LD:
+  Organization, WebSite and WebApplication (free, India, installable) on Home;
+  WebPage and BreadcrumbList on the others. It says plainly that the site is
+  unofficial and never claims to be the college. `dateModified` and the sitemap's
+  `lastmod` move only when schedules, bus times or the mess menu really change
+  (`data/master/seo-state.json` remembers a fingerprint).
+- **`robots.txt`**: everyone allowed, including GPTBot, ChatGPT-User, OAI-SearchBot,
+  PerplexityBot, ClaudeBot, Google-Extended and Bingbot (blocking them would stop
+  assistants from sending people here); `/master/`, `/upload/`, `/uploads/`,
+  `/data/` and `js/roster-data.js` are asked to stay out of search results (asking
+  is not security). The master and upload pages also carry `noindex`.
+- **`sitemap.xml`** (the five public pages), **`llms.txt`** (what the site is, what
+  to tell people, the pages), **`404.html`** (links to the main pages). Nothing new is
+  shown to visitors: no footer links, no new menu items.
+- **Checked by `seo_test.py`** (71 checks, run against the raw HTML as a crawler
+  that runs no scripts would read it, then with scripts, including that visitors see nothing new): titles, descriptions,
+  canonicals, cards, JSON-LD validity, FAQ text matches, schedules-on-file count,
+  bus and mess text present, hidden pages hidden, robots, sitemap, llms.txt, 404,
+  image size, every link resolves.
+
+**Queries this is built to answer** (nothing stuffed; each is a real question a student
+or parent asks): IMT Ghaziabad timetable / class schedule, exam seat / exam schedule,
+bus schedule (CDL to Campus), mess menu and timings, "IMT Never Sleeps".
+
+**For Khush to do** (these need your accounts, I cannot)
+1. **Google Search Console**: Sitemaps, add `https://imtneversleeps.com/sitemap.xml`.
+   URL Inspection, then Request indexing, for `/`, `/weekly-seat/`, `/exam-seat/`,
+   `/bus/`, `/mess-menu/`. Check Pages report after a week; Performance report
+   for queries and pages.
+2. **Bing Webmaster Tools** (feeds Copilot and, via Bing, other assistants): sign in,
+   Import from Google Search Console, submit the same sitemap.
+3. **www**: `www.imtneversleeps.com` does not resolve. In GoDaddy DNS add a CNAME
+   `www` pointing at `khushg17.github.io`; GitHub Pages then redirects www to the
+   main address by itself. (Until then a link typed with www fails.)
+4. **GA4**: in Reports, Acquisition, Traffic acquisition, look at "Session source"
+   for `chatgpt.com`, `perplexity.ai`, `gemini.google.com`, `copilot.microsoft.com`:
+   that is AI referral traffic. Optional: Admin, Channel groups, add "AI assistants"
+   with those sources.
+5. **Off the site (what AI answers actually quote)**: a short LinkedIn post and a
+   post in the IMT student groups/subreddit linking the home page; ask the college's
+   student council or clubs to link to the bus and mess pages. Real mentions beat
+   anything on the page. Do not ask people to post fake reviews.
+6. In a month, ask ChatGPT, Gemini and Perplexity the questions above ("IMT
+   Ghaziabad bus schedule", "IMT Ghaziabad mess menu timings") and note whether the
+   site is cited.
+
+**Bus timings updated 23 Oct 2026** (new shuttle sheet): day shift CDL to Campus 16
+buses from 8:30 AM to 7:15 PM, Campus to CDL 16 from 9:00 AM to 7:35 PM; night shift
+9 from CDL (9:00 PM to 5:00 AM) and 8 from Campus (9:30 PM to 4:30 AM). In
+`js/bus-data.js`; pushed on its own.
+
+**Known limits / decisions**
+- Personal results (your schedule, your exam seat) need a roll number, so they can never
+  be indexed, by design; the open pages carry the generic answers.
+- Student names and roll numbers sit in public data files (`js/roster-data.js`,
+  `data/master/students.json` in the public repository). Search engines are asked to
+  skip them, but anyone can still open them. Worth a decision: move the roll lookup
+  behind a small server, or make the repository private (Pages then needs a paid plan).
+- "Created by Khush Goyal, a student at IMT Ghaziabad" is in the no-script text for
+  trust; remove that line in `scripts/seo.py` (`about_home`) if you prefer.
+
 ## Corrections received
 
 - **19 Oct 2026, the navbar now stays fixed at the top on every page** (it
