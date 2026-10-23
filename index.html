@@ -35,10 +35,23 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Caveat:wght@600;700&display=swap">
 <script src="js/theme.js?v=702672a2"></script>
-<link rel="stylesheet" href="css/styles.css?v=20243db8">
+<script>try{if(sessionStorage.getItem('imt.pre'))document.documentElement.classList.add('pre-quick')}catch(e){}</script>
+<link rel="stylesheet" href="css/styles.css?v=9b7d9838">
 <link rel="stylesheet" href="css/festival.css?v=6473209a">
 </head>
 <body class="portal">
+<div id="preloader" role="status" aria-label="Loading IMT Never Sleeps">
+  <div class="pre-stage">
+    <span class="pre-glow"></span>
+    <svg class="pre-ring" viewBox="0 0 120 120" aria-hidden="true"><circle class="pre-track" cx="60" cy="60" r="54"/><circle cx="60" cy="60" r="54"/></svg>
+    <span class="pre-tile"><img src="assets/imt-logo.png" alt="" width="56" height="62"></span>
+    <i class="pre-star s1"></i><i class="pre-star s2"></i><i class="pre-star s3"></i>
+  </div>
+  <div class="pre-name">IMT <b>Never</b> Sleeps</div>
+  <div class="pre-bar"><i></i></div>
+</div>
+<noscript><style>#preloader{display:none!important}</style></noscript>
+
 
 <header class="site-header" id="siteHeader">
   <div class="header-inner">
@@ -202,7 +215,7 @@
   <span class="credit">Created by <a href="https://www.linkedin.com/in/khushgoyal17/" target="_blank" rel="noopener">Khush Goyal</a></span>
 </footer>
 
-<script src="js/portal-config.js?v=59eb4f73"></script>
+<script src="js/portal-config.js?v=c8d6944a"></script>
 <script src="js/site-data.js?v=dc0d8661"></script>
 <script src="js/roster-data.js?v=16f1c0e2"></script>
 <script src="weekly-seat/js/weekly-data.js?v=5d9de05c"></script>
@@ -212,5 +225,6 @@
 <script src="js/mess-data.js?v=aaeb11f6"></script>
 <script src="js/mess.js?v=8ed478b9"></script>
 <script src="js/portal.js?v=aeef75eb"></script>
+<script src="js/preloader.js?v=bb9ffc0e"></script>
 </body>
 </html>

@@ -1944,3 +1944,118 @@ html, body, a, button, input, select, textarea, label, summary, [role="button"],
 .mess-day.is-past{ opacity:.6; }
 .mess-badge{ font:600 10.5px var(--font-switzer); letter-spacing:.06em; text-transform:uppercase; padding:3px 8px; border-radius:6px; background:var(--color-slate-helper); color:#fff; }
 .mess-badge.is-today{ background:var(--color-accent); }
+
+/* ---------- Placement week: "Best of Luck for Placements" ---------- */
+.event-placement{
+  background:
+    radial-gradient(170px 110px at 0% 50%, rgba(244,197,66,.28), transparent 70%),
+    radial-gradient(170px 110px at 100% 50%, rgba(111,140,255,.38), transparent 70%),
+    linear-gradient(100deg, #0b1747 0%, #14297a 52%, #1d3aa6 100%);
+  justify-content:space-between; color:#fff;
+}
+.event-placement .event-text{ text-align:center; }
+.event-placement .event-title{ font-size:19px; letter-spacing:.01em; color:#ffe9a0; text-shadow:0 1px 8px rgba(0,0,0,.35); text-wrap:balance; }
+.event-placement .event-note{ color:#e3eaff; letter-spacing:.03em; text-transform:uppercase; font-size:11.5px; font-weight:600; margin-top:4px; }
+.event-placement .event-motif{ width:62px; height:62px; filter:drop-shadow(0 2px 5px rgba(0,0,0,.4)); }
+@media (max-width:480px){ .event-placement{ gap:8px; padding:12px; } .event-placement .event-title{ font-size:16px; } .event-placement .event-motif{ width:50px; height:50px; } }
+@media (max-width:360px){ .event-placement .event-motif{ width:42px; height:42px; } .event-placement .event-title{ font-size:15px; } }
+@media (prefers-reduced-motion: no-preference){
+  .event-placement .motif-case{ animation:plFloat 3.2s ease-in-out infinite; }
+  .event-placement .motif-growth{ animation:plFloat 3.2s ease-in-out -1.6s infinite; }
+  .event-placement::after{ content:""; position:absolute; top:0; bottom:0; left:-40%; width:30%; pointer-events:none;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,.2), transparent); transform:skewX(-18deg); animation:garbaSheen 6s ease-in-out infinite; }
+}
+@keyframes plFloat{ 0%, 100%{ transform:translateY(0); } 50%{ transform:translateY(-4px); } }
+
+/* ---------- festival greetings: Halloween (pumpkin) and Diwali (diya) ---------- */
+.event-festival.is-pumpkin{
+  background:
+    radial-gradient(170px 110px at 100% 0%, rgba(255,154,46,.55), transparent 70%),
+    linear-gradient(120deg, #1e0b3f 0%, #4a1a86 52%, #c2410c 100%);
+}
+.event-festival.is-diya{
+  background:
+    radial-gradient(170px 110px at 100% 0%, rgba(255,226,140,.5), transparent 70%),
+    linear-gradient(120deg, #5c1500 0%, #c2410c 55%, #f08a0c 100%);
+}
+.event-festival.is-pumpkin .fx-spark{ background:#ffd9a0; }
+
+/* ---------- festival banners with a scene: Halloween (moon and bats) and Diwali (crackers and lamps) ---------- */
+.event-festival.is-pumpkin, .event-festival.is-diya{ min-height:88px; }
+.fx-scene{ position:absolute; inset:0; overflow:hidden; pointer-events:none; border-radius:inherit; }
+.fx-moon{ position:absolute; right:7%; top:-16px; width:62px; height:62px; border-radius:50%;
+  background:radial-gradient(circle at 36% 34%, #fff0c4 0%, #ffc566 45%, #ff9a2e 100%); box-shadow:0 0 28px 8px rgba(255,170,70,.45); }
+.fx-moon::after{ content:""; position:absolute; left:14px; top:26px; width:14px; height:14px; border-radius:50%; background:rgba(190,100,20,.28); box-shadow:22px -8px 0 -3px rgba(190,100,20,.22), 16px 18px 0 -4px rgba(190,100,20,.2); }
+.fx-star{ position:absolute; width:3px; height:3px; border-radius:50%; background:#fff4c2; opacity:.7; }
+.fx-bat{ position:absolute; left:-12%; opacity:.92; }
+.fx-bat svg{ display:block; width:100%; height:auto; }
+.fx-burst{ position:absolute; width:46px; height:46px; margin:-23px 0 0 -23px; opacity:0; border-radius:50%;
+  background:repeating-conic-gradient(from 8deg, var(--c) 0 5deg, transparent 5deg 30deg);
+  -webkit-mask-image:radial-gradient(circle, transparent 24%, #000 28%, #000 62%, transparent 66%); mask-image:radial-gradient(circle, transparent 24%, #000 28%, #000 62%, transparent 66%); }
+.fx-rocket{ position:absolute; left:56%; bottom:-34px; width:11px; opacity:0; }
+.fx-rocket svg{ display:block; width:100%; height:auto; }
+.fx-lamps{ position:absolute; left:0; right:0; bottom:0; height:12px; }
+.fx-lamp{ position:absolute; bottom:-2px; width:13px; height:6px; margin-left:-6px; border-radius:0 0 13px 13px; background:#a63a0a; box-shadow:0 -1px 0 #ffd36b inset; }
+.fx-lamp::before{ content:""; position:absolute; left:50%; bottom:5px; width:5px; height:8px; margin-left:-2.5px; border-radius:50% 50% 40% 40%; background:radial-gradient(#fff7cc, #ffb21c 70%); filter:blur(.2px); }
+.event-festival.is-diya .fx-spark{ left:calc(48% + var(--i) * 8%); }
+@media (max-width:480px){ .fx-moon{ width:50px; height:50px; right:6%; } .fx-bat{ transform:scale(.85); } }
+@media (prefers-reduced-motion: no-preference){
+  .fx-bat{ animation:fxBatFly 8s linear infinite; }
+  .fx-star{ animation:fxTwinkle 2.4s ease-in-out infinite; }
+  .fx-burst{ animation:fxBurst 4.2s ease-out infinite; }
+  .fx-rocket{ animation:fxRocket 4.2s ease-in infinite; animation-delay:-.2s; }
+  .fx-lamp::before{ animation:fxFlame 1.3s ease-in-out infinite; animation-delay:inherit; }
+}
+@media (prefers-reduced-motion: reduce){ .fx-bat{ left:30%; } .fx-burst{ opacity:.7; transform:scale(.9); } .fx-rocket{ opacity:.9; bottom:8px; } }
+@keyframes fxBatFly{ 0%{ left:-12%; margin-top:0; } 25%{ margin-top:-8px; } 50%{ margin-top:6px; } 75%{ margin-top:-5px; } 100%{ left:108%; margin-top:0; } }
+@keyframes fxTwinkle{ 0%, 100%{ opacity:.25; } 50%{ opacity:1; } }
+@keyframes fxBurst{ 0%{ opacity:0; transform:scale(.15); } 6%{ opacity:1; } 34%{ opacity:.95; transform:scale(1.05); } 52%{ opacity:0; transform:scale(1.25); } 100%{ opacity:0; transform:scale(1.25); } }
+@keyframes fxRocket{ 0%{ opacity:0; transform:translateY(0); } 6%{ opacity:1; } 24%{ opacity:1; transform:translateY(-92px); } 30%{ opacity:0; transform:translateY(-100px); } 100%{ opacity:0; } }
+@keyframes fxFlame{ 0%, 100%{ transform:scaleY(1); opacity:1; } 50%{ transform:scaleY(.8); opacity:.8; } }
+
+/* ---------- the loading screen: the IMT logo, drawn in, while the page loads ---------- */
+#preloader{
+  position:fixed; inset:0; z-index:100000; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px;
+  background:radial-gradient(circle at 50% 38%, #ffffff 0%, #eef2ff 70%, #e3e9ff 100%); color:#142a73;
+  transition:opacity .45s ease, visibility 0s linear .45s;
+}
+html[data-theme="dark"] #preloader{ background:radial-gradient(circle at 50% 38%, #151d3d 0%, #0d1226 70%, #080b18 100%); color:#dfe6ff; }
+#preloader.is-done{ opacity:0; visibility:hidden; pointer-events:none; }
+#preloader.is-done .pre-tile{ transform:scale(1.08); }
+/* a later page of the same visit: stay out of the way unless the page is slow */
+html.pre-quick #preloader:not(.is-done){ opacity:0; visibility:hidden; animation:preLate .01s linear .35s forwards; }
+@keyframes preLate{ to{ opacity:1; visibility:visible; } }
+.pre-stage{ position:relative; width:150px; height:150px; display:grid; place-items:center; }
+.pre-glow{ position:absolute; inset:-18px; border-radius:50%; background:radial-gradient(circle, rgba(244,197,66,.42) 0%, rgba(244,197,66,0) 68%); }
+.pre-ring{ position:absolute; inset:0; width:100%; height:100%; transform:rotate(-90deg); }
+.pre-ring circle{ fill:none; stroke:#d4a52a; stroke-width:3; stroke-linecap:round; stroke-dasharray:339.3; stroke-dashoffset:0; }
+.pre-ring .pre-track{ stroke:rgba(212,165,42,.22); stroke-width:3; }
+.pre-tile{ position:relative; width:92px; height:92px; border-radius:24px; background:#fff; display:grid; place-items:center;
+  box-shadow:0 14px 34px rgba(20,42,115,.22), 0 0 0 1px rgba(20,42,115,.06); transition:transform .45s ease; }
+html[data-theme="dark"] .pre-tile{ box-shadow:0 14px 34px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.08); }
+.pre-tile img{ width:56px; height:auto; display:block; }
+.pre-star{ position:absolute; width:5px; height:5px; border-radius:50%; background:#f4c542; box-shadow:0 0 8px 2px rgba(244,197,66,.7); opacity:.8; }
+.pre-star.s1{ left:6px; top:22px; } .pre-star.s2{ right:2px; top:46px; } .pre-star.s3{ left:30px; bottom:2px; }
+.pre-name{ font:700 15px "Plus Jakarta Sans","Manrope",system-ui,sans-serif; letter-spacing:.34em; text-transform:uppercase; padding-left:.34em; }
+.pre-name b{ color:#d4a52a; font-weight:800; }
+.pre-bar{ width:120px; height:3px; border-radius:3px; background:rgba(20,42,115,.12); overflow:hidden; }
+html[data-theme="dark"] .pre-bar{ background:rgba(255,255,255,.12); }
+.pre-bar i{ display:block; width:40%; height:100%; border-radius:3px; background:linear-gradient(90deg, transparent, #d4a52a, transparent); }
+@media (prefers-reduced-motion: no-preference){
+  .pre-glow{ animation:preGlow 2.2s ease-in-out infinite; }
+  .pre-ring circle:not(.pre-track){ stroke-dashoffset:339.3; animation:preDraw .8s cubic-bezier(.45,.05,.2,1) .15s forwards; }
+  .pre-tile{ opacity:0; transform:scale(.7); animation:preTile .6s cubic-bezier(.2,1.3,.4,1) forwards; }
+  .pre-star{ animation:preTwinkle 1.8s ease-in-out infinite; } .pre-star.s2{ animation-delay:-.6s; } .pre-star.s3{ animation-delay:-1.2s; }
+  .pre-name{ opacity:0; letter-spacing:.1em; animation:preName .6s ease-out .45s forwards; }
+  .pre-bar{ opacity:0; animation:preFade .4s ease-out .7s forwards; }
+  .pre-bar i{ animation:preSlide 1.3s ease-in-out infinite; }
+  #preloader.is-done .pre-tile{ animation:none; opacity:1; transform:scale(1.08); }
+}
+@keyframes preGlow{ 0%, 100%{ transform:scale(.92); opacity:.7; } 50%{ transform:scale(1.12); opacity:1; } }
+@keyframes preDraw{ to{ stroke-dashoffset:0; } }
+@keyframes preTile{ to{ opacity:1; transform:scale(1); } }
+@keyframes preTwinkle{ 0%, 100%{ opacity:.2; transform:scale(.7); } 50%{ opacity:1; transform:scale(1.2); } }
+@keyframes preName{ to{ opacity:1; letter-spacing:.34em; } }
+@keyframes preFade{ to{ opacity:1; } }
+@keyframes preSlide{ 0%{ transform:translateX(-110%); } 100%{ transform:translateX(280%); } }
+@media print{ #preloader{ display:none!important; } }

@@ -183,14 +183,27 @@
     return out + '<circle r="20" fill="#f7d98a"/><circle r="20" fill="none" stroke="#c9972f" stroke-width="2"/></svg>';
   }
   // "Holiday" when an occasion on that date marks the day as a holiday for all
+  // The student whose week is on screen: an occasion with `for: [group keys]` is theirs only if their group is in the list
+  var curStudent = null;
+  function appliesTo(e){ return !e.for || !curStudent || e.for.indexOf(curStudent.groupKey) >= 0; }
+  // an occasion is on its date, or on every date from `date` to `until` when it runs over several days.
+  // One with banner: "week" is not a day's banner at all: it is shown once, above the whole list, from its
+  // `showFrom` date (a week ahead, by default) to its last day, so a wish never repeats on every day and
+  // never crowds a day's own greeting.
+  function covers(e, date){ return e.banner !== 'week' && e.date <= date && date <= (e.until || e.date); }
   function holidayOn(date){
-    var h = ((IMT.config.events) || []).filter(function(e){ return e.date === date && e.holiday; })[0];
+    var h = ((IMT.config.events) || []).filter(function(e){ return covers(e, date) && e.holiday && appliesTo(e); })[0];
     return h ? h.holiday : '';
   }
   function eventsOn(date, place){
     return ((IMT.config.events) || []).filter(function(e){
-      return e.date === date && (!place || (e.place === 'after' ? 'after' : 'top') === place);
+      return covers(e, date) && appliesTo(e) && (!place || (e.place === 'after' ? 'after' : 'top') === place);
     });
+  }
+  function weekBanners(day){
+    return ((IMT.config.events) || []).filter(function(e){
+      return e.banner === 'week' && appliesTo(e) && day <= (e.until || e.date) && day >= (e.showFrom || IMT.addDays(e.date, -7));
+    }).map(eventBanner).join('');
   }
   // RESET 2026 (HAWC): one picture a day, in the poster's deep teal.
   var RESET_ICONS = {
@@ -215,6 +228,19 @@
   // Festival greetings: a lotus for Durga Puja (Mahashtami), a bow and arrow
   // for Dussehra, on a soft glowing disc.
   var FESTIVAL_ICONS = {
+    // a jack-o'-lantern for Halloween: the eyes and mouth glow
+    pumpkin: '<g stroke="#5a2300" stroke-width="1.400" stroke-linejoin="round">' +
+      '<ellipse cx="-12" cy="6" rx="14" ry="20" fill="#e2641e"/><ellipse cx="12" cy="6" rx="14" ry="20" fill="#e2641e"/><ellipse cx="0" cy="6" rx="12" ry="21" fill="#ff9a2e"/></g>' +
+      '<path d="M-2 -14 q-2 -9 6 -11 q-1 5 1 11z" fill="#4a7a2a" stroke="#2d4d17" stroke-width="1"/>' +
+      '<path d="M-11 2 l5 -9 5 9z M2 2 l5 -9 5 9z" fill="#fff0a8"><animate attributeName="opacity" values="1;.55;1" dur="1.6s" repeatCount="indefinite"/></path>' +
+      '<path d="M-14 12 l5 5 4 -5 5 5 4 -5 5 5 4 -5 v7 q-13 10 -27 0z" fill="#fff0a8"><animate attributeName="opacity" values="1;.55;1" dur="1.6s" repeatCount="indefinite"/></path>',
+    // a clay lamp for Diwali: the flame flickers
+    diya: '<path d="M-26 8 C-22 30 22 30 26 8 Z" fill="#d9480f" stroke="#7a2400" stroke-width="1.500"/>' +
+      '<path d="M-30 7 H30" stroke="#ffd36b" stroke-width="4" stroke-linecap="round"/>' +
+      '<path d="M26 8 C36 7 40 1 41 -6 C35 0 31 1 26 1 Z" fill="#d9480f" stroke="#7a2400" stroke-width="1.200"/>' +
+      '<path d="M-14 18 C-6 24 6 24 14 18" stroke="#ffd36b" stroke-width="2" fill="none" stroke-linecap="round"/>' +
+      '<path d="M-5 5 C-18 -10 -8 -26 0 -42 C8 -26 18 -10 5 5 Z" fill="#ffb21c"><animate attributeName="opacity" values="1;.8;1" dur="1.2s" repeatCount="indefinite"/></path>' +
+      '<path d="M-2 2 C-9 -8 -4 -18 0 -28 C4 -18 9 -8 2 2 Z" fill="#fff7cc"/>',
     // the outer petals open and close, the centre petal rises, a gold line glows
     lotus: '<g stroke="#7a1010" stroke-width="1.6" stroke-linejoin="round">' +
       '<path class="lp lp-ol" d="M-4 15 C-18 18 -28 10 -32 2 C-20 0 -10 6 -4 15Z" fill="#f08a24"/>' +
@@ -237,10 +263,38 @@
       (FESTIVAL_ICONS[name] || FESTIVAL_ICONS.lotus) + '</svg>';
   }
   // a few drifting sparks behind the festival greeting
-  function festivalSparks(){
+  function festivalSparks(icon){
+    if(icon === 'pumpkin') return halloweenScene();
+    if(icon === 'diya') return diwaliScene();
     var out = '';
     for(var i = 0; i < 7; i++) out += '<span class="fx-spark" style="--i:' + i + '"></span>';
     return '<span class="fx-sparks" aria-hidden="true">' + out + '</span>';
+  }
+  // Halloween: a big moon, stars, and bats flying across (the wings beat, drawn with <animate>)
+  var BAT_OPEN = 'M20 10C16 4 8 2 1 5C4 8 5 12 8 14C11 12 13 12 15 15C17 13 19 12 20 14C21 12 23 13 25 15C27 12 29 12 32 14C35 12 36 8 39 5C32 2 24 4 20 10Z';
+  var BAT_SHUT = 'M20 10C16 14 8 17 2 14C5 15 6 17 8 18C11 17 13 17 15 18C17 17 19 16 20 17C21 16 23 17 25 18C27 17 29 17 32 18C34 17 35 15 38 14C32 17 24 14 20 10Z';
+  function bat(top, size, dur, delay, beat){
+    return '<span class="fx-bat" style="top:' + top + '%;width:' + size + 'px;animation-duration:' + dur + 's;animation-delay:' + delay + 's">' +
+      '<svg viewBox="0 0 40 20" aria-hidden="true"><path fill="#0b0420" d="' + BAT_OPEN + '"><animate attributeName="d" values="' + BAT_OPEN + ';' + BAT_SHUT + ';' + BAT_OPEN + '" dur="' + beat + 's" repeatCount="indefinite"/></path></svg></span>';
+  }
+  function halloweenScene(){
+    var stars = '';
+    [[52, 18], [64, 62], [74, 30], [86, 72], [58, 80], [92, 24]].forEach(function(p, i){ stars += '<i class="fx-star" style="left:' + p[0] + '%;top:' + p[1] + '%;animation-delay:-' + (i * .7).toFixed(1) + 's"></i>'; });
+    return '<span class="fx-scene" aria-hidden="true">' + stars + '<span class="fx-moon"></span>' +
+      bat(18, 30, 7.5, 0, .55) + bat(52, 22, 9.5, -3.2, .45) + bat(70, 26, 8.5, -5.6, .5) + bat(34, 18, 11, -7.5, .4) + '</span>';
+  }
+  // Diwali: crackers going off (starbursts), a rocket climbing, sparks rising, a string of little lamps along the bottom
+  function diwaliScene(){
+    var bursts = '';
+    [[62, 30, '#ffd36b', 0], [80, 52, '#ff7aa8', 1.3], [92, 24, '#7fe0ff', 2.4], [70, 66, '#ffb347', 3.4]].forEach(function(b, i){
+      bursts += '<i class="fx-burst" style="left:' + b[0] + '%;top:' + b[1] + '%;--c:' + b[2] + ';animation-delay:' + b[3] + 's"></i>';
+    });
+    var sparks = '';
+    for(var i = 0; i < 6; i++) sparks += '<span class="fx-spark" style="--i:' + i + '"></span>';
+    var rocket = '<span class="fx-rocket"><svg viewBox="0 0 16 34" aria-hidden="true"><path d="M8 0l4 9v12H4V9z" fill="#ffd36b"/><rect x="4" y="12" width="8" height="3" fill="#e0334f"/><path d="M4 21l-4 7 4-2zM12 21l4 7-4-2z" fill="#e0334f"/><path d="M6 21h4l-2 12z" fill="#ff9d1c"/></svg></span>';
+    var lamps = '';
+    for(var j = 0; j < 9; j++) lamps += '<i class="fx-lamp" style="left:' + (4 + j * 11.5) + '%;animation-delay:-' + (j * .4).toFixed(1) + 's"></i>';
+    return '<span class="fx-scene" aria-hidden="true">' + bursts + rocket + sparks + '<span class="fx-lamps">' + lamps + '</span></span>';
   }
   // Garba Night: a turning rangoli mandala at one end, crossed dandiya sticks at the other
   function garbaMandala(){
@@ -271,10 +325,30 @@
       '<path d="M0 -8 L2.400 -2.400 L8 0 L2.400 2.400 L0 8 L-2.400 2.400 L-8 0 L-2.400 -2.400Z" fill="#fff4c2"/>' +
       '<circle cx="-36" cy="-34" r="2" fill="#fff4c2"/><circle cx="38" cy="30" r="2" fill="#fff4c2"/><circle cx="-34" cy="34" r="1.600" fill="#ffd24a"/><circle cx="36" cy="-32" r="1.600" fill="#ffd24a"/></svg>';
   }
+  // Placement week (the 2027 batch): a gold briefcase with stars on one side, rising bars on the other
+  function briefcase(){
+    return '<svg class="event-motif motif-case" viewBox="-56 -56 112 112" aria-hidden="true"><defs><linearGradient id="plGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a0"/><stop offset="1" stop-color="#d4a52a"/></linearGradient></defs>' +
+      '<circle r="54" fill="#0f1f5c"/><circle r="53" fill="none" stroke="#f4c542" stroke-width="1.500"/>' +
+      '<path d="M-11 -12 V-19 a5 5 0 0 1 5 -5 H6 a5 5 0 0 1 5 5 V-12" fill="none" stroke="url(#plGold)" stroke-width="5" stroke-linecap="round"/>' +
+      '<rect x="-30" y="-12" width="60" height="38" rx="7" fill="url(#plGold)"/><path d="M-30 4 H30" stroke="#a97c10" stroke-width="2"/>' +
+      '<rect x="-6" y="-1" width="12" height="11" rx="2.500" fill="#0f1f5c"/><circle cy="4.500" r="1.800" fill="#f4c542"/>' +
+      [[-38, -34, 5], [36, -30, 4], [40, 12, 3.500], [-42, 14, 3]].map(function(st, i){
+        var x = st[0], y = st[1], r = st[2];
+        return '<path d="M' + x + ' ' + (y - r) + ' L' + (x + r * .3) + ' ' + (y - r * .3) + ' L' + (x + r) + ' ' + y + ' L' + (x + r * .3) + ' ' + (y + r * .3) + ' L' + x + ' ' + (y + r) + ' L' + (x - r * .3) + ' ' + (y + r * .3) + ' L' + (x - r) + ' ' + y + ' L' + (x - r * .3) + ' ' + (y - r * .3) + 'Z" fill="#fff4c2">' +
+          '<animate attributeName="opacity" values="1;.25;1" dur="' + (1.8 + i * .4).toFixed(1) + 's" begin="-' + (i * .5) + 's" repeatCount="indefinite"/></path>';
+      }).join('') + '</svg>';
+  }
+  function growth(){
+    return '<svg class="event-motif motif-growth" viewBox="-56 -56 112 112" aria-hidden="true">' +
+      '<circle r="54" fill="#0f1f5c"/><circle r="53" fill="none" stroke="#f4c542" stroke-width="1.500"/>' +
+      '<rect x="-32" y="8" width="14" height="22" rx="3" fill="#6f8cff"/><rect x="-12" y="-4" width="14" height="34" rx="3" fill="#9fb4ff"/><rect x="8" y="-18" width="14" height="48" rx="3" fill="#f4c542"/>' +
+      '<path d="M-34 -4 L-8 -22 L6 -12 L30 -36" fill="none" stroke="#fff4c2" stroke-width="3.500" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path d="M18 -37 L31 -37 L31 -24" fill="none" stroke="#fff4c2" stroke-width="3.500" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  }
   function eventBanner(e){
-    var theme = e.theme === 'onam' || e.theme === 'sports' || e.theme === 'reset' || e.theme === 'festival' || e.theme === 'garba' ? e.theme : 'plain';
-    return '<div class="event-banner event-' + theme + (theme === 'festival' ? ' is-' + (e.icon === 'bow' ? 'bow' : 'lotus') : '') + '">' +
-      (theme === 'onam' ? pookalam() : theme === 'sports' ? crescent() : theme === 'reset' ? resetIcon(e.icon) : theme === 'festival' ? festivalSparks() + festivalIcon(e.icon) : theme === 'garba' ? garbaMandala() : '') +
+    var theme = e.theme === 'onam' || e.theme === 'sports' || e.theme === 'reset' || e.theme === 'festival' || e.theme === 'garba' || e.theme === 'placement' ? e.theme : 'plain';
+    return '<div class="event-banner event-' + theme + (theme === 'festival' ? ' is-' + (e.icon === 'bow' || e.icon === 'pumpkin' || e.icon === 'diya' ? e.icon : 'lotus') : '') + '">' +
+      (theme === 'onam' ? pookalam() : theme === 'sports' ? crescent() : theme === 'reset' ? resetIcon(e.icon) : theme === 'festival' ? festivalSparks(e.icon) + festivalIcon(e.icon) : theme === 'garba' ? garbaMandala() : theme === 'placement' ? briefcase() : '') +
       '<div class="event-text"><div class="event-title">' + (theme === 'reset' ? titleWithYear(e.title) : IMT.escapeHtml(e.title)) + '</div>' +
       (e.note ? '<div class="event-note">' + IMT.escapeHtml(e.note) + '</div>' : '') +
       (e.where ? '<div class="event-where"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.3" fill="currentColor"/></svg>' + IMT.escapeHtml((e.time && e.link ? e.time + ' · ' : '') + e.where) + '</div>' : '') +
@@ -284,7 +358,7 @@
       (e.link ? '<a class="event-link" href="' + IMT.escapeHtml(e.link) + '" target="_blank" rel="noopener" data-event="' + IMT.escapeHtml(e.title) + '" ' +
         'title="Open" aria-label="' + IMT.escapeHtml(e.title + (e.note ? ', ' + e.note : '')) + ': open the link">' +
         '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>' : '') +
-      (theme === 'sports' ? sun() : theme === 'garba' ? dandiya() : '') +
+      (theme === 'sports' ? sun() : theme === 'garba' ? dandiya() : theme === 'placement' ? growth() : '') +
       '</div>';
   }
 
@@ -389,6 +463,7 @@
       return;
     }
 
+    curStudent = s;
     var shown = live.map(function(data){ return { data: data, view: buildView(data, s) }; });
     var last = shown[shown.length - 1].data;
     var label = shown.length === 1 ? weekLabel(first) : rangeLabel({ start: first.start, end: last.end });
@@ -419,7 +494,11 @@
     var covered = {};
     days.forEach(function(d){ covered[d.date] = true; });
     (IMT.config.events || []).forEach(function(e){
-      if(e.date >= E && !covered[e.date]){ covered[e.date] = true; days.push({ wi: -1, di: -1, date: e.date }); }
+      if(!appliesTo(e) || e.banner === 'week') return;
+      for(var d = e.date < E ? E : e.date; d <= (e.until || e.date); d = IMT.addDays(d, 1)){
+        if(d >= E && !covered[d]){ covered[d] = true; days.push({ wi: -1, di: -1, date: d }); }
+        if(d > '2100-01-01') break;
+      }
     });
     days.sort(function(a, b){ return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
     var order = IMT.todayFirst(days.map(function(d){ return d.date; }), E);
@@ -431,7 +510,7 @@
     var pe = parseIso(E);
     var weekStart = IMT.addDays(E, -((new Date(Date.UTC(pe.y, pe.mo - 1, pe.d)).getUTCDay() + 6) % 7));
     var cardIndex = 0;
-    listEl.innerHTML = order.map(function(o){
+    listEl.innerHTML = weekBanners(E) + order.map(function(o){
       var slot = days[o.i];
       if(slot.wi < 0){
         // a day outside every uploaded week, listed only for its occasion

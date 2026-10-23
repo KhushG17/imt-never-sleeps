@@ -64,7 +64,7 @@ window.PORTAL_CONFIG = {
   //           "plain" (green, no motif)
   //           "festival" (a greeting for a festival, for everyone; icon
   //           "lotus" = deep red and gold for Durga Puja, "bow" = saffron for
-  //           Dussehra)
+  //           Dussehra, "pumpkin" = Halloween, "diya" = Diwali)
   //           "reset" (HAWC's RESET 2026 poster: paper beige, deep teal and
   //           orange; the title's year is picked out in orange)
   //   icon  - for the "reset" theme, the picture on the left: "football",
@@ -72,11 +72,22 @@ window.PORTAL_CONFIG = {
   //   holiday - optional; the day is a holiday for every student: this text
   //           ("Holiday") is shown under the banner in every programme, even
   //           where that week's schedule is not uploaded
+  //   until - optional; the occasion runs from `date` to this date (inclusive), one banner on each day
+  //   banner: "week" - optional; shown once above the whole list (not on each day) from `showFrom`
+  //           (default a week before `date`) to `until`
+  //   for   - optional; only these groups see it, e.g. ["2027-core", "2027-bfs"] (PGDM and BFS, batch 2025-27)
+  //   theme "placement" (navy and gold, a briefcase and rising bars) is for the placement week
   //   time  - optional; shown as a small tag on the right ("6:30 PM"), or
   //           before the venue when the occasion also has a link
   //   where - optional; the venue, shown after the note
   // An occasion that runs over several days gets one entry per date.
   events: [
+    // Placement week for the 2027 batch (PGDM and BFS 2025-27): one banner above the whole list, shown from 23 Oct
+    // to the last day (8 Nov), not one on every day, so it never crowds a day's own greeting
+    { date: "2026-11-02", until: "2026-11-08", showFrom: "2026-10-23", banner: "week", title: "Best of Luck for Placements",
+      note: "Final Placement Week · 2–8 Nov", theme: "placement", for: ["2027-core", "2027-bfs"] },
+    { date: "2026-10-31", title: "Happy Halloween", theme: "festival", icon: "pumpkin" },
+    { date: "2026-11-08", title: "Happy Diwali", theme: "festival", icon: "diya" },
     { date: "2026-10-23", title: "Garba Night", by: "CULCOM", theme: "garba", place: "after" },
     { date: "2026-10-19", title: "Happy Mahashtami", theme: "festival", icon: "lotus", holiday: "Holiday" },
     { date: "2026-10-20", title: "Happy Dussehra", theme: "festival", icon: "bow", holiday: "Holiday" },

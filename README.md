@@ -1368,6 +1368,44 @@ buses from 8:30 AM to 7:15 PM, Campus to CDL 16 from 9:00 AM to 7:35 PM; night s
   ignores a footer row that starts with "Week" (`scripts/parsers.py`).
 - The other three groups' Week 4 (PGDM 2026-28, DCP 2025-27, DCP 2026-28) has not arrived.
 
+## Placement week banner, 2 - 8 Nov 2026 (the 2027 batch)
+
+- A "Best of Luck for Placements / Final Placement Week" banner (navy and gold, a
+  briefcase with twinkling stars on one side, rising bars on the other) on each day
+  from Mon 2 to Sun 8 Nov, for **PGDM 2025-27 and BFS 2025-27 only** (`2027-core`,
+  `2027-bfs`). Nobody else sees it. Those days say "Final Placement Week: no classes"
+  instead of "schedule not uploaded yet". It appears in the list a week ahead, after
+  the days with classes, and is gone from 9 Nov.
+- How: one entry in `events` in `js/portal-config.js` with two new optional fields,
+  `until` (the occasion runs over several days) and `for` (only those group keys see
+  it); look `theme: "placement"` (`weekly-seat/js/app.js`, `css/styles.css`).
+- Checked by `placement_test.py` (18 checks: the 7 days, the two groups, the four other
+  groups see nothing, a week early, after the week, phone, dark mode, Garba still works).
+
+## Placement banner at the top, Halloween and Diwali greetings, loading screen (23 Oct 2026)
+
+- **Placement week** (PGDM and BFS 2025-27 only): one "Best of Luck for Placements /
+  Final Placement Week 2-8 Nov" banner above the whole list, from 23 Oct (now)
+  to 8 Nov, instead of one on every day. A day's own greeting stays on its day, so
+  nothing crowds anything: the wish is a week-level layer (`banner: "week"` on the
+  event, with `showFrom: "2026-10-23"`), greetings are day-level. No "no classes" wording is added:
+  a day shows its classes if the schedule has them. (`js/portal-config.js`.)
+- **Happy Halloween (Sat 31 Oct) and Happy Diwali (Sun 8 Nov)** on their day for everyone:
+  banners with a scene. Halloween: purple night, a big moon, stars, bats flying across
+  with beating wings, a glowing jack-o'-lantern. Diwali: warm sky, firework starbursts
+  going off, a rocket climbing, sparks rising, a row of little lamps along the bottom,
+  a flickering diya. Still (no motion) for reduced-motion devices.
+- **Loading screen** (public pages: Home, Weekly, Exam Seat, Bus, Mess Menu): the IMT logo
+  in a tile, a gold ring drawn around it, twinkling stars, "IMT NEVER SLEEPS" and a soft
+  sliding bar, in light or dark to match the theme. The first page of a visit (and every
+  launch of the installed app) shows it for at least 1 second, longer if the page is slow,
+  then fades. Later pages of the same visit stay out of the way unless they take more
+  than a third of a second. Always gone after 8 seconds; never shown without scripts, in
+  print, and without motion for reduced-motion devices. Code: the `#preloader` markup
+  at the top of each page, `css/styles.css`, `js/preloader.js`.
+- Checked by `placement_test.py` (42), `preloader_test.py` (21); the SEO, dark-mode,
+  links, bus and staff suites still pass.
+
 ## Corrections received
 
 - **19 Oct 2026, the navbar now stays fixed at the top on every page** (it
