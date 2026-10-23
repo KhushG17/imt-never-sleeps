@@ -109,9 +109,110 @@
       }
     },
     "2026-10-19": {
-      "received": "2026-10-16",
-      "from": "Khush: the PDF's day note \"Mahashtami & Dussehra Holiday\" is shown simply as \"Holiday\" (the festival greeting above it names the day)",
-      "days": {},
+      "received": "2026-10-23",
+      "from": "Khush: the PDF's day note \"Mahashtami & Dussehra Holiday\" is shown simply as \"Holiday\" (the festival greeting above it names the day). Revised Fri 23 and Sat 24 Oct (picture received 23 Oct 2026, Sun 25 Oct unchanged): the classes are as before but each now has its own venue, e.g. DAIB(7) {C-201}, TR(3) {Aryabhatta Lab}; on Sat 24 Design Thinking groups 7 and 11 (SKM) are in J-BlockBaseM",
+      "days": {
+        "2026-10-23": {
+          "A": [
+            "",
+            "DAIB(7)RKR{C-201}",
+            "TR(3)SJ{Aryabhatta Lab}",
+            "HRM(7)FH{C-402}",
+            "",
+            ""
+          ],
+          "B": [
+            "",
+            "DAIB(8)ST{Eklavya Lab}",
+            "HRM(7)FH{C-201}",
+            "",
+            "DTI-G-3(3)NS{C-402}",
+            "DTI-G-3(4)NS{C-402}"
+          ],
+          "C": [
+            "DAIB(8)ST{Eklavya Lab}",
+            "MA(6)AV{C-202}",
+            "HRM(9)AB{C-402}",
+            "TR(3)SJ{Aryabhatta Lab}",
+            "BC(6)BB{C-401}",
+            ""
+          ],
+          "D": [
+            "",
+            "TR(3)SJ{Aryabhatta Lab}",
+            "MA(6)AV{C-202}",
+            "BR(10)PJ/AD{C-401}",
+            "",
+            ""
+          ],
+          "E": [
+            "",
+            "BCF(7)AS{C-401}",
+            "",
+            "",
+            "",
+            ""
+          ],
+          "F": [
+            "",
+            "HRM(9)AB{C-402}",
+            "BCF(7)AS{C-401}",
+            "",
+            "",
+            ""
+          ]
+        },
+        "2026-10-24": {
+          "A": [
+            "",
+            "",
+            "BR(10)AKB/FH",
+            "",
+            "",
+            ""
+          ],
+          "B": [
+            "DTI-G-7(1)SKM{J-BlockBaseM}",
+            "DTI-G-7(2)SKM{J-BlockBaseM}",
+            "DTI-G-11(1)SKM{J-BlockBaseM}",
+            "DTI-G-11(2)SKM{J-BlockBaseM}",
+            "",
+            ""
+          ],
+          "C": [
+            "",
+            "DTI-G-8(5)NVS{401}",
+            "DTI-G-8(6)NVS{401}",
+            "DTI-G-4(3)RP{504}",
+            "DTI-G-4(4)RP{504}",
+            ""
+          ],
+          "D": [
+            "",
+            "DTI-G-10(3)MS{402}",
+            "DTI-G-10(4)MS{402}",
+            "DTI-G-9(5)NVS{401}",
+            "DTI-G-9(6)NVS{401}",
+            ""
+          ],
+          "E": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          "F": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        }
+      },
       "notes": {
         "2026-10-19": "Holiday",
         "2026-10-20": "Holiday"
@@ -135,6 +236,52 @@
       "notes": {
         "2026-10-19": "Holiday",
         "2026-10-20": "Holiday"
+      }
+    },
+    "2026-10-26": {
+      "received": "2026-10-22",
+      "from": "Week-4 PDF (26 Oct - 1 Nov): the cells printed once across both rows are for Sections A and B together, but the PDF row gives them to one section only: BF-(9) on Mon 26 Oct at 3:45 PM and SERM-(11) on Wed 28 Oct at 2:15 PM",
+      "days": {
+        "2026-10-26": {
+          "A": [
+            "",
+            "VCPE(11)KB",
+            "",
+            "FIS(10)HS",
+            "BF(9)HSM",
+            "",
+            ""
+          ],
+          "B": [
+            "",
+            "FIS(10)HS",
+            "BF(8)HSM",
+            "VCPE(11)KB",
+            "BF(9)HSM",
+            "",
+            ""
+          ]
+        },
+        "2026-10-28": {
+          "A": [
+            "FIS(12)HS",
+            "",
+            "SERM(10)",
+            "SERM(11)",
+            "",
+            "",
+            ""
+          ],
+          "B": [
+            "",
+            "FIS(12)HS",
+            "BF(11)HSM",
+            "SERM(11)",
+            "",
+            "",
+            ""
+          ]
+        }
       }
     }
   },
@@ -216,6 +363,84 @@
       "notes": {
         "2026-10-19": "Holiday",
         "2026-10-20": "Holiday"
+      }
+    },
+    "2026-10-26": {
+      "received": "2026-10-22",
+      "from": "Week-4 PDF (26 Oct - 1 Nov): Introduction to Financial Markets is numbered IFM-(6) and IFM-(7), counting the Thu 15 Oct class that was postponed (as in Week 3); shown as sessions 5 and 6. The Strategy, Entrepreneurship & Business Plan classes on Mon 26 and Sat 31 Oct are in the Eklavya Lab (\"Venue-Eklavya Lab\" in the PDF)",
+      "days": {
+        "2026-10-26": {
+          "A": [
+            "CB(1)AA",
+            "RMBFS-I-(3)RC",
+            "SEBP(8)AD{Eklavya Lab}",
+            "BV(9)AC",
+            "",
+            ""
+          ],
+          "B": [
+            "RMBFS-I-(3)RC",
+            "CB(1)AA",
+            "BV(9)AC",
+            "SEBP(8)AD{Eklavya Lab}",
+            "",
+            ""
+          ]
+        },
+        "2026-10-29": {
+          "A": [
+            "IFM(5)SBM",
+            "FSA(9)SC",
+            "",
+            "",
+            "",
+            ""
+          ],
+          "B": [
+            "",
+            "IFM(5)SBM",
+            "BV(10)AC",
+            "",
+            "",
+            ""
+          ]
+        },
+        "2026-10-30": {
+          "A": [
+            "",
+            "IFM(6)SBM",
+            "MM(10)AM",
+            "BV(11)AC",
+            "",
+            ""
+          ],
+          "B": [
+            "IFM(6)SBM",
+            "MM(10)AM",
+            "FSA(9)SC",
+            "",
+            "BV(11)AC",
+            ""
+          ]
+        },
+        "2026-10-31": {
+          "A": [
+            "CB(5)DB",
+            "CB(6)DB",
+            "BV(12)AC",
+            "SEBP(9)AD{Eklavya Lab}",
+            "",
+            ""
+          ],
+          "B": [
+            "",
+            "BV(12)AC",
+            "CB(5)DB",
+            "CB(6)DB",
+            "SEBP(9)AD{Eklavya Lab}",
+            ""
+          ]
+        }
       }
     }
   }

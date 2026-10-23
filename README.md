@@ -1229,6 +1229,29 @@ Built on 20 Oct 2026; waiting for Khush to say push.
   rest of the day is as before). Applied as a day revision for 2027-bfs, week of
   19 Oct, in `data/config/weekly-revisions.json`; the PDF itself is untouched.
 
+## Week 4 (26 Oct - 1 Nov) for the two BFS batches, and PGDM core 2028 revised (23 Oct 2026)
+
+- **Loaded**: BFS 2025-27 Term V and BFS 2026-28 Term II, Week 4 (PDFs filed to
+  `all files/batch 2027|2028/bfs/.../weekly/`). The other four groups' Week 4
+  has not arrived yet.
+- **BFS 2025-27 fixes** (day revisions, `data/config/weekly-revisions.json`):
+  the PDF prints BF-(9) on Mon 26 Oct at 3:45 PM and SERM-(11) on Wed 28 Oct at
+  2:15 PM once across both rows (both sections); they are now in A and B.
+  Thu 29 Oct stays VB-SSR (Section B) as printed.
+- **BFS 2026-28 fixes**: IFM is printed IFM-(6) and IFM-(7), counting the
+  postponed 15 Oct class, so it is shown as sessions 5 and 6 (as in Week 3);
+  Strategy, Entrepreneurship & Business Plan on Mon 26 and Sat 31 Oct is in the
+  Eklavya Lab (the PDF's "Venue-Eklavya Lab"). Everything else read as printed
+  and was checked against the PDFs line by line.
+- **PGDM core 2028, Week 3 revised** (picture of Fri 23, Sat 24 and Sun 25 Oct):
+  the classes are as before; each now has its own venue (Fri: C-201, C-202,
+  C-401, C-402, Aryabhatta Lab, Eklavya Lab) and on Sat 24 Design Thinking
+  groups 7 and 11 (SKM) are in J-BlockBaseM. Sun 25 Oct is unchanged.
+- Only the three newest weeks per group are kept on the site, so BFS 2025-27
+  and 2026-28 now show 12, 19 and 26 Oct. The date-travel test
+  `rolling_test.py` (written for the week of 5 Oct) fails 2 of 31 only because
+  those two groups no longer carry that week.
+
 ## Corrections received
 
 - **19 Oct 2026, the navbar now stays fixed at the top on every page** (it

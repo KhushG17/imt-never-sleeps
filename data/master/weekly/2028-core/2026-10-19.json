@@ -42,8 +42,11 @@
  "group": "core",
  "mode": "section",
  "revised": {
-  "days": [],
-  "received": "2026-10-16"
+  "days": [
+   "2026-10-23",
+   "2026-10-24"
+  ],
+  "received": "2026-10-23"
  },
  "rowLabel": "Section",
  "rows": [
@@ -450,7 +453,7 @@
    "d": 4,
    "grp": null,
    "n": 8,
-   "room": "503",
+   "room": "Eklavya Lab",
    "row": "C",
    "s": 0,
    "sec": null
@@ -460,7 +463,7 @@
    "d": 4,
    "grp": null,
    "n": 7,
-   "room": "501",
+   "room": "C-201",
    "row": "A",
    "s": 1,
    "sec": null
@@ -470,7 +473,7 @@
    "d": 4,
    "grp": null,
    "n": 8,
-   "room": "502",
+   "room": "Eklavya Lab",
    "row": "B",
    "s": 1,
    "sec": null
@@ -480,7 +483,7 @@
    "d": 4,
    "grp": null,
    "n": 6,
-   "room": "503",
+   "room": "C-202",
    "row": "C",
    "s": 1,
    "sec": null
@@ -490,7 +493,7 @@
    "d": 4,
    "grp": null,
    "n": 3,
-   "room": "504",
+   "room": "Aryabhatta Lab",
    "row": "D",
    "s": 1,
    "sec": null
@@ -500,7 +503,7 @@
    "d": 4,
    "grp": null,
    "n": 7,
-   "room": "401",
+   "room": "C-401",
    "row": "E",
    "s": 1,
    "sec": null
@@ -510,7 +513,7 @@
    "d": 4,
    "grp": null,
    "n": 9,
-   "room": "402",
+   "room": "C-402",
    "row": "F",
    "s": 1,
    "sec": null
@@ -520,7 +523,7 @@
    "d": 4,
    "grp": null,
    "n": 3,
-   "room": "501",
+   "room": "Aryabhatta Lab",
    "row": "A",
    "s": 2,
    "sec": null
@@ -530,7 +533,7 @@
    "d": 4,
    "grp": null,
    "n": 7,
-   "room": "502",
+   "room": "C-201",
    "row": "B",
    "s": 2,
    "sec": null
@@ -540,7 +543,7 @@
    "d": 4,
    "grp": null,
    "n": 9,
-   "room": "503",
+   "room": "C-402",
    "row": "C",
    "s": 2,
    "sec": null
@@ -550,7 +553,7 @@
    "d": 4,
    "grp": null,
    "n": 6,
-   "room": "504",
+   "room": "C-202",
    "row": "D",
    "s": 2,
    "sec": null
@@ -560,7 +563,7 @@
    "d": 4,
    "grp": null,
    "n": 7,
-   "room": "402",
+   "room": "C-401",
    "row": "F",
    "s": 2,
    "sec": null
@@ -570,7 +573,7 @@
    "d": 4,
    "grp": null,
    "n": 7,
-   "room": "501",
+   "room": "C-402",
    "row": "A",
    "s": 3,
    "sec": null
@@ -580,7 +583,7 @@
    "d": 4,
    "grp": null,
    "n": 3,
-   "room": "503",
+   "room": "Aryabhatta Lab",
    "row": "C",
    "s": 3,
    "sec": null
@@ -590,7 +593,7 @@
    "d": 4,
    "grp": null,
    "n": 10,
-   "room": "504",
+   "room": "C-401",
    "row": "D",
    "s": 3,
    "sec": null
@@ -600,7 +603,7 @@
    "d": 4,
    "grp": "3",
    "n": 3,
-   "room": "502",
+   "room": "C-402",
    "row": "B",
    "s": 4,
    "sec": null
@@ -610,7 +613,7 @@
    "d": 4,
    "grp": null,
    "n": 6,
-   "room": "503",
+   "room": "C-401",
    "row": "C",
    "s": 4,
    "sec": null
@@ -620,7 +623,7 @@
    "d": 4,
    "grp": "3",
    "n": 4,
-   "room": "502",
+   "room": "C-402",
    "row": "B",
    "s": 5,
    "sec": null
@@ -630,19 +633,9 @@
    "d": 5,
    "grp": "7",
    "n": 1,
-   "room": "502",
-   "row": "",
+   "room": "J-BlockBaseM",
+   "row": "B",
    "s": 0,
-   "sec": null
-  },
-  {
-   "c": "DTI",
-   "d": 5,
-   "grp": "10",
-   "n": 3,
-   "room": "402",
-   "row": "",
-   "s": 1,
    "sec": null
   },
   {
@@ -650,8 +643,8 @@
    "d": 5,
    "grp": "7",
    "n": 2,
-   "room": "502",
-   "row": "",
+   "room": "J-BlockBaseM",
+   "row": "B",
    "s": 1,
    "sec": null
   },
@@ -661,7 +654,7 @@
    "grp": "8",
    "n": 5,
    "room": "401",
-   "row": "",
+   "row": "C",
    "s": 1,
    "sec": null
   },
@@ -669,30 +662,10 @@
    "c": "DTI",
    "d": 5,
    "grp": "10",
-   "n": 4,
+   "n": 3,
    "room": "402",
-   "row": "",
-   "s": 2,
-   "sec": null
-  },
-  {
-   "c": "DTI",
-   "d": 5,
-   "grp": "11",
-   "n": 1,
-   "room": "502",
-   "row": "",
-   "s": 2,
-   "sec": null
-  },
-  {
-   "c": "DTI",
-   "d": 5,
-   "grp": "8",
-   "n": 6,
-   "room": "401",
-   "row": "",
-   "s": 2,
+   "row": "D",
+   "s": 1,
    "sec": null
   },
   {
@@ -709,9 +682,39 @@
    "c": "DTI",
    "d": 5,
    "grp": "11",
+   "n": 1,
+   "room": "J-BlockBaseM",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "8",
+   "n": 6,
+   "room": "401",
+   "row": "C",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "10",
+   "n": 4,
+   "room": "402",
+   "row": "D",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 5,
+   "grp": "11",
    "n": 2,
-   "room": "502",
-   "row": "",
+   "room": "J-BlockBaseM",
+   "row": "B",
    "s": 3,
    "sec": null
   },
@@ -721,7 +724,7 @@
    "grp": "4",
    "n": 3,
    "room": "504",
-   "row": "",
+   "row": "C",
    "s": 3,
    "sec": null
   },
@@ -731,7 +734,7 @@
    "grp": "9",
    "n": 5,
    "room": "401",
-   "row": "",
+   "row": "D",
    "s": 3,
    "sec": null
   },
@@ -741,7 +744,7 @@
    "grp": "4",
    "n": 4,
    "room": "504",
-   "row": "",
+   "row": "C",
    "s": 4,
    "sec": null
   },
@@ -751,7 +754,7 @@
    "grp": "9",
    "n": 6,
    "room": "401",
-   "row": "",
+   "row": "D",
    "s": 4,
    "sec": null
   },
