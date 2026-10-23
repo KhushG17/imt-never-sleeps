@@ -1406,6 +1406,18 @@ buses from 8:30 AM to 7:15 PM, Campus to CDL 16 from 9:00 AM to 7:35 PM; night s
 - Checked by `placement_test.py` (42), `preloader_test.py` (21); the SEO, dark-mode,
   links, bus and staff suites still pass.
 
+## Week 4 and 5 (26 Oct - 1 Nov 2026) for PGDM 2026-28, DCP 2026-28 and DCP 2025-27; DCP in placement week
+
+- **Loaded**: PGDM 2026-28 Term II Week 4 (138 classes and the Tue 27 Oct "CMIE Session",
+  compulsory for PGDM-I, 4:00 PM, all sections), DCP 2026-28 Term II Week 4 (58 classes,
+  DTI groups B and C with their rooms 302 and Gurukul), DCP 2025-27 Term V (24 classes; the
+  PDF calls it "Week-5", it is the week of 26 Oct). Each was checked against its PDF
+  cell by cell (PGDM 2026-28 against the PDF's own table cells). With these, every group
+  is on 26 Oct - 1 Nov except none: all six now have the week.
+- **Placement banner now also for DCP 2025-27** (`for: ["2027-core", "2027-bfs", "2027-dcp"]`): same
+  one banner at the top, 23 Oct to 8 Nov. DCP 2026-28 does not get it.
+- `placement_test.py` now 52 checks (three groups get it, the three others do not).
+
 ## Corrections received
 
 - **19 Oct 2026, the navbar now stays fixed at the top on every page** (it

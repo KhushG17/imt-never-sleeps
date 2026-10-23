@@ -82,10 +82,10 @@ window.PORTAL_CONFIG = {
   //   where - optional; the venue, shown after the note
   // An occasion that runs over several days gets one entry per date.
   events: [
-    // Placement week for the 2027 batch (PGDM and BFS 2025-27): one banner above the whole list, shown from 23 Oct
+    // Placement week for the 2027 batch (PGDM, BFS and DCP 2025-27): one banner above the whole list, shown from 23 Oct
     // to the last day (8 Nov), not one on every day, so it never crowds a day's own greeting
     { date: "2026-11-02", until: "2026-11-08", showFrom: "2026-10-23", banner: "week", title: "Best of Luck for Placements",
-      note: "Final Placement Week · 2–8 Nov", theme: "placement", for: ["2027-core", "2027-bfs"] },
+      note: "Final Placement Week · 2–8 Nov", theme: "placement", for: ["2027-core", "2027-bfs", "2027-dcp"] },
     { date: "2026-10-31", title: "Happy Halloween", theme: "festival", icon: "pumpkin" },
     { date: "2026-11-08", title: "Happy Diwali", theme: "festival", icon: "diya" },
     { date: "2026-10-23", title: "Garba Night", by: "CULCOM", theme: "garba", place: "after" },
