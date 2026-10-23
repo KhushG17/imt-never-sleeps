@@ -185,7 +185,10 @@ def parse_day(text, years):
 def parse_day_span(text):
     """'Mon - Tue (Oct. 19 - 20, 2026' -> [date(2026,10,19), date(2026,10,20)];
     anything else -> None. Used for a single row that covers several days,
-    such as a holiday."""
+    such as a holiday. A footer note such as "Week 5: Nov. 2 - 08, 2026" (the next
+    week's dates) is not a day label and gives None."""
+    if re.match(r"\s*week\b", text.lower()):
+        return None
     m = re.search(r"([a-z]{3})[a-z]*\.?\s+(\d{1,2})\s*[-–]\s*(\d{1,2}),?\s+(\d{4})", text.strip().lower())
     if not m or m.group(1) not in MONTHS:
         return None
@@ -465,6 +468,9 @@ def parse_weekly(path):
                         for d in span:
                             notes[d] = (notes.get(d, "") + " " + text).strip() or "No classes"
                         day = None
+                        continue
+                    if day is None and day_text.strip().lower().startswith("week"):
+                        day = None   # a footer note under the table ("Week 5: Nov. 2 - 08, 2026  Final Placement Week"), not a day
                         continue
                     if day is None:
                         raise ParseError("unreadable day label: %r" % day_text)

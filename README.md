@@ -1357,6 +1357,17 @@ buses from 8:30 AM to 7:15 PM, Campus to CDL 16 from 9:00 AM to 7:35 PM; night s
 - "Created by Khush Goyal, a student at IMT Ghaziabad" is in the no-script text for
   trust; remove that line in `scripts/seo.py` (`about_home`) if you prefer.
 
+## PGDM 2025-27 (core) Week 4, 26 Oct - 1 Nov 2026
+
+- Loaded from the PDF "4-Weekly Schedule of PGDM - II (2025-27) Term - V" (72 classes:
+  Mon 14, Tue 9, Wed 15, Thu none, Fri 8, Sat 13, Sun 13), checked against the PDF
+  day by day, slot by slot, with the rooms ({C -201}, {Eklavya}, {Analytics},
+  {Chandragupta}) as printed. Thursday 29 Oct has no classes.
+- The PDF ends with a note row "Week 5: Nov. 2 - 08, 2026  Final Placement Week". The
+  reader took its dates for days of the week and skipped the whole file; it now
+  ignores a footer row that starts with "Week" (`scripts/parsers.py`).
+- The other three groups' Week 4 (PGDM 2026-28, DCP 2025-27, DCP 2026-28) has not arrived.
+
 ## Corrections received
 
 - **19 Oct 2026, the navbar now stays fixed at the top on every page** (it
