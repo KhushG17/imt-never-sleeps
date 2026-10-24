@@ -43,7 +43,7 @@
     if(document.hidden || !document.querySelector('#results:not([hidden])')) return;
     shown = true;
     box.innerHTML =
-      '<img class="install-pop-icon" src="../assets/icon-192.png?v=standard" alt="" width="40" height="40">' +
+      '<img class="install-pop-icon" src="../assets/icon-192.png?v=halloween" alt="" width="40" height="40">' +
       '<div class="install-pop-text"><b>Get the app</b>' +
         '<span>' + (canInstall ? 'Your schedule in one tap.'
                                : 'Tap Share, then "Add to Home Screen".') + '</span></div>' +
