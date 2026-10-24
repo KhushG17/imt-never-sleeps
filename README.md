@@ -49,7 +49,7 @@ Live at https://imtneversleeps.com (15 Oct 2026).
 | Mess menu | Live, 1 to 16 Oct 2026 |
 | Bus Schedule | Live, with the next bus each way |
 | Campus events | Live (Onam, Sports Night, RESET 2026) |
-| Nav bar | Resources (Bus Schedule, Study Material), Feedback, Install app |
+| Nav bar | Resources (Bus Schedule, LMS, ERP), Feedback, Install app |
 | Installable app | Live: works offline, updates itself, install pop-up on Weekly |
 | Master data | 1,330 students, 6 course lists, 12 weekly schedules |
 | Weekly update | From the upload page in a browser (weekly PDFs), or one command on Khush's machine (everything) |
@@ -259,10 +259,9 @@ any student whatever the timeline says. Real batches switch by date.
   of their classes, and for the pill and Exam Seat (which have no end times
   to go by), the switch is at 8 pm (`schedule.dayRollsAtHour` in
   `js/portal-config.js`). All of it runs on India time for every visitor.
-- **Study Material** is a small book icon in the header, next to Feedback,
-  on the portal, Weekly and Exam Seat. It opens the term-wise study material
-  folder (SharePoint) in a new tab. The link is `studyMaterial.url` in
-  `js/portal-config.js`; with no link the icon is hidden.
+- **Study Material was removed on 24 Oct 2026** (the Resources menu item, its
+  code, its setting and the link, on every page). The link is gone from the
+  live files; earlier commits in the repository's history still contain it.
 - The cursive accent word in every heading is always in capitals.
 - One Disclaimer box in every page's footer: the portal is still in
   development, built from schedules and lists shared by students, so a detail may be missing or out of date; problems and ideas are
@@ -438,7 +437,7 @@ tap), the roll the device remembers supplies the group.
 | Which shared link brought them | automatic | Reports, Acquisition. Share links as `https://imtneversleeps.com/?utm_source=whatsapp&utm_medium=group&utm_campaign=week3` |
 | How the main page was reached | `portal_open` | `entry` = `fresh` (no roll yet), `remembered`, `link` (a roll in a link from outside), `portal` (Back to portal) |
 | How many typed a roll number | `roll_search` | `result` = `found`, `batch_only`, `not_found`. Only real typing: it falls as rolls are remembered |
-| How many opened Weekly, Exam Seat, Study Material, the mess menu | `tool_open` | `tool` = `weekly`, `exam_seat`, `study_material`, `mess`; `status` = `shown`, `locked`, `no_schedule`, `no_roster`, `no_seat`, `alumni` (mess: `today`, `tomorrow`, `no_menu`) |
+| How many opened Weekly, Exam Seat, the mess menu | `tool_open` | `tool` = `weekly`, `exam_seat`, `mess`; `status` = `shown`, `locked`, `no_schedule`, `no_roster`, `no_seat`, `alumni` (mess: `today`, `tomorrow`, `no_menu`) |
 | How they got into Weekly or Exam Seat | `tool_open` | `entry` = `portal`, `link`, `remembered` |
 | How soon their next class was when they opened Weekly | `tool_open` (weekly) | `lead` = `in_class`, `under_30m`, `under_2h`, `later_today`, `tomorrow`, `later`, `none` |
 | Whether the schedule they saw was current | `tool_open` (weekly) | `fresh` = `live`, `partial`, `stale`, `missing`, `exam`, `none` |
@@ -478,7 +477,7 @@ that keep the parameter but it cannot be used in reports.
 Changed and pushed 12 Oct 2026.
 
 - **Nav bar, laptop:** buttons with icon and text. Since 13 Oct they are
-  Resources (a drop-down: Bus Schedule, Study Material), Feedback and
+  Resources (a drop-down: Bus Schedule, LMS, ERP), Feedback and
   Install app, on every page.
 - **Nav bar, phone (720px and under):** a three-line menu button; the menu
   lists the same items, icon and text. It closes on a tap outside, on Esc and
@@ -508,8 +507,8 @@ Changed and pushed 12 Oct 2026.
   Stop names are shown as written there ("CDL", "Campus").
 - **Nav bar:** Resources, Feedback, Install app. On a laptop, Resources is
   a plain word with a small arrow (not a button like the other two) that
-  opens a simple drop-down: Bus Schedule first, then Study Material. On a
-  phone there is no drop-down: the menu lists Bus Schedule, Study Material,
+  opens a simple drop-down: Bus Schedule first, then LMS and ERP. On a
+  phone there is no drop-down: the menu lists Bus Schedule, LMS and ERP,
   Feedback and Install app, flat. "Install as an app" was shortened to
   "Install app" here and in the greeting card.
 - **Counted as:** `tool_open` with `tool` = `bus`; nav taps as `nav_click`
@@ -772,7 +771,7 @@ The documents:
 
 Received: all six groups' Week of 5 Oct schedules and course allocation
 sheets; student lists for all six groups (BFS 2025-27 as two elective lists);
-the study material link; handbooks for PGDM, Marketing,
+handbooks for PGDM, Marketing,
 BFS and DCP 2026-28 and PGDM 2025-27; Google Analytics ID.
 
 ## Uploading from the browser
@@ -1026,7 +1025,7 @@ Built on 20 Oct 2026; waiting for Khush to say push.
   the page's own logic with the browser's built-in touch scrolling switched
   off, so only the page's code can move the boxes.
 - **The upload page has the same navigation as every other page** (brand,
-  light/dark switch, Resources with Bus Schedule, Study Material, LMS and ERP,
+  light/dark switch, Resources with Bus Schedule, LMS and ERP,
   Feedback; the phone menu). Its Sign out button stays, now an entry in that
   menu, hidden until someone signs in. The page loads `site-data.js` and
   `common.js` for this; `common.js` does not report the staff upload page to
@@ -1690,7 +1689,7 @@ Shown as printed, not corrected.
 ```
 index.html                    Portal
 css/styles.css                Shared design system
-js/portal-config.js           Settings: lock, pill, study material, upload, tracking, test rolls
+js/portal-config.js           Settings: lock, pill, upload, tracking, test rolls
 js/common.js                  Roll lookup, timeline, greeting, tracking
 js/portal.js                  Portal page logic
 js/site-data.js               Generated: programmes and timeline
@@ -1748,7 +1747,7 @@ Also on 8 Oct: today-first ordering on five dates for Weekly and Exam Seat;
 the pill on seven dates (green all week, red from the next Monday, hidden in
 exams); the upload page against a pretend GitHub at 390 and 1280 px (wrong
 key, read-only key, non-PDF refused, one commit to `uploads/_inbox/`, result
-and failed-run screens, sign out); the Study Material button.
+and failed-run screens, sign out).
 
 Exam matching, 8 Oct: a made-up Term 2 / Term 5 seating plan was built
 from the real course lists and 152 real students (25 from each of the six

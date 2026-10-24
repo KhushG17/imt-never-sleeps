@@ -165,7 +165,6 @@ section I.
 | F9 | Library hours | | Partly: handbook 10.3.2 | handbook | Resources |
 | F10 | Important contacts | Office, hostel, medical, security | Missing | Admin, ERP | Resources |
 | F11 | Hostel information | Blocks, quiet hours | Partly: handbook 5.4-5.9 | handbook | Resources |
-| F12 | Study material links | | Have: SharePoint folder | `portal-config.js` | Resources |
 | F13 | Subject material from faculty | Slides per course and session (in Slide Gate), readings | Missing (slides to come through Slide Gate; much else in Moodle) | Faculty, Slide Gate, Moodle | Subject pages |
 
 ## G. Rules from the handbooks (these shape what the system checks)

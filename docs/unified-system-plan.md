@@ -238,7 +238,7 @@ go out at once.
 |---|---|---|
 | Weekly, exam seat, mess, bus | As today (from the PDFs); fed live from the system in B | Live, then B |
 | Announcements | From clubs, committees and the student council in A; from program offices in B. Targeted: whole institute, a programme, a batch, a section, a course | A, then B |
-| Resources | Moodle and ERP links, bus, mess, study material, student handbook | A |
+| Resources | Moodle and ERP links, bus, mess, student handbook | A |
 | Gossip of the day | An anonymous chat for students; see below | A |
 | Reminders before class and events | Push notifications; the "coming soon" already promised on the promo | A |
 | Subject pages | One page per course the student takes: faculty, schedule of sessions, material, announcements for that course | C |

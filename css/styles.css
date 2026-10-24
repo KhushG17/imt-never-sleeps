@@ -701,7 +701,7 @@ a.btn-ghost{ text-decoration:none; }
 .up-report .is-note{ background:var(--color-mist-hairline); color:var(--color-graphite-body); }
 button.btn-contact{ font:inherit; font-weight:600; font-size:13.5px; cursor:pointer; }
 
-/* ---------- header: Study Material icon beside Feedback ---------- */
+/* ---------- header: round icon buttons ---------- */
 .header-actions{ display:flex; align-items:center; gap:8px; flex-shrink:0; }
 .btn-icon{
   width:40px; height:40px; flex-shrink:0; border-radius:50%;

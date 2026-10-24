@@ -30,7 +30,7 @@ change parts of it.
 ## Already live (no IMT involvement)
 
 Weekly schedule by roll number for all six programmes, exam seat, mess menu,
-bus schedule with the next bus, campus events, study material link, add a
+bus schedule with the next bus, campus events, add a
 class to Google Calendar, remembered roll number, installable app that works
 offline and updates itself, the upload page, usage counts.
 

@@ -112,13 +112,6 @@ window.PORTAL_CONFIG = {
   // address in the HTML; change it there too if it ever moves.)
   feedbackUrl: "https://forms.gle/y2CWo8Nq7o2GqytcA",
 
-  // The Study Material button on the portal. It opens this link in a new
-  // tab; the folder behind it is organised term-wise. Set url to "" to hide
-  // the button.
-  studyMaterial: {
-    url: "https://imtgzb-my.sharepoint.com/:f:/g/personal/dcp26khushgoyal_imt_ac_in/IgCNsHVzKIz2Q7N7Vaec049qAQwAX5m6zlpiZ0aakGt8rFI?e=MwAYU9"
-  },
-
   // LMS (Moodle) and ERP, side by side in the Resources menu. On a phone the
   // LMS opens its app page (App Store on an iPhone, Google Play on Android);
   // on a laptop it opens the website. The ERP is the same everywhere.

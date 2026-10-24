@@ -370,19 +370,6 @@
     if(what) track('nav_click', null, { tool: PAGE, result: what });
   }, true);   // on the way down, so a handler that stops the click cannot hide it
 
-  // The Study Material icon in the header, next to Feedback. Its link is
-  // studyMaterial.url in js/portal-config.js; with no link it stays hidden.
-  var studyNav = document.getElementById('studyNav');
-  var studyUrl = (CONFIG.studyMaterial && CONFIG.studyMaterial.url) || '';
-  if(studyNav && studyUrl){
-    studyNav.href = studyUrl;
-    studyNav.hidden = false;
-    studyNav.addEventListener('click', function(){
-      var typed = document.getElementById('roll');
-      track('tool_open', student(rollFromUrl() || (typed ? typed.value : '')), { tool: 'study_material', status: 'shown' });
-    });
-  }
-
   var siteHeader = document.getElementById('siteHeader');
   if(siteHeader){
     window.addEventListener('scroll', function(){
@@ -500,7 +487,7 @@
     document.documentElement.classList.remove('menu-open');
     closeRes();
   }
-  // "Resources" is a drop-down inside the nav bar: Bus Schedule, Study Material.
+  // "Resources" is a drop-down inside the nav bar: Bus Schedule, LMS and ERP.
   var resToggle = document.getElementById('resToggle'), navRes = document.getElementById('navRes');
   function closeRes(){
     if(!navRes) return;
