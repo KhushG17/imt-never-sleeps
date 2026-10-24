@@ -549,8 +549,8 @@
           '<div class="cls-main">' +
             '<div class="exam-subject">' + IMT.escapeHtml(name) +
               (view.tagElectives && data.electives.indexOf(x.c) >= 0 ? '<span class="elective-badge">Elective</span>' : '') +
-              (x.grp ? '<span class="elective-badge group-badge">Group ' + IMT.escapeHtml(x.grp) + '</span>' : '') +
               (clash ? '<span class="clash-badge">Clash</span>' : '') + '</div>' +
+            (x.grp ? '<div class="cls-tags"><span class="group-badge">Group ' + IMT.escapeHtml(x.grp) + '</span></div>' : '') +
             metaLine([['Room', x.room || '-'], x.grp ? null : [third, rowText(x)], ['Session', x.n]].filter(Boolean)) +
           '</div>' + calButton(classLink(data, x), name) + '</div>';
       }}; }).concat(specials.map(function(sp){ return { s: sp.s, row: '', html: function(){

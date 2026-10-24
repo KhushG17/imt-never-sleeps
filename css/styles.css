@@ -2059,3 +2059,10 @@ html[data-theme="dark"] .pre-bar{ background:rgba(255,255,255,.12); }
 @keyframes preFade{ to{ opacity:1; } }
 @keyframes preSlide{ 0%{ transform:translateX(-110%); } 100%{ transform:translateX(280%); } }
 @media print{ #preloader{ display:none!important; } }
+
+/* a Design Thinking group on its class card: a chip of its own under the subject, never squeezed beside it */
+.cls-tags{ margin:6px 0 2px; }
+.group-badge{
+  display:inline-block; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; line-height:1;
+  padding:5px 10px; border-radius:var(--radius-tags); background:var(--color-sky-wash); color:var(--color-nautical-teal); white-space:nowrap;
+}
