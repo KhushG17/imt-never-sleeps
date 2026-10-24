@@ -92,14 +92,18 @@ def sheet_rows(path):
 
 def describe(path):
     """Work out what a file is from its contents: {'kind', 'batch', 'group', 'term'}.
-    kind is 'weekly', 'courses', 'students' or None."""
+    kind is 'weekly', 'courses', 'students', 'dtigroups' or None."""
     info = {"kind": None, "batch": None, "group": None, "term": None}
     suffix = path.suffix.lower()
     if suffix in (".xls", ".xlsx"):
         rows = sheet_rows(path)
         text = " ".join(clean(c) for row in rows[:6] for c in row) + " " + path.name
         rolls = [clean_roll(c) for row in rows for c in row if re.fullmatch(r"\d{9}", clean_roll(c))]
-        if rolls:
+        if rolls and any(clean(c).lower() == "dti group" for row in rows[:6] for c in row):
+            info["kind"] = "dtigroups"      # who is in which Design Thinking group
+            info["batch"] = "20%02d" % (int(rolls[0][:2]) + 2)
+            info["_code"] = rolls[0][2:6]
+        elif rolls:
             info["kind"] = "students"
             info["batch"] = "20%02d" % (int(rolls[0][:2]) + 2)
             info["_code"] = rolls[0][2:6]
@@ -878,3 +882,42 @@ def parse_students(path, courses=None):
     if not students:
         raise ParseError("no students found")
     return students, notes
+
+
+def parse_dti_groups(path):
+    """A Design Thinking group list -> ({roll: group}, [notes]).
+
+    One sheet per group. The group is the letter in the sheet's name ("Group B - Prof ...")
+    when it has one, else what the "DTI Group" column says ("G-3" -> "3", "G1" -> "1").
+    Only the roll number and the group are kept: the sheets also carry e-mail addresses
+    and phone numbers, which are never read into the site's data."""
+    import openpyxl
+    out, notes, seen = {}, [], {}
+    for ws in openpyxl.load_workbook(str(path), data_only=True).worksheets:
+        rows = [["" if c is None else c for c in row] for row in ws.iter_rows(values_only=True)]
+        head = next((i for i, r in enumerate(rows[:8]) if any(clean(c).lower() == "dti group" for c in r)), None)
+        if head is None:
+            notes.append("%s, sheet %r: no 'DTI Group' column, skipped" % (path.name, ws.title))
+            continue
+        cols = [clean(c).lower() for c in rows[head]]
+        roll_col = next((i for i, c in enumerate(cols) if re.fullmatch(r"(roll|enrol+ment)\s*(no\.?|number)", c)), None)
+        grp_col = cols.index("dti group")
+        m = re.match(r"\s*group[\s_-]*([A-Za-z]+|\d+)\b", ws.title, re.I)
+        from_sheet = m.group(1).upper() if m else None
+        for r in rows[head + 1:]:
+            if roll_col is None or roll_col >= len(r):
+                break
+            roll = clean_roll(r[roll_col])
+            if not re.fullmatch(r"\d{9}", roll):
+                continue
+            cell = re.sub(r"^G[\s-]*", "", clean(r[grp_col]).upper()) if grp_col < len(r) else ""
+            group = from_sheet or cell
+            if from_sheet and cell and cell != from_sheet and not (from_sheet.isalpha() and cell.isdigit()):
+                notes.append("roll %s: sheet %r says group %s, its column says %s; the sheet is used" % (roll, ws.title, from_sheet, cell))
+            if roll in out and out[roll] != group:
+                notes.append("roll %s is in group %s and group %s: left without a group" % (roll, out[roll], group))
+                seen[roll] = True
+            out[roll] = group
+    for roll in seen:
+        out.pop(roll, None)
+    return out, notes

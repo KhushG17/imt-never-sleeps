@@ -257,6 +257,7 @@ def read_week(path, batch, group, term, catalog, electives):
 def build_master(overrides):
     found = scan([SOURCE, UPLOADS])
     courses, students, weeks = {}, {}, {}
+    dti_groups = {}
     latest_term = {}
     for (batch, group, term) in sorted(found):
         latest_term[(batch, group)] = max(term, latest_term.get((batch, group), 0))
@@ -266,6 +267,7 @@ def build_master(overrides):
         gkey = "%s-%s" % (batch, group)
         catalog = {}
         lists = []
+        dti_files = []
         for path in files["other"]:
             try:
                 kind = parsers.describe(path)["kind"]
@@ -276,6 +278,8 @@ def build_master(overrides):
                         say("NOTE", w)
                 elif kind == "students":
                     lists.append(path)
+                elif kind == "dtigroups":
+                    dti_files.append(path)
                 else:
                     say("SKIPPED", "%s: not a course or student list" % rel(path))
             except Exception as e:
@@ -306,11 +310,35 @@ def build_master(overrides):
                         entry["electives"] = both
                     students[roll] = {**students.get(roll, {}), **entry}
 
+        # Design Thinking groups: which group each student of the newest term is in (roll and group only)
+        if term == latest_term[(batch, group)]:
+            for path in dti_files:
+                try:
+                    given, notes = parsers.parse_dti_groups(path)
+                except Exception as e:
+                    say("SKIPPED", "%s: %s" % (rel(path), e)); continue
+                for n in notes:
+                    say("NOTE", n)
+                dti_groups.setdefault((batch, group), {}).update(given)
+                say("DTI", "%s: %d students in %d group(s)" % (path.name, len(given), len(set(given.values()))))
+
         for path in files["weekly"]:
             week = read_week(path, batch, group, term, catalog, overrides["electives"].get(key, []))
             if week:
                 weeks.setdefault(gkey, {})[week["start"]] = week
 
+    for (batch, group), given in sorted(dti_groups.items()):
+        missing = sorted(r for r in given if r not in students)
+        for roll, g in given.items():
+            if roll in students:
+                students[roll]["dtiGroup"] = g
+        mine = [s for s in students.values() if s["batch"] == batch and s["group"] == group]
+        without = [r for r, s in students.items() if s["batch"] == batch and s["group"] == group and "dtiGroup" not in s]
+        say("NOTE", "%s-%s Design Thinking groups: %d of %d students placed" % (batch, group, len(mine) - len(without), len(mine)))
+        if missing:
+            say("NOTE", "%s-%s: %d rolls in the group lists are not on the student list: %s" % (batch, group, len(missing), ", ".join(missing[:8])))
+        if without:
+            say("NOTE", "%s-%s: %d students are on no group list (they see every group): %s" % (batch, group, len(without), ", ".join(sorted(without)[:8])))
     for roll, entry in overrides["students"].items():
         base = students.get(roll, {})
         merged = {**base, **{k: v for k, v in entry.items() if not k.startswith("_")}}
@@ -405,7 +433,7 @@ def write_students_csv(students):
     with (MASTER / "students.csv").open("w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f)
         w.writerow(["Roll No", "Name", "Batch", "Programme", "Group", "Term", "Section", "Track",
-                    "Major", "Minor", "Electives", "Courses (course-section)"])
+                    "Major", "Minor", "Electives", "Courses (course-section)", "Design Thinking group"])
         for roll, s in rows:
             w.writerow([roll, s["name"], "%d-%s" % (int(s["batch"]) - 2, s["batch"][2:]),
                         names.get(s.get("programme") or "", {}).get("name", ""), s["group"], s.get("term", ""),
@@ -413,7 +441,7 @@ def write_students_csv(students):
                         + (" (not on the other section's list)" if s.get("sectionByDefault") else ""),
                         s.get("track", ""), s.get("major", ""), s.get("minor", ""),
                         ", ".join(s.get("electives", [])),
-                        ", ".join("%s-%s" % kv for kv in sorted(s.get("courses", {}).items()))])
+                        ", ".join("%s-%s" % kv for kv in sorted(s.get("courses", {}).items())), s.get("dtiGroup", "")])
 
 
 def build_site(courses, students, weeks, timeline, overrides):
@@ -427,7 +455,7 @@ def build_site(courses, students, weeks, timeline, overrides):
 
     roster = {}
     short = {"name": "n", "section": "s", "major": "mj", "minor": "mn", "track": "t",
-             "courses": "c", "electives": "e", "programme": "p", "alumni": "al"}
+             "courses": "c", "electives": "e", "programme": "p", "alumni": "al", "dtiGroup": "dg"}
     for roll, s in students.items():
         entry = {"g": "%s-%s" % (s["batch"], s["group"])}
         for long, key in short.items():

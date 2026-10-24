@@ -759,7 +759,7 @@ The documents:
 | BFS 2025-27: elective for rolls 250601100 and 250601109, and which list 250601092 belongs on | Those three see both electives until then | Waiting |
 | DCP 2025-27: courses for the 79 students not on the "Course and Section Name" sheet | Their exact week; they see all tracks until then | Possibly off campus this term; Khush does not know yet (8 Oct 2026) |
 | PGDM Finance 2026-28 handbook | Confirming it follows the core calendar | Waiting |
-| Design Thinking group lists (2026-28 core groups 1-11, DCP groups A-C) | Showing each student only their own group | Not yet asked for; would tidy the Wednesday and Saturday lists |
+| Design Thinking group lists (2026-28 core groups 1-11, DCP groups A-C) | Showing each student only their own group | Received 24 Oct 2026 and loaded (see above) |
 | Handbooks for 2025-27 BFS and DCP | Real term dates and alumni dates for them | Only if they exist |
 | Each week's schedule PDFs, all groups | Weekly update | Every week, through `/upload/` or into `all files/_inbox/` |
 | Seating-plan Excel for the Term 2 and Term 5 exams | Unlocking Exam Seat | When released |
@@ -1416,6 +1416,32 @@ buses from 8:30 AM to 7:15 PM, Campus to CDL 16 from 9:00 AM to 7:35 PM; night s
 - **Placement banner now also for DCP 2025-27** (`for: ["2027-core", "2027-bfs", "2027-dcp"]`): same
   one banner at the top, 23 Oct to 8 Nov. DCP 2026-28 does not get it.
 - `placement_test.py` now 52 checks (three groups get it, the three others do not).
+
+## Design Thinking groups: each student sees only their own (24 Oct 2026)
+
+- **What changed for students**: PGDM 2026-28 (groups 1 to 11) and DCP 2026-28 (groups A to C)
+  now see only their own Design Thinking group. The sessions are ordinary class cards among
+  the day's classes (time, room, session, a "Group 3" badge, Add to Calendar), and the
+  header and greeting say "DTI Group 3". Before, every group's sessions were listed
+  for everyone under "attend only your own group". The master timetable's Student tab shows
+  the same (only his group's blocks); the Section tab still shows all groups.
+- **Data in**: two workbooks, one sheet per group ("DTI Groups for PGDM Term 2", "... DCP Term 2"),
+  dropped in `all files/_inbox` and filed like any other (`describe()` recognises a sheet with
+  a "DTI Group" column as a `dtigroups` file). Only the roll number and the group are read
+  (`parsers.parse_dti_groups`); the sheets also hold e-mail addresses and phone numbers,
+  which are never read, stored or published (the test greps the site's files for them).
+  The group becomes `dtiGroup` on the student (`students.json`, `students.csv` column
+  "Design Thinking group", roster field `dg`); DCP uses the letter in the sheet's name
+  ("Group A - Prof ..."), PGDM the number.
+- **Result**: 337 of 338 PGDM 2026-28 students and 96 of 96 DCP 2026-28 placed (each checked against the
+  workbooks). **260101139 is on no group list**, so that student still sees every group.
+  **Four rolls in the PGDM group lists are not on the 2026-28 student list** (250103105,
+  250103163, 250103181, 260102027; the first three look like 2025-batch students joining the group):
+  they cannot be shown anything until they are on a list; ask for them if they should be.
+- A student with no group on file behaves exactly as before. Re-sending a workbook replaces the
+  groups; the next term's groups are read the same way.
+- Checked by `dti_test.py` (15 checks: every student against the workbooks, all 434 in all
+  3 weeks, the pages, the master timetable, no personal data in the site's files).
 
 ## Corrections received
 

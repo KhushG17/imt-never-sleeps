@@ -107,6 +107,7 @@
       track: e ? e.t || '' : '',
       major: e ? e.mj || '' : '',
       minor: e ? e.mn || '' : '',
+      dtiGroup: e ? e.dg || '' : '',
       courses: e ? e.c || {} : {},
       electives: e ? e.e || null : null,
       groupKey: groupKey,
@@ -145,6 +146,7 @@
     if(s.track) parts.push('Track ' + s.track);
     if(s.major) parts.push('Major ' + s.major);
     if(s.minor) parts.push('Minor ' + s.minor);
+    if(s.dtiGroup) parts.push('DTI Group ' + s.dtiGroup);
     return parts.join(' · ');
   }
 
@@ -619,7 +621,13 @@
         view.banner += (view.banner ? ' ' : '') + 'Classes tagged Elective are only for students who chose that course.';
       }
       data.sessions.forEach(function(x){
-        if(x.grp){ view.groups.push(x); return; }
+        if(x.grp){
+          // a student whose Design Thinking group is known gets that group's sessions among their classes
+          // and none of the other groups'; with no group on file, every group is listed
+          if(s.dtiGroup){ if(String(x.grp) === s.dtiGroup) view.classes.push(x); }
+          else view.groups.push(x);
+          return;
+        }
         if(isElective(x)){
           // an elective is attended by those who chose it, whichever section's
           // row it is printed in; with no choice on file, every elective is
