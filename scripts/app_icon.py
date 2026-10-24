@@ -33,7 +33,9 @@ def main(argv):
     changed = []
     for path in [ROOT / "manifest.webmanifest", ROOT / "js" / "install.js"] + sorted(ROOT.glob("*/index.html")) + [ROOT / "index.html"]:
         text = path.read_text(encoding="utf-8")
-        new = ADDRESS.sub(lambda m: m.group(1) + "?v=" + name, text)
+        # the structured data (JSON-LD) names the logo by its plain address: leave those blocks alone
+        parts = re.split(r'(<script type="application/ld\+json">.*?</script>)', text, flags=re.S)
+        new = "".join(part if part.startswith('<script type="application/ld+json">') else ADDRESS.sub(lambda m: m.group(1) + "?v=" + name, part) for part in parts)
         if new != text:
             path.write_text(new, encoding="utf-8", newline="\n"); changed.append(path.relative_to(ROOT).as_posix())
     print("app icon set to %s; addresses updated in: %s" % (name, ", ".join(changed) or "nothing (already set)"))
