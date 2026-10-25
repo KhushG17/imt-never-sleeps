@@ -1,4 +1,4 @@
-# Every night at 23:40 India time: put the app icon for the day about to begin
+# Every night at 22:30 India time (and again at 06:30): put the app icon for the day about to begin
 # in use (a festival's while its dates run, the ordinary one otherwise) and
 # commit it if it changed. The dates are in js/portal-config.js (festival.themes).
 # It only swaps the icon files and their addresses (scripts/app_icon.py); it does not
@@ -8,7 +8,8 @@ name: Seasonal app icon
 
 on:
   schedule:
-    - cron: "10 18 * * *"   # 18:10 UTC = 23:40 IST
+    - cron: "0 17 * * *"    # 17:00 UTC = 22:30 IST: sets the icon for the day about to begin (GitHub often starts these an hour or two late)
+    - cron: "0 1 * * *"     # 01:00 UTC = 06:30 IST: a second chance, in case the night one was missed
   workflow_dispatch:
 
 permissions:
@@ -30,8 +31,8 @@ jobs:
           python-version: "3.12"
 
       - name: Choose the icon for tomorrow (India time)
-        # the job runs at 23:40 IST, so it picks the icon for the day about to begin
-        run: python scripts/seasonal_icon.py "$(TZ=Asia/Kolkata date -d '+30 minutes' +%F)"
+        # runs at 22:30 IST (or later, or at 06:30), so two hours on is always the date the icon should be for
+        run: python scripts/seasonal_icon.py "$(TZ=Asia/Kolkata date -d '+2 hours' +%F)"
 
       - name: Publish the result
         env:

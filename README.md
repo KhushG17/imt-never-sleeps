@@ -1443,6 +1443,16 @@ buses from 8:30 AM to 7:15 PM, Campus to CDL 16 from 9:00 AM to 7:35 PM; night s
 - Checked by `dti_test.py` (15 checks: every student against the workbooks, all 434 in all
   3 weeks, the pages, the master timetable, no personal data in the site's files).
 
+## App icon: when it changes, and why a phone can still show the old one (25 Oct 2026)
+
+- The Halloween icon went live on the server at about 02:15 IST on 25 Oct (the nightly job, which GitHub started
+  about 2.5 hours late; the files and the manifest were checked against the live site). The job now runs at 22:30 IST
+  and again at 06:30 IST so the swap is not left until after midnight.
+- An **installed** app does not change its icon the moment the server does: **Android** checks the app's manifest about
+  once a day when it is opened and then updates the icon (up to a day or two; removing and re-adding the app is instant);
+  **iPhone** takes a picture of the icon when the app is added to the Home Screen and never updates it (remove the app
+  and add it again from Safari). The browser tab's small icon is the plain logo and does not change.
+
 ## Corrections received
 
 - **19 Oct 2026, the navbar now stays fixed at the top on every page** (it

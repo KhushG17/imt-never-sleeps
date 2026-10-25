@@ -9,7 +9,7 @@ dates switch the page decorations on by themselves, so the two stay in step.
     python scripts/seasonal_icon.py 2026-11-01   # as if it were that day
     python scripts/seasonal_icon.py --which      # only say which set it would use
 
-.github/workflows/seasonal-icon.yml runs this every night at 23:40
+.github/workflows/seasonal-icon.yml runs this every night at 22:30 (and again at 06:30)
 India time for the day about to begin, and commits the change, so nobody has to remember. (Install
 buttons on phones: Android refreshes the icon by itself within a day or two;
 an iPhone keeps the icon the app was added with.)
