@@ -2066,3 +2066,72 @@ html[data-theme="dark"] .pre-bar{ background:rgba(255,255,255,.12); }
   display:inline-block; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; line-height:1;
   padding:5px 10px; border-radius:var(--radius-tags); background:var(--color-sky-wash); color:var(--color-nautical-teal); white-space:nowrap;
 }
+
+/* ---------- Finesse events (Campus Royale, Open Outcry): the poster's look ---------- */
+.event-finesse{
+  display:block; position:relative; overflow:hidden; isolation:isolate; padding:16px 18px 14px; color:#f3e3b5; border-radius:18px;
+  background:#08080a; border:1px solid rgba(232,168,28,.38);
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+/* the torn navy band across the middle, like the poster */
+.event-finesse::before{
+  content:""; position:absolute; z-index:-2; left:-6%; right:-6%; top:34%; bottom:-14%; transform:rotate(-3.5deg);
+  background:radial-gradient(60% 80% at 70% 30%, #16307f 0%, #0b1a52 55%, #070f33 100%);
+  clip-path:polygon(0 8%, 4% 3%, 8% 9%, 13% 2%, 18% 8%, 23% 3%, 29% 9%, 34% 2%, 40% 7%, 46% 1%, 52% 8%, 58% 3%, 64% 9%, 70% 2%, 76% 8%, 82% 3%, 88% 9%, 94% 3%, 100% 7%, 100% 100%, 0 100%);
+}
+/* a little paper grain over everything */
+.event-finesse::after{
+  content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:.16; mix-blend-mode:screen; animation:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 .92  0 0 0 0 .75  0 0 0 .55 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+}
+.fn-top{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.fn-kicker{ font:600 11.5px var(--font-switzer); letter-spacing:.36em; text-transform:uppercase; color:#e9d9ab; }
+.event-finesse .event-motif{ width:46px; height:46px; flex:none; filter:drop-shadow(0 2px 6px rgba(0,0,0,.6)); }
+.fn-main{ display:grid; grid-template-columns:minmax(0, 1fr) auto; align-items:end; gap:14px 22px; margin-top:6px; }
+.fn-title{ margin:0; font:800 clamp(30px, 8.6vw, 52px)/.98 var(--font-basier-circle); font-style:italic; text-transform:uppercase; letter-spacing:.01em; transform:skewX(-7deg); transform-origin:left bottom;
+  text-shadow:0 2px 0 rgba(0,0,0,.35), 0 0 22px rgba(214,40,32,.45), 3px 3px 0 rgba(160,24,20,.5); }
+.fn-cream{ color:#f6e8bf; }
+.fn-gold{ color:#eba91e; }
+.fn-tail{ color:#f6e8bf; font-size:.55em; vertical-align:.18em; letter-spacing:.04em; }
+.fn-tagline{ margin:10px 0 0; font:500 11.5px var(--font-switzer); letter-spacing:.26em; text-transform:uppercase; color:#e9dfc3; opacity:.92; line-height:1.7; text-wrap:balance; }
+.fn-side{ display:flex; flex-direction:column; align-items:stretch; gap:10px; min-width:150px; }
+.fn-prize{ position:relative; text-align:center; padding:9px 18px 8px; color:#0e1c52; transform:rotate(-2.5deg); background:#f3e3b5;
+  clip-path:polygon(0 6%, 5% 0, 12% 5%, 20% 0, 30% 5%, 41% 0, 52% 5%, 63% 0, 74% 5%, 85% 0, 93% 5%, 100% 1%, 100% 94%, 95% 100%, 86% 95%, 76% 100%, 64% 95%, 52% 100%, 40% 95%, 28% 100%, 16% 95%, 7% 100%, 0 95%); }
+.fn-prize span{ display:block; font:700 10.5px var(--font-switzer); letter-spacing:.2em; text-transform:uppercase; font-style:italic; }
+.fn-prize b{ display:block; font:800 italic 27px/1.05 var(--font-basier-circle); letter-spacing:.01em; }
+.fn-cta{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px; width:auto; height:auto; padding:11px 18px; border-radius:999px;
+  font:700 14px var(--font-switzer); letter-spacing:.04em; text-transform:uppercase; text-decoration:none; color:#1a1204;
+  background:linear-gradient(180deg, #ffe9a0, #e0a31c); border:0; box-shadow:0 6px 16px rgba(232,168,28,.28), inset 0 1px 0 rgba(255,255,255,.5);
+  transition:transform .15s cubic-bezier(.2,.8,.2,1), box-shadow .15s;
+}
+.fn-cta svg{ width:18px; height:18px; flex:none; }
+.fn-cta:hover{ transform:translateY(-2px); box-shadow:0 10px 22px rgba(232,168,28,.4), inset 0 1px 0 rgba(255,255,255,.5); }
+.fn-cta:focus-visible{ outline:2px solid #fff4c2; outline-offset:3px; }
+.fn-facts{ display:flex; margin-top:16px; border-top:1px solid rgba(233,217,171,.28); padding-top:12px; }
+.fn-fact{ flex:1 1 0; min-width:0; text-align:center; padding:0 8px; }
+.fn-fact + .fn-fact{ border-left:1px solid rgba(233,217,171,.35); }
+.fn-fact span{ display:block; font:600 10px var(--font-switzer); letter-spacing:.2em; text-transform:uppercase; color:#e9d9ab; opacity:.85; }
+.fn-fact b{ display:block; margin-top:3px; font:700 15px/1.2 var(--font-basier-circle); letter-spacing:.02em; text-transform:uppercase; color:#eba91e; text-wrap:balance; }
+.fn-by{ margin-top:12px; font:500 11px var(--font-switzer); letter-spacing:.16em; text-transform:uppercase; color:#cdbf98; opacity:.8; text-align:center; }
+/* a phone: the title takes the width, the prize and the button sit under it side by side, the details share the row */
+@media (max-width:560px){
+  .event-finesse{ padding:14px 14px 12px; }
+  .fn-kicker{ font-size:10px; letter-spacing:.3em; }
+  .fn-main{ grid-template-columns:1fr; gap:12px; }
+  .fn-title{ font-size:clamp(30px, 10.4vw, 42px); }
+  .fn-tagline{ font-size:10px; letter-spacing:.2em; }
+  .fn-side{ flex-direction:row; align-items:center; min-width:0; gap:10px; }
+  .fn-side > *{ flex:1 1 0; }
+  .fn-prize{ padding:8px 10px 7px; } .fn-prize b{ font-size:22px; }
+  .fn-cta{ padding:12px 10px; }
+  .fn-facts{ flex-wrap:wrap; row-gap:10px; }
+  .fn-fact{ flex:1 1 33%; padding:0 4px; }
+  .fn-fact b{ font-size:12.5px; }
+  .event-finesse .event-motif{ width:40px; height:40px; }
+}
+@media (max-width:360px){ .fn-title{ font-size:28px; } .fn-fact b{ font-size:11.5px; } .fn-cta{ font-size:13px; } }
+/* a wide screen: title and tagline on the left, the prize and button on the right, the details in a row below */
+@media (min-width:900px){ .event-finesse{ padding:22px 28px 16px; } .fn-title{ font-size:58px; } .fn-fact b{ font-size:17px; } .fn-prize b{ font-size:32px; } }
+@media (prefers-reduced-motion: no-preference){ .event-finesse .motif-finesse{ animation:plFloat 3.4s ease-in-out infinite; } }
+@media print{ .event-finesse{ background:none!important; color:#000!important; border:1px solid #999; box-shadow:none; } .event-finesse::before, .event-finesse::after{ display:none; } .fn-title, .fn-gold, .fn-cream, .fn-fact b{ color:#000!important; text-shadow:none; } }

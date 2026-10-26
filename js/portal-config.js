@@ -58,7 +58,7 @@ window.PORTAL_CONFIG = {
   //   place - "top" (the default): above that day's classes.
   //           "after": below that day's classes, for something held once
   //           classes are over.
-  //   themes  - "garba" (Garba Night: magenta, orange and gold, a turning rangoli mandala and
+  //   themes  - "finesse" (black, cream and gold: icon "crown" or "chart"), "garba" (Garba Night: magenta, orange and gold, a turning rangoli mandala and
   //           crossed dandiya sticks), "onam" (green, a pookalam), "sports" (night purple and gold,
   //           a crescent on the left and a sun on the right, text centred),
   //           "plain" (green, no motif)
@@ -72,6 +72,7 @@ window.PORTAL_CONFIG = {
   //   holiday - optional; the day is a holiday for every student: this text
   //           ("Holiday") is shown under the banner in every programme, even
   //           where that week's schedule is not uploaded
+  //   theme "finesse" fields: kicker, tagline, prize + prizeLabel (a cream label), facts [[label, value], ...] (a row of details), cta (the button's word)
   //   until - optional; the occasion runs from `date` to this date (inclusive), one banner on each day
   //   banner: "week" - optional; shown once above the whole list (not on each day) from `showFrom`
   //           (default a week before `date`) to `until`
@@ -88,6 +89,12 @@ window.PORTAL_CONFIG = {
       note: "Final Placement Week · 2–8 Nov", theme: "placement", for: ["2027-core", "2027-bfs", "2027-dcp"] },
     { date: "2026-10-31", title: "Happy Halloween", theme: "festival", icon: "pumpkin" },
     { date: "2026-11-08", title: "Happy Diwali", theme: "festival", icon: "diya" },
+    // Finesse (the finance club): Campus Royale on 27 Oct and Open Outcry 6.0 on 28 Oct, each at the end of its day
+    { date: "2026-10-27", title: "Campus Royale", kicker: "Finesse presents", by: "Finesse · Day 1", theme: "finesse", icon: "crown", place: "after",      cta: "Register",
+      link: "https://forms.gle/DZzRqtRWPBK4CQBk6" },
+    { date: "2026-10-28", title: "Open Outcry 6.0", kicker: "Finesse presents", tagline: "When the floor erupts, the bold rise", by: "Finesse · Day 2", theme: "finesse", icon: "chart", place: "after",
+      prize: "\u20b920,000", prizeLabel: "Cash prize", facts: [["Round 1", "Unstop Quiz"], ["Round 2", "Stock Trading"], ["Venue", "Amphitheatre"]], cta: "Register",
+      link: "https://unstop.com/p/open-outcry-60-imt-ghaziabad-1773532" },
     { date: "2026-10-23", title: "Garba Night", by: "CULCOM", theme: "garba", place: "after" },
     { date: "2026-10-19", title: "Happy Mahashtami", theme: "festival", icon: "lotus", holiday: "Holiday" },
     { date: "2026-10-20", title: "Happy Dussehra", theme: "festival", icon: "bow", holiday: "Holiday" },

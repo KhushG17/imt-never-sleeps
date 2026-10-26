@@ -345,10 +345,44 @@
       '<path d="M-34 -4 L-8 -22 L6 -12 L30 -36" fill="none" stroke="#fff4c2" stroke-width="3.500" stroke-linecap="round" stroke-linejoin="round"/>' +
       '<path d="M18 -37 L31 -37 L31 -24" fill="none" stroke="#fff4c2" stroke-width="3.500" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   }
+  // Finesse (the finance club): a crown for Campus Royale, a rising stock chart for Open Outcry; gold on black
+  function finesseIcon(kind){
+    var body = kind === 'crown' ?
+      '<path d="M-26 14 L-30 -14 L-14 0 L0 -22 L14 0 L30 -14 L26 14 Z" fill="url(#fnGold)" stroke="#8a6410" stroke-width="1.600" stroke-linejoin="round"/>' +
+      '<rect x="-26" y="16" width="52" height="8" rx="3" fill="url(#fnGold)" stroke="#8a6410" stroke-width="1.400"/>' +
+      '<circle cx="-30" cy="-16" r="3.600" fill="#fff4c2"/><circle cx="0" cy="-25" r="3.800" fill="#fff4c2"/><circle cx="30" cy="-16" r="3.600" fill="#fff4c2"/>' +
+      '<circle cx="0" cy="6" r="4" fill="#0d0d0d"/>' :
+      '<path d="M-34 -2 V30 M-18 -12 V30 M-2 4 V30 M14 -20 V30 M30 -30 V30" stroke="#6b4c0c" stroke-width="10" stroke-linecap="round" opacity=".5"/>' +
+      '<rect x="-39" y="8" width="10" height="22" rx="2.500" fill="#caa13a"/><rect x="-23" y="-2" width="10" height="32" rx="2.500" fill="#e6bd4a"/><rect x="-7" y="12" width="10" height="18" rx="2.500" fill="#caa13a"/><rect x="9" y="-12" width="10" height="42" rx="2.500" fill="#f4cf62"/><rect x="25" y="-24" width="10" height="54" rx="2.500" fill="url(#fnGold)"/>' +
+      '<path d="M-36 -10 L-18 -22 L-2 -8 L14 -26 L32 -38" fill="none" stroke="#fff4c2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 -39 L33 -39 L33 -28" fill="none" stroke="#fff4c2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
+    return '<svg class="event-motif motif-finesse is-' + kind + '" viewBox="-56 -56 112 112" aria-hidden="true"><defs><linearGradient id="fnGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a0"/><stop offset="1" stop-color="#d4a52a"/></linearGradient></defs>' +
+      '<circle r="54" fill="#0b0b0f"/><circle r="53" fill="none" stroke="#e6bd4a" stroke-width="1.500"/>' + body + '</svg>';
+  }
+  // Finesse events, dressed like the poster: black, a torn navy band, cream and gold brush-style title with a red glow,
+  // a cream "cash prize" label, a row of details between thin rules
+  function finesseBanner(e){
+    var words = String(e.title).split(' '), cream = [], gold = [], tail = [];
+    words.forEach(function(w, i){ if(/^[0-9]/.test(w)) tail.push(w); else if(i === 0 && words.length > 1) cream.push(w); else gold.push(w); });
+    var title = (cream.length ? '<span class="fn-cream">' + IMT.escapeHtml(cream.join(' ')) + '</span> ' : '') + '<span class="fn-gold">' + IMT.escapeHtml(gold.join(' ')) + '</span>' +
+      (tail.length ? ' <span class="fn-tail">' + IMT.escapeHtml(tail.join(' ')) + '</span>' : '');
+    var facts = (e.facts || []).map(function(f){ return '<div class="fn-fact"><span>' + IMT.escapeHtml(f[0]) + '</span><b>' + IMT.escapeHtml(f[1]) + '</b></div>'; }).join('');
+    return '<div class="event-banner event-finesse">' +
+      '<div class="fn-top"><span class="fn-kicker">' + IMT.escapeHtml(e.kicker || 'Finesse presents') + '</span>' + finesseIcon(e.icon === 'chart' ? 'chart' : 'crown') + '</div>' +
+      '<div class="fn-main"><div class="fn-head"><h3 class="fn-title">' + title + '</h3>' +
+        (e.tagline ? '<p class="fn-tagline">' + IMT.escapeHtml(e.tagline) + '</p>' : '') + '</div>' +
+      '<div class="fn-side">' +
+        (e.prize ? '<div class="fn-prize"><span>' + IMT.escapeHtml(e.prizeLabel || 'Prize') + '</span><b>' + IMT.escapeHtml(e.prize) + '</b></div>' : '') +
+        (e.link ? '<a class="event-link fn-cta" href="' + IMT.escapeHtml(e.link) + '" target="_blank" rel="noopener" data-event="' + IMT.escapeHtml(e.title) + '" aria-label="' + IMT.escapeHtml(e.title + ': ' + (e.cta || 'open the link')) + '">' +
+          '<span>' + IMT.escapeHtml(e.cta || 'Open') + '</span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>' : '') +
+      '</div></div>' +
+      (facts ? '<div class="fn-facts">' + facts + '</div>' : '') +
+      (e.by ? '<div class="fn-by">' + IMT.escapeHtml(e.by) + '</div>' : '') + '</div>';
+  }
   function eventBanner(e){
-    var theme = e.theme === 'onam' || e.theme === 'sports' || e.theme === 'reset' || e.theme === 'festival' || e.theme === 'garba' || e.theme === 'placement' ? e.theme : 'plain';
+    if(e.theme === 'finesse') return finesseBanner(e);
+    var theme = e.theme === 'onam' || e.theme === 'sports' || e.theme === 'reset' || e.theme === 'festival' || e.theme === 'garba' || e.theme === 'placement' || e.theme === 'finesse' ? e.theme : 'plain';
     return '<div class="event-banner event-' + theme + (theme === 'festival' ? ' is-' + (e.icon === 'bow' || e.icon === 'pumpkin' || e.icon === 'diya' ? e.icon : 'lotus') : '') + '">' +
-      (theme === 'onam' ? pookalam() : theme === 'sports' ? crescent() : theme === 'reset' ? resetIcon(e.icon) : theme === 'festival' ? festivalSparks(e.icon) + festivalIcon(e.icon) : theme === 'garba' ? garbaMandala() : theme === 'placement' ? briefcase() : '') +
+      (theme === 'finesse' ? finesseIcon(e.icon === 'chart' ? 'chart' : 'crown') : theme === 'onam' ? pookalam() : theme === 'sports' ? crescent() : theme === 'reset' ? resetIcon(e.icon) : theme === 'festival' ? festivalSparks(e.icon) + festivalIcon(e.icon) : theme === 'garba' ? garbaMandala() : theme === 'placement' ? briefcase() : '') +
       '<div class="event-text"><div class="event-title">' + (theme === 'reset' ? titleWithYear(e.title) : IMT.escapeHtml(e.title)) + '</div>' +
       (e.note ? '<div class="event-note">' + IMT.escapeHtml(e.note) + '</div>' : '') +
       (e.where ? '<div class="event-where"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.3" fill="currentColor"/></svg>' + IMT.escapeHtml((e.time && e.link ? e.time + ' · ' : '') + e.where) + '</div>' : '') +

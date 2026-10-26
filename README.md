@@ -1453,6 +1453,22 @@ buses from 8:30 AM to 7:15 PM, Campus to CDL 16 from 9:00 AM to 7:35 PM; night s
   **iPhone** takes a picture of the icon when the app is added to the Home Screen and never updates it (remove the app
   and add it again from Safari). The browser tab's small icon is the plain logo and does not change.
 
+## Finesse events: Campus Royale (27 Oct) and Open Outcry 6.0 (28 Oct), 2026
+
+- Two banners at the end of their day, for everyone, designed from the Open Outcry poster: black with a torn
+  navy band and a little paper grain, "FINESSE PRESENTS" spaced out above, a slanted cream-and-gold title with a red glow,
+  a torn cream "Cash prize ₹20,000" label, a gold Register button, and a row of details between thin rules.
+  (`finesseBanner` in `weekly-seat/js/app.js`, `css/styles.css`; fields `kicker`, `tagline`, `prize`, `prizeLabel`,
+  `facts`, `cta` on an event in `js/portal-config.js`.)
+- **Tue 27 Oct, Campus Royale** (crown), Register button to the Google Form, "Finesse · Day 1".
+  **Wed 28 Oct, Open Outcry 6.0** (stock chart), "When the floor erupts, the bold rise", Cash prize ₹20,000, Round 1 Unstop Quiz,
+  Round 2 Stock Trading, Venue Amphitheatre (all from the poster), Register button to the Unstop page (without its tracking tags),
+  "Finesse · Day 2".
+- Laid out for a phone (title, then prize beside the button, details across the width) and for a desktop (title left, prize and
+  button right, details below); checked at 390, 360 and 340 px and 1280 px, light and dark. No times (Khush). The poster's
+  registration deadline and contact numbers are not shown. Campus Royale has only its name and form so far.
+- Checked by `finesse_test.py` (11): all six groups, both days, links, end of day, gone after, phone, dark.
+
 ## Corrections received
 
 - **19 Oct 2026, the navbar now stays fixed at the top on every page** (it
