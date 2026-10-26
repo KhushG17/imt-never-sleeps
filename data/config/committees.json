@@ -1,0 +1,187 @@
+{
+ "_about": [
+  "Clubs and committees for the master timetable's Clubs tab: who is in each, so the tab can work out when they are all free.",
+  "Structure: clubs -> committees (the parts of a club, such as E-Cell's JEC and SEC) -> teams ('verticals', optional) -> members.",
+  "'batch' on a committee is the name shown on its button (\"Batch 2026-28\"); 'name' (JEC, SEC) and 'full' stay as its short and long titles.",
+  "To add a club, copy a block in 'clubs'. To add a committee, copy one in its club's 'committees'. To add a person, add { \"roll\": \"<9-digit roll number>\", \"verticals\": [\"Events\"] } to its 'members'.",
+  "Only the roll number is needed: the name, programme, batch and section come from the student list, and the schedule from the weekly schedules.",
+  "A person whose roll is not known yet: { \"pending\": \"Srishti\", \"candidates\": [roll, roll], \"verticals\": [...] }. The tab shows a 'Which one?' list for them until the roll is filled in here.",
+  "'verticals' (optional): the teams inside a committee, each with a name and a colour; a member lists the ones they are in.",
+  "Then run: python scripts/update.py (it checks every roll against the student list and rebuilds master/js/committees-data.js)."
+ ],
+ "clubs": [
+  {
+   "id": "ecell",
+   "name": "E-Cell",
+   "kind": "Club",
+   "committees": [
+    {
+     "id": "jec",
+     "batch": "2026-28",
+     "name": "JEC",
+     "full": "E-Cell Junior Team",
+     "verticals": [
+      {
+       "name": "Industry Connects",
+       "color": "#7e6bc4"
+      },
+      {
+       "name": "Events",
+       "color": "#e8923a"
+      },
+      {
+       "name": "Sponsorship",
+       "color": "#4f9d3a"
+      },
+      {
+       "name": "Content and Marketing",
+       "color": "#d9575c"
+      },
+      {
+       "name": "Digital Transformation",
+       "color": "#a8508a"
+      }
+     ],
+     "members": [
+      {
+       "verticals": [
+        "Industry Connects",
+        "Events",
+        "Sponsorship"
+       ],
+       "roll": "260201067"
+      },
+      {
+       "verticals": [
+        "Industry Connects",
+        "Events",
+        "Sponsorship"
+       ],
+       "roll": "260103031"
+      },
+      {
+       "verticals": [
+        "Industry Connects",
+        "Content and Marketing",
+        "Digital Transformation"
+       ],
+       "roll": "260201046"
+      },
+      {
+       "verticals": [
+        "Industry Connects",
+        "Sponsorship",
+        "Content and Marketing"
+       ],
+       "roll": "260103207"
+      },
+      {
+       "verticals": [
+        "Industry Connects",
+        "Events",
+        "Digital Transformation"
+       ],
+       "roll": "260103071"
+      },
+      {
+       "verticals": [
+        "Industry Connects",
+        "Events",
+        "Sponsorship"
+       ],
+       "roll": "260601138"
+      },
+      {
+       "verticals": [
+        "Industry Connects",
+        "Sponsorship",
+        "Content and Marketing"
+       ],
+       "roll": "260103008"
+      },
+      {
+       "verticals": [
+        "Industry Connects",
+        "Events",
+        "Sponsorship"
+       ],
+       "roll": "260201083"
+      },
+      {
+       "verticals": [
+        "Industry Connects",
+        "Events",
+        "Sponsorship"
+       ],
+       "roll": "260201013"
+      },
+      {
+       "verticals": [
+        "Events",
+        "Sponsorship",
+        "Digital Transformation"
+       ],
+       "roll": "260103078"
+      },
+      {
+       "verticals": [
+        "Events",
+        "Sponsorship",
+        "Digital Transformation"
+       ],
+       "roll": "260103184"
+      },
+      {
+       "verticals": [
+        "Events",
+        "Content and Marketing",
+        "Digital Transformation"
+       ],
+       "roll": "260101068"
+      },
+      {
+       "verticals": [
+        "Events",
+        "Sponsorship",
+        "Content and Marketing"
+       ],
+       "roll": "260103174"
+      },
+      {
+       "verticals": [
+        "Events",
+        "Sponsorship",
+        "Digital Transformation"
+       ],
+       "roll": "260201102"
+      },
+      {
+       "verticals": [
+        "Sponsorship",
+        "Content and Marketing",
+        "Digital Transformation"
+       ],
+       "roll": "260103151"
+      },
+      {
+       "verticals": [
+        "Sponsorship",
+        "Content and Marketing",
+        "Digital Transformation"
+       ],
+       "roll": "260201056"
+      }
+     ]
+    },
+    {
+     "id": "sec",
+     "batch": "2025-27",
+     "name": "SEC",
+     "full": "E-Cell Senior Team",
+     "verticals": [],
+     "members": []
+    }
+   ]
+  }
+ ]
+}

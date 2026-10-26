@@ -1,8 +1,10 @@
 /* Master timetable (staff view): a hidden page, behind a password.
 
    Built from window.WEEKLY_DATA, the same published weekly schedules the
-   student pages use (the newest weeks per group). Six views of one list of
+   student pages use (the newest weeks per group). Views of one list of
    classes:
+     Clubs             a club or committee's members (from data/config/committees.json, or anyone
+                       added in the page) and when all of them are free
      Search            the detailed search: a course, room, day, section or roll
                        number; copy or download what it finds
      Student           type a name or roll number, tap the student from the
@@ -204,7 +206,7 @@
       var same = IMT.addDays(start, dow(state.date));
       state.date = DATES[same] ? same : start;
     }
-    renderBoard(); renderFind(); renderSearch();
+    renderBoard(); renderFind(); renderSearch(); if(!$('panel-clubs').hidden) renderClubs();
   }
 
   // ======================================================================
@@ -992,16 +994,342 @@
     attachSuggest($('rIn'), $('rList'), ['room'], openRoom);
   }
 
+
+  // ======================================================================
+  // CLUBS AND COMMITTEES: pick a club and a committee, then see when all of them are free
+  // The committees are in data/config/committees.json (read into master/js/committees-data.js by scripts/update.py).
+  // A person is only a roll number there; their name, programme and section come from the student list, and their
+  // free time from their own week (the same classes the Weekly page shows them). Anyone can also be added in the
+  // page itself: that is kept on this device only.
+  // Classes run from about 8:45 AM to 8:15 PM and nobody has one later, so the day is looked at up to 10 PM and the
+  // answer is split in two: gaps during the day, and the evening, which is free from the last class of that day.
+  // ======================================================================
+  var CLUBS = ((window.COMMITTEES_DATA || {}).clubs || []).concat([{ id: '_mine', name: 'My own group', kind: 'Custom',
+    committees: [{ id: '_mine', name: 'My own group', verticals: [], members: [] }] }]);
+  var KS = { club: '', sel: '', team: '', prog: '', off: {}, extra: {}, chosen: {}, len: 60, mode: 'week', day: '', from: '', to: '', days: [0, 1, 2, 3, 4, 5, 6], miss: 0, lanes: false };
+  var kProbe = null;
+  try { var kSaved = JSON.parse(window.localStorage.getItem('imt.clubs3') || 'null'); if(kSaved) Object.keys(KS).forEach(function(k){ if(kSaved[k] !== undefined) KS[k] = kSaved[k]; }); } catch(e){}
+  function saveK(){ try { window.localStorage.setItem('imt.clubs3', JSON.stringify(KS)); } catch(e){} }
+  function kClub(){ return CLUBS.filter(function(c){ return c.id === KS.club; })[0] || null; }
+  // the committee on show: one of the club's, or everyone in the club (all its committees together)
+  function kWhole(club){
+    var seen = {}, vs = [], ms = [];
+    club.committees.forEach(function(c){
+      (c.verticals || []).forEach(function(v){ if(!seen['v' + v.name]){ seen['v' + v.name] = 1; vs.push(v); } });
+      (c.members || []).forEach(function(m){ var k = m.roll || ('p:' + m.pending); if(!seen[k]){ seen[k] = 1; ms.push(m); } });
+    });
+    return { id: club.id + '*', name: club.name, verticals: vs, members: ms };
+  }
+  function kCommittee(){
+    var club = kClub(); if(!club) return null;
+    if(KS.sel === '*') return kWhole(club);
+    return club.committees.filter(function(c){ return c.id === KS.sel; })[0] || null;
+  }
+  function kLabel(c){ return c.batch ? 'Batch ' + c.batch : c.name; }
+  function kCount(club){ var n = {}; club.committees.forEach(function(c){ (c.members || []).forEach(function(m){ n[m.roll || ('p:' + m.pending)] = 1; }); }); return Object.keys(n).length; }
+  var GROUP_DATES = {};
+  GROUPS.forEach(function(g){ GROUP_DATES[g] = {}; WEEKLY[g].forEach(function(w){ w.days.forEach(function(d){ GROUP_DATES[g][d.date] = 1; }); }); });
+  function hasSchedule(s){
+    var ws = s && s.groupKey ? WEEKLY[s.groupKey] : null;
+    return !!(ws && ws.length && !IMT.buildView(ws[ws.length - 1], s).all);
+  }
+  function kMember(c, roll, teams, pend, extra){
+    var s = roll ? IMT.student(roll) : null;
+    return { id: roll || ('p:' + pend.pending), roll: roll, s: s, name: s ? (s.name || roll) : pend.pending, teams: teams, pend: pend, extra: extra, ok: !!s && hasSchedule(s) };
+  }
+  function kMembers(){
+    var c = kCommittee(), out = [], have = {};
+    (c.members || []).forEach(function(m){
+      var roll = m.roll || '', pend = null;
+      if(m.pending){ pend = m; var ch = KS.chosen[c.id + '|' + m.pending]; roll = ch && (m.candidates || []).indexOf(ch) >= 0 ? ch : ''; }
+      if(roll) have[roll] = 1;
+      out.push(kMember(c, roll, m.verticals || [], pend, false));
+    });
+    (KS.extra[c.id] || []).forEach(function(r){ if(!have[r]){ have[r] = 1; out.push(kMember(c, r, [], null, true)); } });
+    return out;
+  }
+  function kIncluded(members){
+    var off = KS.off[kCommittee().id] || {};
+    return members.filter(function(m){ return m.roll && m.ok && !off[m.roll]; });
+  }
+  var KEV = {};
+  function kEvents(m){ return KEV[m.roll] || (KEV[m.roll] = personEvents(m.s.groupKey, '', m.s)); }
+  function kBusy(m, d){
+    return kEvents(m).filter(function(e){ return e.date === d; }).map(function(e){ return [e.start, e.end, e.title]; }).sort(function(a, b){ return a[0] - b[0]; });
+  }
+  function teamColor(c, name){ var v = (c.verticals || []).filter(function(x){ return x.name === name; })[0]; return v ? v.color : '#8a8aa0'; }
+  function chipOf(m){
+    if(!m.s) return '';
+    return groupShort(m.s.groupKey) + (m.s.section ? ' · ' + m.s.section : m.s.track ? ' · ' + m.s.track : '') + (m.s.dtiGroup ? ' · G' + m.s.dtiGroup : '');
+  }
+  // "Khush G.": the first name and the last name's initial; the full last name when two people would look the same
+  function shortNames(members){
+    var label = function(n, full){ var w = String(n).trim().split(/\s+/); return w.length < 2 ? w[0] : (full ? w[0] + ' ' + w[w.length - 1] : w[0] + ' ' + w[w.length - 1].charAt(0) + '.'); };
+    var count = {}; members.forEach(function(m){ var k = label(m.name, false); count[k] = (count[k] || 0) + 1; });
+    var out = {}; members.forEach(function(m){ var k = label(m.name, false); out[m.id] = count[k] > 1 ? label(m.name, true) : k; });
+    return out;
+  }
+  var PROG = { core: 'PGDM', bfs: 'BFS', dcp: 'DCP' };
+  function progOf(m){ return m.s && m.s.groupKey ? m.s.groupKey.split('-')[1] : ''; }
+  // the team and programme choices decide who is ticked: someone is counted when they are in the team and the programme chosen
+  function kApplyFilters(){
+    var c = kCommittee(), off = {}; KS.off[c.id] = off;
+    kMembers().forEach(function(m){
+      if(!m.roll) return;
+      if((KS.team && m.teams.indexOf(KS.team) < 0) || (KS.prog && progOf(m) !== KS.prog)) off[m.roll] = 1;
+    });
+  }
+  // the day looked at: classes run 8:45 AM to 8:15 PM at the latest, so 8:00 AM to 10:00 PM covers everything
+  var K_LO = 480, K_HI = 1320, K_MODES = [['day', 'Day'], ['week', 'Week'], ['range', 'Dates'], ['all', 'All']];
+  function kClamp(d){ return d < DATE_LIST[0] ? DATE_LIST[0] : d > DATE_LIST[DATE_LIST.length - 1] ? DATE_LIST[DATE_LIST.length - 1] : d; }
+  function kDates(){
+    if(KS.mode === 'day') return [kClamp(KS.day || state.date)];
+    var list = KS.mode === 'all' ? DATE_LIST.slice() : KS.mode === 'range' ? DATE_LIST.filter(function(d){ return d >= (KS.from || DATE_LIST[0]) && d <= (KS.to || DATE_LIST[DATE_LIST.length - 1]); }) :
+      [0, 1, 2, 3, 4, 5, 6].map(function(i){ return IMT.addDays(state.week, i); }).filter(function(d){ return DATES[d]; });
+    return list.filter(function(d){ return KS.days.indexOf(dow(d)) >= 0; });
+  }
+  function renderPeriod(){
+    $('kMode').innerHTML = K_MODES.map(function(m){ return '<button class="mt-chip' + (KS.mode === m[0] ? ' is-on' : '') + '" type="button" data-mode="' + m[0] + '" aria-pressed="' + (KS.mode === m[0]) + '">' + m[1] + '</button>'; }).join('');
+    var lo = DATE_LIST[0], hi = DATE_LIST[DATE_LIST.length - 1], x = '';
+    if(KS.mode === 'week'){
+      var i = WEEK_STARTS.indexOf(state.week);
+      x = '<div class="mt-weeknav"><button class="mt-step" id="kPrev" type="button" aria-label="Previous week"' + (i <= 0 ? ' disabled' : '') + '>&#8249;</button><span class="mt-weeklbl" id="kWeek">' + esc(weekLabel(state.week)) + '</span><button class="mt-step" id="kNext" type="button" aria-label="Next week"' + (i < 0 || i >= WEEK_STARTS.length - 1 ? ' disabled' : '') + '>&#8250;</button></div>';
+    } else if(KS.mode === 'day'){
+      var d = kClamp(KS.day || state.date);
+      x = '<div class="mt-weeknav"><button class="mt-step" data-dstep="-1" type="button" aria-label="Previous day"' + (d <= lo ? ' disabled' : '') + '>&#8249;</button><input class="mt-input k-date" id="kDay" type="date" min="' + lo + '" max="' + hi + '" value="' + d + '" aria-label="Day"><span class="k-dow">' + esc(DAYS[dow(d)]) + '</span><button class="mt-step" data-dstep="1" type="button" aria-label="Next day"' + (d >= hi ? ' disabled' : '') + '>&#8250;</button></div>';
+    } else if(KS.mode === 'range'){
+      x = '<div class="k-dates"><label>From <input class="mt-input k-date" id="kFrom" type="date" min="' + lo + '" max="' + hi + '" value="' + (KS.from || lo) + '"></label><label>To <input class="mt-input k-date" id="kTo" type="date" min="' + lo + '" max="' + hi + '" value="' + (KS.to || hi) + '"></label></div>';
+    } else x = '<span class="mt-weeklbl">All ' + DATE_LIST.length + ' days on file (' + esc(shortDate(lo)) + ' to ' + esc(shortDate(hi)) + ')</span>';
+    $('kPeriod').innerHTML = x;
+  }
+  function lenText(m){ return m === 30 ? '30 min' : m === 60 ? '1 hour' : m === 90 ? '90 min' : m === 120 ? '2 hours' : m + ' min'; }
+
+  function renderClubMembers(){
+    var c = kCommittee(), members = kMembers(), off = KS.off[c.id] || {}, inc = kIncluded(members), short = shortNames(members);
+    var teams = c.verticals || [];
+    $('kTeams').hidden = !teams.length;
+    $('kTeams').innerHTML = teams.length ? '<button class="mt-chip' + (!KS.team ? ' is-on' : '') + '" type="button" data-team="" aria-pressed="' + !KS.team + '">All</button>' + teams.map(function(v){
+      return '<button class="mt-chip k-team' + (KS.team === v.name ? ' is-on' : '') + '" type="button" data-team="' + esc(v.name) + '" aria-pressed="' + (KS.team === v.name) + '" style="--tc:' + v.color + '"><i></i>' + esc(v.name) + '</button>';
+    }).join('') : '';
+    var progs = []; members.forEach(function(m){ var g = progOf(m); if(g && progs.indexOf(g) < 0) progs.push(g); });
+    progs.sort(function(a, b){ return ['core', 'bfs', 'dcp'].indexOf(a) - ['core', 'bfs', 'dcp'].indexOf(b); });
+    $('kProgs').hidden = progs.length < 2;
+    $('kProgs').innerHTML = progs.length < 2 ? '' : '<button class="mt-chip' + (!KS.prog ? ' is-on' : '') + '" type="button" data-prog="" aria-pressed="' + !KS.prog + '">All programmes</button>' + progs.map(function(g){
+      var n = members.filter(function(m){ return progOf(m) === g; }).length;
+      return '<button class="mt-chip' + (KS.prog === g ? ' is-on' : '') + '" type="button" data-prog="' + g + '" aria-pressed="' + (KS.prog === g) + '">' + PROG[g] + ' <i>' + n + '</i></button>';
+    }).join('');
+    $('kCount').textContent = members.length ? inc.length + ' of ' + members.length + ' counted' : 'Nobody yet: add people under More options';
+    $('kMembers').innerHTML = members.map(function(m){
+      if(m.pend && !m.roll){
+        return '<span class="k-person"><span class="k-chip is-pending"><span>' + esc(m.pend.pending) + '</span><select class="k-pick" data-pend="' + esc(m.pend.pending) + '" aria-label="Which ' + esc(m.pend.pending) + '?"><option value="">Which one?</option>' +
+          (m.pend.candidates || []).map(function(r){ var s = IMT.student(r); return '<option value="' + esc(r) + '">' + esc((s.name || r) + ' · ' + chipOf({ s: s })) + '</option>'; }).join('') + '</select></span></span>';
+      }
+      var on = m.ok && !off[m.roll], ini = ((m.name.split(/\s+/)[0] || '').charAt(0) + (m.name.split(/\s+/).length > 1 ? m.name.split(/\s+/).pop().charAt(0) : '')).toUpperCase();
+      var hue = 0; for(var hi = 0; hi < m.name.length; hi++) hue = (hue * 31 + m.name.charCodeAt(hi)) % 360;
+      var tc = m.teams.length ? teamColor(c, m.teams[0]) : 'hsl(' + hue + ',55%,48%)';
+      return '<span class="k-person"><button class="k-chip' + (on ? ' is-on' : '') + (m.ok ? '' : ' is-warn') + '" type="button" data-roll="' + esc(m.roll) + '" data-ini="' + esc(ini) + '" style="--tc:' + tc + '" aria-pressed="' + on + '"' + (m.ok ? '' : ' disabled') +
+        ' title="' + esc(m.name + (chipOf(m) ? ' · ' + chipOf(m) : '') + (m.ok ? '' : ' · no schedule loaded, not counted')) + '">' + (m.ok ? '' : '<b>!</b>') + esc(short[m.id]) + '</button>' +
+        (m.extra ? '<button class="k-x" type="button" data-rm="' + esc(m.roll) + '" aria-label="Remove ' + esc(m.name) + '" title="Remove">&times;</button>' : '') + '</span>';
+    }).join('');
+    $('kDays').innerHTML = DAYS.map(function(d, i){ return '<button class="mt-chip' + (KS.days.indexOf(i) >= 0 ? ' is-on' : '') + '" type="button" data-day="' + i + '" aria-pressed="' + (KS.days.indexOf(i) >= 0) + '">' + d + '</button>'; }).join('');
+    $('kLens').innerHTML = [30, 60, 90, 120].map(function(m){ return '<button class="mt-chip' + (KS.len === m ? ' is-on' : '') + '" type="button" data-len="' + m + '" aria-pressed="' + (KS.len === m) + '">' + (m === 30 ? '30m' : m === 60 ? '1h' : m === 90 ? '90m' : '2h') + '</button>'; }).join('');
+    $('kMiss').value = String(KS.miss); $('kLanes').checked = !!KS.lanes;
+  }
+
+  function kSegments(inc, d, lo, hi){
+    var iv = inc.map(function(m){ return kBusy(m, d); }), pts = [lo, hi];
+    iv.forEach(function(list){ list.forEach(function(x){ if(x[0] > lo && x[0] < hi) pts.push(x[0]); if(x[1] > lo && x[1] < hi) pts.push(x[1]); }); });
+    pts = pts.filter(function(v, i, a){ return a.indexOf(v) === i; }).sort(function(a, b){ return a - b; });
+    var segs = [];
+    for(var i = 0; i + 1 < pts.length; i++){
+      var p = pts[i], q = pts[i + 1], busy = [];
+      inc.forEach(function(m, mi){ if(iv[mi].some(function(x){ return x[0] < q && x[1] > p; })) busy.push(mi); });
+      segs.push({ a: p, b: q, busy: busy, key: busy.join(',') });
+    }
+    return { segs: segs, iv: iv };
+  }
+  function kWindows(segs, miss, need){
+    var out = [];
+    segs.forEach(function(s){
+      if(s.busy.length > miss) return;
+      var last = out[out.length - 1];
+      if(last && last.b === s.a && last.key === s.key) last.b = s.b; else out.push({ a: s.a, b: s.b, key: s.key, busy: s.busy });
+    });
+    return out.filter(function(w){ return w.b - w.a >= need; });
+  }
+
+  var kBestList = [];
+  function kLine(w){
+    var c = kCommittee(), club = kClub(), inc = kIncluded(kMembers());
+    var who = club.id === '_mine' ? c.name : (KS.sel === '*' || club.committees.length === 1 ? club.name : club.name + ' ' + kLabel(c));
+    return dateLabel(w.d) + ', ' + range(w.a, w.b) + ' (' + who + (KS.team ? ' · ' + KS.team : '') + (KS.prog ? ' · ' + PROG[KS.prog] : '') + ': ' + (w.absent.length ? 'all but ' + w.absent.map(function(m){ return m.name; }).join(', ') : 'all ' + inc.length + ' free') + ')';
+  }
+  function dayShort(d){ var p = d.split('-'); return DAYS[dow(d)] + ' ' + (+p[2]); }
+
+  function renderClubs(){
+    var club = kClub();
+    $('kStart').hidden = !!club; $('kRest').hidden = !club;
+    if(!club){
+      $('kClubs').innerHTML = CLUBS.map(function(cl){
+        var many = cl.committees.length > 1;
+        return '<button class="k-clubcard" type="button" data-club="' + esc(cl.id) + '"><span class="k-clubname">' + esc(cl.name) + '</span><span class="k-clubkind">' + esc(cl.kind || 'Club') + '</span>' +
+          '<span class="k-clubmeta">' + (cl.id === '_mine' ? 'Pick anyone' : (many ? (cl.committees.every(function(c){ return c.batch; }) ? cl.committees.length + ' batches' : cl.committees.map(function(c){ return esc(c.name); }).join(' · ')) + ' · ' : '') + kCount(cl) + ' people') + '</span></button>';
+      }).join('');
+      return;
+    }
+    if(!KS.sel && club.committees.length === 1) KS.sel = club.committees[0].id;
+    var c = kCommittee(), many = club.committees.length > 1;
+    $('kCrumb').innerHTML = '<b>' + esc(club.name) + '</b>' + (c && many ? ' <span>›</span> <b>' + esc(KS.sel === '*' ? 'Everyone' : kLabel(c)) + '</b>' : '');
+    $('kComm').hidden = !many;
+    $('kComm').innerHTML = many ? club.committees.map(function(x){
+      return '<button class="mt-chip k-commchip' + (KS.sel === x.id ? ' is-on' : '') + '" type="button" data-comm="' + esc(x.id) + '" aria-pressed="' + (KS.sel === x.id) + '" title="' + esc(x.full ? x.name + ' · ' + x.full : x.name) + '"><b>' + esc(kLabel(x)) + '</b><i>' + (x.members || []).length + '</i></button>';
+    }).join('') + '<button class="mt-chip k-commchip' + (KS.sel === '*' ? ' is-on' : '') + '" type="button" data-comm="*" aria-pressed="' + (KS.sel === '*') + '"><b>Everyone</b><i>' + kCount(club) + '</i></button>' : '';
+    $('kAsk').hidden = !!c || !many; $('kDetails').hidden = !c;
+    if(!c) return;
+    renderClubMembers();
+    renderPeriod();
+    var members = kMembers(), inc = kIncluded(members), best = $('kBest'), strip = $('kStrip'), out = $('kbOut');
+    var need = KS.len, lo = K_LO, hi = K_HI, miss = Math.min(KS.miss, Math.max(0, inc.length - 1));
+    out.innerHTML = ''; strip.innerHTML = ''; best.innerHTML = '';
+    if(!inc.length){ best.innerHTML = '<div class="empty">' + (members.length ? 'Tap at least one person.' : 'Add people to see when they are free together.') + '</div>'; return; }
+    var dates = kDates();
+    var all = [], rows = '', detail = '';
+    var ticks = ''; for(var m = Math.ceil(lo / 60) * 60; m <= hi; m += 60) ticks += '<span style="left:' + ((m - lo) / (hi - lo) * 100) + '%">' + hourTick(m) + '</span>';
+    dates.forEach(function(d){
+      var calc = kSegments(inc, d, lo, hi), wins = kWindows(calc.segs, miss, need);
+      wins.forEach(function(w){ all.push({ d: d, a: w.a, b: w.b, evening: w.b >= hi, absent: w.busy.map(function(i){ return inc[i]; }) }); });
+      var heat = calc.segs.map(function(s){
+        return '<span class="kf-seg' + (!s.busy.length ? ' is-all' : '') + '" style="left:' + ((s.a - lo) / (hi - lo) * 100) + '%;width:' + ((s.b - s.a) / (hi - lo) * 100) + '%;--b:' + (s.busy.length / inc.length * .6).toFixed(2) + '" title="' + (inc.length - s.busy.length) + ' of ' + inc.length + ' free · ' + esc(range(s.a, s.b)) + '"></span>';
+      }).join('');
+      var good = wins.map(function(w){ return '<span class="kf-good" style="left:' + ((w.a - lo) / (hi - lo) * 100) + '%;width:' + ((w.b - w.a) / (hi - lo) * 100) + '%"></span>'; }).join('');
+      rows += '<div class="tl-lane"><span class="tl-lbl">' + esc(dayShort(d)) + '</span><div class="tl-track kf-track" data-d="' + d + '">' + heat + good + '</div></div>';
+      if(kProbe && kProbe.d === d){
+        var t = kProbe.t, free = [], busy = [];
+        inc.forEach(function(mm, mi){ var hit = calc.iv[mi].filter(function(x){ return x[0] <= t && t < x[1]; })[0]; if(hit) busy.push('<li><b>' + esc(mm.name) + '</b> <span>' + esc(hit[2] + ' · ' + range(hit[0], hit[1])) + '</span></li>'); else free.push(esc(mm.name)); });
+        detail = '<div class="k-probe"><b>' + esc(dayShort(d) + ', ' + clock(t)) + '</b> · ' + free.length + ' free, ' + busy.length + ' busy<button class="k-probe-x" type="button" id="kProbeX" aria-label="Close">&times;</button>' + (free.length ? '<p><em>Free:</em> ' + free.join(', ') + '</p>' : '') + (busy.length ? '<p><em>Busy:</em></p><ul>' + busy.join('') + '</ul>' : '') + '</div>';
+      }
+      if(KS.lanes){
+        var lanes = inc.map(function(mm, mi){ return '<div class="tl-lane"><span class="tl-lbl" title="' + esc(mm.name) + '">' + esc(shortNames(inc)[mm.id]) + '</span><div class="tl-track">' + stripBlocks(calc.iv[mi], lo, hi, GROUP_HUE[mm.s.groupKey]) + '</div></div>'; }).join('');
+        out.innerHTML += '<div class="mt-daycard"><div class="day-title">' + esc(dateLabel(d)) + '</div><div class="tl kf-wrap"><div class="tl-lane tl-axis"><span class="tl-lbl"></span><div class="tl-track tl-ticks">' + ticks + '</div></div>' + lanes +
+          '<div class="tl-lane tl-all"><span class="tl-lbl">All free</span><div class="tl-track kf-track" data-d="' + d + '">' + heat + good + '</div></div></div></div>';
+      }
+    });
+    // the answer, in two parts: the evening (free from the last class of the day) and gaps during the day
+    // (real gaps between classes first, then the free time before the first class)
+    kBestList = all.slice();
+    var eve = all.filter(function(w){ return w.evening; }).sort(function(x, y){ return x.d < y.d ? -1 : 1; });
+    var day = all.filter(function(w){ return !w.evening; }).sort(function(x, y){ return (x.a <= lo ? 1 : 0) - (y.a <= lo ? 1 : 0) || (y.b - y.a) - (x.b - x.a) || (x.d < y.d ? -1 : 1) || x.a - y.a; }).slice(0, 6 * Math.max(1, Math.ceil(dates.length / 7))).sort(function(x, y){ return x.d < y.d ? -1 : x.d > y.d ? 1 : x.a - y.a; });
+    var pill = function(w, i, text, extra){ return '<button class="k-pill" type="button" data-i="' + i + '" title="Copy">' + text + (extra || '') + (w.absent.length ? '<em>not ' + esc(w.absent.map(function(x){ return x.name.split(' ')[0]; }).join(', ')) + '</em>' : '') + '</button>'; };
+    var eveHtml = eve.length ? eve.map(function(w){ return pill(w, kBestList.indexOf(w), '<span>' + esc(dayShort(w.d)) + '</span><b>' + (w.a <= lo ? 'all day' : 'from ' + esc(clock(w.a))) + '</b>'); }).join('') : '<span class="k-none">none</span>';
+    var dayHtml = day.length ? day.map(function(w){ return pill(w, kBestList.indexOf(w), '<span>' + esc(dayShort(w.d)) + '</span><b>' + esc(range(w.a, w.b)) + '</b>', '<small>' + esc(minutesText(w.b - w.a)) + '</small>'); }).join('') : '<span class="k-none">no gap of ' + esc(lenText(need)) + ' for everyone</span>';
+    best.innerHTML = '<div class="k-ans"><div class="k-ans-h">Evening</div><div class="k-pills k-week">' + eveHtml + '</div></div>' +
+      '<div class="k-ans"><div class="k-ans-h">During the day</div><div class="k-pills k-list">' + dayHtml + '</div></div>' +
+      (all.length ? '<div class="k-copyall"><button class="mt-btn" id="kCopyAll" type="button">Copy all times</button></div>' : '');
+    if(!KS.lanes) strip.innerHTML = '<div class="k-stripwrap"><div class="tl kf-wrap"><div class="tl-lane tl-axis"><span class="tl-lbl"></span><div class="tl-track tl-ticks">' + ticks + '</div></div>' + (rows || '<div class="empty">No schedule data this week.</div>') + '</div>' +
+      '<div class="k-key"><i class="g"></i>all free <i class="r"></i>busy: darker is more people <span>tap a bar to see who</span></div>' + detail + '</div>';
+    else out.insertAdjacentHTML('beforeend', detail);
+  }
+
+  // the controls
+  function kSet(fn){ fn(); saveK(); renderClubs(); }
+  $('kClubs').addEventListener('click', function(e){
+    var b = e.target.closest('[data-club]'); if(!b) return;
+    kSet(function(){ KS.club = b.getAttribute('data-club'); KS.sel = ''; KS.team = ''; KS.prog = ''; kProbe = null; IMT.track('master_action', null, { tool: 'master', result: 'clubs_club' }); });
+  });
+  $('kChange').addEventListener('click', function(){ kSet(function(){ KS.club = ''; KS.sel = ''; KS.team = ''; kProbe = null; }); });
+  $('kComm').addEventListener('click', function(e){
+    var b = e.target.closest('[data-comm]'); if(!b) return;
+    kSet(function(){ KS.sel = b.getAttribute('data-comm'); KS.team = ''; KS.prog = ''; kProbe = null; IMT.track('master_action', null, { tool: 'master', result: 'clubs_committee' }); });
+  });
+  $('kTeams').addEventListener('click', function(e){
+    var b = e.target.closest('[data-team]'); if(!b) return;
+    kSet(function(){ KS.team = b.getAttribute('data-team'); kApplyFilters(); });
+  });
+  $('kProgs').addEventListener('click', function(e){
+    var b = e.target.closest('[data-prog]'); if(!b) return;
+    kSet(function(){ KS.prog = b.getAttribute('data-prog'); kApplyFilters(); IMT.track('master_action', null, { tool: 'master', result: 'clubs_programme' }); });
+  });
+  $('kMembers').addEventListener('click', function(e){
+    var c = kCommittee(), x = e.target.closest('.k-x');
+    if(x){ e.preventDefault(); kSet(function(){ KS.extra[c.id] = (KS.extra[c.id] || []).filter(function(r){ return r !== x.getAttribute('data-rm'); }); }); return; }
+    var chip = e.target.closest('.k-chip[data-roll]'); if(!chip) return;
+    var r = chip.getAttribute('data-roll');
+    kSet(function(){ KS.off[c.id] = KS.off[c.id] || {}; if(KS.off[c.id][r]) delete KS.off[c.id][r]; else KS.off[c.id][r] = 1; KS.team = ''; KS.prog = ''; });
+  });
+  $('kMembers').addEventListener('change', function(e){
+    var c = kCommittee(), t = e.target;
+    if(t.getAttribute('data-pend')){ kSet(function(){ if(t.value) KS.chosen[c.id + '|' + t.getAttribute('data-pend')] = t.value; IMT.track('master_action', null, { tool: 'master', result: 'clubs_pick' }); }); }
+  });
+  attachSuggest($('kAdd'), $('kAddList'), ['student'], function(it){
+    kSet(function(){ var c = kCommittee(); KS.extra[c.id] = KS.extra[c.id] || []; if(KS.extra[c.id].indexOf(it.roll) < 0 && !(c.members || []).some(function(m){ return m.roll === it.roll; })) KS.extra[c.id].push(it.roll); $('kAdd').value = ''; IMT.track('master_action', null, { tool: 'master', result: 'clubs_add' }); });
+    toast('Added ' + it.name);
+  });
+  $('kReset').addEventListener('click', function(){ kSet(function(){ var c = kCommittee(); delete KS.off[c.id]; delete KS.extra[c.id]; KS.team = ''; KS.prog = ''; Object.keys(KS.chosen).forEach(function(k){ if(k.indexOf(c.id + '|') === 0) delete KS.chosen[k]; }); }); toast('Back to the list as saved in the file'); });
+  $('kCopyList').addEventListener('click', function(){
+    var rows = kMembers().filter(function(m){ return m.roll; }).map(function(m){ return '{ "roll": "' + m.roll + '"' + (m.teams.length ? ', "verticals": ' + JSON.stringify(m.teams) : '') + ' }'; });
+    IMT.track('master_action', null, { tool: 'master', result: 'clubs_copy_list' });
+    copyText('"members": [\n  ' + rows.join(',\n  ') + '\n]', 'Copied the member list: paste it into data/config/committees.json');
+  });
+  $('kMode').addEventListener('click', function(e){
+    var b = e.target.closest('[data-mode]'); if(!b) return;
+    kSet(function(){
+      KS.mode = b.getAttribute('data-mode'); kProbe = null;
+      if(KS.mode === 'day' && !KS.day) KS.day = kClamp(state.date);
+      if(KS.mode === 'range' && !KS.from){ KS.from = kClamp(state.week); KS.to = kClamp(IMT.addDays(state.week, 6)); }
+      IMT.track('master_action', null, { tool: 'master', result: 'clubs_period_' + KS.mode });
+    });
+  });
+  $('kPeriod').addEventListener('click', function(e){
+    var p = e.target.closest('#kPrev'), n = e.target.closest('#kNext'), st = e.target.closest('[data-dstep]');
+    if(p) setWeek(WEEK_STARTS[WEEK_STARTS.indexOf(state.week) - 1]);
+    else if(n) setWeek(WEEK_STARTS[WEEK_STARTS.indexOf(state.week) + 1]);
+    else if(st) kSet(function(){ KS.day = kClamp(IMT.addDays(kClamp(KS.day || state.date), +st.getAttribute('data-dstep'))); kProbe = null; });
+  });
+  $('kPeriod').addEventListener('change', function(e){
+    var t = e.target; if(!t.value) return;
+    kSet(function(){
+      if(t.id === 'kDay') KS.day = kClamp(t.value);
+      else if(t.id === 'kFrom'){ KS.from = kClamp(t.value); if(KS.to && KS.to < KS.from) KS.to = KS.from; }
+      else if(t.id === 'kTo'){ KS.to = kClamp(t.value); if(KS.from && KS.from > KS.to) KS.from = KS.to; }
+      kProbe = null;
+    });
+  });
+  $('kLens').addEventListener('click', function(e){ var b = e.target.closest('[data-len]'); if(b) kSet(function(){ KS.len = +b.getAttribute('data-len'); }); });
+  $('kMiss').addEventListener('input', function(){ kSet(function(){ KS.miss = +$('kMiss').value; }); });
+  $('kLanes').addEventListener('change', function(){ kSet(function(){ KS.lanes = $('kLanes').checked; }); });
+  $('kDays').addEventListener('click', function(e){
+    var b = e.target.closest('[data-day]'); if(!b) return; var i = +b.getAttribute('data-day');
+    kSet(function(){ var at = KS.days.indexOf(i); if(at >= 0) KS.days.splice(at, 1); else KS.days.push(i); if(!KS.days.length) KS.days = [i]; });
+  });
+  function kProbeClick(e){
+    if(e.target.closest('#kProbeX')){ kProbe = null; renderClubs(); return; }
+    var tr = e.target.closest('.kf-track');
+    if(tr){
+      var r = tr.getBoundingClientRect(), lo = K_LO, hi = K_HI;
+      kProbe = { d: tr.getAttribute('data-d'), t: Math.round((lo + (e.clientX - r.left) / r.width * (hi - lo)) / 5) * 5 }; IMT.track('master_action', null, { tool: 'master', result: 'clubs_probe' }); renderClubs();
+    }
+  }
+  $('kStrip').addEventListener('click', kProbeClick); $('kbOut').addEventListener('click', kProbeClick);
+  $('kBest').addEventListener('click', function(e){
+    var b = e.target.closest('.k-pill');
+    if(b){ var w = kBestList[+b.getAttribute('data-i')]; if(w){ IMT.track('master_action', null, { tool: 'master', result: 'clubs_copy' }); copyText(kLine(w), 'Copied: ' + shortDate(w.d) + ', ' + range(w.a, w.b)); } return; }
+    if(e.target.closest('#kCopyAll')){
+      var order = kBestList.slice().sort(function(x, y){ return x.d < y.d ? -1 : x.d > y.d ? 1 : x.a - y.a; });
+      IMT.track('master_action', null, { tool: 'master', result: 'clubs_copy_all' }); copyText(order.map(kLine).join('\n'), 'Copied ' + order.length + ' times');
+    }
+  });
+
   // ======================================================================
   // tabs and start
   // ======================================================================
-  var TABS = ['search', 'student', 'rooms', 'sections', 'board', 'find', 'checks'];
+  var TABS = ['search', 'student', 'rooms', 'sections', 'board', 'find', 'clubs', 'checks'];
   function switchTab(t, quiet){
     TABS.forEach(function(o){ $('tab-' + o).setAttribute('aria-selected', o === t ? 'true' : 'false'); $('panel-' + o).hidden = o !== t; });
     if(t === 'sections') renderSections();
     if(t === 'student') renderStudent();
     if(t === 'rooms') renderRoom();
     if(t === 'board') renderBoard();
+    if(t === 'clubs') renderClubs();
     if(!quiet){
       IMT.track('master_view', null, { tool: 'master', result: t });
       try { window.history.replaceState(null, '', '#' + t); } catch(e){}

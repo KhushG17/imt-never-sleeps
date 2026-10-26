@@ -424,6 +424,30 @@ def bundle_weekly():
     return site
 
 
+def build_committees(students):
+    """master/js/committees-data.js from data/config/committees.json: the Clubs tab of the master timetable
+    (clubs -> committees -> teams -> members). Every roll is checked against the student list."""
+    path = CONFIG / "committees.json"
+    if not path.exists():
+        return
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    clubs = doc.get("clubs", [])
+    for club in clubs:
+        for c in club.get("committees", []):
+            names = [v["name"] for v in c.get("verticals", [])]
+            for m in c.get("members", []):
+                for v in m.get("verticals", []):
+                    if v not in names:
+                        say("NOTE", "%s %s: %s is in a team called %r that the committee does not list" % (club["name"], c["name"], m.get("roll") or m.get("pending"), v))
+                for r in ([m["roll"]] if m.get("roll") else m.get("candidates", [])):
+                    if r not in students:
+                        say("NOTE", "%s %s: roll %s is not on the student list" % (club["name"], c["name"], r))
+            pending = [m for m in c.get("members", []) if m.get("pending")]
+            say("COMMITTEE", "%s %s: %d members, %d teams%s" % (club["name"], c["name"], len(c.get("members", [])), len(names),
+                (", %d still to be matched to a roll (%s)" % (len(pending), ", ".join(m["pending"] for m in pending))) if pending else ""))
+    write_js(ROOT / "master" / "js" / "committees-data.js", "From data/config/committees.json (clubs, committees, teams, members).", "COMMITTEES_DATA", {"clubs": clubs})
+
+
 def write_students_csv(students):
     """data/master/students.csv: the same student list as students.json, as a
     sheet that opens in Excel, sorted by batch, group, section and roll."""
@@ -463,6 +487,7 @@ def build_site(courses, students, weeks, timeline, overrides):
                 entry[key] = s[long]
         roster[roll] = entry
     write_js(ROOT / "js" / "roster-data.js", "Every student in data/master/students.json.", "ROSTER_DATA", roster)
+    build_committees(students)
     bundle_weekly()
     write_js(ROOT / "js" / "site-data.js", "From data/config/programmes.json and timeline.json.", "SITE_DATA",
              {"programmes": programmes["programmes"],

@@ -1469,6 +1469,37 @@ buses from 8:30 AM to 7:15 PM, Campus to CDL 16 from 9:00 AM to 7:35 PM; night s
   registration deadline and contact numbers are not shown. Campus Royale has only its name and form so far.
 - Checked by `finesse_test.py` (11): all six groups, both days, links, end of day, gone after, phone, dark.
 
+## Master timetable: Clubs tab, when a whole committee is free (26 Oct 2026, not yet pushed)
+
+- New **Clubs** tab (between Common time and Checks), in steps so nothing opens before you choose: **the club** (cards: E-Cell and
+  "My own group"; no descriptions, only a name, a kind and a count), then **its committee** (E-Cell: **JEC** = E-Cell Junior Team,
+  first year, batch 2026-28; **SEC** = E-Cell Senior Team, the second year, batch 2025-27, empty until their rolls are added; or
+  **Everyone**), then the answer. The last choice is remembered on that device; "Change club" goes back.
+- **The people** are small chips: tap one to take a person out and again to bring them back; team chips (All, Industry Connects, ...)
+  count one team. Short names ("Khush G.", the full last name when two would look alike); someone with no schedule loaded shows a "!"
+  and is not counted.
+- **The answer** is two short lists of tap-to-copy times for the week shown: **Evening** (for each day, free from the group's last
+  class, e.g. "Mon 26: from 5:15 PM", "Fri 30: from 8:15 PM") and **During the day** (real gaps between classes first, then free
+  time before the first class; at most 6). Why this split: classes run from 8:45 AM to at most 8:15 PM and nobody has one later (checked
+  across all six groups' weeks), so the day is looked at until 10 PM and the evening is almost always free; the daytime gaps are the
+  rare, valuable ones. Meeting length is 30 min / 1 h / 90 min / 2 h chips. Below is a **week strip**: one thin bar per day (green all
+  free, red shades how many are busy); tap a bar to see who is free and who is busy at that moment and in which class.
+- **More options** (folded away): Can miss (nobody, 1, 2 or 3; times then say who is not free), day start and end (8:00 to 22:00 by
+  default), which days of the week, "Show each person's day" (one lane per person), add anyone by name or roll, Copy list, Reset my
+  changes.
+- **Customising**: `data/config/committees.json` is clubs -> committees -> teams ("verticals", with a colour) -> members (a roll
+  number and their teams). Add a club or committee by copying a block, a person by adding their roll; a person whose roll is not known
+  yet is `{ "pending", "candidates", "verticals" }` (the tab shows "Which one?"). Then `python scripts/update.py` (checks every roll
+  against the student list, rebuilds `master/js/committees-data.js`). Names, programme and schedule are never typed in: they come from
+  the student list and the weekly schedules. Added-in-the-page people, unticks and "My own group" stay on that device.
+- **Design pass and programme filter (26 Oct, not pushed)**: committees are named by batch (Batch 2026-28, Batch 2025-27, Everyone) as underline tabs with counts; people are round initials with the team colour and a tick instead of chips; evening is a week of seven day-cells, daytime is rows with the length; a **programme** row (All programmes, PGDM, BFS, DCP, with how many of the committee are in each) counts only that programme, since their schedules differ a lot. It combines with the team tabs (a team and a programme together), is hidden when the committee is in one programme only, and shows in the copied line ("... · DCP"). E-Cell batch 2026-28 today: PGDM 9, BFS 1, DCP 6. Still needed: the batch 2025-27 members' rolls.
+- **Period and no day start/end (26 Oct, not pushed)**: the "Day starts / Day ends" boxes are gone (the day is always 8:00 AM to 10:00 PM, classes never run outside it). The week arrows became a **period** choice: **Day** (a date picker with previous/next day), **Week** (as before), **Dates** (from and to) and **All** (every day on file). The "which days of the week" toggles still apply to Week, Dates and All. Times for a day, a date range and the whole week are checked against a minute-by-minute count.
+- **E-Cell JEC loaded**: 16 people of batch 2026-28 (Raghav Chhabra = DCP B, Srishti = Chhabra, PGDM F, Simran = Uppal, PGDM D). The
+  roll numbers and teams are in a public file (the student list already is).
+- Checked by `clubs_test.py` (53): the choose-first flow and the "no descriptions" rule, and the evening and daytime times for the whole
+  committee and for a team, in two weeks and five length/miss settings, equal a minute-by-minute count made from each person's Weekly page;
+  the evening starts at the group's last class; copy, tap-a-bar, options, add, remove, reset, reload, "Which one?", phone and dark.
+
 ## Corrections received
 
 - **19 Oct 2026, the navbar now stays fixed at the top on every page** (it

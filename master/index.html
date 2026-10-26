@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Caveat:wght@600;700&display=swap">
 <script src="../js/theme.js?v=702672a2"></script>
-<link rel="stylesheet" href="../css/styles.css?v=5ef2c6ed">
+<link rel="stylesheet" href="../css/styles.css?v=1824d71d">
 </head>
 <body class="tool master">
 
@@ -111,6 +111,7 @@
       <button class="mt-tab" id="tab-sections" type="button" role="tab" aria-selected="false" aria-controls="panel-sections">Section timetable</button>
       <button class="mt-tab" id="tab-board" type="button" role="tab" aria-selected="false" aria-controls="panel-board">Vacant rooms</button>
       <button class="mt-tab" id="tab-find" type="button" role="tab" aria-selected="false" aria-controls="panel-find">Common time</button>
+      <button class="mt-tab" id="tab-clubs" type="button" role="tab" aria-selected="false" aria-controls="panel-clubs">Clubs</button>
       <button class="mt-tab" id="tab-checks" type="button" role="tab" aria-selected="false" aria-controls="panel-checks">Checks <span class="mt-badge" id="checksBadge" hidden></span></button>
     </div>
 
@@ -253,6 +254,59 @@
       <div id="qOut"></div>
     </section>
 
+    <!-- 6. clubs and committees: who is in one, and when they are all free -->
+    <section id="panel-clubs" role="tabpanel" aria-labelledby="tab-clubs" hidden>
+      <!-- step 1: which club -->
+      <div class="mt-panel k-start" id="kStart">
+        <h2 class="mt-h2">Choose your club or committee</h2>
+        <div class="k-clubs" id="kClubs"></div>
+      </div>
+      <!-- step 2: which part of it (JEC, SEC, everyone); step 3: the people and the free time -->
+      <div id="kRest" hidden>
+        <div class="mt-panel k-head">
+          <div class="k-crumb"><span id="kCrumb"></span><button class="mt-btn" id="kChange" type="button">Change club</button></div>
+          <div class="k-comms" id="kComm" role="group" aria-label="Committee"></div>
+          <p class="k-ask" id="kAsk" hidden>Choose a committee</p>
+        </div>
+        <div id="kDetails" hidden>
+          <div class="mt-panel k-people">
+            <div class="k-people-head"><b id="kCount" aria-live="polite"></b><div class="k-teams" id="kTeams" role="group" aria-label="Team"></div></div>
+            <div class="k-teams k-progs" id="kProgs" role="group" aria-label="Programme"></div>
+            <div class="k-chips" id="kMembers"></div>
+          </div>
+          <div class="mt-panel k-when">
+            <div class="k-bar">
+              <div class="k-period"><div class="k-modes" id="kMode" role="group" aria-label="Period"></div><div class="k-when-pick" id="kPeriod"></div></div>
+              <div class="k-lens" id="kLens" role="group" aria-label="Meeting length"></div>
+            </div>
+            <div id="kBest"></div>
+            <div id="kStrip"></div>
+            <details class="k-more">
+              <summary>More options</summary>
+              <div class="mt-fields k-settings">
+                <div class="mt-field"><label class="field-label" for="kMiss">Can miss</label>
+                  <select class="mt-input" id="kMiss"><option value="0">Nobody</option><option value="1">One person</option><option value="2">Two people</option><option value="3">Three people</option></select></div>
+              </div>
+              <div class="k-days" id="kDays" role="group" aria-label="Days to consider"></div>
+              <label class="k-lanes"><input type="checkbox" id="kLanes"> Show each person's day</label>
+              <div class="k-addrow">
+                <div class="mt-searchbox mt-suggest k-add">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="6.500" stroke="currentColor" stroke-width="1.800"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.800" stroke-linecap="round"/></svg>
+                  <input class="mt-search" id="kAdd" type="text" role="combobox" aria-expanded="false" aria-controls="kAddList" aria-autocomplete="list" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Add anyone: a name or roll number">
+                  <ul class="mt-sug" id="kAddList" role="listbox" aria-label="Suggestions" hidden></ul>
+                </div>
+                <div class="mt-actions k-tools">
+                  <button class="mt-btn" id="kCopyList" type="button">Copy list</button>
+                  <button class="mt-btn" id="kReset" type="button">Reset my changes</button>
+                </div>
+              </div>
+            </details>
+          </div>
+          <div id="kbOut"></div>
+        </div>
+      </div>
+    </section>
+
     <!-- 5. things in the schedules worth a second look -->
     <section id="panel-checks" role="tabpanel" aria-labelledby="tab-checks" hidden>
       <p class="mt-lead mt-lead-pad">The published schedules, checked for things that look wrong. A combined lecture (the same course, in one room, for several sections) is not a clash.</p>
@@ -282,6 +336,7 @@
 <script src="../js/roster-data.js?v=dfa1e380"></script>
 <script src="../weekly-seat/js/weekly-data.js?v=c8d260b4"></script>
 <script src="../js/common.js?v=d513f07c"></script>
-<script src="js/app.js?v=d9494966"></script>
+<script src="js/committees-data.js?v=0c338a23"></script>
+<script src="js/app.js?v=ea3ddc69"></script>
 </body>
 </html>
