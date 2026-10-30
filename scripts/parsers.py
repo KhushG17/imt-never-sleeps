@@ -570,6 +570,20 @@ def parse_weekly(path):
             notes[sp["d"]] = (notes.get(sp["d"], "") + " " + sp["text"]).strip()
         else:
             kept.append(sp)
+    # one merged block over all the rows can come out as one piece per row (BFS: the title on Section A's
+    # line, "Venue ... Attendance mandatory" on Section B's): put the pieces back together, in row order
+    if row_keys:
+        groups = {}
+        for sp in kept:
+            groups.setdefault((str(sp["d"]), sp["s"], sp["span"]), []).append(sp)
+        for parts in groups.values():
+            rows_seen = [r for sp in parts for r in sp["rows"]]
+            if len(parts) > 1 and sorted(rows_seen) == sorted(set(rows_seen)) and set(rows_seen) == set(row_keys):
+                parts.sort(key=lambda sp: row_keys.index(sp["rows"][0]))
+                parts[0]["text"] = " ".join(sp["text"] for sp in parts)
+                parts[0]["rows"] = [r for sp in parts for r in sp["rows"]]
+                for sp in parts[1:]:
+                    kept.remove(sp)
     # the same entry written in every slot of a row ("VB-SSR" seven times) is one
     # entry across those slots
     merged = []

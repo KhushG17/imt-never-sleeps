@@ -378,8 +378,31 @@
       (facts ? '<div class="fn-facts">' + facts + '</div>' : '') +
       (e.by ? '<div class="fn-by">' + IMT.escapeHtml(e.by) + '</div>' : '') + '</div>';
   }
+  // Xposure 26, dressed like the poster: charcoal with a torn red corner, the white title with an aperture for its O,
+  // a blue prize disc, the two themes on a cream label, a film strip of colour blocks along the bottom
+  function aperture(){
+    var hex = [0, 60, 120, 180, 240, 300].map(function(a){ var r = a * Math.PI / 180; return (16 * Math.sin(r)).toFixed(1) + ' ' + (-16 * Math.cos(r)).toFixed(1); }).join(' L');
+    var blades = [0, 60, 120, 180, 240, 300].map(function(a){ return '<path d="M0 -16 L34 -34" transform="rotate(' + a + ')" stroke="#202022" stroke-width="3.200" stroke-linecap="round"/>'; }).join('');
+    return '<svg class="xp-o" viewBox="-50 -50 100 100" aria-hidden="true"><circle r="48" fill="#fff"/>' + blades + '<path d="M' + hex + ' Z" fill="#202022"/></svg>';
+  }
+  function xposureBanner(e){
+    var parts = String(e.title).split(/\s+/), name = parts[0].toUpperCase(), year = parts.slice(1).join(' '), at = name.indexOf('O');
+    var word = at < 0 ? IMT.escapeHtml(name) : IMT.escapeHtml(name.slice(0, at)) + aperture() + IMT.escapeHtml(name.slice(at + 1));
+    var themes = (e.themes || []).map(function(x){ return '<b>' + IMT.escapeHtml(x) + '</b>'; }).join('<i></i>');
+    return '<div class="event-banner event-xposure">' +
+      '<div class="xp-top">' + (e.kicker ? '<span class="xp-kicker">' + IMT.escapeHtml(e.kicker) + '</span>' : '') + (e.by ? '<span class="xp-by">' + IMT.escapeHtml(e.by) + '</span>' : '') + '</div>' +
+      '<div class="xp-main"><div class="xp-head"><h3 class="xp-title" aria-label="' + IMT.escapeHtml(e.title) + '"><span aria-hidden="true">' + word + '</span>' + (year ? '<span class="xp-year" aria-hidden="true">' + IMT.escapeHtml(year) + '</span>' : '') + '</h3>' +
+        (e.tagline ? '<p class="xp-tagline">' + IMT.escapeHtml(e.tagline) + '</p>' : '') +
+        (themes ? '<div class="xp-themes">' + themes + '</div>' : '') + '</div>' +
+      '<div class="xp-side">' + (e.prize ? '<div class="xp-prize"><span>' + IMT.escapeHtml(e.prizeLabel || 'Prize') + '</span><b>' + IMT.escapeHtml(e.prize) + '</b></div>' : '') +
+        (e.link ? '<a class="event-link xp-cta" href="' + IMT.escapeHtml(e.link) + '" target="_blank" rel="noopener" data-event="' + IMT.escapeHtml(e.title) + '" aria-label="' + IMT.escapeHtml(e.title + ': ' + (e.cta || 'open the link')) + '">' +
+          '<span>' + IMT.escapeHtml(e.cta || 'Open') + '</span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>' : '') + '</div></div>' +
+      (e.note ? '<div class="xp-note">' + IMT.escapeHtml(e.note) + '</div>' : '') +
+      '<div class="xp-strip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></div>';
+  }
   function eventBanner(e){
     if(e.theme === 'finesse') return finesseBanner(e);
+    if(e.theme === 'xposure') return xposureBanner(e);
     var theme = e.theme === 'onam' || e.theme === 'sports' || e.theme === 'reset' || e.theme === 'festival' || e.theme === 'garba' || e.theme === 'placement' || e.theme === 'finesse' ? e.theme : 'plain';
     return '<div class="event-banner event-' + theme + (theme === 'festival' ? ' is-' + (e.icon === 'bow' || e.icon === 'pumpkin' || e.icon === 'diya' ? e.icon : 'lotus') : '') + '">' +
       (theme === 'finesse' ? finesseIcon(e.icon === 'chart' ? 'chart' : 'crown') : theme === 'onam' ? pookalam() : theme === 'sports' ? crescent() : theme === 'reset' ? resetIcon(e.icon) : theme === 'festival' ? festivalSparks(e.icon) + festivalIcon(e.icon) : theme === 'garba' ? garbaMandala() : theme === 'placement' ? briefcase() : '') +

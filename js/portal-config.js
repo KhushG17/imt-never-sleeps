@@ -72,6 +72,7 @@ window.PORTAL_CONFIG = {
   //   holiday - optional; the day is a holiday for every student: this text
   //           ("Holiday") is shown under the banner in every programme, even
   //           where that week's schedule is not uploaded
+  //   theme "xposure" (Xposure 26, the poster: charcoal and red, a white title with an aperture, a blue prize disc, a film strip) takes kicker, by, tagline, themes [two lines], prize + prizeLabel, note, cta
   //   theme "finesse" fields: kicker, tagline, prize + prizeLabel (a cream label), facts [[label, value], ...] (a row of details), cta (the button's word)
   //   until - optional; the occasion runs from `date` to this date (inclusive), one banner on each day
   //   banner: "week" - optional; shown once above the whole list (not on each day) from `showFrom`
@@ -95,6 +96,10 @@ window.PORTAL_CONFIG = {
     { date: "2026-10-28", title: "Open Outcry 6.0", kicker: "Finesse presents", tagline: "When the floor erupts, the bold rise", by: "Finesse · Day 2", theme: "finesse", icon: "chart", place: "after",
       prize: "\u20b920,000", prizeLabel: "Cash prize", facts: [["Round 1", "Unstop Quiz"], ["Round 2", "Stock Trading"], ["Venue", "Amphitheatre"]], cta: "Register",
       link: "https://unstop.com/p/open-outcry-60-imt-ghaziabad-1773532" },
+    // Xposure 26 (IMTeam Prism photography competition, presented by New Vastralok): registration open since 24 Oct, shown today, 30 Oct
+    { date: "2026-10-30", title: "Xposure 26", by: "IMTeam Prism", theme: "xposure", tagline: "Photography competition",
+      prize: "\u20b935K", prizeLabel: "Prizes worth", note: "Registration open since 24 Oct", cta: "Register",
+      link: "https://unstop.com/o/NJm3HUT?lb=useJROeB&utm_medium=Share&utm_source=competitions&utm_campaign=Manvepat4163" },
     { date: "2026-10-23", title: "Garba Night", by: "CULCOM", theme: "garba", place: "after" },
     { date: "2026-10-19", title: "Happy Mahashtami", theme: "festival", icon: "lotus", holiday: "Holiday" },
     { date: "2026-10-20", title: "Happy Dussehra", theme: "festival", icon: "bow", holiday: "Holiday" },

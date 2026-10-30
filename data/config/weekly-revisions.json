@@ -1,447 +1,1101 @@
 {
-  "_about": [
-    "Revised days of a weekly schedule that arrived after the PDF (a mail, a picture of the grid).",
-    "Applied on top of the PDF every time scripts/update.py reads that week, so the PDF itself is never edited.",
-    "group -> Monday of the week -> days -> date -> row (section) -> one cell per time slot, left to right,",
-    "typed exactly as on the schedule (\"\" for an empty cell). Every class the PDF had on a listed date is",
-    "replaced by what is typed here; dates not listed keep what the PDF says.",
-    "The room is the row's usual room. Faculty initials can be typed as they appear; they are not stored."
-  ],
-  "2028-core": {
-    "2026-10-05": {
-      "received": "2026-10-09",
-      "from": "Updated schedule for Week-1 during Thu - Sun (Oct. 08 - 11, 2026), sent as a picture",
-      "days": {
-        "2026-10-08": {
-          "A": ["", "", "DAIB(2)RKR", "BR(8)AKB/FH", "BCF(2)PA"],
-          "B": ["", "DAIB(2)ST", "BR(8)NT/MK", "BCF(2)PA", ""],
-          "C": ["HRM(2)AB", "BR(8)AB/GS", "DAIB(2)ST", "", ""],
-          "D": ["", "", "DAIB(2)SAS", "", ""],
-          "E": ["", "DAIB(2)SKS", "", "", ""],
-          "F": ["DAIB(2)SAS", "", "HRM(2)AB", "", ""]
-        },
-        "2026-10-09": {
-          "A": ["", "HRM(3)FH", "LAB(4)CR", "DTI-G-1(1)SR", "DTI-G-1(2)SR"],
-          "B": ["", "DAIB(3)ST", "HRM(3)FH", "LAB(4)CR", ""],
-          "C": ["DAIB(3)ST", "HRM(3)AB", "", "BC(1)BB", "BC(2)BB"],
-          "D": ["", "", "", "BR(8)PJ/AD", ""],
-          "E": ["", "", "BR(8)NT/RM", "", ""],
-          "F": ["", "", "HRM(3)AB", "", "BR(8)SSG/DD"]
-        },
-        "2026-10-10": {
-          "A": ["", "DTI-G-2(1)SP", "DTI-G-2(2)SP", "DTI-G-11(1)SP/AB", "DTI-G-11(2)SP/AB"],
-          "B": ["", "", "", "", ""],
-          "C": ["", "DTI-G-1(3)SR", "DTI-G-1(4)SR", "DTI-G-1(5)SR", "DTI-G-1(6)SR"],
-          "D": ["", "DTI-G-7(1)AB", "DTI-G-7(2)AB", "DTI-G-4(1)RP", "DTI-G-4(2)RP"],
-          "E": ["", "DTI-G-8(1)NVS", "DTI-G-8(2)NVS", "DTI-G-9(1)NVS", "DTI-G-9(2)NVS"],
-          "F": ["MA(1)-GA", "MA(2)-GA", "", "DTI-G-10(1)MS", "DTI-G-10(1)MS"]
-        },
-        "2026-10-11": {
-          "A": ["", "", "", "MA(2)JM", "MA(3)JM"],
-          "B": ["", "MA(2)JM", "MA(3)JM", "", ""],
-          "C": ["LAB(1)SR", "LAB(1)SR", "", "", ""],
-          "D": ["", "", "", "", "DAIB(3)SAS"],
-          "E": ["", "", "", "", ""],
-          "F": ["MA(3)-GA", "MA(4)-GA", "", "DAIB(3)SAS", ""]
-        }
-      }
+ "_about": [
+  "Revised days of a weekly schedule that arrived after the PDF (a mail, a picture of the grid).",
+  "Applied on top of the PDF every time scripts/update.py reads that week, so the PDF itself is never edited.",
+  "group -> Monday of the week -> days -> date -> row (section) -> one cell per time slot, left to right,",
+  "typed exactly as on the schedule (\"\" for an empty cell). Every class the PDF had on a listed date is",
+  "replaced by what is typed here; dates not listed keep what the PDF says.",
+  "The room is the row's usual room. Faculty initials can be typed as they appear; they are not stored."
+ ],
+ "2028-core": {
+  "2026-10-05": {
+   "received": "2026-10-09",
+   "from": "Updated schedule for Week-1 during Thu - Sun (Oct. 08 - 11, 2026), sent as a picture",
+   "days": {
+    "2026-10-08": {
+     "A": [
+      "",
+      "",
+      "DAIB(2)RKR",
+      "BR(8)AKB/FH",
+      "BCF(2)PA"
+     ],
+     "B": [
+      "",
+      "DAIB(2)ST",
+      "BR(8)NT/MK",
+      "BCF(2)PA",
+      ""
+     ],
+     "C": [
+      "HRM(2)AB",
+      "BR(8)AB/GS",
+      "DAIB(2)ST",
+      "",
+      ""
+     ],
+     "D": [
+      "",
+      "",
+      "DAIB(2)SAS",
+      "",
+      ""
+     ],
+     "E": [
+      "",
+      "DAIB(2)SKS",
+      "",
+      "",
+      ""
+     ],
+     "F": [
+      "DAIB(2)SAS",
+      "",
+      "HRM(2)AB",
+      "",
+      ""
+     ]
     },
+    "2026-10-09": {
+     "A": [
+      "",
+      "HRM(3)FH",
+      "LAB(4)CR",
+      "DTI-G-1(1)SR",
+      "DTI-G-1(2)SR"
+     ],
+     "B": [
+      "",
+      "DAIB(3)ST",
+      "HRM(3)FH",
+      "LAB(4)CR",
+      ""
+     ],
+     "C": [
+      "DAIB(3)ST",
+      "HRM(3)AB",
+      "",
+      "BC(1)BB",
+      "BC(2)BB"
+     ],
+     "D": [
+      "",
+      "",
+      "",
+      "BR(8)PJ/AD",
+      ""
+     ],
+     "E": [
+      "",
+      "",
+      "BR(8)NT/RM",
+      "",
+      ""
+     ],
+     "F": [
+      "",
+      "",
+      "HRM(3)AB",
+      "",
+      "BR(8)SSG/DD"
+     ]
+    },
+    "2026-10-10": {
+     "A": [
+      "",
+      "DTI-G-2(1)SP",
+      "DTI-G-2(2)SP",
+      "DTI-G-11(1)SP/AB",
+      "DTI-G-11(2)SP/AB"
+     ],
+     "B": [
+      "",
+      "",
+      "",
+      "",
+      ""
+     ],
+     "C": [
+      "",
+      "DTI-G-1(3)SR",
+      "DTI-G-1(4)SR",
+      "DTI-G-1(5)SR",
+      "DTI-G-1(6)SR"
+     ],
+     "D": [
+      "",
+      "DTI-G-7(1)AB",
+      "DTI-G-7(2)AB",
+      "DTI-G-4(1)RP",
+      "DTI-G-4(2)RP"
+     ],
+     "E": [
+      "",
+      "DTI-G-8(1)NVS",
+      "DTI-G-8(2)NVS",
+      "DTI-G-9(1)NVS",
+      "DTI-G-9(2)NVS"
+     ],
+     "F": [
+      "MA(1)-GA",
+      "MA(2)-GA",
+      "",
+      "DTI-G-10(1)MS",
+      "DTI-G-10(1)MS"
+     ]
+    },
+    "2026-10-11": {
+     "A": [
+      "",
+      "",
+      "",
+      "MA(2)JM",
+      "MA(3)JM"
+     ],
+     "B": [
+      "",
+      "MA(2)JM",
+      "MA(3)JM",
+      "",
+      ""
+     ],
+     "C": [
+      "LAB(1)SR",
+      "LAB(1)SR",
+      "",
+      "",
+      ""
+     ],
+     "D": [
+      "",
+      "",
+      "",
+      "",
+      "DAIB(3)SAS"
+     ],
+     "E": [
+      "",
+      "",
+      "",
+      "",
+      ""
+     ],
+     "F": [
+      "MA(3)-GA",
+      "MA(4)-GA",
+      "",
+      "DAIB(3)SAS",
+      ""
+     ]
+    }
+   }
+  },
+  "2026-10-12": {
+   "received": "2026-10-12",
+   "from": "Updated Week-2 schedule (Oct. 12 - 18, 2026), a newer PDF than the one on file, sent as a picture of all seven days. Edits of 17 Oct (picture of Sat 17 and Sun 18): DTI groups 11 (Section A) and 7 (Section B) on Sat 17 are struck through, i.e. cancelled; on Sun 18 Section B's BR(10) is at 12:15, and Section E has MA(3) at 12:15, MA(4) at 2:30 and BR(10) at 4:00",
+   "days": {
     "2026-10-12": {
-      "received": "2026-10-12",
-      "from": "Updated Week-2 schedule (Oct. 12 - 18, 2026), a newer PDF than the one on file, sent as a picture of all seven days. Edits of 17 Oct (picture of Sat 17 and Sun 18): DTI groups 11 (Section A) and 7 (Section B) on Sat 17 are struck through, i.e. cancelled; on Sun 18 Section B's BR(10) is at 12:15, and Section E has MA(3) at 12:15, MA(4) at 2:30 and BR(10) at 4:00",
-      "days": {
-        "2026-10-12": {
-          "A": ["", "", "HRM(4)FH", "BE(1)MP", "DAIB(3)RKR"],
-          "B": ["", "HRM(4)FH", "CTI(1)ASP", "DAIB(4)ST", "TR(1)RPL"],
-          "C": ["BCF(1)RP", "MA(1)AV", "HRM(4)AB", "CTI(1)ASP", "DAIB(4)ST"],
-          "D": ["", "BCF(1)RP", "MA(1)AV", "", "CTI(1)ASP"],
-          "E": ["", "BCF(3)AS", "BE(1)MP", "", ""],
-          "F": ["", "", "BCF(3)AS", "HRM(4)AB", ""]
-        },
-        "2026-10-13": {
-          "A": ["BCF(3)PA", "HRM(5)FH", "DAIB(4)RKR", "BE(2)MP", "BC(1)TC"],
-          "B": ["HRM(5)FH", "BCF(3)PA", "CTI(2)ASP", "BC(1)TC", "BE(1)AA"],
-          "C": ["HRM(5)AB", "CTI(2)ASP", "BCF(2)RP", "BE(1)KD", ""],
-          "D": ["DAIB(4)SAS", "BCF(2)RP", "", "CTI(2)ASP", ""],
-          "E": ["", "", "BC(1)TC", "DAIB(3)SKS", "BE(2)MP"],
-          "F": ["", "DAIB(4)SAS", "HRM(5)AB", "BE(1)AA", ""]
-        },
-        "2026-10-14": {
-          "A": ["MA(4)JM", "BCF(4)PA", "BR(9)AKB/FH", "CTI(1)BB", "CTI(2)BB"],
-          "B": ["", "MA(4)JM", "BCF(4)PA", "BR(9)NT/MK", "CTI(3)ASP"],
-          "C": ["BCF(3)RP", "MA(2)AV", "CTI(3)ASP", "", ""],
-          "D": ["HRM(1)NJ", "BCF(3)RP", "MA(2)AV", "CTI(3)ASP", "BR(9)PJ/AD"],
-          "E": ["BCF(4)AS", "HRM(1)NJ", "", "", "BR(9)NT/RM"],
-          "F": ["", "BCF(4)AS", "", "BR(9)SSG/DD", ""]
-        },
-        "2026-10-15": {
-          "A": ["", "BCF(5)PA", "DAIB(5)RKR", "", ""],
-          "B": ["BCF(5)PA", "DAIB(5)ST", "CTI(4)ASP", "", ""],
-          "C": ["HRM(6)AB", "CTI(4)ASP", "DAIB(5)ST", "DTI-G-6(1)NS", "DTI-G-6(2)NS"],
-          "D": ["CTI(4)ASP", "HRM(2)NJ", "DAIB(5)SAS", "DTI-G-7(1)AB", "DTI-G-7(2)AB"],
-          "E": ["", "DAIB(4)SKS", "HRM(2)NJ", "", ""],
-          "F": ["DAIB(5)SAS", "HRM(6)AB", "", "", ""]
-        },
-        "2026-10-16": {
-          "A": ["", "HRM(6)FH", "BC(2)TC", "DTI-G-1(7)SR", "DTI-G-1(8)SR"],
-          "B": ["BC(2)TC", "DAIB(6)ST", "HRM(6)FH", "DTI-G-3(1)NS", "DTI-G-3(2)NS"],
-          "C": ["DAIB(6)ST", "MA(3)AV", "BR(9)AB/GS", "BC(3)BB", "BC(4)BB"],
-          "D": ["", "", "MA(3)AV", "", ""],
-          "E": ["", "BCF(5)AS", "DAIB(5)SKS", "BC(2)TC", ""],
-          "F": ["", "", "BCF(5)AS", "BR(10)SSG/DD", ""]
-        },
-        "2026-10-17": {
-          "A": ["", "DTI-G-2(3)SP", "DTI-G-2(4)SP", "", ""],
-          "B": ["", "", "", "", ""],
-          "C": ["", "", "", "", ""],
-          "D": ["", "DTI-G-8(3)NVS", "DTI-G-8(4)NVS", "DTI-G-9(3)NVS", "DTI-G-9(2)NVS"],
-          "E": ["LAB(1)SNS", "", "", "", ""],
-          "F": ["", "LAB(1)SNS", "LAB(2)SNS", "", ""]
-        },
-        "2026-10-18": {
-          "A": ["", "", "MA(5)JM", "MA(6)JM", ""],
-          "B": ["MA(5)JM", "MA(6)JM", "BR(10)NT/MK", "", ""],
-          "C": ["LAB(3)SR", "LAB(4)SR", "", "", ""],
-          "D": ["", "", "", "", ""],
-          "E": ["LAB(2)SNS", "LAB(3)SNS", "MA(3)-KG", "MA(4)-KG", "BR(10)NT/RM"],
-          "F": ["", "", "LAB(3)SNS", "", ""]
-        }
-      }
+     "A": [
+      "",
+      "",
+      "HRM(4)FH",
+      "BE(1)MP",
+      "DAIB(3)RKR"
+     ],
+     "B": [
+      "",
+      "HRM(4)FH",
+      "CTI(1)ASP",
+      "DAIB(4)ST",
+      "TR(1)RPL"
+     ],
+     "C": [
+      "BCF(1)RP",
+      "MA(1)AV",
+      "HRM(4)AB",
+      "CTI(1)ASP",
+      "DAIB(4)ST"
+     ],
+     "D": [
+      "",
+      "BCF(1)RP",
+      "MA(1)AV",
+      "",
+      "CTI(1)ASP"
+     ],
+     "E": [
+      "",
+      "BCF(3)AS",
+      "BE(1)MP",
+      "",
+      ""
+     ],
+     "F": [
+      "",
+      "",
+      "BCF(3)AS",
+      "HRM(4)AB",
+      ""
+     ]
     },
-    "2026-10-19": {
-      "received": "2026-10-23",
-      "from": "Khush: the PDF's day note \"Mahashtami & Dussehra Holiday\" is shown simply as \"Holiday\" (the festival greeting above it names the day). Revised Fri 23 and Sat 24 Oct (picture received 23 Oct 2026, Sun 25 Oct unchanged): the classes are as before but each now has its own venue, e.g. DAIB(7) {C-201}, TR(3) {Aryabhatta Lab}; on Sat 24 Design Thinking groups 7 and 11 (SKM) are in J-BlockBaseM",
-      "days": {
-        "2026-10-23": {
-          "A": [
-            "",
-            "DAIB(7)RKR{C-201}",
-            "TR(3)SJ{Aryabhatta Lab}",
-            "HRM(7)FH{C-402}",
-            "",
-            ""
-          ],
-          "B": [
-            "",
-            "DAIB(8)ST{Eklavya Lab}",
-            "HRM(7)FH{C-201}",
-            "",
-            "DTI-G-3(3)NS{C-402}",
-            "DTI-G-3(4)NS{C-402}"
-          ],
-          "C": [
-            "DAIB(8)ST{Eklavya Lab}",
-            "MA(6)AV{C-202}",
-            "HRM(9)AB{C-402}",
-            "TR(3)SJ{Aryabhatta Lab}",
-            "BC(6)BB{C-401}",
-            ""
-          ],
-          "D": [
-            "",
-            "TR(3)SJ{Aryabhatta Lab}",
-            "MA(6)AV{C-202}",
-            "BR(10)PJ/AD{C-401}",
-            "",
-            ""
-          ],
-          "E": [
-            "",
-            "BCF(7)AS{C-401}",
-            "",
-            "",
-            "",
-            ""
-          ],
-          "F": [
-            "",
-            "HRM(9)AB{C-402}",
-            "BCF(7)AS{C-401}",
-            "",
-            "",
-            ""
-          ]
-        },
-        "2026-10-24": {
-          "A": [
-            "",
-            "",
-            "BR(10)AKB/FH",
-            "",
-            "",
-            ""
-          ],
-          "B": [
-            "DTI-G-7(1)SKM{J-BlockBaseM}",
-            "DTI-G-7(2)SKM{J-BlockBaseM}",
-            "DTI-G-11(1)SKM{J-BlockBaseM}",
-            "DTI-G-11(2)SKM{J-BlockBaseM}",
-            "",
-            ""
-          ],
-          "C": [
-            "",
-            "DTI-G-8(5)NVS{401}",
-            "DTI-G-8(6)NVS{401}",
-            "DTI-G-4(3)RP{504}",
-            "DTI-G-4(4)RP{504}",
-            ""
-          ],
-          "D": [
-            "",
-            "DTI-G-10(3)MS{402}",
-            "DTI-G-10(4)MS{402}",
-            "DTI-G-9(5)NVS{401}",
-            "DTI-G-9(6)NVS{401}",
-            ""
-          ],
-          "E": [
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-          ],
-          "F": [
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-          ]
-        }
-      },
-      "notes": {
-        "2026-10-19": "Holiday",
-        "2026-10-20": "Holiday"
-      }
-    }
-  },
-  "2027-bfs": {
-    "2026-10-19": {
-      "received": "2026-10-15",
-      "from": "Week-3 PDF: the Wed 21 Oct Fixed Income Securities guest lecture (FIS-(8), 9:00 and 10:30) is printed once for Sections A and B combined, in New Audi; the PDF row gives it to Section A in C-001 only. Holiday rows shown as \"Holiday\", as for every programme. Sun 25 Oct revised (received 22 Oct 2026): MLBFSI-(18) for Section B is preponed from 7:00 PM to 3:45 PM",
-      "days": {
-        "2026-10-21": {
-          "A": ["FIS(8){New Audi}", "FIS(8){New Audi}", "SERM(7)", "SERM(8)", "", "HRM(10)", ""],
-          "B": ["FIS(8){New Audi}", "FIS(8){New Audi}", "", "", "HRM(10)", "", ""]
-        },
-        "2026-10-25": {
-          "A": ["VCPE(10)", "BFSI&STY(6)", "MLBFSI(17)", "", "", "MLBFSI(18)", ""],
-          "B": ["BFSI&STY(6)", "MLBFSI(17)", "VCPE(9)", "VCPE(10)", "MLBFSI(18)", "", ""]
-        }
-      },
-      "notes": {
-        "2026-10-19": "Holiday",
-        "2026-10-20": "Holiday"
-      }
+    "2026-10-13": {
+     "A": [
+      "BCF(3)PA",
+      "HRM(5)FH",
+      "DAIB(4)RKR",
+      "BE(2)MP",
+      "BC(1)TC"
+     ],
+     "B": [
+      "HRM(5)FH",
+      "BCF(3)PA",
+      "CTI(2)ASP",
+      "BC(1)TC",
+      "BE(1)AA"
+     ],
+     "C": [
+      "HRM(5)AB",
+      "CTI(2)ASP",
+      "BCF(2)RP",
+      "BE(1)KD",
+      ""
+     ],
+     "D": [
+      "DAIB(4)SAS",
+      "BCF(2)RP",
+      "",
+      "CTI(2)ASP",
+      ""
+     ],
+     "E": [
+      "",
+      "",
+      "BC(1)TC",
+      "DAIB(3)SKS",
+      "BE(2)MP"
+     ],
+     "F": [
+      "",
+      "DAIB(4)SAS",
+      "HRM(5)AB",
+      "BE(1)AA",
+      ""
+     ]
     },
-    "2026-10-26": {
-      "received": "2026-10-22",
-      "from": "Week-4 PDF (26 Oct - 1 Nov): the cells printed once across both rows are for Sections A and B together, but the PDF row gives them to one section only: BF-(9) on Mon 26 Oct at 3:45 PM and SERM-(11) on Wed 28 Oct at 2:15 PM",
-      "days": {
-        "2026-10-26": {
-          "A": [
-            "",
-            "VCPE(11)KB",
-            "",
-            "FIS(10)HS",
-            "BF(9)HSM",
-            "",
-            ""
-          ],
-          "B": [
-            "",
-            "FIS(10)HS",
-            "BF(8)HSM",
-            "VCPE(11)KB",
-            "BF(9)HSM",
-            "",
-            ""
-          ]
-        },
-        "2026-10-28": {
-          "A": [
-            "FIS(12)HS",
-            "",
-            "SERM(10)",
-            "SERM(11)",
-            "",
-            "",
-            ""
-          ],
-          "B": [
-            "",
-            "FIS(12)HS",
-            "BF(11)HSM",
-            "SERM(11)",
-            "",
-            "",
-            ""
-          ]
-        }
-      }
-    }
-  },
-  "2027-core": {
-    "2026-10-19": {
-      "received": "2026-10-15",
-      "from": "Khush: the PDF's day note \"Mahashtami & Dussehra Holiday\" is shown simply as \"Holiday\" (the festival greeting above it names the day)",
-      "days": {},
-      "notes": {
-        "2026-10-19": "Holiday",
-        "2026-10-20": "Holiday"
-      }
-    }
-  },
-  "2027-dcp": {
-    "2026-10-19": {
-      "received": "2026-10-16",
-      "from": "Week-4 PDF (the college's own numbering; 19 to 25 Oct): its day notes (\"Maha-Ashtami Holiday\", \"DUSSEHRA - Holiday\") are shown simply as \"Holiday\", as for every programme",
-      "days": {},
-      "notes": {
-        "2026-10-19": "Holiday",
-        "2026-10-20": "Holiday"
-      }
-    }
-  },
-  "2028-dcp": {
-    "2026-10-12": {
-      "received": "2026-10-16",
-      "from": "Changes in the DCP Term 2 schedule for Fri 16 Oct, sent as a picture: Section A's MA(14) moves from 12:00 to 14:15; Section B's MA(11) and FA(6) swap (MA at 12:00, FA at 14:15)",
-      "days": {
-        "2026-10-16": {
-          "A": ["HRM-A(6)-WSP", "MA-A(13)-PC", "", "MA-A(14)-PC", "", "", ""],
-          "B": ["", "HRM-B(6)-WSP", "MA-B(11)-PC", "FA-B(6)-BC", "MA-B(12)-PC", "", ""]
-        }
-      }
+    "2026-10-14": {
+     "A": [
+      "MA(4)JM",
+      "BCF(4)PA",
+      "BR(9)AKB/FH",
+      "CTI(1)BB",
+      "CTI(2)BB"
+     ],
+     "B": [
+      "",
+      "MA(4)JM",
+      "BCF(4)PA",
+      "BR(9)NT/MK",
+      "CTI(3)ASP"
+     ],
+     "C": [
+      "BCF(3)RP",
+      "MA(2)AV",
+      "CTI(3)ASP",
+      "",
+      ""
+     ],
+     "D": [
+      "HRM(1)NJ",
+      "BCF(3)RP",
+      "MA(2)AV",
+      "CTI(3)ASP",
+      "BR(9)PJ/AD"
+     ],
+     "E": [
+      "BCF(4)AS",
+      "HRM(1)NJ",
+      "",
+      "",
+      "BR(9)NT/RM"
+     ],
+     "F": [
+      "",
+      "BCF(4)AS",
+      "",
+      "BR(9)SSG/DD",
+      ""
+     ]
     },
-    "2026-10-19": {
-      "received": "2026-10-16",
-      "from": "Week-3 PDF: its day notes (\"Maha-Ashtami Holiday\", \"Dussehra Holiday\") are shown simply as \"Holiday\", as for every programme. Updated picture of the same week (16 Oct): Sat 24 Oct adds DTI group C sessions 7 and 8, 10:30 to 1:15 in Gurukul",
-      "days": {
-        "2026-10-24": {
-          "A": ["", "DTI-G-C(7)SRT{Gurukul}", "DTI-G-C(8)SRT{Gurukul}", "EM(3)SK", "EM(4)SK", "", ""]
-        }
-      },
-      "notes": {
-        "2026-10-19": "Holiday",
-        "2026-10-20": "Holiday"
-      }
+    "2026-10-15": {
+     "A": [
+      "",
+      "BCF(5)PA",
+      "DAIB(5)RKR",
+      "",
+      ""
+     ],
+     "B": [
+      "BCF(5)PA",
+      "DAIB(5)ST",
+      "CTI(4)ASP",
+      "",
+      ""
+     ],
+     "C": [
+      "HRM(6)AB",
+      "CTI(4)ASP",
+      "DAIB(5)ST",
+      "DTI-G-6(1)NS",
+      "DTI-G-6(2)NS"
+     ],
+     "D": [
+      "CTI(4)ASP",
+      "HRM(2)NJ",
+      "DAIB(5)SAS",
+      "DTI-G-7(1)AB",
+      "DTI-G-7(2)AB"
+     ],
+     "E": [
+      "",
+      "DAIB(4)SKS",
+      "HRM(2)NJ",
+      "",
+      ""
+     ],
+     "F": [
+      "DAIB(5)SAS",
+      "HRM(6)AB",
+      "",
+      "",
+      ""
+     ]
+    },
+    "2026-10-16": {
+     "A": [
+      "",
+      "HRM(6)FH",
+      "BC(2)TC",
+      "DTI-G-1(7)SR",
+      "DTI-G-1(8)SR"
+     ],
+     "B": [
+      "BC(2)TC",
+      "DAIB(6)ST",
+      "HRM(6)FH",
+      "DTI-G-3(1)NS",
+      "DTI-G-3(2)NS"
+     ],
+     "C": [
+      "DAIB(6)ST",
+      "MA(3)AV",
+      "BR(9)AB/GS",
+      "BC(3)BB",
+      "BC(4)BB"
+     ],
+     "D": [
+      "",
+      "",
+      "MA(3)AV",
+      "",
+      ""
+     ],
+     "E": [
+      "",
+      "BCF(5)AS",
+      "DAIB(5)SKS",
+      "BC(2)TC",
+      ""
+     ],
+     "F": [
+      "",
+      "",
+      "BCF(5)AS",
+      "BR(10)SSG/DD",
+      ""
+     ]
+    },
+    "2026-10-17": {
+     "A": [
+      "",
+      "DTI-G-2(3)SP",
+      "DTI-G-2(4)SP",
+      "",
+      ""
+     ],
+     "B": [
+      "",
+      "",
+      "",
+      "",
+      ""
+     ],
+     "C": [
+      "",
+      "",
+      "",
+      "",
+      ""
+     ],
+     "D": [
+      "",
+      "DTI-G-8(3)NVS",
+      "DTI-G-8(4)NVS",
+      "DTI-G-9(3)NVS",
+      "DTI-G-9(2)NVS"
+     ],
+     "E": [
+      "LAB(1)SNS",
+      "",
+      "",
+      "",
+      ""
+     ],
+     "F": [
+      "",
+      "LAB(1)SNS",
+      "LAB(2)SNS",
+      "",
+      ""
+     ]
+    },
+    "2026-10-18": {
+     "A": [
+      "",
+      "",
+      "MA(5)JM",
+      "MA(6)JM",
+      ""
+     ],
+     "B": [
+      "MA(5)JM",
+      "MA(6)JM",
+      "BR(10)NT/MK",
+      "",
+      ""
+     ],
+     "C": [
+      "LAB(3)SR",
+      "LAB(4)SR",
+      "",
+      "",
+      ""
+     ],
+     "D": [
+      "",
+      "",
+      "",
+      "",
+      ""
+     ],
+     "E": [
+      "LAB(2)SNS",
+      "LAB(3)SNS",
+      "MA(3)-KG",
+      "MA(4)-KG",
+      "BR(10)NT/RM"
+     ],
+     "F": [
+      "",
+      "",
+      "LAB(3)SNS",
+      "",
+      ""
+     ]
     }
+   }
   },
-  "2028-bfs": {
-    "2026-10-12": {
-      "received": "2026-10-14",
-      "from": "BFS Program Office (Marisha Banerji) mail: the two Introduction to Financial Markets classes on Thu 15 Oct (9:00 Sec A, 10:30 Sec B) are postponed to a later date",
-      "days": {
-        "2026-10-15": {
-          "A": ["", "FSA(4)", "SEBP(4)", "MM(5)", "", ""],
-          "B": ["SEBP(4)", "", "MM(5)", "", "", ""]
-        },
-        "2026-10-16": {
-          "A": ["", "IFM(2)", "BV(6)", "SEBP(5)", "", ""],
-          "B": ["IFM(2)", "FSA(4)", "SEBP(5)", "BV(6)", "", ""]
-        }
-      }
+  "2026-10-19": {
+   "received": "2026-10-23",
+   "from": "Khush: the PDF's day note \"Mahashtami & Dussehra Holiday\" is shown simply as \"Holiday\" (the festival greeting above it names the day). Revised Fri 23 and Sat 24 Oct (picture received 23 Oct 2026, Sun 25 Oct unchanged): the classes are as before but each now has its own venue, e.g. DAIB(7) {C-201}, TR(3) {Aryabhatta Lab}; on Sat 24 Design Thinking groups 7 and 11 (SKM) are in J-BlockBaseM",
+   "days": {
+    "2026-10-23": {
+     "A": [
+      "",
+      "DAIB(7)RKR{C-201}",
+      "TR(3)SJ{Aryabhatta Lab}",
+      "HRM(7)FH{C-402}",
+      "",
+      ""
+     ],
+     "B": [
+      "",
+      "DAIB(8)ST{Eklavya Lab}",
+      "HRM(7)FH{C-201}",
+      "",
+      "DTI-G-3(3)NS{C-402}",
+      "DTI-G-3(4)NS{C-402}"
+     ],
+     "C": [
+      "DAIB(8)ST{Eklavya Lab}",
+      "MA(6)AV{C-202}",
+      "HRM(9)AB{C-402}",
+      "TR(3)SJ{Aryabhatta Lab}",
+      "BC(6)BB{C-401}",
+      ""
+     ],
+     "D": [
+      "",
+      "TR(3)SJ{Aryabhatta Lab}",
+      "MA(6)AV{C-202}",
+      "BR(10)PJ/AD{C-401}",
+      "",
+      ""
+     ],
+     "E": [
+      "",
+      "BCF(7)AS{C-401}",
+      "",
+      "",
+      "",
+      ""
+     ],
+     "F": [
+      "",
+      "HRM(9)AB{C-402}",
+      "BCF(7)AS{C-401}",
+      "",
+      "",
+      ""
+     ]
     },
-    "2026-10-19": {
-      "received": "2026-10-16",
-      "from": "Week-3 PDF: Introduction to Financial Markets is numbered IFM-(4) and IFM-(5), counting the Thu 15 Oct class that was postponed (Program Office mail, 14 Oct); shown as sessions 3 and 4, as Khush asked. Holiday rows shown as \"Holiday\", as for every programme",
-      "days": {
-        "2026-10-22": {
-          "A": ["MM(7)", "IFM(3)", "FSA(6)", "BV(7)", "", ""],
-          "B": ["IFM(3)", "MM(7)", "BV(7)", "", "", ""]
-        },
-        "2026-10-24": {
-          "A": ["", "IFM(4)", "CB(5)", "CB(6)", "", ""],
-          "B": ["CB(5)", "CB(6)", "IFM(4)", "", "", ""]
-        }
-      },
-      "notes": {
-        "2026-10-19": "Holiday",
-        "2026-10-20": "Holiday"
-      }
-    },
-    "2026-10-26": {
-      "received": "2026-10-22",
-      "from": "Week-4 PDF (26 Oct - 1 Nov): Introduction to Financial Markets is numbered IFM-(6) and IFM-(7), counting the Thu 15 Oct class that was postponed (as in Week 3); shown as sessions 5 and 6. The Strategy, Entrepreneurship & Business Plan classes on Mon 26 and Sat 31 Oct are in the Eklavya Lab (\"Venue-Eklavya Lab\" in the PDF)",
-      "days": {
-        "2026-10-26": {
-          "A": [
-            "CB(1)AA",
-            "RMBFS-I-(3)RC",
-            "SEBP(8)AD{Eklavya Lab}",
-            "BV(9)AC",
-            "",
-            ""
-          ],
-          "B": [
-            "RMBFS-I-(3)RC",
-            "CB(1)AA",
-            "BV(9)AC",
-            "SEBP(8)AD{Eklavya Lab}",
-            "",
-            ""
-          ]
-        },
-        "2026-10-29": {
-          "A": [
-            "IFM(5)SBM",
-            "FSA(9)SC",
-            "",
-            "",
-            "",
-            ""
-          ],
-          "B": [
-            "",
-            "IFM(5)SBM",
-            "BV(10)AC",
-            "",
-            "",
-            ""
-          ]
-        },
-        "2026-10-30": {
-          "A": [
-            "",
-            "IFM(6)SBM",
-            "MM(10)AM",
-            "BV(11)AC",
-            "",
-            ""
-          ],
-          "B": [
-            "IFM(6)SBM",
-            "MM(10)AM",
-            "FSA(9)SC",
-            "",
-            "BV(11)AC",
-            ""
-          ]
-        },
-        "2026-10-31": {
-          "A": [
-            "CB(5)DB",
-            "CB(6)DB",
-            "BV(12)AC",
-            "SEBP(9)AD{Eklavya Lab}",
-            "",
-            ""
-          ],
-          "B": [
-            "",
-            "BV(12)AC",
-            "CB(5)DB",
-            "CB(6)DB",
-            "SEBP(9)AD{Eklavya Lab}",
-            ""
-          ]
-        }
-      }
+    "2026-10-24": {
+     "A": [
+      "",
+      "",
+      "BR(10)AKB/FH",
+      "",
+      "",
+      ""
+     ],
+     "B": [
+      "DTI-G-7(1)SKM{J-BlockBaseM}",
+      "DTI-G-7(2)SKM{J-BlockBaseM}",
+      "DTI-G-11(1)SKM{J-BlockBaseM}",
+      "DTI-G-11(2)SKM{J-BlockBaseM}",
+      "",
+      ""
+     ],
+     "C": [
+      "",
+      "DTI-G-8(5)NVS{401}",
+      "DTI-G-8(6)NVS{401}",
+      "DTI-G-4(3)RP{504}",
+      "DTI-G-4(4)RP{504}",
+      ""
+     ],
+     "D": [
+      "",
+      "DTI-G-10(3)MS{402}",
+      "DTI-G-10(4)MS{402}",
+      "DTI-G-9(5)NVS{401}",
+      "DTI-G-9(6)NVS{401}",
+      ""
+     ],
+     "E": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+     ],
+     "F": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+     ]
     }
+   },
+   "notes": {
+    "2026-10-19": "Holiday",
+    "2026-10-20": "Holiday"
+   }
+  },
+  "2026-10-26": {
+   "received": "2026-10-30",
+   "from": "Updated schedule for Fri 30 Oct to Sun 1 Nov 2026 (Week 4), sent as a picture",
+   "days": {
+    "2026-10-30": {
+     "A": [
+      "",
+      "HRM(10)FH",
+      "BCF(10)PA",
+      "DTI-G-3(5)NS",
+      "DTI-G-3(6)NS"
+     ],
+     "B": [
+      "BCF(10)PA",
+      "DAIB(10)ST",
+      "HRM(10)FH",
+      "",
+      ""
+     ],
+     "C": [
+      "DAIB(10)ST",
+      "MA(9)AV",
+      "BC(8)BB",
+      "BR(11)AB/GS",
+      "BR(12)AB/GS"
+     ],
+     "D": [
+      "",
+      "MA(9)AV",
+      "",
+      "LAB(3)RRB",
+      "LAB(4)RRB"
+     ],
+     "E": [
+      "LAB(7)SNS",
+      "BCF(10)AS",
+      "DAIB(9)SKS",
+      "LAB(8)SNS",
+      ""
+     ],
+     "F": [
+      "",
+      "LAB(7)SNS",
+      "BCF(10)AS",
+      "",
+      "LAB(8)SNS"
+     ]
+    },
+    "2026-10-31": {
+     "A": [
+      "",
+      "DTI-G-2(7)SP",
+      "DTI-G-2(8)SP",
+      "",
+      ""
+     ],
+     "B": [
+      "",
+      "DTI-G-6(5)NS",
+      "DTI-G-6(6)NS",
+      "",
+      ""
+     ],
+     "C": [
+      "DTI-G-7(3)SKM",
+      "DTI-G-7(4)SKM",
+      "DTI-G-11(3)SKM",
+      "DTI-G-11(4)SKM",
+      ""
+     ],
+     "D": [
+      "",
+      "",
+      "",
+      "LAB(5)RRB",
+      "LAB(6)RRB"
+     ],
+     "E": [
+      "",
+      "DTI-G-8(7)NVS",
+      "DTI-G-8(8)NVS",
+      "DTI-G-9(7)NVS",
+      "DTI-G-9(8)NVS"
+     ],
+     "F": [
+      "",
+      "DTI-G-10(5)MS",
+      "DTI-G-10(6)MS",
+      "",
+      ""
+     ]
+    },
+    "2026-11-01": {
+     "A": [
+      "",
+      "TR(5)SJ",
+      "MA(11)JM",
+      "MA(12)JM",
+      ""
+     ],
+     "B": [
+      "MA(11)JM",
+      "MA(12)JM",
+      "",
+      "DTI-G-4(5)RP",
+      "DTI-G-4(6)RP"
+     ],
+     "C": [
+      "LAB(7)SR",
+      "LAB(8)SR",
+      "TR(5)SJ",
+      "",
+      ""
+     ],
+     "D": [
+      "LAB(7)RRB",
+      "LAB(8)RRB",
+      "DAIB(10)SAS",
+      "TR(5)SJ",
+      ""
+     ],
+     "E": [
+      "BR(11)NT/RM",
+      "TR(3)SG",
+      "",
+      "MA(11)-KG",
+      "MA(12)-KG"
+     ],
+     "F": [
+      "MA(7)-GA",
+      "MA(8)-GA",
+      "TR(3)SG",
+      "DAIB(10)SAS",
+      ""
+     ]
+    }
+   }
   }
+ },
+ "2027-bfs": {
+  "2026-10-19": {
+   "received": "2026-10-15",
+   "from": "Week-3 PDF: the Wed 21 Oct Fixed Income Securities guest lecture (FIS-(8), 9:00 and 10:30) is printed once for Sections A and B combined, in New Audi; the PDF row gives it to Section A in C-001 only. Holiday rows shown as \"Holiday\", as for every programme. Sun 25 Oct revised (received 22 Oct 2026): MLBFSI-(18) for Section B is preponed from 7:00 PM to 3:45 PM",
+   "days": {
+    "2026-10-21": {
+     "A": [
+      "FIS(8){New Audi}",
+      "FIS(8){New Audi}",
+      "SERM(7)",
+      "SERM(8)",
+      "",
+      "HRM(10)",
+      ""
+     ],
+     "B": [
+      "FIS(8){New Audi}",
+      "FIS(8){New Audi}",
+      "",
+      "",
+      "HRM(10)",
+      "",
+      ""
+     ]
+    },
+    "2026-10-25": {
+     "A": [
+      "VCPE(10)",
+      "BFSI&STY(6)",
+      "MLBFSI(17)",
+      "",
+      "",
+      "MLBFSI(18)",
+      ""
+     ],
+     "B": [
+      "BFSI&STY(6)",
+      "MLBFSI(17)",
+      "VCPE(9)",
+      "VCPE(10)",
+      "MLBFSI(18)",
+      "",
+      ""
+     ]
+    }
+   },
+   "notes": {
+    "2026-10-19": "Holiday",
+    "2026-10-20": "Holiday"
+   }
+  },
+  "2026-10-26": {
+   "received": "2026-10-22",
+   "from": "Week-4 PDF (26 Oct - 1 Nov): the cells printed once across both rows are for Sections A and B together, but the PDF row gives them to one section only: BF-(9) on Mon 26 Oct at 3:45 PM and SERM-(11) on Wed 28 Oct at 2:15 PM",
+   "days": {
+    "2026-10-26": {
+     "A": [
+      "",
+      "VCPE(11)KB",
+      "",
+      "FIS(10)HS",
+      "BF(9)HSM",
+      "",
+      ""
+     ],
+     "B": [
+      "",
+      "FIS(10)HS",
+      "BF(8)HSM",
+      "VCPE(11)KB",
+      "BF(9)HSM",
+      "",
+      ""
+     ]
+    },
+    "2026-10-28": {
+     "A": [
+      "FIS(12)HS",
+      "",
+      "SERM(10)",
+      "SERM(11)",
+      "",
+      "",
+      ""
+     ],
+     "B": [
+      "",
+      "FIS(12)HS",
+      "BF(11)HSM",
+      "SERM(11)",
+      "",
+      "",
+      ""
+     ]
+    }
+   }
+  }
+ },
+ "2027-core": {
+  "2026-10-19": {
+   "received": "2026-10-15",
+   "from": "Khush: the PDF's day note \"Mahashtami & Dussehra Holiday\" is shown simply as \"Holiday\" (the festival greeting above it names the day)",
+   "days": {},
+   "notes": {
+    "2026-10-19": "Holiday",
+    "2026-10-20": "Holiday"
+   }
+  }
+ },
+ "2027-dcp": {
+  "2026-10-19": {
+   "received": "2026-10-16",
+   "from": "Week-4 PDF (the college's own numbering; 19 to 25 Oct): its day notes (\"Maha-Ashtami Holiday\", \"DUSSEHRA - Holiday\") are shown simply as \"Holiday\", as for every programme",
+   "days": {},
+   "notes": {
+    "2026-10-19": "Holiday",
+    "2026-10-20": "Holiday"
+   }
+  }
+ },
+ "2028-dcp": {
+  "2026-10-12": {
+   "received": "2026-10-16",
+   "from": "Changes in the DCP Term 2 schedule for Fri 16 Oct, sent as a picture: Section A's MA(14) moves from 12:00 to 14:15; Section B's MA(11) and FA(6) swap (MA at 12:00, FA at 14:15)",
+   "days": {
+    "2026-10-16": {
+     "A": [
+      "HRM-A(6)-WSP",
+      "MA-A(13)-PC",
+      "",
+      "MA-A(14)-PC",
+      "",
+      "",
+      ""
+     ],
+     "B": [
+      "",
+      "HRM-B(6)-WSP",
+      "MA-B(11)-PC",
+      "FA-B(6)-BC",
+      "MA-B(12)-PC",
+      "",
+      ""
+     ]
+    }
+   }
+  },
+  "2026-10-19": {
+   "received": "2026-10-16",
+   "from": "Week-3 PDF: its day notes (\"Maha-Ashtami Holiday\", \"Dussehra Holiday\") are shown simply as \"Holiday\", as for every programme. Updated picture of the same week (16 Oct): Sat 24 Oct adds DTI group C sessions 7 and 8, 10:30 to 1:15 in Gurukul",
+   "days": {
+    "2026-10-24": {
+     "A": [
+      "",
+      "DTI-G-C(7)SRT{Gurukul}",
+      "DTI-G-C(8)SRT{Gurukul}",
+      "EM(3)SK",
+      "EM(4)SK",
+      "",
+      ""
+     ]
+    }
+   },
+   "notes": {
+    "2026-10-19": "Holiday",
+    "2026-10-20": "Holiday"
+   }
+  }
+ },
+ "2028-bfs": {
+  "2026-10-12": {
+   "received": "2026-10-14",
+   "from": "BFS Program Office (Marisha Banerji) mail: the two Introduction to Financial Markets classes on Thu 15 Oct (9:00 Sec A, 10:30 Sec B) are postponed to a later date",
+   "days": {
+    "2026-10-15": {
+     "A": [
+      "",
+      "FSA(4)",
+      "SEBP(4)",
+      "MM(5)",
+      "",
+      ""
+     ],
+     "B": [
+      "SEBP(4)",
+      "",
+      "MM(5)",
+      "",
+      "",
+      ""
+     ]
+    },
+    "2026-10-16": {
+     "A": [
+      "",
+      "IFM(2)",
+      "BV(6)",
+      "SEBP(5)",
+      "",
+      ""
+     ],
+     "B": [
+      "IFM(2)",
+      "FSA(4)",
+      "SEBP(5)",
+      "BV(6)",
+      "",
+      ""
+     ]
+    }
+   }
+  },
+  "2026-10-19": {
+   "received": "2026-10-16",
+   "from": "Week-3 PDF: Introduction to Financial Markets is numbered IFM-(4) and IFM-(5), counting the Thu 15 Oct class that was postponed (Program Office mail, 14 Oct); shown as sessions 3 and 4, as Khush asked. Holiday rows shown as \"Holiday\", as for every programme",
+   "days": {
+    "2026-10-22": {
+     "A": [
+      "MM(7)",
+      "IFM(3)",
+      "FSA(6)",
+      "BV(7)",
+      "",
+      ""
+     ],
+     "B": [
+      "IFM(3)",
+      "MM(7)",
+      "BV(7)",
+      "",
+      "",
+      ""
+     ]
+    },
+    "2026-10-24": {
+     "A": [
+      "",
+      "IFM(4)",
+      "CB(5)",
+      "CB(6)",
+      "",
+      ""
+     ],
+     "B": [
+      "CB(5)",
+      "CB(6)",
+      "IFM(4)",
+      "",
+      "",
+      ""
+     ]
+    }
+   },
+   "notes": {
+    "2026-10-19": "Holiday",
+    "2026-10-20": "Holiday"
+   }
+  },
+  "2026-10-26": {
+   "received": "2026-10-22",
+   "from": "Week-4 PDF (26 Oct - 1 Nov): Introduction to Financial Markets is numbered IFM-(6) and IFM-(7), counting the Thu 15 Oct class that was postponed (as in Week 3); shown as sessions 5 and 6. The Strategy, Entrepreneurship & Business Plan classes on Mon 26 and Sat 31 Oct are in the Eklavya Lab (\"Venue-Eklavya Lab\" in the PDF)",
+   "days": {
+    "2026-10-26": {
+     "A": [
+      "CB(1)AA",
+      "RMBFS-I-(3)RC",
+      "SEBP(8)AD{Eklavya Lab}",
+      "BV(9)AC",
+      "",
+      ""
+     ],
+     "B": [
+      "RMBFS-I-(3)RC",
+      "CB(1)AA",
+      "BV(9)AC",
+      "SEBP(8)AD{Eklavya Lab}",
+      "",
+      ""
+     ]
+    },
+    "2026-10-29": {
+     "A": [
+      "IFM(5)SBM",
+      "FSA(9)SC",
+      "",
+      "",
+      "",
+      ""
+     ],
+     "B": [
+      "",
+      "IFM(5)SBM",
+      "BV(10)AC",
+      "",
+      "",
+      ""
+     ]
+    },
+    "2026-10-30": {
+     "A": [
+      "",
+      "IFM(6)SBM",
+      "MM(10)AM",
+      "BV(11)AC",
+      "",
+      ""
+     ],
+     "B": [
+      "IFM(6)SBM",
+      "MM(10)AM",
+      "FSA(9)SC",
+      "",
+      "BV(11)AC",
+      ""
+     ]
+    },
+    "2026-10-31": {
+     "A": [
+      "CB(5)DB",
+      "CB(6)DB",
+      "BV(12)AC",
+      "SEBP(9)AD{Eklavya Lab}",
+      "",
+      ""
+     ],
+     "B": [
+      "",
+      "BV(12)AC",
+      "CB(5)DB",
+      "CB(6)DB",
+      "SEBP(9)AD{Eklavya Lab}",
+      ""
+     ]
+    }
+   }
+  },
+  "2026-11-02": {
+   "received": "2026-10-30",
+   "from": "Week 5 PDF: Sunday 8 Nov is a holiday for Diwali; the PDF writes it on Section B's row only",
+   "days": {},
+   "notes": {
+    "2026-11-08": "Holiday - Diwali"
+   }
+  }
+ }
 }

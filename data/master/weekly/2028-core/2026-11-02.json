@@ -1,0 +1,793 @@
+{
+ "batch": "2028",
+ "courses": {
+  "BCF": "Business and Corporate Finance",
+  "BE": "Business Environment",
+  "BR": "Business Research",
+  "CTI": "Critical Thinking",
+  "DAIB": "Data Analytics and AI for Business",
+  "DTI": "Design Thinking",
+  "HRM": "Human Resource Management",
+  "MA": "Managerial Accounting"
+ },
+ "days": [
+  {
+   "date": "2026-11-02"
+  },
+  {
+   "date": "2026-11-03"
+  },
+  {
+   "date": "2026-11-04"
+  },
+  {
+   "date": "2026-11-05"
+  },
+  {
+   "date": "2026-11-06"
+  },
+  {
+   "date": "2026-11-07"
+  },
+  {
+   "date": "2026-11-08"
+  }
+ ],
+ "electives": [],
+ "end": "2026-11-08",
+ "group": "core",
+ "mode": "section",
+ "rowLabel": "Section",
+ "rows": [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F"
+ ],
+ "sessions": [
+  {
+   "c": "BCF",
+   "d": 0,
+   "grp": null,
+   "n": 8,
+   "room": "201",
+   "row": "C",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "BE",
+   "d": 0,
+   "grp": null,
+   "n": 5,
+   "room": "Aryabhatta",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 0,
+   "grp": null,
+   "n": 10,
+   "room": "201",
+   "row": "C",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 0,
+   "grp": null,
+   "n": 8,
+   "room": "202",
+   "row": "D",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 0,
+   "grp": null,
+   "n": 13,
+   "room": "002",
+   "row": "F",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "BR",
+   "d": 0,
+   "grp": null,
+   "n": 11,
+   "room": "Eklavya",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "BE",
+   "d": 0,
+   "grp": null,
+   "n": 3,
+   "room": "201",
+   "row": "C",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 0,
+   "grp": null,
+   "n": 10,
+   "room": "202",
+   "row": "D",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 0,
+   "grp": null,
+   "n": 14,
+   "room": "002",
+   "row": "F",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 0,
+   "grp": null,
+   "n": 10,
+   "room": "Aryabhatta",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "CTI",
+   "d": 0,
+   "grp": null,
+   "n": 1,
+   "room": "001",
+   "row": "E",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 0,
+   "grp": null,
+   "n": 10,
+   "room": "Eklavya",
+   "row": "B",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "CTI",
+   "d": 0,
+   "grp": null,
+   "n": 1,
+   "room": "002",
+   "row": "F",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 1,
+   "grp": null,
+   "n": 11,
+   "room": "Aryabhatta",
+   "row": "A",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 1,
+   "grp": null,
+   "n": 11,
+   "room": "Eklavya",
+   "row": "B",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 1,
+   "grp": null,
+   "n": 11,
+   "room": "202",
+   "row": "D",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 1,
+   "grp": null,
+   "n": 11,
+   "room": "Aryabhatta",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 1,
+   "grp": null,
+   "n": 11,
+   "room": "Eklavya",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 1,
+   "grp": null,
+   "n": 11,
+   "room": "201",
+   "row": "C",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 1,
+   "grp": null,
+   "n": 9,
+   "room": "202",
+   "row": "D",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 1,
+   "grp": null,
+   "n": 8,
+   "room": "001",
+   "row": "E",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 1,
+   "grp": null,
+   "n": 11,
+   "room": "002",
+   "row": "F",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 1,
+   "grp": null,
+   "n": 10,
+   "room": "Aryabhatta",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 1,
+   "grp": null,
+   "n": 11,
+   "room": "Eklavya",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 1,
+   "grp": null,
+   "n": 9,
+   "room": "201",
+   "row": "C",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 1,
+   "grp": null,
+   "n": 8,
+   "room": "202",
+   "row": "D",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 1,
+   "grp": null,
+   "n": 11,
+   "room": "002",
+   "row": "F",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "BE",
+   "d": 1,
+   "grp": null,
+   "n": 3,
+   "room": "Eklavya",
+   "row": "B",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "BR",
+   "d": 1,
+   "grp": null,
+   "n": 12,
+   "room": "201",
+   "row": "C",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 1,
+   "grp": null,
+   "n": 10,
+   "room": "202",
+   "row": "D",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 1,
+   "grp": null,
+   "n": 11,
+   "room": "001",
+   "row": "E",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "BE",
+   "d": 1,
+   "grp": null,
+   "n": 5,
+   "room": "002",
+   "row": "F",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 1,
+   "grp": "3",
+   "n": 7,
+   "room": "201",
+   "row": "C",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "BR",
+   "d": 1,
+   "grp": null,
+   "n": 11,
+   "room": "202",
+   "row": "D",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "BR",
+   "d": 1,
+   "grp": null,
+   "n": 12,
+   "room": "001",
+   "row": "E",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "BE",
+   "d": 1,
+   "grp": null,
+   "n": 3,
+   "room": "002",
+   "row": "F",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "CTI",
+   "d": 2,
+   "grp": null,
+   "n": 7,
+   "room": "Aryabhatta",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 2,
+   "grp": null,
+   "n": 12,
+   "room": "201",
+   "row": "C",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 2,
+   "grp": null,
+   "n": 11,
+   "room": "202",
+   "row": "D",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 2,
+   "grp": null,
+   "n": 12,
+   "room": "001",
+   "row": "E",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "BR",
+   "d": 2,
+   "grp": null,
+   "n": 11,
+   "room": "002",
+   "row": "F",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "CTI",
+   "d": 2,
+   "grp": null,
+   "n": 8,
+   "room": "Aryabhatta",
+   "row": "A",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 2,
+   "grp": null,
+   "n": 12,
+   "room": "Eklavya",
+   "row": "B",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "BE",
+   "d": 2,
+   "grp": null,
+   "n": 4,
+   "room": "201",
+   "row": "C",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "BE",
+   "d": 2,
+   "grp": null,
+   "n": 1,
+   "room": "202",
+   "row": "D",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "CTI",
+   "d": 2,
+   "grp": null,
+   "n": 2,
+   "room": "001",
+   "row": "E",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 2,
+   "grp": null,
+   "n": 12,
+   "room": "002",
+   "row": "F",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 3,
+   "grp": null,
+   "n": 11,
+   "room": "Aryabhatta",
+   "row": "A",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 3,
+   "grp": null,
+   "n": 12,
+   "room": "Eklavya",
+   "row": "B",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 3,
+   "grp": null,
+   "n": 10,
+   "room": "202",
+   "row": "D",
+   "s": 0,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 3,
+   "grp": null,
+   "n": 12,
+   "room": "Aryabhatta",
+   "row": "A",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 3,
+   "grp": null,
+   "n": 11,
+   "room": "Eklavya",
+   "row": "B",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 3,
+   "grp": null,
+   "n": 10,
+   "room": "201",
+   "row": "C",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 3,
+   "grp": null,
+   "n": 9,
+   "room": "202",
+   "row": "D",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 3,
+   "grp": null,
+   "n": 13,
+   "room": "001",
+   "row": "E",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 3,
+   "grp": null,
+   "n": 12,
+   "room": "002",
+   "row": "F",
+   "s": 1,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 3,
+   "grp": null,
+   "n": 11,
+   "room": "Aryabhatta",
+   "row": "A",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 3,
+   "grp": null,
+   "n": 12,
+   "room": "Eklavya",
+   "row": "B",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "MA",
+   "d": 3,
+   "grp": null,
+   "n": 11,
+   "room": "201",
+   "row": "C",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 3,
+   "grp": null,
+   "n": 12,
+   "room": "202",
+   "row": "D",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 3,
+   "grp": null,
+   "n": 9,
+   "room": "001",
+   "row": "E",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "BCF",
+   "d": 3,
+   "grp": null,
+   "n": 13,
+   "room": "002",
+   "row": "F",
+   "s": 2,
+   "sec": null
+  },
+  {
+   "c": "HRM",
+   "d": 3,
+   "grp": null,
+   "n": 12,
+   "room": "Aryabhatta",
+   "row": "A",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 3,
+   "grp": "6",
+   "n": 7,
+   "room": "201",
+   "row": "C",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "DAIB",
+   "d": 3,
+   "grp": null,
+   "n": 11,
+   "room": "001",
+   "row": "E",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "CTI",
+   "d": 3,
+   "grp": null,
+   "n": 3,
+   "room": "002",
+   "row": "F",
+   "s": 3,
+   "sec": null
+  },
+  {
+   "c": "BR",
+   "d": 3,
+   "grp": null,
+   "n": 11,
+   "room": "Aryabhatta",
+   "row": "A",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 3,
+   "grp": "6",
+   "n": 8,
+   "room": "201",
+   "row": "C",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "CTI",
+   "d": 3,
+   "grp": null,
+   "n": 3,
+   "room": "001",
+   "row": "E",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "BR",
+   "d": 3,
+   "grp": null,
+   "n": 12,
+   "room": "002",
+   "row": "F",
+   "s": 4,
+   "sec": null
+  }
+ ],
+ "slots": [
+  [
+   "09:15",
+   "10:30"
+  ],
+  [
+   "10:45",
+   "12:00"
+  ],
+  [
+   "12:15",
+   "13:30"
+  ],
+  [
+   "14:30",
+   "15:45"
+  ],
+  [
+   "16:00",
+   "17:15"
+  ]
+ ],
+ "source": "all files/batch 2028/core/term 2/weekly/5-Weekly Schedule of PGDM-I(2026-28) Term - II Nov. 02 - 08,2026.pdf",
+ "specials": [
+  {
+   "d": 2,
+   "rows": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F"
+   ],
+   "s": 0,
+   "span": 3,
+   "text": "Shri Sharat Kumar Memorial Lecture (10:15 am - 01:00 pm) {Venue: New Auditorium} Attendance is compulsory for PGDM - I studnets"
+  }
+ ],
+ "start": "2026-11-02",
+ "term": 2,
+ "weekNumber": 5
+}

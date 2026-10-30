@@ -1858,3 +1858,13 @@ copy of the first.
 ## Credit
 
 Built by [Khush Goyal](https://www.linkedin.com/in/khushgoyal17/).
+
+## Week 5 for PGDM 2026-28 (core and BFS) and a Week 4 revision (30 Oct 2026, not yet pushed)
+
+- Added `5-Weekly Schedule of PGDM-I(2026-28) Term - II Nov. 02 - 08,2026.pdf` (core) and `Week-5 Class Schedule Term-2 BFS-I (2026-28).pdf` (BFS), copied from the Desktop into `all files/batch 2028/.../term 2/weekly/`. Both read and checked against the PDFs row by row.
+  - Core: Wed 4 Nov has the Shri Sharat Kumar Memorial Lecture (10:15 am to 1:00 pm, New Auditorium, compulsory for PGDM-I) in place of the morning classes; Fri to Sun are empty.
+  - BFS: Wed 4 Nov has the 16th Shri Mahendra Nath Memorial Lecture (New Audi, 10:30 am onwards, compulsory); Sun 8 Nov is a Diwali holiday (day note, `weekly-revisions.json`, since the PDF writes it on Section B only).
+  - Parser fix (`scripts/parsers.py`): a merged block over all rows that comes out as one piece per row (BFS: title on A, venue on B) is joined into one entry. No other week changed.
+- **PGDM 2026-28 core, Week 4 revision, Fri 30 Oct to Sun 1 Nov (picture)**: the three days are retyped in `weekly-revisions.json` (2028-core, week of 26 Oct) and replace the PDF's classes on those dates (55 classes in the PDF, 60 now). Mon 26 to Thu 29 Oct are as the PDF.
+
+- **Xposure 26 event banner (30 Oct 2026, not yet pushed)**: IMTeam Prism's competition, shown for everyone on Fri 30 Oct (the day only), above that day's classes. New theme `xposure` in `js/portal-config.js` / `weekly-seat/js/app.js` / `css/styles.css`, drawn from the poster: charcoal with a torn red corner, a white title with a camera-iris for its O, a blue "₹35K prizes worth" disc, (no "New Vastralok presents" line and no themes label, at Khush's request; the banner can still show a themes label if `themes` is set in the config), a yellow Register button to the Unstop link, a film strip of blue, red, yellow, green and black blocks. "Photography competition" is my reading of the poster (camera, photo themes), not text on it. Checked by `xposure_test.py` (10): all six groups, the link, gone on 31 Oct, phone, dark and desktop.
