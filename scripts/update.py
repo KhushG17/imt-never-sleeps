@@ -387,6 +387,12 @@ def build_mess(roots):
     (a later file wins for a date both have), then js/mess-data.js for the pages."""
     master = MASTER / "mess.json"
     mess = json.loads(master.read_text(encoding="utf-8")) if master.exists() else {"days": {}, "timings": {}, "note": ""}
+    # days that came as a picture or a message, not a PDF: typed in data/config/mess-extra.json; a menu PDF for the same date wins
+    extra = ROOT / "data" / "config" / "mess-extra.json"
+    if extra.exists():
+        for date, meals in json.loads(extra.read_text(encoding="utf-8")).get("days", {}).items():
+            mess["days"].setdefault(date, meals)
+            say("MESS", "mess-extra.json: %s" % date)
     files = sorted((p for root in roots for p in (root / "mess").glob("*.pdf")), key=lambda p: (p.stat().st_mtime, p.name))
     for path in files:
         try:

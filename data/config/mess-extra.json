@@ -1,0 +1,81 @@
+{
+ "_about": [
+  "Mess menu days that arrived as a picture or a message instead of a PDF (date -> breakfast, lunch, snacks, dinner).",
+  "Read by scripts/update.py; a menu PDF that has the same date replaces the entry here."
+ ],
+ "days": {
+  "2026-11-01": {
+   "breakfast": [
+    "Aloo Poori",
+    "Jalebi",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee",
+    "Milk",
+    "Cornflakes",
+    "Horlicks"
+   ],
+   "lunch": [
+    "Aloo Bhindi",
+    "Dal Tadka",
+    "Plain Rice",
+    "Roti",
+    "Salad",
+    "Boondi Raita",
+    "Fryums"
+   ],
+   "snacks": [
+    "Dhokla",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee"
+   ],
+   "dinner": [
+    "Egg Keema",
+    "Paneer Bhurji",
+    "Roti",
+    "Rice",
+    "Salad",
+    "Arhar Daal"
+   ]
+  },
+  "2026-11-02": {
+   "breakfast": [
+    "Aloo Pyaj Paratha",
+    "Guava",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee",
+    "Milk",
+    "Cornflakes"
+   ],
+   "lunch": [
+    "Pindi Chole",
+    "Mix Veg",
+    "Rice",
+    "Papad",
+    "Pineapple Raita",
+    "Roti",
+    "Salad"
+   ],
+   "snacks": [
+    "Samosa",
+    "Bread",
+    "Jam",
+    "Ginger Tea",
+    "Lassi"
+   ],
+   "dinner": [
+    "Aloo Shimla Mirch",
+    "Tomato Dal",
+    "Roti",
+    "Rice",
+    "Salad",
+    "Gulab Jamun"
+   ]
+  }
+ }
+}

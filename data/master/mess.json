@@ -1152,6 +1152,79 @@
     "Ginger Tea",
     "Nimbu Pani"
    ]
+  },
+  "2026-11-01": {
+   "breakfast": [
+    "Aloo Poori",
+    "Jalebi",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee",
+    "Milk",
+    "Cornflakes",
+    "Horlicks"
+   ],
+   "dinner": [
+    "Egg Keema",
+    "Paneer Bhurji",
+    "Roti",
+    "Rice",
+    "Salad",
+    "Arhar Daal"
+   ],
+   "lunch": [
+    "Aloo Bhindi",
+    "Dal Tadka",
+    "Plain Rice",
+    "Roti",
+    "Salad",
+    "Boondi Raita",
+    "Fryums"
+   ],
+   "snacks": [
+    "Dhokla",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee"
+   ]
+  },
+  "2026-11-02": {
+   "breakfast": [
+    "Aloo Pyaj Paratha",
+    "Guava",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee",
+    "Milk",
+    "Cornflakes"
+   ],
+   "dinner": [
+    "Aloo Shimla Mirch",
+    "Tomato Dal",
+    "Roti",
+    "Rice",
+    "Salad",
+    "Gulab Jamun"
+   ],
+   "lunch": [
+    "Pindi Chole",
+    "Mix Veg",
+    "Rice",
+    "Papad",
+    "Pineapple Raita",
+    "Roti",
+    "Salad"
+   ],
+   "snacks": [
+    "Samosa",
+    "Bread",
+    "Jam",
+    "Ginger Tea",
+    "Lassi"
+   ]
   }
  },
  "note": "Menu is subject to changes based on availability of items without prior notice.",
