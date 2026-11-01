@@ -58,16 +58,6 @@
    "sec": null
   },
   {
-   "c": "BE",
-   "d": 0,
-   "grp": null,
-   "n": 5,
-   "room": "Aryabhatta",
-   "row": "A",
-   "s": 1,
-   "sec": null
-  },
-  {
    "c": "MA",
    "d": 0,
    "grp": null,
@@ -92,8 +82,8 @@
    "d": 0,
    "grp": null,
    "n": 13,
-   "room": "002",
-   "row": "F",
+   "room": "001",
+   "row": "E",
    "s": 1,
    "sec": null
   },
@@ -132,8 +122,8 @@
    "d": 0,
    "grp": null,
    "n": 14,
-   "room": "002",
-   "row": "F",
+   "room": "001",
+   "row": "E",
    "s": 2,
    "sec": null
   },
@@ -308,6 +298,16 @@
    "sec": null
   },
   {
+   "c": "BE",
+   "d": 1,
+   "grp": null,
+   "n": 5,
+   "room": "001",
+   "row": "E",
+   "s": 2,
+   "sec": null
+  },
+  {
    "c": "BCF",
    "d": 1,
    "grp": null,
@@ -315,6 +315,16 @@
    "room": "002",
    "row": "F",
    "s": 2,
+   "sec": null
+  },
+  {
+   "c": "BE",
+   "d": 1,
+   "grp": null,
+   "n": 5,
+   "room": "Aryabhatta",
+   "row": "A",
+   "s": 3,
    "sec": null
   },
   {
@@ -354,16 +364,6 @@
    "n": 11,
    "room": "001",
    "row": "E",
-   "s": 3,
-   "sec": null
-  },
-  {
-   "c": "BE",
-   "d": 1,
-   "grp": null,
-   "n": 5,
-   "room": "002",
-   "row": "F",
    "s": 3,
    "sec": null
   },
@@ -405,6 +405,16 @@
    "room": "002",
    "row": "F",
    "s": 4,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 1,
+   "grp": "3",
+   "n": 8,
+   "room": "201",
+   "row": "C",
+   "s": 5,
    "sec": null
   },
   {
@@ -515,6 +525,16 @@
    "room": "002",
    "row": "F",
    "s": 4,
+   "sec": null
+  },
+  {
+   "c": "CTI",
+   "d": 2,
+   "grp": null,
+   "n": 2,
+   "room": "002",
+   "row": "F",
+   "s": 5,
    "sec": null
   },
   {
@@ -768,6 +788,10 @@
   [
    "16:00",
    "17:15"
+  ],
+  [
+   "17:30",
+   "18:45"
   ]
  ],
  "source": "all files/batch 2028/core/term 2/weekly/5-Weekly Schedule of PGDM-I(2026-28) Term - II Nov. 02 - 08,2026.pdf",
