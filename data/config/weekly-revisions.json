@@ -920,6 +920,52 @@
     "2026-10-19": "Holiday",
     "2026-10-20": "Holiday"
    }
+  },
+  "2026-11-02": {
+   "received": "2026-11-02",
+   "from": "Notice: DTI sessions 15 and 16 (the last sessions, group C) scheduled for Thu 5 Nov are held on Wed 4 Nov from 3:45 to 6:45 pm with a break from 5:00 to 5:30 pm, in Gurukul",
+   "days": {
+    "2026-11-04": {
+     "A": [
+      "",
+      "",
+      "",
+      "DBS-A(12)",
+      "DTI-G-B(13){302}",
+      "DTI-G-B(14){302}",
+      ""
+     ],
+     "B": [
+      "",
+      "",
+      "",
+      "FA-B(11)",
+      "DTI-G-C(15){Gurukul}",
+      "DTI-G-C(16){Gurukul}",
+      ""
+     ]
+    },
+    "2026-11-05": {
+     "A": [
+      "HRM-A(14)",
+      "DBS-A(13)",
+      "DAIB-A(8)",
+      "DTI-G-A(6){301}",
+      "DTI-G-A(7){301}",
+      "",
+      ""
+     ],
+     "B": [
+      "DAIB-B(8)",
+      "HRM-B(14)",
+      "MM-B(18)",
+      "",
+      "",
+      "",
+      ""
+     ]
+    }
+   }
   }
  },
  "2028-bfs": {

@@ -37,6 +37,13 @@
  "end": "2026-11-08",
  "group": "dcp",
  "mode": "section",
+ "revised": {
+  "days": [
+   "2026-11-04",
+   "2026-11-05"
+  ],
+  "received": "2026-11-02"
+ },
  "rowLabel": "Section",
  "rows": [
   "A",
@@ -176,10 +183,30 @@
   {
    "c": "DTI",
    "d": 2,
+   "grp": "C",
+   "n": 15,
+   "room": "Gurukul",
+   "row": "B",
+   "s": 4,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 2,
    "grp": "B",
    "n": 14,
    "room": "302",
    "row": "A",
+   "s": 5,
+   "sec": null
+  },
+  {
+   "c": "DTI",
+   "d": 2,
+   "grp": "C",
+   "n": 16,
+   "room": "Gurukul",
+   "row": "B",
    "s": 5,
    "sec": null
   },
@@ -256,29 +283,9 @@
   {
    "c": "DTI",
    "d": 3,
-   "grp": "C",
-   "n": 15,
-   "room": "Gurukul",
-   "row": "A",
-   "s": 3,
-   "sec": null
-  },
-  {
-   "c": "DTI",
-   "d": 3,
    "grp": "A",
    "n": 7,
    "room": "301",
-   "row": "A",
-   "s": 4,
-   "sec": null
-  },
-  {
-   "c": "DTI",
-   "d": 3,
-   "grp": "C",
-   "n": 16,
-   "room": "Gurukul",
    "row": "A",
    "s": 4,
    "sec": null
