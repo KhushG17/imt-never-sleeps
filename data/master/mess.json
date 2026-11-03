@@ -1167,7 +1167,7 @@
    ],
    "dinner": [
     "Egg Keema",
-    "Paneer Bhurji",
+    "Paneer bhurji",
     "Roti",
     "Rice",
     "Salad",
@@ -1224,6 +1224,482 @@
     "Jam",
     "Ginger Tea",
     "Lassi"
+   ]
+  },
+  "2026-11-03": {
+   "breakfast": [
+    "Idli",
+    "Chutney",
+    "Sambhar",
+    "Orange",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee",
+    "Milk",
+    "Cornflakes",
+    "Horlicks"
+   ],
+   "dinner": [
+    "Mushroom Matar",
+    "Mix Dal",
+    "Roti",
+    "Rice",
+    "Salad",
+    "Fruit custard"
+   ],
+   "lunch": [
+    "Kadhi Pakoda",
+    "Jeera Aloo",
+    "Roti",
+    "Jeera Rice",
+    "Sweet Boondi",
+    "Salad"
+   ],
+   "snacks": [
+    "Pyaj kachori",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Shikanji"
+   ]
+  },
+  "2026-11-04": {
+   "breakfast": [
+    "Omelette",
+    "Paneer Toast",
+    "Apple",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee",
+    "Milk",
+    "Cornflakes"
+   ],
+   "dinner": [
+    "Butter Chicken",
+    "Paneer Lababdar",
+    "Arhar Dal",
+    "Rice",
+    "Tandoori Roti",
+    "Salad"
+   ],
+   "lunch": [
+    "Rajma",
+    "Fried aloo",
+    "Boondi Raita",
+    "Roti",
+    "Rice",
+    "Salad",
+    "Papad"
+   ],
+   "snacks": [
+    "DIY Sandwich",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Cold Chocolate"
+   ]
+  },
+  "2026-11-05": {
+   "breakfast": [
+    "Vada",
+    "Chutney",
+    "Sambar",
+    "Apple",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee",
+    "Milk",
+    "Cornflakes",
+    "Horlicks"
+   ],
+   "dinner": [
+    "Veg Manchurian",
+    "Fried Rice",
+    "Noodles",
+    "Salad",
+    "Rasgulla"
+   ],
+   "lunch": [
+    "Chole",
+    "Kulche",
+    "Jeera Rice",
+    "Boondi Raita",
+    "Salad",
+    "Mix Daal"
+   ],
+   "snacks": [
+    "Namkeen Sevyai",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Nimbu Pani"
+   ]
+  },
+  "2026-11-06": {
+   "breakfast": [
+    "Boiled Egg",
+    "Aloo Toast",
+    "Banana",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee",
+    "Milk",
+    "Cornflakes"
+   ],
+   "dinner": [
+    "Sukha Chicken",
+    "Matar Paneer",
+    "Roti",
+    "Rice",
+    "Salad",
+    "Masoor Daal"
+   ],
+   "lunch": [
+    "Spicy Aloo Fry",
+    "Arhar Dal",
+    "Roti",
+    "Rice",
+    "Salad",
+    "Mix Veg Raita",
+    "Papad"
+   ],
+   "snacks": [
+    "Maggi",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee"
+   ]
+  },
+  "2026-11-07": {
+   "breakfast": [
+    "Poha",
+    "Apple",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee",
+    "Milk",
+    "Cornflakes"
+   ],
+   "dinner": [
+    "Aloo Gobhi",
+    "Dal Fry",
+    "Roti",
+    "Rice",
+    "Salad",
+    "Ice Cream"
+   ],
+   "lunch": [
+    "Malai Kofta",
+    "Mix Dal",
+    "Rice",
+    "Roti",
+    "Salad",
+    "Pineapple Raita"
+   ],
+   "snacks": [
+    "Stuffed Kulcha",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Cold Coffee"
+   ]
+  },
+  "2026-11-08": {
+   "breakfast": [
+    "Chole Bhature",
+    "Jalebi",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee",
+    "Milk",
+    "Cornflakes"
+   ],
+   "dinner": [
+    "Veg Biryani",
+    "Green Chutney",
+    "Raita",
+    "Salad",
+    "Motichoor Laaddu"
+   ],
+   "lunch": [
+    "Dal Makhani",
+    "Spicy Aloo Fry",
+    "Roti",
+    "Rice",
+    "Salad",
+    "Plain Raita",
+    "Papad"
+   ],
+   "snacks": [
+    "Corn Chana Chaat",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Nimbu pani"
+   ]
+  },
+  "2026-11-09": {
+   "breakfast": [
+    "Aloo Pyaz Paratha",
+    "Banana",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee",
+    "Milk",
+    "Cornflakes",
+    "Horlicks"
+   ],
+   "dinner": [
+    "Paneer Punjabi",
+    "Dal Makhani",
+    "Roti",
+    "Rice",
+    "Salad",
+    "Moong Dal Halwa"
+   ],
+   "lunch": [
+    "Shahi Paneer",
+    "Yellow Dal",
+    "Rice",
+    "Pineapple Ratia",
+    "Roti",
+    "Salad",
+    "Fryums"
+   ],
+   "snacks": [
+    "Dhokla",
+    "Tea",
+    "Coffee",
+    "Bread",
+    "Jam"
+   ]
+  },
+  "2026-11-10": {
+   "breakfast": [
+    "Uttapam",
+    "Chutney",
+    "Sambar",
+    "Apple",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee",
+    "Milk",
+    "Cornflakes"
+   ],
+   "dinner": [
+    "Chilli Soyabean",
+    "Chana Dal",
+    "Roti",
+    "Rice",
+    "Salad",
+    "Rasgulla"
+   ],
+   "lunch": [
+    "Pindi chole",
+    "Puri",
+    "Aloo Sabji",
+    "Plain Raita",
+    "Rice",
+    "Salad"
+   ],
+   "snacks": [
+    "Samosa",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Shikanji"
+   ]
+  },
+  "2026-11-11": {
+   "breakfast": [
+    "Boiled Egg",
+    "Paneer Toast",
+    "Banana",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee",
+    "Milk",
+    "Cornflakes"
+   ],
+   "dinner": [
+    "Mutton Korma",
+    "Paneer Do Pyaza",
+    "Chana Dal",
+    "Tandoori Roti",
+    "Rice",
+    "Salad"
+   ],
+   "lunch": [
+    "Rajma",
+    "Fried aloo",
+    "Boondi Raita",
+    "Roti",
+    "Rice",
+    "Salad",
+    "Papad"
+   ],
+   "snacks": [
+    "Pyaz Kachori",
+    "Bread",
+    "Jam",
+    "Ginger Tea",
+    "Coffee"
+   ]
+  },
+  "2026-11-12": {
+   "breakfast": [
+    "Idli",
+    "Sambhar",
+    "Chutney",
+    "Apple",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee",
+    "Milk",
+    "Cornflakes"
+   ],
+   "dinner": [
+    "Veg Manchurian",
+    "Fried Rice",
+    "Noodles",
+    "Salad",
+    "Besan Laddu"
+   ],
+   "lunch": [
+    "Aloo Bhindi",
+    "Mix Dal",
+    "Pineapple Raita",
+    "Roti",
+    "Jeera Rice",
+    "Salad"
+   ],
+   "snacks": [
+    "Chowmein",
+    "Bread",
+    "Jam",
+    "Coffee",
+    "Tea"
+   ]
+  },
+  "2026-11-13": {
+   "breakfast": [
+    "Omelette",
+    "Aloo Toast",
+    "Orange",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee",
+    "Milk",
+    "Cornflakes",
+    "Horlicks"
+   ],
+   "dinner": [
+    "Hyderabadi Chicken Biryani",
+    "Hyderabadi Veg Biryani",
+    "Green Chutney",
+    "Raita",
+    "Salad"
+   ],
+   "lunch": [
+    "Pindi Chole",
+    "Mix Veg",
+    "Jeera Rice",
+    "Boondi Raita",
+    "Roti",
+    "Salad"
+   ],
+   "snacks": [
+    "Dhokla",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Cold Chocolate"
+   ]
+  },
+  "2026-11-14": {
+   "breakfast": [
+    "Poha",
+    "Apple",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee",
+    "Milk",
+    "Cornflakes",
+    "Horlicks"
+   ],
+   "dinner": [
+    "Shahi Paneer",
+    "Arhar Dal",
+    "Rice",
+    "Roti",
+    "Salad",
+    "Sooji ka Halwa"
+   ],
+   "lunch": [
+    "Dal Makhani",
+    "Spicy Aloo Fry",
+    "Roti",
+    "Rice",
+    "Salad",
+    "Pineapple Raita",
+    "Papad"
+   ],
+   "snacks": [
+    "Bread Pakora",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee"
+   ]
+  },
+  "2026-11-15": {
+   "breakfast": [
+    "Chole",
+    "Puri",
+    "Jalebi",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Coffee",
+    "Milk",
+    "Cornflakes"
+   ],
+   "dinner": [
+    "Egg Masala",
+    "Paneer Masala",
+    "Roti",
+    "Rice",
+    "Salad",
+    "Mix Daal"
+   ],
+   "lunch": [
+    "Malai Kofta",
+    "Tomato Dal",
+    "Roti",
+    "Jeera Rice",
+    "Salad",
+    "Mix Veg Raita",
+    "Papad"
+   ],
+   "snacks": [
+    "Corn Chana Chaat",
+    "Bread",
+    "Jam",
+    "Tea",
+    "Cold Coffee"
    ]
   }
  },
