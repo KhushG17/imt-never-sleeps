@@ -1,24 +1,36 @@
 {
  "messages": [
   {
-   "kind": "NOTE",
-   "text": "replaced the earlier copy of 2-Weekly Schedule of PGDM-I(2026-28) Term - II Oct. 12 - 18, 2026.pdf"
+   "kind": "FILED",
+   "text": "6-Weekly Schedule of PGDM-I(2026-28) Term - II Nov. 09 - 15,2026.pdf -> batch 2028/core/term 2/weekly"
   },
   {
-   "kind": "FILED",
-   "text": "2-Weekly Schedule of PGDM-I(2026-28) Term - II Oct. 12 - 18, 2026.pdf -> batch 2028/core/term 2/weekly"
+   "kind": "SKIPPED",
+   "text": "uploads/batch 2027/core/term 5/weekly/2-Weekly Schedule of PGDM - II (205-27) Term - V during Oct. 12 - 18, 2026.pdf: the PDF text has 82 class entries but 0 were read from the grid"
+  },
+  {
+   "kind": "SKIPPED",
+   "text": "uploads/batch 2028/bfs/term 2/weekly/Week-2 Class Schedule Term-2 BFS-I (2026-28).pdf: the PDF text has 34 class entries but 30 were read from the grid"
+  },
+  {
+   "kind": "SKIPPED",
+   "text": "uploads/batch 2028/core/term 2/weekly/2-Weekly Schedule of PGDM-I(2026-28) Term - II Oct. 12 - 18, 2026.pdf: the PDF text has 133 class entries but 117 were read from the grid"
+  },
+  {
+   "kind": "SKIPPED",
+   "text": "uploads/batch 2028/core/term 2/weekly/6-Weekly Schedule of PGDM-I(2026-28) Term - II Nov. 09 - 15,2026.pdf: the PDF text has 71 class entries but 48 were read from the grid"
+  },
+  {
+   "kind": "NOTE",
+   "text": "2028-dcp week of 2026-10-12: 1 day(s) replaced from weekly-revisions.json (7 classes in the PDF, 7 now)"
+  },
+  {
+   "kind": "NOTE",
+   "text": "2028-dcp: no course name for BCA, BCB, DAIBA, DAIBB, DBSA, FAB, HRMA, HRMB, LABA, LABB, MAA, MAB, MMB (add to data/config/overrides.json)"
   }
  ],
- "ranAt": "2026-10-11T17:01:38Z",
+ "ranAt": "2026-11-04T13:39:58Z",
  "weeks": [
-  {
-   "classes": 82,
-   "end": "2026-10-18",
-   "file": "2-Weekly Schedule of PGDM - II (205-27) Term - V during Oct. 12 - 18, 2026.pdf",
-   "group": "2027-core",
-   "start": "2026-10-12",
-   "term": 5
-  },
   {
    "classes": 39,
    "end": "2026-10-18",
@@ -26,22 +38,6 @@
    "group": "2027-dcp",
    "start": "2026-10-12",
    "term": 5
-  },
-  {
-   "classes": 34,
-   "end": "2026-10-18",
-   "file": "Week-2 Class Schedule Term-2 BFS-I (2026-28).pdf",
-   "group": "2028-bfs",
-   "start": "2026-10-12",
-   "term": 2
-  },
-  {
-   "classes": 133,
-   "end": "2026-10-18",
-   "file": "2-Weekly Schedule of PGDM-I(2026-28) Term - II Oct. 12 - 18, 2026.pdf",
-   "group": "2028-core",
-   "start": "2026-10-12",
-   "term": 2
   },
   {
    "classes": 46,
