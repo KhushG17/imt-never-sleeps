@@ -240,16 +240,19 @@
   function examSheet(s){
     var sheet = s && s.groupKey && (SITE.examDates || {})[s.groupKey];
     if(!sheet || sheet.term !== s.term) return null;
-    var days = [];
+    var days = [], registered = Object.keys(s.courses || {}).length > 0, guessed = false;
     sheet.papers.forEach(function(day){
       var slots = [];
       day.slots.forEach(function(sl){
-        var names = sl.subjects.filter(function(x){ return !x.section || x.section === s.section; }).map(function(x){ return x.name; });
+        var names = sl.subjects.filter(function(x){
+          if(x.course && !registered){ guessed = true; return true; }   // no registrations on file: every paper, with a note
+          return (!x.section || x.section === s.section) && (!x.course || s.courses[x.course] !== undefined);
+        }).map(function(x){ return x.name; });
         if(names.length) slots.push({ start: sl.start, end: sl.end, subjects: names });
       });
       if(slots.length) days.push({ date: day.date, slots: slots });
     });
-    return days.length ? { title: sheet.title, issued: sheet.issued, days: days } : null;
+    return days.length ? { title: sheet.title, issued: sheet.issued, days: days, guessed: guessed } : null;
   }
 
   // What Exam says to this student until the seating plan is out: their own term's date sheet, or that it is coming.
@@ -626,9 +629,7 @@
     var isElective = function(x){ return data.electives.indexOf(x.c) >= 0; };
     if(data.mode === 'course' || (data.mode === 'track' && hasCourses)){
       // each class names its course and section: the student's own registrations decide
-      // courses listed under openCourses (data/config/overrides.json) are everyone's in that batch and group
-      var open = (SITE.openCourses || {})[s.groupKey] || [];
-      view.classes = data.sessions.filter(function(x){ return s.courses[x.c] === x.sec || open.indexOf(x.c) >= 0; });
+      view.classes = data.sessions.filter(function(x){ return s.courses[x.c] === x.sec; });
     } else {
       view.all = !key;
       if(view.all){

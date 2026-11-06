@@ -93,6 +93,7 @@
  "250101007": {
   "batch": "2027",
   "courses": {
+   "CMAC": "A",
    "CSIW": "A",
    "CWB": "A",
    "LEX": "A"
@@ -168,6 +169,7 @@
  "250101012": {
   "batch": "2027",
   "courses": {
+   "CMAC": "A",
    "CSIW": "A",
    "CWB": "A",
    "HRST": "A",
@@ -659,6 +661,7 @@
   "courses": {
    "ALCM": "A",
    "BIBC": "A",
+   "CMAC": "A",
    "ITC": "A"
   },
   "group": "core",
@@ -912,6 +915,7 @@
  "250101062": {
   "batch": "2027",
   "courses": {
+   "CMAC": "A",
    "CSIW": "A",
    "CWB": "A",
    "LEX": "A",
@@ -1032,6 +1036,7 @@
  "250101070": {
   "batch": "2027",
   "courses": {
+   "CMAC": "A",
    "CSIW": "A",
    "CWB": "A",
    "HRST": "A",
@@ -1869,6 +1874,7 @@
  "250101128": {
   "batch": "2027",
   "courses": {
+   "CMAC": "A",
    "EF": "A",
    "HRST": "A",
    "LEX": "A"

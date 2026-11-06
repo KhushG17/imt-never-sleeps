@@ -3,7 +3,8 @@
   "Exam date sheets, shown on Exam Seat while it is locked (before the seating plan arrives).",
   "group key -> {term, title, issued, papers}. Each paper day has date, and slots with start, end and subjects.",
   "A subject can name a section (\"section\": \"A\"): only that section's students see it; no section = everyone.",
-  "Read by scripts/update.py into js/site-data.js (examDates). Once the seating plan is loaded and Exam Seat is unlocked, the seating plan replaces this."
+  "Read by scripts/update.py into js/site-data.js (examDates). Once the seating plan is loaded and Exam Seat is unlocked, the seating plan replaces this.",
+  "A subject can name the course it is for (\"course\": \"CMN\"): only students registered for it see it. A student with no registrations loaded sees every such paper, with a note."
  ],
  "2028-dcp": {
   "term": 2,
@@ -107,6 +108,138 @@
       "subjects": [
        {
         "name": "Data Analytics and AI for Business"
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "2027-dcp": {
+  "term": 5,
+  "title": "PGDM DCP 2025-27, End Term Examinations, Term V",
+  "issued": "2026-11-06",
+  "papers": [
+   {
+    "date": "2026-12-26",
+    "slots": [
+     {
+      "start": "10:00",
+      "end": "11:30",
+      "subjects": [
+       {
+        "name": "Information Technology for Logistics",
+        "course": "ITL"
+       }
+      ]
+     },
+     {
+      "start": "14:30",
+      "end": "16:00",
+      "subjects": [
+       {
+        "name": "Contract Management and Negotiations",
+        "course": "CMN"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "date": "2026-12-28",
+    "slots": [
+     {
+      "start": "10:00",
+      "end": "11:30",
+      "subjects": [
+       {
+        "name": "International Business and Public Policy",
+        "course": "IBPP"
+       }
+      ]
+     },
+     {
+      "start": "14:30",
+      "end": "16:00",
+      "subjects": [
+       {
+        "name": "International Marketing",
+        "course": "IM"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "date": "2026-12-29",
+    "slots": [
+     {
+      "start": "10:00",
+      "end": "11:30",
+      "subjects": [
+       {
+        "name": "Services Management",
+        "course": "SM"
+       }
+      ]
+     },
+     {
+      "start": "14:30",
+      "end": "16:00",
+      "subjects": [
+       {
+        "name": "Corporate Restructuring",
+        "course": "CR"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "date": "2026-12-31",
+    "slots": [
+     {
+      "start": "10:00",
+      "end": "11:30",
+      "subjects": [
+       {
+        "name": "Mutual Funds/ETFs, Pension Funds and Hedge Funds",
+        "course": "MF"
+       }
+      ]
+     },
+     {
+      "start": "14:30",
+      "end": "16:00",
+      "subjects": [
+       {
+        "name": "Strategic Sourcing and Procurement",
+        "course": "SSP"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "date": "2027-01-03",
+    "slots": [
+     {
+      "start": "10:00",
+      "end": "11:30",
+      "subjects": [
+       {
+        "name": "Valuation of Business",
+        "course": "VB"
+       }
+      ]
+     },
+     {
+      "start": "14:30",
+      "end": "16:00",
+      "subjects": [
+       {
+        "name": "Artificial Intelligence for Business",
+        "course": "AIB"
        }
       ]
      }

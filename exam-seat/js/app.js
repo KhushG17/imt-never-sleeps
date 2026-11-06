@@ -570,6 +570,10 @@
       window.IMT.metaLine(who).split(' · ').filter(Boolean).map(function(part){ return '<span class="id-chip">' + esc(part) + '</span>'; }).join('') +
       '<span class="id-chip id-chip-count">' + count + (count === 1 ? ' paper' : ' papers') + '</span>';
     lastResult = { roll: v, groups: [] };
+    // no course registrations on file for this student: all the papers are listed, so say so
+    var bannerEl = document.getElementById('banner');
+    bannerEl.textContent = sheet.guessed ? 'Your course registrations are not loaded yet, so every paper on the date sheet is listed. Only sit the ones you registered for.' : '';
+    bannerEl.hidden = !sheet.guessed;
     var order = window.IMT.todayFirst(sheet.days.map(function(d){ return d.date; }));
     var dayTag = window.IMT.scheduleDay() === window.IMT.istToday() ? 'Today' : 'Tomorrow';
     var hasToday = order.some(function(o){ return o.past; }) && order.some(function(o){ return !o.past; });

@@ -523,7 +523,6 @@ def build_site(courses, students, weeks, timeline, overrides):
               "courses": {k: {abb: c["name"] for abb, c in v.items()} for k, v in courses.items()},
               "electives": overrides["electives"],
               "examAliases": overrides["examAliases"],
-              "openCourses": {k: v for k, v in overrides.get("openCourses", {}).items() if not k.startswith("_")},
               # published date sheets, shown on Exam Seat until the seating plan is loaded
               "examDates": exam_dates(timeline),
               "timeline": {k: {f: v[f] for f in ("label", "terms", "alumniFrom") if f in v} for k, v in timeline.items()}})

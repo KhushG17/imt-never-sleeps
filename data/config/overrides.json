@@ -34,7 +34,7 @@
     "_comment": "Stop-gap for a batch whose section list has not arrived: a student with no section gets the one their elective is taught in. Empty now; BFS 2025-27 used it from 8 Oct 2026 until its Section A list came the same day."
   },
   "students": {
-    "_comment": "Extra or corrected student records, merged over what the files give. TEST and TESTA are the dummy rolls for trying the site; \"alumni\": true marks a student as graduated whatever the timeline says.",
+    "_comment": "Extra or corrected student records, merged over what the files give. TEST and TESTA are the dummy rolls for trying the site; \"alumni\": true marks a student as graduated whatever the timeline says. CMAC (HR Major, 2025-27 core, Section A) is added by hand to the six students tagged HR major, per Khush on 6 Nov 2026: 250101007, 250101012, 250101045, 250101062, 250101070, 250101128 (no registration list has it).",
     "TEST": {
       "name": "Test Student",
       "batch": "2027",
@@ -118,12 +118,36 @@
       "major": "FIN",
       "minor": "BA",
       "alumni": true
+    },
+    "250101007": {
+      "courses": {
+        "CMAC": "A"
+      }
+    },
+    "250101012": {
+      "courses": {
+        "CMAC": "A"
+      }
+    },
+    "250101045": {
+      "courses": {
+        "CMAC": "A"
+      }
+    },
+    "250101062": {
+      "courses": {
+        "CMAC": "A"
+      }
+    },
+    "250101070": {
+      "courses": {
+        "CMAC": "A"
+      }
+    },
+    "250101128": {
+      "courses": {
+        "CMAC": "A"
+      }
     }
-  },
-  "openCourses": {
-    "_comment": "Courses every student of the batch and group sees, whatever they registered: group key -> course abbreviations. CMAC (HR Major, 2025-27 core) has no student registration list, so per Khush on 6 Nov 2026 it is shown to everyone. The name is as printed on the schedule (\"for HR Major\"); give the full name and it replaces it.",
-    "2027-core": [
-      "CMAC"
-    ]
   }
 }
