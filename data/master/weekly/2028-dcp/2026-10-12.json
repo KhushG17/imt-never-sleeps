@@ -1,23 +1,15 @@
 {
  "batch": "2028",
  "courses": {
-  "BCA": "BCA",
-  "BCB": "BCB",
-  "DAIBA": "DAIBA",
-  "DAIBB": "DAIBB",
-  "DBSA": "DBSA",
+  "BC": "Business Communication",
+  "DAIB": "Data Analytics and AI for Business",
+  "DBS": "Digital Business Strategy",
   "DTI": "Design Thinking",
   "FA": "Financial Accounting",
-  "FAB": "FAB",
   "HRM": "Human Resource Management",
-  "HRMA": "HRMA",
-  "HRMB": "HRMB",
-  "LABA": "LABA",
-  "LABB": "LABB",
+  "LAB": "Legal Aspects of Business",
   "MA": "Managerial Accounting",
-  "MAA": "MAA",
-  "MAB": "MAB",
-  "MMB": "MMB"
+  "MM": "Marketing Management"
  },
  "days": [
   {
@@ -59,64 +51,64 @@
  ],
  "sessions": [
   {
-   "c": "BCA",
+   "c": "BC",
    "d": 0,
    "grp": null,
    "n": 3,
    "room": "301",
    "row": "A",
    "s": 0,
-   "sec": null
+   "sec": "A"
   },
   {
-   "c": "BCA",
+   "c": "BC",
    "d": 0,
    "grp": null,
    "n": 4,
    "room": "301",
    "row": "A",
    "s": 1,
-   "sec": null
+   "sec": "A"
   },
   {
-   "c": "HRMB",
+   "c": "HRM",
    "d": 0,
    "grp": null,
    "n": 4,
    "room": "302",
    "row": "B",
    "s": 1,
-   "sec": null
+   "sec": "B"
   },
   {
-   "c": "HRMA",
+   "c": "HRM",
    "d": 0,
    "grp": null,
    "n": 4,
    "room": "301",
    "row": "A",
    "s": 2,
-   "sec": null
+   "sec": "A"
   },
   {
-   "c": "MMB",
+   "c": "MM",
    "d": 0,
    "grp": null,
    "n": 6,
    "room": "302",
    "row": "B",
    "s": 2,
-   "sec": null
+   "sec": "B"
   },
   {
-   "c": "FAB",
+   "c": "FA",
    "d": 0,
    "grp": null,
    "n": 4,
    "room": "302",
    "row": "B",
    "s": 3,
-   "sec": null
+   "sec": "B"
   },
   {
    "c": "DTI",
@@ -159,114 +151,114 @@
    "sec": null
   },
   {
-   "c": "DBSA",
+   "c": "DBS",
    "d": 1,
    "grp": null,
    "n": 4,
    "room": "301",
    "row": "A",
    "s": 2,
-   "sec": null
+   "sec": "A"
   },
   {
-   "c": "MMB",
+   "c": "MM",
    "d": 1,
    "grp": null,
    "n": 7,
    "room": "302",
    "row": "B",
    "s": 2,
-   "sec": null
+   "sec": "B"
   },
   {
-   "c": "BCB",
+   "c": "BC",
    "d": 1,
    "grp": null,
    "n": 3,
    "room": "302",
    "row": "B",
    "s": 3,
-   "sec": null
+   "sec": "B"
   },
   {
-   "c": "BCB",
+   "c": "BC",
    "d": 1,
    "grp": null,
    "n": 4,
    "room": "302",
    "row": "B",
    "s": 4,
-   "sec": null
+   "sec": "B"
   },
   {
-   "c": "HRMA",
+   "c": "HRM",
    "d": 2,
    "grp": null,
    "n": 5,
    "room": "301",
    "row": "A",
    "s": 0,
-   "sec": null
+   "sec": "A"
   },
   {
-   "c": "DAIBB",
+   "c": "DAIB",
    "d": 2,
    "grp": null,
    "n": 2,
    "room": "302",
    "row": "B",
    "s": 0,
-   "sec": null
+   "sec": "B"
   },
   {
-   "c": "DAIBA",
+   "c": "DAIB",
    "d": 2,
    "grp": null,
    "n": 2,
    "room": "301",
    "row": "A",
    "s": 1,
-   "sec": null
+   "sec": "A"
   },
   {
-   "c": "HRMB",
+   "c": "HRM",
    "d": 2,
    "grp": null,
    "n": 5,
    "room": "302",
    "row": "B",
    "s": 1,
-   "sec": null
+   "sec": "B"
   },
   {
-   "c": "DBSA",
+   "c": "DBS",
    "d": 2,
    "grp": null,
    "n": 5,
    "room": "301",
    "row": "A",
    "s": 2,
-   "sec": null
+   "sec": "A"
   },
   {
-   "c": "MMB",
+   "c": "MM",
    "d": 2,
    "grp": null,
    "n": 8,
    "room": "302",
    "row": "B",
    "s": 2,
-   "sec": null
+   "sec": "B"
   },
   {
-   "c": "FAB",
+   "c": "FA",
    "d": 2,
    "grp": null,
    "n": 5,
    "room": "302",
    "row": "B",
    "s": 3,
-   "sec": null
+   "sec": "B"
   },
   {
    "c": "DTI",
@@ -289,64 +281,64 @@
    "sec": null
   },
   {
-   "c": "DBSA",
+   "c": "DBS",
    "d": 3,
    "grp": null,
    "n": 6,
    "room": "301",
    "row": "A",
    "s": 1,
-   "sec": null
+   "sec": "A"
   },
   {
-   "c": "DAIBB",
+   "c": "DAIB",
    "d": 3,
    "grp": null,
    "n": 3,
    "room": "302",
    "row": "B",
    "s": 1,
-   "sec": null
+   "sec": "B"
   },
   {
-   "c": "DAIBA",
+   "c": "DAIB",
    "d": 3,
    "grp": null,
    "n": 3,
    "room": "301",
    "row": "A",
    "s": 2,
-   "sec": null
+   "sec": "A"
   },
   {
-   "c": "MMB",
+   "c": "MM",
    "d": 3,
    "grp": null,
    "n": 9,
    "room": "302",
    "row": "B",
    "s": 2,
-   "sec": null
+   "sec": "B"
   },
   {
-   "c": "MAA",
+   "c": "MA",
    "d": 3,
    "grp": null,
    "n": 11,
    "room": "301",
    "row": "A",
    "s": 5,
-   "sec": null
+   "sec": "A"
   },
   {
-   "c": "MAA",
+   "c": "MA",
    "d": 3,
    "grp": null,
    "n": 12,
    "room": "301",
    "row": "A",
    "s": 6,
-   "sec": null
+   "sec": "A"
   },
   {
    "c": "HRM",
@@ -419,104 +411,104 @@
    "sec": "B"
   },
   {
-   "c": "MAB",
+   "c": "MA",
    "d": 5,
    "grp": null,
    "n": 13,
    "room": "302",
    "row": "B",
    "s": 1,
-   "sec": null
+   "sec": "B"
   },
   {
-   "c": "MAB",
+   "c": "MA",
    "d": 5,
    "grp": null,
    "n": 14,
    "room": "302",
    "row": "B",
    "s": 2,
-   "sec": null
+   "sec": "B"
   },
   {
-   "c": "MAA",
+   "c": "MA",
    "d": 5,
    "grp": null,
    "n": 15,
    "room": "301",
    "row": "A",
    "s": 3,
-   "sec": null
+   "sec": "A"
   },
   {
-   "c": "MAA",
+   "c": "MA",
    "d": 5,
    "grp": null,
    "n": 16,
    "room": "301",
    "row": "A",
    "s": 4,
-   "sec": null
+   "sec": "A"
   },
   {
-   "c": "LABA",
+   "c": "LAB",
    "d": 6,
    "grp": null,
    "n": 1,
    "room": "301",
    "row": "A",
    "s": 0,
-   "sec": null
+   "sec": "A"
   },
   {
-   "c": "MAB",
+   "c": "MA",
    "d": 6,
    "grp": null,
    "n": 15,
    "room": "302",
    "row": "B",
    "s": 0,
-   "sec": null
+   "sec": "B"
   },
   {
-   "c": "LABA",
+   "c": "LAB",
    "d": 6,
    "grp": null,
    "n": 2,
    "room": "301",
    "row": "A",
    "s": 1,
-   "sec": null
+   "sec": "A"
   },
   {
-   "c": "MAB",
+   "c": "MA",
    "d": 6,
    "grp": null,
    "n": 16,
    "room": "302",
    "row": "B",
    "s": 1,
-   "sec": null
+   "sec": "B"
   },
   {
-   "c": "LABB",
+   "c": "LAB",
    "d": 6,
    "grp": null,
    "n": 1,
    "room": "302",
    "row": "B",
    "s": 2,
-   "sec": null
+   "sec": "B"
   },
   {
-   "c": "LABB",
+   "c": "LAB",
    "d": 6,
    "grp": null,
    "n": 2,
    "room": "302",
    "row": "B",
    "s": 3,
-   "sec": null
+   "sec": "B"
   }
  ],
  "slots": [

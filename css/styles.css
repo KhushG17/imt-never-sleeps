@@ -2349,3 +2349,12 @@ html[data-theme="dark"] .pre-bar{ background:rgba(255,255,255,.12); }
 @media (min-width:900px){ .event-xposure{ padding:22px 28px 0; } .xp-title{ font-size:76px; } .xp-strip{ margin:16px -28px 0; } .xp-prize{ width:132px; height:132px; } .xp-prize b{ font-size:42px; } }
 @media (prefers-reduced-motion: no-preference){ .xp-o{ animation:xpSpin 14s linear infinite; } @keyframes xpSpin{ to{ transform:rotate(360deg); } } }
 @media print{ .event-xposure{ background:none!important; color:#000!important; border:1px solid #999; box-shadow:none; } .event-xposure::before{ display:none; } .xp-title, .xp-year, .xp-kicker, .xp-by, .xp-note{ color:#000!important; } }
+/* Exam cards: Hall and Seat as two boxes, dashed and TBA until the seating plan fills them */
+.cls-hs{ display:flex; gap:8px; margin-top:7px; }
+.cls-hs .hs{ display:flex; flex-direction:column; min-width:68px; padding:5px 12px 6px; border-radius:11px; line-height:1.15;
+  background:var(--color-mist-hairline); border:1.5px dashed var(--color-ash-divider); }
+.cls-hs .hs b{ font:700 9.5px var(--font-switzer); text-transform:uppercase; letter-spacing:.12em; color:var(--color-slate-helper); }
+.cls-hs .hs i{ font:800 16px var(--font-basier-circle); font-style:normal; color:var(--color-slate-helper); opacity:.65; margin-top:2px; }
+.cls-hs .hs.is-set{ background:var(--color-sky-wash); border:1.5px solid var(--color-accent); }
+.cls-hs .hs.is-set b{ color:var(--color-accent); }
+.cls-hs .hs.is-set i{ color:var(--color-portrait-ink); opacity:1; }

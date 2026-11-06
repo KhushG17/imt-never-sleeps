@@ -92,9 +92,10 @@
     var q = '?roll=' + encodeURIComponent(s.roll);
     weeklyBtn.href = 'weekly-seat/' + q;
     examBtn.href = 'exam-seat/' + q;
-    var locked = IMT.examSeatLocked(s);
+    // Exam opens when the student's date sheet is out, and for everyone once the seating plan is; until then it stays locked
+    var locked = IMT.examSeatLocked(s) && !IMT.examSheet(s);
     setLocked(examBtn, locked);
-    examSub.textContent = locked ? IMT.examLockedLabel(s) : EXAM_SUB_OPEN;
+    examSub.textContent = locked ? IMT.examLockedLabel(s) : IMT.examSeatLocked(s) ? IMT.examLockedLabel(s) : EXAM_SUB_OPEN;
     // the two staff pages show for the test rolls only (portal-config.js, testRolls)
     uploadBtn.hidden = masterBtn.hidden = !s.isTest;
 

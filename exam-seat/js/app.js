@@ -525,7 +525,7 @@
             '<div class="cls-time" style="--tint:'+tint+'"><span class="cls-start">'+escapeHtml(time)+'</span></div>'+
             '<div class="cls-main">'+
               '<div class="exam-subject">'+escapeHtml(subject)+'</div>'+
-              '<div class="cls-meta"><span><b>Hall</b> '+escapeHtml(hall)+'</span><span><b>Seat</b> '+escapeHtml(seatNo)+'</span></div>'+
+              hallSeat(hall, seatNo)+
             '</div>'+
             (calHref ? '<a class="card-cal-link cls-cal" href="'+calHref+'" target="_blank" rel="noopener" title="Add to Google Calendar" '+
               'aria-label="Add '+escapeHtml(subject)+' to Google Calendar">'+CAL_PLUS+'</a>' : '')+
@@ -540,6 +540,67 @@
         (o.today ? '<span class="today-badge">'+dayTag+'</span>' : '')+'</div><div class="card-grid">'+cards+'</div></div>';
     }).join('');
 
+    results.hidden = false;
+    attachTilt(listEl.querySelectorAll('.exam-card'));
+  }
+
+  // The date sheet (js/site-data.js, examDates) laid out like the seats: a day, then a card a paper with its time.
+  // Hall and seat join each card when the seating plan is loaded.
+  // Hall and Seat as two boxes, so they are the first thing the eye finds on a card: empty (dashed, TBA) until
+  // the seating plan is loaded, then filled
+  function hallSeat(hall, seat){
+    function box(label, val){ return '<span class="hs' + (val ? ' is-set' : '') + '"><b>' + label + '</b><i>' + (val ? escapeHtml(val) : 'TBA') + '</i></span>'; }
+    return '<div class="cls-hs">' + box('Hall', hall) + box('Seat', seat) + '</div>';
+  }
+  function showDateSheet(v, who, sheet){
+    var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    var esc = window.IMT.escapeHtml;
+    function clock(x){ var h = +x.slice(0, 2); return (h % 12 || 12) + ':' + x.slice(3) + ' ' + (h < 12 ? 'AM' : 'PM'); }
+    var count = 0;
+    sheet.days.forEach(function(day){ day.slots.forEach(function(sl){ count += sl.subjects.length; }); });
+    var first = new Date(sheet.days[0].date + 'T00:00:00Z'), last = new Date(sheet.days[sheet.days.length - 1].date + 'T00:00:00Z');
+    function shortRange(){ return first.getUTCDate() + ' ' + MON[first.getUTCMonth()] + ' - ' + last.getUTCDate() + ' ' + MON[last.getUTCMonth()] + ' ' + last.getUTCFullYear(); }
+    eyebrowEl.textContent = 'IMT End Term Exams, ' + MON[first.getUTCMonth()] + ' ' + first.getUTCFullYear() + ' (Term ' + who.term + ')';
+    document.getElementById('rollLbl').textContent = 'Term ' + who.term + ' End Term exams · ' + shortRange(sheet);
+    errBox.hidden = true;
+    backBtn.href = '../?roll=' + encodeURIComponent(v);
+    var rec = ROSTER[v];
+    rollOut.textContent = window.IMT.greeting(who);
+    rollRoster.innerHTML = '<span class="id-chip id-chip-roll">Roll ' + esc(v) + '</span>' +
+      window.IMT.metaLine(who).split(' · ').filter(Boolean).map(function(part){ return '<span class="id-chip">' + esc(part) + '</span>'; }).join('') +
+      '<span class="id-chip id-chip-count">' + count + (count === 1 ? ' paper' : ' papers') + '</span>';
+    lastResult = { roll: v, groups: [] };
+    var order = window.IMT.todayFirst(sheet.days.map(function(d){ return d.date; }));
+    var dayTag = window.IMT.scheduleDay() === window.IMT.istToday() ? 'Today' : 'Tomorrow';
+    var hasToday = order.some(function(o){ return o.past; }) && order.some(function(o){ return !o.past; });
+    var earlierShown = false, cardIndex = 0;
+    listEl.innerHTML = order.map(function(o){
+      var day = sheet.days[o.i], d = new Date(day.date + 'T00:00:00Z'), tint = TINTS[o.i % TINTS.length];
+      var cards = [];
+      day.slots.forEach(function(sl){
+        sl.subjects.forEach(function(name){
+          var delay = (cardIndex++ * 0.06).toFixed(2);
+          var istMs = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), +sl.start.slice(0, 2), +sl.start.slice(3));
+          var endMs = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), +sl.end.slice(0, 2), +sl.end.slice(3));
+          var href = 'https://calendar.google.com/calendar/render?' + [
+            ['action', 'TEMPLATE'], ['text', name + ' (End Term exam)'],
+            ['dates', googleCalStamp(istMs - IST_OFFSET_MIN * 60000) + '/' + googleCalStamp(endMs - IST_OFFSET_MIN * 60000)],
+            ['details', 'Roll number: ' + v + '. Hall and seat are announced with the seating plan.'], ['ctz', 'Asia/Kolkata']
+          ].map(function(kv){ return kv[0] + '=' + encodeURIComponent(kv[1]); }).join('&');
+          cards.push('<div class="exam-card cls-card" style="animation-delay:' + delay + 's">' +
+            '<div class="cls-time" style="--tint:' + tint + '"><span class="cls-start">' + esc(clock(sl.start)) + '</span><span class="cls-end">to ' + esc(clock(sl.end)) + '</span></div>' +
+            '<div class="cls-main"><div class="exam-subject">' + esc(name) + '</div>' +
+              // the places hall and seat will take, filled in from the seating plan
+              hallSeat('', '') + '</div>' +
+            '<a class="card-cal-link cls-cal" href="' + href + '" target="_blank" rel="noopener" title="Add to Google Calendar" aria-label="Add ' + esc(name) + ' to Google Calendar">' + CAL_PLUS + '</a></div>');
+        });
+      });
+      var divider = '';
+      if(hasToday && o.past && !earlierShown){ earlierShown = true; divider = '<div class="earlier-divider">Earlier papers</div>'; }
+      return divider + '<div class="day-group' + (o.today ? ' is-today' : '') + (o.past && hasToday ? ' is-past' : '') + '"><div class="day-title">' +
+        DOW[d.getUTCDay()] + ', ' + d.getUTCDate() + ' ' + MON[d.getUTCMonth()] + ' ' + d.getUTCFullYear() +
+        (o.today ? '<span class="today-badge">' + dayTag + '</span>' : '') + '</div><div class="card-grid">' + cards.join('') + '</div></div>';
+    }).join('');
     results.hidden = false;
     attachTilt(listEl.querySelectorAll('.exam-card'));
   }
@@ -593,8 +654,12 @@
   } else if(!visitor.groupKey){
     window.location.replace('../?roll=' + encodeURIComponent(fromUrl));
   } else if(IMT.examSeatLocked(visitor)){
-    IMT.track('tool_open', visitor, { tool: 'exam_seat', status: 'locked', entry: IMT.entry() });
-    showCard('Exam Seat is locked', IMT.examLockedLabel(visitor) + '.', fromUrl);
+    // no seating plan yet: the published date sheet, one card a paper, in the same style as the seats will have
+    var sheet = visitor.alumni ? null : IMT.examSheet(visitor);
+    IMT.track('tool_open', visitor, { tool: 'exam_seat', status: sheet ? 'date_sheet' : 'locked', entry: IMT.entry() });
+    if(sheet) showDateSheet(fromUrl, visitor, sheet);
+    else if(visitor.alumni) showCard('No more exams', IMT.examLockedLabel(visitor) + '.', fromUrl);
+    else showCard('Exam is locked', IMT.examLockedLabel(visitor) + '.', fromUrl);
   } else {
     IMT.track('tool_open', visitor, { tool: 'exam_seat', status: ROLLS[fromUrl] ? 'shown' : 'no_seat', entry: IMT.entry() });
     showSeats(fromUrl);

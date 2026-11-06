@@ -1,0 +1,299 @@
+{
+ "batch": "2028",
+ "courses": {
+  "BC": "Business Communication",
+  "DAIB": "Data Analytics and AI for Business",
+  "HRM": "Human Resource Management",
+  "LAB": "Legal Aspects of Business",
+  "MM": "Marketing Management"
+ },
+ "days": [
+  {
+   "date": "2026-11-09"
+  },
+  {
+   "date": "2026-11-10"
+  },
+  {
+   "date": "2026-11-11"
+  },
+  {
+   "date": "2026-11-12"
+  },
+  {
+   "date": "2026-11-13"
+  },
+  {
+   "date": "2026-11-14"
+  },
+  {
+   "date": "2026-11-15"
+  }
+ ],
+ "electives": [],
+ "end": "2026-11-15",
+ "group": "dcp",
+ "mode": "section",
+ "rowLabel": "Section",
+ "rows": [
+  "A",
+  "B"
+ ],
+ "sessions": [
+  {
+   "c": "HRM",
+   "d": 1,
+   "grp": null,
+   "n": 16,
+   "room": "301",
+   "row": "A",
+   "s": 1,
+   "sec": "A"
+  },
+  {
+   "c": "HRM",
+   "d": 1,
+   "grp": null,
+   "n": 16,
+   "room": "302",
+   "row": "B",
+   "s": 2,
+   "sec": "B"
+  },
+  {
+   "c": "HRM",
+   "d": 2,
+   "grp": null,
+   "n": 17,
+   "room": "301",
+   "row": "A",
+   "s": 0,
+   "sec": "A"
+  },
+  {
+   "c": "DAIB",
+   "d": 2,
+   "grp": null,
+   "n": 10,
+   "room": "301",
+   "row": "A",
+   "s": 1,
+   "sec": "A"
+  },
+  {
+   "c": "HRM",
+   "d": 2,
+   "grp": null,
+   "n": 17,
+   "room": "302",
+   "row": "B",
+   "s": 1,
+   "sec": "B"
+  },
+  {
+   "c": "DAIB",
+   "d": 2,
+   "grp": null,
+   "n": 10,
+   "room": "302",
+   "row": "B",
+   "s": 2,
+   "sec": "B"
+  },
+  {
+   "c": "DAIB",
+   "d": 3,
+   "grp": null,
+   "n": 11,
+   "room": "302",
+   "row": "B",
+   "s": 1,
+   "sec": "B"
+  },
+  {
+   "c": "DAIB",
+   "d": 3,
+   "grp": null,
+   "n": 11,
+   "room": "301",
+   "row": "A",
+   "s": 2,
+   "sec": "A"
+  },
+  {
+   "c": "MM",
+   "d": 3,
+   "grp": null,
+   "n": 20,
+   "room": "302",
+   "row": "B",
+   "s": 2,
+   "sec": "B"
+  },
+  {
+   "c": "HRM",
+   "d": 4,
+   "grp": null,
+   "n": 18,
+   "room": "301",
+   "row": "A",
+   "s": 0,
+   "sec": "A"
+  },
+  {
+   "c": "DAIB",
+   "d": 4,
+   "grp": null,
+   "n": 12,
+   "room": "302",
+   "row": "B",
+   "s": 0,
+   "sec": "B"
+  },
+  {
+   "c": "DAIB",
+   "d": 4,
+   "grp": null,
+   "n": 12,
+   "room": "301",
+   "row": "A",
+   "s": 1,
+   "sec": "A"
+  },
+  {
+   "c": "HRM",
+   "d": 4,
+   "grp": null,
+   "n": 18,
+   "room": "302",
+   "row": "B",
+   "s": 1,
+   "sec": "B"
+  },
+  {
+   "c": "MM",
+   "d": 4,
+   "grp": null,
+   "n": 21,
+   "room": "302",
+   "row": "B",
+   "s": 2,
+   "sec": "B"
+  },
+  {
+   "c": "BC",
+   "d": 5,
+   "grp": null,
+   "n": 7,
+   "room": "302",
+   "row": "B",
+   "s": 0,
+   "sec": "B"
+  },
+  {
+   "c": "BC",
+   "d": 5,
+   "grp": null,
+   "n": 8,
+   "room": "302",
+   "row": "B",
+   "s": 1,
+   "sec": "B"
+  },
+  {
+   "c": "BC",
+   "d": 5,
+   "grp": null,
+   "n": 9,
+   "room": "301",
+   "row": "A",
+   "s": 2,
+   "sec": "A"
+  },
+  {
+   "c": "BC",
+   "d": 5,
+   "grp": null,
+   "n": 10,
+   "room": "301",
+   "row": "A",
+   "s": 3,
+   "sec": "A"
+  },
+  {
+   "c": "LAB",
+   "d": 6,
+   "grp": null,
+   "n": 5,
+   "room": "302",
+   "row": "B",
+   "s": 0,
+   "sec": "B"
+  },
+  {
+   "c": "LAB",
+   "d": 6,
+   "grp": null,
+   "n": 6,
+   "room": "302",
+   "row": "B",
+   "s": 1,
+   "sec": "B"
+  },
+  {
+   "c": "LAB",
+   "d": 6,
+   "grp": null,
+   "n": 5,
+   "room": "301",
+   "row": "A",
+   "s": 2,
+   "sec": "A"
+  },
+  {
+   "c": "LAB",
+   "d": 6,
+   "grp": null,
+   "n": 6,
+   "room": "301",
+   "row": "A",
+   "s": 3,
+   "sec": "A"
+  }
+ ],
+ "slots": [
+  [
+   "09:00",
+   "10:15"
+  ],
+  [
+   "10:30",
+   "11:45"
+  ],
+  [
+   "12:00",
+   "13:15"
+  ],
+  [
+   "14:15",
+   "15:30"
+  ],
+  [
+   "15:45",
+   "17:00"
+  ],
+  [
+   "17:30",
+   "18:45"
+  ],
+  [
+   "19:00",
+   "20:15"
+  ]
+ ],
+ "source": "all files/batch 2028/dcp/term 2/weekly/6th Weekly Schedule, Term II - DCP 2026-28.pdf",
+ "specials": [],
+ "start": "2026-11-09",
+ "term": 2,
+ "weekNumber": 6
+}

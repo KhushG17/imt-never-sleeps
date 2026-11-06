@@ -5,8 +5,9 @@ window.PORTAL_CONFIG = {
   // here: they come from data/config/timeline.json (run scripts/update.py
   // after editing it).
 
-  // Exam Seat is locked between exam cycles. Set locked to false (and refresh
-  // exam-seat/js/exam-data.js + exam-config.js) when the next seating plan is out.
+  // Exam (the exam-seat page) is always open. While locked is true the seating plan is not out: it shows the
+  // published date sheet (data/config/exam-dates.json), or says the dates are coming. Set locked to false (and
+  // refresh exam-seat/js/exam-data.js + exam-config.js) when the next seating plan is out: it then shows hall and seat.
   examSeat: {
     locked: true,
     // {term} becomes the student's own current term: "Term 5 exams coming soon".

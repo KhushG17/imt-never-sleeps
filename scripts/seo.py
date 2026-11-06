@@ -125,9 +125,9 @@ def faq_home(rows):
         ("How do I find my IMT Ghaziabad class schedule?",
          "Type your roll number on the home page and open Weekly. It shows your classes for the week, day by day, with the room and "
          "session number, for your own programme, batch, section and electives. Each class can be added to Google Calendar."),
-        ("Where can I see my exam seat?",
-         "Open Exam Seat and enter your roll number. Once the exam seating plan is published it shows each of your papers with the date, "
-         "time, hall and seat, and you can save it as a PDF. Until the plan is published the page says it is locked."),
+        ("Where can I see my exam dates and seat?",
+         "Open Exam and enter your roll number. It shows each of your papers with the date and time from the date sheet, and, once the "
+         "exam seating plan is published, the hall and seat. Until your date sheet is out the page is locked."),
         ("Is IMT Never Sleeps an official IMT Ghaziabad website?",
          "No. It is an unofficial tool made by a student. It is built from the class schedules and lists shared with students, "
          "so always confirm anything important against the official schedule you receive from the college."),
@@ -162,12 +162,12 @@ def faq_weekly():
 
 def faq_exam():
     return [
-        ("How do I find my exam seat at IMT Ghaziabad?",
-         "Enter your roll number. When the seating plan is published, each of your papers is listed with its date, time, hall and seat."),
-        ("Why is Exam Seat locked?",
-         "It stays locked until the exam seating plan is published. It opens by itself for everyone once the plan is on the site."),
+        ("How do I find my exam dates and seat at IMT Ghaziabad?",
+         "Enter your roll number. Each of your papers is listed with its date and time from the published date sheet, and with its hall and seat once the seating plan is published."),
+        ("Why does it not show my hall and seat yet?",
+         "The hall and seat come from the exam seating plan. They are added to each paper as soon as the plan is published; the date sheet shows until then."),
         ("Can I save my exam schedule?",
-         "Yes. Use Save as PDF on your results to keep a copy of your own exam dates and seats."),
+         "Yes. Add a paper to Google Calendar from its card to keep your own exam dates and, once published, your hall and seat."),
     ]
 
 
@@ -226,7 +226,7 @@ def about_home(rows, modified):
         '<h2>What you can do here</h2>'
         '<ul class="seo-links">'
         '<li><a href="/weekly-seat/">Weekly class schedule</a>: your classes day by day, with rooms, and add them to Google Calendar.</li>'
-        '<li><a href="/exam-seat/">Exam seat finder</a>: your End Term exam dates, halls and seats, saved as a PDF.</li>'
+        '<li><a href="/exam-seat/">Exam</a>: your End Term exam dates, halls and seats.</li>'
         '<li><a href="/bus/">Campus bus schedule</a>: day and night timings between CDL and Campus, with the next bus on top.</li>'
         '<li><a href="/mess-menu/">Mess menu</a>: what is served at breakfast, lunch, snacks and dinner, and when.</li>'
         "</ul>"
@@ -338,15 +338,15 @@ def head_block(page, modified, faqs):
 def pages(rows, bus, mess):
     mess_faq = faq_mess(mess)
     return [
-        {"file": "index.html", "path": "/", "title": "IMT Ghaziabad Timetable & Exam Seat | IMT Never Sleeps",
+        {"file": "index.html", "path": "/", "title": "IMT Ghaziabad Timetable & Exams | IMT Never Sleeps",
          "description": "Free unofficial student tool for IMT Ghaziabad: find your weekly class schedule and exam seat by roll number, plus campus bus timings and the mess menu.",
          "faq": faq_home(rows)},
         {"file": "weekly-seat/index.html", "path": "/weekly-seat/", "crumb": "Weekly schedule", "title": "IMT Ghaziabad Weekly Class Schedule | IMT Never Sleeps",
          "description": "See your IMT Ghaziabad weekly class schedule by roll number: a day-by-day timetable with rooms and sessions for PGDM, BFS and DCP, with Google Calendar.",
          "faq": faq_weekly(), "about": ("About the weekly schedule", "The weekly schedule shows your own timetable for the current week at IMT Ghaziabad, built from the schedules shared with students and updated with every revision.")},
-        {"file": "exam-seat/index.html", "path": "/exam-seat/", "crumb": "Exam seat", "title": "IMT Ghaziabad Exam Seat Finder | IMT Never Sleeps",
+        {"file": "exam-seat/index.html", "path": "/exam-seat/", "crumb": "Exam", "title": "IMT Ghaziabad Exam Dates and Seats | IMT Never Sleeps",
          "description": "Find your IMT Ghaziabad End Term exam date, time, hall and seat by roll number, and save your exam schedule as a PDF.",
-         "faq": faq_exam(), "about": ("About the exam seat finder", "The exam seat finder lists your End Term papers with the date, time, hall and seat once the seating plan is published.")},
+         "faq": faq_exam(), "about": ("About Exam", "Exam lists your End Term papers with the date and time from the date sheet, and the hall and seat once the seating plan is published.")},
         {"file": "bus/index.html", "path": "/bus/", "crumb": "Bus schedule", "title": "IMT Ghaziabad Bus Schedule: CDL to Campus | IMT Never Sleeps",
          "description": "IMT Ghaziabad campus bus timings between CDL and Campus: the full day and night shift timetable, with the next bus each way.",
          "faq": faq_bus(bus), "about": ("About the campus bus", bus_summary(bus))},

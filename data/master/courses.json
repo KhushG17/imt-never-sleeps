@@ -71,6 +71,9 @@
    "name": "Channel Management",
    "sections": 1
   },
+  "CMAC": {
+   "name": "CMAC (HR Major)"
+  },
   "CRA": {
    "area": "FIN",
    "credits": 3.0,

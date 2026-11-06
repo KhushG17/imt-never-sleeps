@@ -474,6 +474,27 @@ def write_students_csv(students):
                         ", ".join("%s-%s" % kv for kv in sorted(s.get("courses", {}).items())), s.get("dtiGroup", "")])
 
 
+def exam_dates(timeline):
+    """data/config/exam-dates.json, checked: every group key and term is one the timeline knows, dates are real days."""
+    path = ROOT / "data" / "config" / "exam-dates.json"
+    sheets = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+    out = {}
+    for gkey, sheet in sheets.items():
+        if gkey.startswith("_"):
+            continue
+        if gkey not in timeline or sheet["term"] not in [t["term"] for t in timeline[gkey]["terms"]]:
+            say("SKIPPED", "exam-dates.json: %s Term %s is not in the timeline" % (gkey, sheet["term"]))
+            continue
+        for day in sheet["papers"]:
+            dt.date.fromisoformat(day["date"])
+            for slot in day["slots"]:
+                if not (slot["subjects"] and re.fullmatch(r"\d\d:\d\d", slot["start"]) and re.fullmatch(r"\d\d:\d\d", slot["end"])):
+                    raise ValueError("exam-dates.json: %s %s has a slot that cannot be read" % (gkey, day["date"]))
+        out[gkey] = sheet
+        say("EXAM", "%s Term %s date sheet: %d days, %s to %s" % (gkey, sheet["term"], len(sheet["papers"]), sheet["papers"][0]["date"], sheet["papers"][-1]["date"]))
+    return out
+
+
 def build_site(courses, students, weeks, timeline, overrides):
     shutil.rmtree(MASTER, ignore_errors=True)
     write_json(MASTER / "students.json", students)
@@ -502,6 +523,9 @@ def build_site(courses, students, weeks, timeline, overrides):
               "courses": {k: {abb: c["name"] for abb, c in v.items()} for k, v in courses.items()},
               "electives": overrides["electives"],
               "examAliases": overrides["examAliases"],
+              "openCourses": {k: v for k, v in overrides.get("openCourses", {}).items() if not k.startswith("_")},
+              # published date sheets, shown on Exam Seat until the seating plan is loaded
+              "examDates": exam_dates(timeline),
               "timeline": {k: {f: v[f] for f in ("label", "terms", "alumniFrom") if f in v} for k, v in timeline.items()}})
 
 

@@ -392,6 +392,8 @@ def parse_weekly(path):
     raw_text = "\n".join(p[0] for p in pages)
     years = {int(y) for y in re.findall(r"\b(20\d{2})\b", raw_text + " " + path.name)}
     raw_count = len(re.findall(r"\(\s*\d+\s*\)", raw_text)) + 2 * len(re.findall(PAIR, raw_text))
+    # "CWB- A+B+C(8)" is one entry in the text and one session per section in the grid
+    raw_count += sum(len(re.findall(r"[A-Z]", m)) - 1 for m in re.findall(r"-\s*([A-Z](?:\s*\+\s*[A-Z])+)\s*\(\s*\d+\s*\)", raw_text))
 
     slots = slot_cols = None
     cols = {}                 # role -> column index: day, row, room, area
@@ -517,6 +519,18 @@ def parse_weekly(path):
                                 specials.append(sp)
                                 day_specials.append((sp, len(day_rows) - 1))
                         continue
+                    combined = re.fullmatch(r"(.+?)\s*-\s*([A-Z](?:\s*\+\s*[A-Z])+)\s*(\(\s*\d+\s*\).*)", text)
+                    if combined:
+                        # one class for several sections at once, "CWB- A+B+C(8) AS/PJ{New Audi}": one session per section
+                        found_any = True
+                        for sec in re.findall(r"[A-Z]", combined.group(2)):
+                            cls = parse_class("%s-%s%s" % (combined.group(1), sec, combined.group(3)))
+                            if not cls:
+                                raise ParseError("cannot read the combined class %r" % text)
+                            cls.update(d=day, s=s_idx, row=row_key)
+                            cls["room"] = cls["room"] or re.sub(r"\s*-\s*", "-", row_room or "") or None
+                            sessions.append(cls)
+                        continue
                     cls = parse_class(text)
                     if cls:
                         found_any = True
@@ -578,8 +592,12 @@ def parse_weekly(path):
             groups.setdefault((str(sp["d"]), sp["s"], sp["span"]), []).append(sp)
         for parts in groups.values():
             rows_seen = [r for sp in parts for r in sp["rows"]]
-            if len(parts) > 1 and sorted(rows_seen) == sorted(set(rows_seen)) and set(rows_seen) == set(row_keys):
+            if len(parts) > 1 and sorted(rows_seen) == sorted(set(rows_seen)):
                 parts.sort(key=lambda sp: row_keys.index(sp["rows"][0]))
+                # a block over every row, or one over some rows whose later pieces carry on in lower case
+                # ("CMAC-A(3,4)SB" on one row, "for HR Major ..." on the next)
+                if not (set(rows_seen) == set(row_keys) or all(sp["text"][:1].islower() for sp in parts[1:])):
+                    continue
                 parts[0]["text"] = " ".join(sp["text"] for sp in parts)
                 parts[0]["rows"] = [r for sp in parts for r in sp["rows"]]
                 for sp in parts[1:]:
